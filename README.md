@@ -1,21 +1,21 @@
 # stangri's OpenWrt packages repo
 
-[![HitCount](http://hits.dwyl.com/stangri/openwrt.svg)](http://hits.dwyl.com/stangri/openwrt)
+[![HitCount](http://hits.dwyl.com/stangri/docs.openwrt.melmac.net.svg)](http://hits.dwyl.com/stangri/docs.openwrt.melmac.net)
 
-This repo contains packages I've created for OpenWrt/LEDE Project routers. While some of these are packages are already available from official OpenWrt release/snapshots repositories/feeds, this repo usually contains newer versions.
+This repo contains documentation for packages I've created for OpenWrt/LEDE Project routers. While some of these are packages are already available from official OpenWrt release/snapshots repositories/feeds, [my repo](https://repo.openwrt.melmac.net) usually contains newer versions.
 
 ## How to use
 
 ### On your router
 
-The repository is currently hosted at [GitHub](https://github.com). If you have problems accessing [GitHub](https://github.com) or access to [GitHub](https://github.com) may be blocked at the location where your router is installed, skip to the [Add Repository (jsdelivr)](#add-repository-jsdelivr) section, otherwise run the following commands to add this repo to your router:
+The repository is currently hosted at [GitHub](https://github.com). If you have problems accessing [GitHub](https://github.com) or access to [GitHub](https://github.com) may be blocked at the location where your router is installed, skip to the [Add Repository (jsdelivr)](#add-repository-jsdelivr) section. Either repository reuires downloads from https to be enabled on your router thru one of the SSL support packages.
 
 #### Add Repository (GitHub)
 
 ```sh
 opkg update; if ubus -S call system board | grep -q '15.05'; then opkg install ca-certificates wget libopenssl; else opkg install uclient-fetch libustream-mbedtls ca-bundle ca-certificates; fi
 echo -e -n 'untrusted comment: OpenWrt usign key of Stan Grishin\nRWR//HUXxMwMVnx7fESOKO7x8XoW4/dRidJPjt91hAAU2L59mYvHy0Fa\n' > /etc/opkg/keys/7ffc7517c4cc0c56
-! grep -q 'stangri_repo' /etc/opkg/customfeeds.conf && echo 'src/gz stangri_repo https://raw.githubusercontent.com/stangri/openwrt-repo/master' >> /etc/opkg/customfeeds.conf
+! grep -q 'stangri_repo' /etc/opkg/customfeeds.conf && echo 'src/gz stangri_repo https://repo.openwrt.melmac.net' >> /etc/opkg/customfeeds.conf
 opkg update
 ```
 
@@ -26,11 +26,25 @@ If you have problems accessing [GitHub](https://github.com) or access to [GitHub
 ```sh
 opkg update; if ubus -S call system board | grep -q '15.05'; then opkg install ca-certificates wget libopenssl; else opkg install uclient-fetch libustream-mbedtls ca-bundle ca-certificates; fi
 echo -e -n 'untrusted comment: OpenWrt usign key of Stan Grishin\nRWR//HUXxMwMVnx7fESOKO7x8XoW4/dRidJPjt91hAAU2L59mYvHy0Fa\n' > /etc/opkg/keys/7ffc7517c4cc0c56
-! grep -q 'stangri_repo' /etc/opkg/customfeeds.conf && echo 'src/gz stangri_repo https://cdn.jsdelivr.net/gh/stangri/openwrt-repo' >> /etc/opkg/customfeeds.conf
+! grep -q 'stangri_repo' /etc/opkg/customfeeds.conf && echo 'src/gz stangri_repo https://cdn.jsdelivr.net/gh/stangri/repo.openwrt.melmac.net' >> /etc/opkg/customfeeds.conf
 opkg update
 ```
 
 Please note that there may be delay in [jsdelivr CDN](https://jsdelivr.com) cache updates comparing to [GitHub](https://github.com) which may cause `opkg` to pull older files and/or complain about wrong signature.
+
+### Image Builder (github)
+
+Add the following line
+
+```sh
+src/gz stangri_repo https://repo.openwrt.melmac.net
+```
+
+to the ```repositories.conf``` file inside your Image Builder directory. You can use the following shell script code to achieve that:
+
+```sh
+! grep -q 'stangri_repo' repositories.conf && sed -i '2 i\src/gz stangri_repo repo.openwrt.melmac.net' repositories.conf
+```
 
 ### Image Builder (jsdelivr)
 
@@ -48,7 +62,7 @@ to the ```repositories.conf``` file inside your Image Builder directory. You can
 
 ### SDK
 
-The packages source code is available in my packages source on [GitHub](https://github.com/stangri/openwrt_packages)/[jsDelivr](https://cdn.jsdelivr.net/gh/stangri/openwrt_packages/). Check out the code for the individual packages you want into your SDK's ```package``` folder or for luci apps into the ```package/luci/applications``` folder.
+The packages source code is available in my packages source on [GitHub](https://github.com/stangri/source.openwrt.melmac.net)/[jsDelivr](https://cdn.jsdelivr.net/gh/stangri/source.openwrt.melmac.net/). Check out the code for the individual packages you want into your SDK's ```package``` folder or for luci apps into the ```package/luci/applications``` folder.
 
 ## Description of packages
 
