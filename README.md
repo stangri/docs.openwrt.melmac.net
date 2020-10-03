@@ -1,4 +1,4 @@
-# stangri's OpenWrt packages repo
+# stangri's OpenWrt packages documentation
 
 [![HitCount](http://hits.dwyl.com/stangri/docs.openwrt.melmac.net.svg)](http://hits.dwyl.com/stangri/docs.openwrt.melmac.net)
 
@@ -66,7 +66,7 @@ The packages source code is available in my packages source on [GitHub](https://
 
 ### antminer-monitor
 
-This service can be used to monitor local BITMAIN Antminers. This is just the wrapper for [Antminer Monitor python app](https://github.com/anselal/antminer-monitor). **WARNING**: Requires a router with a lot of flash, 128Mb recommended. Please see the README at [GitHub](https://github.com/stangri/docs.openwrt.melmac.net/blob/master/antminer-monitor/README.md)/[jsDelivr](https://cdn.jsdelivr.net/gh/stangri/docs.openwrt.melmac.net/antminer-monitor/README.md) for further information.
+This service can be used to monitor local BITMAIN Antminers. This is just the wrapper for [Antminer Monitor python app](https://github.com/anselal/antminer-monitor). **WARNING**: Requires a router with a lot of flash, 128Mb recommended. Please see the README at [GitHub](https://github.com/stangri/docs.openwrt.melmac.net/blob/main/antminer-monitor/README.md)/[jsDelivr](https://cdn.jsdelivr.net/gh/stangri/docs.openwrt.melmac.net/antminer-monitor/README.md) for further information.
 
 ### fakeinternet & luci-app-fakeinternet
 
