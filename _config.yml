@@ -1,3 +1,5 @@
 title: "Welcome to docs.openwrt.melmac.net!"
 description: "Documentation site for stangri's OpenWrt packages."
-include: antminer-monitor/README.md
+url: "https://docs.openwrt.melmac.net"
+include: 
+  - antminer-monitor/README.md
