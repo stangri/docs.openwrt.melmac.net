@@ -1,1 +1,3 @@
+title: "stangri's OpenWrt packages documentation"
+description: "Documentation site for stangri's OpenWrt packages."
 include: antminer-monitor/README.md
