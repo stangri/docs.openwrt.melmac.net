@@ -1,6 +1,6 @@
 # antminer-monitor
 
-[![HitCount](http://hits.dwyl.com/stangri/source.openwrt.melmac.net/antminer-monitor.svg)](http://hits.dwyl.com/stangri/source.openwrt.melmac.net/antminer-monitor)
+[![HitCount](http://hits.dwyl.com/stangri/docs.openwrt.melmac.net/antminer-monitor.svg)](http://hits.dwyl.com/stangri/docs.openwrt.melmac.net/antminer-monitor)
 
 Antminer Monitor service to monitor the status of the local BITMAIN Antminers. This is just the wrapper for [Antminer Monitor python app](https://github.com/anselal/antminer-monitor).
 
@@ -11,7 +11,7 @@ This service depends on the following packages: ```python-light``` and ```python
 
 ### Unmet dependencies
 
-If you are running a development (trunk/snapshot) build of OpenWrt/LEDE Project on your router and your build is outdated (meaning that packages of the same revision/commit hash are no longer available and when you try to satisfy the [requirements](#requirements) you get errors), please flash either current OpenWrt release image or current development/snapshot image.
+If you are running a development (trunk/snapshot) build of OpenWrt/LEDE Project on your router and your build is outdated (meaning that packages of the same revision/commit hash are no longer available and when you try to satisfy the [requirements](#requirements) you get errors), please flash either current LEDE release image or current development/snapshot image.
 
 ## How to install
 
