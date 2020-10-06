@@ -8,7 +8,7 @@ This is documentation for packages I'm maintaining for OpenWrt/LEDE Project rout
 
 ### On your router
 
-The repository is currently hosted at [GitHub](https://github.com). If you have problems accessing [my packages repo](https://repo.openwrt.melmac.net) or access to [GitHub](https://github.com) may be blocked at the location where your router is installed, skip to the [Add Repository (jsDelivr)](#add-repository-jsdelivr) section. Either repository requires downloads from https to be enabled on your router thru one of the SSL support packages.
+The repository is currently hosted at [GitHub](https://github.com). If you have problems accessing [my packages repo](https://repo.openwrt.melmac.net) or access to [GitHub](https://github.com) may be blocked at the location where your router is installed, skip to the [Add Repository (jsDelivr)](#add-repository-jsdelivr) section. Both repositories use HTTPS protocol and require one of the SSL support packages to be installed on your router.
 
 #### Add Repository (GitHub)
 
@@ -66,7 +66,7 @@ The packages source code is available in my packages source on [GitHub](https://
 
 ### antminer-monitor
 
-This service can be used to monitor local BITMAIN Antminers. This is just the wrapper for [Antminer Monitor python app](https://github.com/anselal/antminer-monitor). **WARNING**: Requires a router with a lot of flash, 128Mb recommended. Please see the README at [GitHub](https://github.com/stangri/docs.openwrt.melmac.net/antminer-monitor/)/[jsDelivr](https://cdn.jsdelivr.net/gh/stangri/docs.openwrt.melmac.net/antminer-monitor/README.md) for further information.
+This service can be used to monitor local BITMAIN Antminers. This is just the wrapper for [Antminer Monitor python app](https://github.com/anselal/antminer-monitor). **WARNING**: Requires a router with a lot of flash, 128Mb recommended. Please see the README at [GitHub](https://docs.openwrt.melmac.net/antminer-monitor/)/[jsDelivr](https://cdn.jsdelivr.net/gh/stangri/docs.openwrt.melmac.net/antminer-monitor/README.md) for further information.
 
 ### fakeinternet & luci-app-fakeinternet
 
