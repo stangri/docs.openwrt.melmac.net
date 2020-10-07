@@ -15,6 +15,7 @@ The repository is currently hosted at [GitHub](https://github.com). If you have 
 ```sh
 opkg update; if ubus -S call system board | grep -q '15.05'; then opkg install ca-certificates wget libopenssl; else opkg install uclient-fetch libustream-mbedtls ca-bundle ca-certificates; fi
 echo -e -n 'untrusted comment: OpenWrt usign key of Stan Grishin\nRWR//HUXxMwMVnx7fESOKO7x8XoW4/dRidJPjt91hAAU2L59mYvHy0Fa\n' > /etc/opkg/keys/7ffc7517c4cc0c56
+sed -i '/stangri_repo/d' /etc/opkg/customfeeds.conf
 ! grep -q 'stangri_repo' /etc/opkg/customfeeds.conf && echo 'src/gz stangri_repo https://repo.openwrt.melmac.net' >> /etc/opkg/customfeeds.conf
 opkg update
 ```
@@ -24,6 +25,7 @@ opkg update
 ```sh
 opkg update; if ubus -S call system board | grep -q '15.05'; then opkg install ca-certificates wget libopenssl; else opkg install uclient-fetch libustream-mbedtls ca-bundle ca-certificates; fi
 echo -e -n 'untrusted comment: OpenWrt usign key of Stan Grishin\nRWR//HUXxMwMVnx7fESOKO7x8XoW4/dRidJPjt91hAAU2L59mYvHy0Fa\n' > /etc/opkg/keys/7ffc7517c4cc0c56
+sed -i '/stangri_repo/d' /etc/opkg/customfeeds.conf
 ! grep -q 'stangri_repo' /etc/opkg/customfeeds.conf && echo 'src/gz stangri_repo https://cdn.jsdelivr.net/gh/stangri/repo.openwrt.melmac.net' >> /etc/opkg/customfeeds.conf
 opkg update
 ```
@@ -41,6 +43,7 @@ src/gz stangri_repo https://repo.openwrt.melmac.net
 to the ```repositories.conf``` file inside your Image Builder directory. You can use the following shell script code to achieve that:
 
 ```sh
+sed -i '/stangri_repo/d' repositories.conf
 ! grep -q 'stangri_repo' repositories.conf && sed -i '2 i\src/gz stangri_repo repo.openwrt.melmac.net' repositories.conf
 ```
 
@@ -55,6 +58,7 @@ src/gz stangri_repo https://cdn.jsdelivr.net/gh/stangri/repo.openwrt.melmac.net
 to the ```repositories.conf``` file inside your Image Builder directory. You can use the following shell script code to achieve that:
 
 ```sh
+sed -i '/stangri_repo/d' repositories.conf
 ! grep -q 'stangri_repo' repositories.conf && sed -i '2 i\src/gz stangri_repo https://cdn.jsdelivr.net/gh/stangri/repo.openwrt.melmac.net' repositories.conf
 ```
 
