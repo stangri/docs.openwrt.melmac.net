@@ -67,25 +67,25 @@ Two example custom user-files are provided: ```/etc/vpn-policy-routing.aws.user`
 ## Screenshots (luci-app-vpn-policy-routing)
 
 Service Status
-![screenshot](https://cdn.jsdelivr.net/gh/stangri/docs.openwrt.melmac.net/vpn-policy-routing/screenshots/screenshot04-status.png "Service Status")
+![screenshot](https://docs.openwrt.melmac.net/vpn-policy-routing/screenshots/screenshot04-status.png "Service Status")
 
 Configuration - Basic Configuration
-![screenshot](https://cdn.jsdelivr.net/gh/stangri/docs.openwrt.melmac.net/vpn-policy-routing/screenshots/screenshot04-config-basic.png "Basic Configuration")
+![screenshot](https://docs.openwrt.melmac.net/vpn-policy-routing/screenshots/screenshot04-config-basic.png "Basic Configuration")
 
 Configuration - Advanced Configuration
-![screenshot](https://cdn.jsdelivr.net/gh/stangri/docs.openwrt.melmac.net/vpn-policy-routing/screenshots/screenshot04-config-advanced.png "Advanced Configuration")
+![screenshot](https://docs.openwrt.melmac.net/vpn-policy-routing/screenshots/screenshot04-config-advanced.png "Advanced Configuration")
 
 Configuration - WebUI Configuration
-![screenshot](https://cdn.jsdelivr.net/gh/stangri/docs.openwrt.melmac.net/vpn-policy-routing/screenshots/screenshot04-config-webui.png "WebUI Configuration")
+![screenshot](https://docs.openwrt.melmac.net/vpn-policy-routing/screenshots/screenshot04-config-webui.png "WebUI Configuration")
 
 Policies
-![screenshot](https://cdn.jsdelivr.net/gh/stangri/docs.openwrt.melmac.net/vpn-policy-routing/screenshots/screenshot04-policies.png "Policies")
+![screenshot](https://docs.openwrt.melmac.net/vpn-policy-routing/screenshots/screenshot04-policies.png "Policies")
 
 DSCP Tagging
-![screenshot](https://cdn.jsdelivr.net/gh/stangri/docs.openwrt.melmac.net/vpn-policy-routing/screenshots/screenshot04-dscp.png "DSCP Tagging")
+![screenshot](https://docs.openwrt.melmac.net/vpn-policy-routing/screenshots/screenshot04-dscp.png "DSCP Tagging")
 
 Custom User File Includes
-![screenshot](https://cdn.jsdelivr.net/gh/stangri/docs.openwrt.melmac.net/vpn-policy-routing/screenshots/screenshot04-userfiles.png "Custom User File Includes")
+![screenshot](https://docs.openwrt.melmac.net/vpn-policy-routing/screenshots/screenshot04-userfiles.png "Custom User File Includes")
 
 ## How It Works
 

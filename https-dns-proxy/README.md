@@ -14,7 +14,7 @@ A lean RFC8484-compatible (no JSON API support) DNS-over-HTTPS (DoH) proxy servi
 
 ## Screenshots (luci-app-https-dns-proxy)
 
-![screenshot](https://cdn.jsdelivr.net/gh/stangri/docs.openwrt.melmac.net/https-dns-proxy/screenshots/screenshot01.png "https-dns-proxy screenshot")
+![screenshot](https://docs.openwrt.melmac.net/https-dns-proxy/screenshots/screenshot01.png "https-dns-proxy screenshot")
 
 ## Requirements
 

@@ -30,7 +30,7 @@ If your device is not in the list above, however it is a [dual-firmware device](
 
 ## Screenshot (luci-app-advanced-reboot)
 
-![screenshot](https://cdn.jsdelivr.net/gh/stangri/docs.openwrt.melmac.net/luci-app-advanced-reboot/screenshots/screenshot02.png "screenshot")
+![screenshot](https://docs.openwrt.melmac.net/luci-app-advanced-reboot/screenshots/screenshot02.png "screenshot")
 
 ## How to install
 

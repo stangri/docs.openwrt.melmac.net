@@ -28,19 +28,19 @@ If you want a more robust AdBlocking, supporting free memory detection and compl
 
 Service Status
 
-![screenshot](https://cdn.jsdelivr.net/gh/stangri/docs.openwrt.melmac.net/simple-adblock/screenshots/screenshot08-status.png "Service Status")
+![screenshot](https://docs.openwrt.melmac.net/simple-adblock/screenshots/screenshot08-status.png "Service Status")
 
 Configuration - Basic Configuration
 
-![screenshot](https://cdn.jsdelivr.net/gh/stangri/docs.openwrt.melmac.net/simple-adblock/screenshots/screenshot08-config-basic.png "Configuration - Basic Configuration")
+![screenshot](https://docs.openwrt.melmac.net/simple-adblock/screenshots/screenshot08-config-basic.png "Configuration - Basic Configuration")
 
 Configuration - Advanced Configuration
 
-![screenshot](https://cdn.jsdelivr.net/gh/stangri/docs.openwrt.melmac.net/simple-adblock/screenshots/screenshot08-config-advanced.png "Configuration - Advanced Configuration")
+![screenshot](https://docs.openwrt.melmac.net/simple-adblock/screenshots/screenshot08-config-advanced.png "Configuration - Advanced Configuration")
 
 Allowed and Blocked Lists Management
 
-![screenshot](https://cdn.jsdelivr.net/gh/stangri/docs.openwrt.melmac.net/simple-adblock/screenshots/screenshot09-lists.png "Allow-list and Block-list Management")
+![screenshot](https://docs.openwrt.melmac.net/simple-adblock/screenshots/screenshot09-lists.png "Allow-list and Block-list Management")
 
 ## Requirements
 

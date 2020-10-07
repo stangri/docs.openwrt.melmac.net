@@ -17,7 +17,7 @@ A simple [procd](https://openwrt.org/docs/techref/procd)-based ```vpnbypass``` s
 
 ## Screenshot (luci-app-vpnbypass)
 
-![screenshot](https://cdn.jsdelivr.net/gh/stangri/docs.openwrt.melmac.net/vpnbypass/screenshots/screenshot02.png "screenshot")
+![screenshot](https://docs.openwrt.melmac.net/vpnbypass/screenshots/screenshot02.png "screenshot")
 
 ## Requirements
 
