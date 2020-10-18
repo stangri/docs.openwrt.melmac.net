@@ -1,4 +1,5 @@
 <!-- markdownlint-disable MD013 -->
+
 # DNS Over HTTPS Proxy (https-dns-proxy)
 
 [![HitCount](http://hits.dwyl.com/stangri/docs.openwrt.melmac.net/https-dns-proxy.svg)](http://hits.dwyl.com/stangri/docs.openwrt.melmac.net/https-dns-proxy)
@@ -7,10 +8,10 @@ A lean RFC8484-compatible (no JSON API support) DNS-over-HTTPS (DoH) proxy servi
 
 ## Features
 
-- [RFC8484](https://tools.ietf.org/html/rfc8484)-compatible DoH Proxy.
-- Compact size.
-- Web UI (```luci-app-https-dns-proxy```) available.
-- (By default) automatically updates DNSMASQ settings to use DoH proxy when it's started and reverts to old DNSMASQ resolvers when DoH proxy is stopped.
+-   [RFC8484](https://tools.ietf.org/html/rfc8484)-compatible DoH Proxy.
+-   Compact size.
+-   Web UI (`luci-app-https-dns-proxy`) available.
+-   (By default) automatically updates DNSMASQ settings to use DoH proxy when it's started and reverts to old DNSMASQ resolvers when DoH proxy is stopped.
 
 ## Screenshots (luci-app-https-dns-proxy)
 
@@ -18,7 +19,7 @@ A lean RFC8484-compatible (no JSON API support) DNS-over-HTTPS (DoH) proxy servi
 
 ## Requirements
 
-This proxy requires the following packages to be installed on your router: ```libc```, ```libcares```, ```libcurl```, ```libev```, ```ca-bundle```. They will be automatically installed when you're installing ```https-dns-proxy```.
+This proxy requires the following packages to be installed on your router: `libc`, `libcares`, `libcurl`, `libev`, `ca-bundle`. They will be automatically installed when you're installing `https-dns-proxy`.
 
 ## Unmet Dependencies
 
@@ -26,7 +27,7 @@ If you are running a development (trunk/snapshot) build of OpenWrt/LEDE Project 
 
 ## How To Install
 
-Install ```https-dns-proxy``` and ```luci-app-https-dns-proxy``` packages from Web UI or run the following in the command line:
+Install `https-dns-proxy` and `luci-app-https-dns-proxy` packages from Web UI or run the following in the command line:
 
 ```sh
 opkg update; opkg install https-dns-proxy luci-app-https-dns-proxy;
@@ -34,13 +35,13 @@ opkg update; opkg install https-dns-proxy luci-app-https-dns-proxy;
 
 ## Default Settings
 
-Default configuration has service enabled and starts the service with Google and Cloudflare DoH servers. In most configurations, you will keep the default ```DNSMASQ``` service installed to handle requests from devices in your local network and point ```DNSMASQ``` to use ```https-dns-proxy``` for name resolution.
+Default configuration has service enabled and starts the service with Google and Cloudflare DoH servers. In most configurations, you will keep the default `DNSMASQ` service installed to handle requests from devices in your local network and point `DNSMASQ` to use `https-dns-proxy` for name resolution.
 
-By default, the service will intelligently override existing ```DNSMASQ``` servers settings on start to use the DoH servers and restores original ```DNSMASQ``` servers on stop. See the [Configuration Settings](#configuration-settings) section below for more information and how to disable this behavior.
+By default, the service will intelligently override existing `DNSMASQ` servers settings on start to use the DoH servers and restores original `DNSMASQ` servers on stop. See the [Configuration Settings](#configuration-settings) section below for more information and how to disable this behavior.
 
 ## Configuration Settings
 
-Configuration contains the (named) "main" config section where you can configure which ```DNSMASQ``` settings the service will automatically affect and the typed (unnamed) https-dns-proxy instance settings. The original config file is included below:
+Configuration contains the (named) "main" config section where you can configure which `DNSMASQ` settings the service will automatically affect and the typed (unnamed) https-dns-proxy instance settings. The original config file is included below:
 
 ```text
 config main 'config'
@@ -63,9 +64,9 @@ config https-dns-proxy
   option group 'nogroup'
 ```
 
-The ```update_dnsmasq_config``` option can be set to dash (set to ```'-'``` to not change ```DNSMASQ``` server settings on start/stop), can be set to ```'*'``` to affect all ```DNSMASQ``` instance server settings or have a space-separated list of ```DNSMASQ``` instances to affect (like ```'0 4 5'```). If this option is omitted, the default setting is ```'*'```.
+The `update_dnsmasq_config` option can be set to dash (set to `'-'` to not change `DNSMASQ` server settings on start/stop), can be set to `'*'` to affect all `DNSMASQ` instance server settings or have a space-separated list of `DNSMASQ` instances to affect (like `'0 4 5'`). If this option is omitted, the default setting is `'*'`.
 
-Starting with ```https-dns-proxy``` version ```2019-12-03-3``` and higher, when the service is set to update the DNSMASQ servers setting on start/stop, it does not override entries which contain either ```#``` or ```/```, so the entries like listed below will be kept in use:
+Starting with `https-dns-proxy` version `2019-12-03-3` and higher, when the service is set to update the DNSMASQ servers setting on start/stop, it does not override entries which contain either `#` or `/`, so the entries like listed below will be kept in use:
 
 ```test
   list server '/onion/127.0.0.1#65453'
@@ -78,19 +79,19 @@ Starting with ```https-dns-proxy``` version ```2019-12-03-3``` and higher, when 
 
 The https-dns-proxy instance settings are:
 
-|Parameter|Type|Default|Description|
-| --- | --- | --- | --- |
-|bootstrap_dns|IP Address||The non-encrypted DNS servers to be used to resolve the DoH server name on start.|
-|listen_addr|IP Address|127.0.0.1|The local IP address to listen to requests.|
-|listen_port|port|5053 and up|If this setting is omitted, the service will start the first https-dns-proxy instance on port 5053, second on 5054 and so on.|
-|logfile|Full filepath||Full filepath to the file to log the instance events to.|
-|resolver_url|URL||The https URL to the RFC8484-compatible resolver.|
-|proxy_server|URL||Local proxy server to use when accessing resolvers.|
-|user|String|nobody|Local user to run instance under.|
-|group|String|nogroup|Local group to run instance under.|
-|use_http1|Boolean|0|If set to 1, use HTTP/1 on installations with broken/outdated ```curl``` package. Included for posterity reasons, you will most likely not ever need it on OpenWrt.|
-|verbosity|Integer|0|Logging verbosity level. Fatal = 0, error = 1, warning = 2, info = 3, debug = 4.|
-|use_ipv6_resolvers_only|Boolean|0|If set to 1, forces IPv6 DNS resolvers instead of IPv4.|
+| Parameter               | Type          | Default     | Description                                                                                                                                                     |
+| ----------------------- | ------------- | ----------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| bootstrap_dns           | IP Address    |             | The non-encrypted DNS servers to be used to resolve the DoH server name on start.                                                                               |
+| listen_addr             | IP Address    | 127.0.0.1   | The local IP address to listen to requests.                                                                                                                     |
+| listen_port             | port          | 5053 and up | If this setting is omitted, the service will start the first https-dns-proxy instance on port 5053, second on 5054 and so on.                                   |
+| logfile                 | Full filepath |             | Full filepath to the file to log the instance events to.                                                                                                        |
+| resolver_url            | URL           |             | The https URL to the RFC8484-compatible resolver.                                                                                                               |
+| proxy_server            | URL           |             | Local proxy server to use when accessing resolvers.                                                                                                             |
+| user                    | String        | nobody      | Local user to run instance under.                                                                                                                               |
+| group                   | String        | nogroup     | Local group to run instance under.                                                                                                                              |
+| use_http1               | Boolean       | 0           | If set to 1, use HTTP/1 on installations with broken/outdated `curl` package. Included for posterity reasons, you will most likely not ever need it on OpenWrt. |
+| verbosity               | Integer       | 0           | Logging verbosity level. Fatal = 0, error = 1, warning = 2, info = 3, debug = 4.                                                                                |
+| use_ipv6_resolvers_only | Boolean       | 0           | If set to 1, forces IPv6 DNS resolvers instead of IPv4.                                                                                                         |
 
 ## Thanks
 

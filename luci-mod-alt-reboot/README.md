@@ -1,3 +1,5 @@
+<!-- markdownlint-disable MD030 -->
+
 # Alternative Partition Reboot Web UI (luci-mod-alt-reboot)
 
 ## Description
@@ -8,27 +10,27 @@ This package allows you to reboot to alternative partition on supported (dual-pa
 
 Currently supported devices include:
 
-- Linksys WRT1200AC
-- Linksys WRT1900AC
-- Linksys WRT1900ACv2
-- Linksys WRT1900ACS
-- Linksys WRT3200ACM
-- Linksys E4200v2
-- Linksys EA4500
-- Linksys EA8500
+-   Linksys WRT1200AC
+-   Linksys WRT1900AC
+-   Linksys WRT1900ACv2
+-   Linksys WRT1900ACS
+-   Linksys WRT3200ACM
+-   Linksys E4200v2
+-   Linksys EA4500
+-   Linksys EA8500
 
 If you're interested in having your device supported, please check [OpenWrt Forum Support Thread](https://forum.openwrt.org/t/web-ui-to-reboot-to-another-partition-dual-partition-routers/3423).
 
 ## How to install
 
-Install ```luci-mod-alt-reboot``` package from Web UI or run the following in the command line:
+Install `luci-mod-alt-reboot` package from Web UI or run the following in the command line:
 
 ```sh
 opkg update
 opkg --force-overwrite install luci-mod-alt-reboot
 ```
 
-If the ```luci-mod-alt-reboot``` package is not found in the official feed/repo for your version of OpenWrt/LEDE Project, you will need to add a custom repo to your router following instructions on [GitHub](https://docs.openwrt.melmac.net/#on-your-router)/[jsDelivr](https://cdn.jsdelivr.net/gh/stangri/docs.openwrt.melmac.net/README.md#on-your-router) first.
+If the `luci-mod-alt-reboot` package is not found in the official feed/repo for your version of OpenWrt/LEDE Project, you will need to add a custom repo to your router following instructions on [GitHub](https://docs.openwrt.melmac.net/#on-your-router)/[jsDelivr](https://cdn.jsdelivr.net/gh/stangri/docs.openwrt.melmac.net/README.md#on-your-router) first.
 
 ## How to uninstall
 
@@ -42,9 +44,9 @@ rm -rf /var/luci-modulecache/; rm -f /var/luci-indexcache;
 
 ## Notes/Known Issues
 
-- When you reboot to a different partition, your current settings (Wireless, etc.) will not apply to a different partition. Different partitions might have completely different settings and firmware.
-- If you reboot to a partition which doesn't allow you to switch boot partitions (like stock Linksys firmware), you might not be able to boot back to OpenWrt/LEDE Project unless you reflash it, loosing all the settings.
-- Some devices allow you to trigger reboot to alternative partition by interrupting boot 3 times in a row (by resetting/switching off the device or pulling power). As these methods might be different for different devices, do your own homework.
+-   When you reboot to a different partition, your current settings (Wireless, etc.) will not apply to a different partition. Different partitions might have completely different settings and firmware.
+-   If you reboot to a partition which doesn't allow you to switch boot partitions (like stock Linksys firmware), you might not be able to boot back to OpenWrt/LEDE Project unless you reflash it, loosing all the settings.
+-   Some devices allow you to trigger reboot to alternative partition by interrupting boot 3 times in a row (by resetting/switching off the device or pulling power). As these methods might be different for different devices, do your own homework.
 
 ## Thanks
 

@@ -40,7 +40,7 @@ Add the following line:
 src/gz stangri_repo https://repo.openwrt.melmac.net
 ```
 
-to the ```repositories.conf``` file inside your Image Builder directory. You can use the following shell script code to achieve that:
+to the `repositories.conf` file inside your Image Builder directory. You can use the following shell script code to achieve that:
 
 ```sh
 sed -i '/stangri_repo/d' repositories.conf
@@ -55,7 +55,7 @@ Add the following line:
 src/gz stangri_repo https://cdn.jsdelivr.net/gh/stangri/repo.openwrt.melmac.net
 ```
 
-to the ```repositories.conf``` file inside your Image Builder directory. You can use the following shell script code to achieve that:
+to the `repositories.conf` file inside your Image Builder directory. You can use the following shell script code to achieve that:
 
 ```sh
 sed -i '/stangri_repo/d' repositories.conf
@@ -64,7 +64,7 @@ sed -i '/stangri_repo/d' repositories.conf
 
 ### SDK
 
-The packages source code is available in my packages source on [GitHub](https://source.openwrt.melmac.net)/[jsDelivr](https://cdn.jsdelivr.net/gh/stangri/source.openwrt.melmac.net/). Check out the code for the individual packages you want into your SDK's ```package``` folder or for luci apps into the ```package/luci/applications``` folder.
+The packages source code is available in my packages source on [GitHub](https://source.openwrt.melmac.net)/[jsDelivr](https://cdn.jsdelivr.net/gh/stangri/source.openwrt.melmac.net/). Check out the code for the individual packages you want into your SDK's `package` folder or for luci apps into the `package/luci/applications` folder.
 
 ## Description of packages
 
@@ -87,15 +87,15 @@ This package enables Web UI for reboot to another partition functionality on sup
 
 ### luci-app-easyflash
 
-This package installs Web UI for quickly updating your router firmware if you use automated snapshots build process which produces fully customized images and uploads them to your router. Requires sysupgrade-compatible upgrade file ```/tmp/firmware.img``` and a one-line description (target/version/filename info) in ```/tmp/firmware.tag```. WARNING: does not keep your router settings.
+This package installs Web UI for quickly updating your router firmware if you use automated snapshots build process which produces fully customized images and uploads them to your router. Requires sysupgrade-compatible upgrade file `/tmp/firmware.img` and a one-line description (target/version/filename info) in `/tmp/firmware.tag`. WARNING: does not keep your router settings.
 
 ### luci-mod-alt-reboot
 
-This package enables Web UI for reboot to another partition functionality on supported (dual-partition) routers and to power off (power down) your router by overwriting default System --> Reboot page. Please see the README at [GitHub](https://docs.openwrt.melmac.net/luci-mod-alt-reboot/)/[jsDelivr](https://cdn.jsdelivr.net/gh/stangri/docs.openwrt.melmac.net/luci-mod-alt-reboot/README.md) for further information. This package has been superseded by ```luci-app-advanced-reboot``` and is no longer developed/supported.
+This package enables Web UI for reboot to another partition functionality on supported (dual-partition) routers and to power off (power down) your router by overwriting default System --> Reboot page. Please see the README at [GitHub](https://docs.openwrt.melmac.net/luci-mod-alt-reboot/)/[jsDelivr](https://cdn.jsdelivr.net/gh/stangri/docs.openwrt.melmac.net/luci-mod-alt-reboot/README.md) for further information. This package has been superseded by `luci-app-advanced-reboot` and is no longer developed/supported.
 
 ### luci-theme-material-old
 
-This package brings back the old button styles to the ```luci-theme-material``` on OpenWrt 18.06.0-rc2 and later. Please see the README at [GitHub](https://docs.openwrt.melmac.net/luci-theme-material-old/)/[jsDelivr](https://cdn.jsdelivr.net/gh/stangri/docs.openwrt.melmac.net/luci-theme-material-old/README.md) for further information.
+This package brings back the old button styles to the `luci-theme-material` on OpenWrt 18.06.0-rc2 and later. Please see the README at [GitHub](https://docs.openwrt.melmac.net/luci-theme-material-old/)/[jsDelivr](https://cdn.jsdelivr.net/gh/stangri/docs.openwrt.melmac.net/luci-theme-material-old/README.md) for further information.
 
 ### simple-adblock & luci-app-simple-adblock
 
@@ -103,7 +103,7 @@ This service provides lightweight and very fast dnsmasq-based ad blocking. Pleas
 
 ### slider-support
 
-This package enables switching between ```Router```, ```Access Point``` and ```Wireless Repeater``` modes of operation for supported routers equipped with slider switch. It also sets the correct ```current mode``` setting for the ```WLAN Blinker``` service (README at [GitHub](https://docs.openwrt.melmac.net/wlanblinker/)/[jsDelivr](https://cdn.jsdelivr.net/gh/stangri/docs.openwrt.melmac.net/wlanblinker/README.md)). Please see the README at [GitHub](https://docs.openwrt.melmac.net/slider-support/)/[jsDelivr](https://cdn.jsdelivr.net/gh/stangri/docs.openwrt.melmac.net/slider-support/README.md) for further information.
+This package enables switching between `Router`, `Access Point` and `Wireless Repeater` modes of operation for supported routers equipped with slider switch. It also sets the correct `current mode` setting for the `WLAN Blinker` service (README at [GitHub](https://docs.openwrt.melmac.net/wlanblinker/)/[jsDelivr](https://cdn.jsdelivr.net/gh/stangri/docs.openwrt.melmac.net/wlanblinker/README.md)). Please see the README at [GitHub](https://docs.openwrt.melmac.net/slider-support/)/[jsDelivr](https://cdn.jsdelivr.net/gh/stangri/docs.openwrt.melmac.net/slider-support/README.md) for further information.
 
 ### vpn-policy-routing & luci-app-vpn-policy-routing
 

@@ -6,7 +6,7 @@ Antminer Monitor service to monitor the status of the local BITMAIN Antminers. T
 
 ## Requirements
 
-This service depends on the following packages: ```python-light``` and ```python-pip```. These packages (and additional python modules) will be automatically installed upon installation of this service.
+This service depends on the following packages: `python-light` and `python-pip`. These packages (and additional python modules) will be automatically installed upon installation of this service.
 **WARNING**: The installation will definitely fail on routers with less than 32Mb flash. Routers having 128Mb flash are recommended.
 
 ### Unmet dependencies
@@ -15,7 +15,7 @@ If you are running a development (trunk/snapshot) build of OpenWrt/LEDE Project 
 
 ## How to install
 
-Please make sure that the [requirements](#requirements) are satisfied and install ```antminer-monitor``` from Web UI or connect to your router via ssh and run the following commands:
+Please make sure that the [requirements](#requirements) are satisfied and install `antminer-monitor` from Web UI or connect to your router via ssh and run the following commands:
 
 ```sh
 opkg update
@@ -26,4 +26,4 @@ If these packages are not found in the official feed/repo for your version of Op
 
 ## How to use
 
-Use WebUI to start the ```antminer-monitor``` service or run ```/etc/init.d/antminer-monitor start``` in the ssh session to the router.
+Use WebUI to start the `antminer-monitor` service or run `/etc/init.d/antminer-monitor start` in the ssh session to the router.
