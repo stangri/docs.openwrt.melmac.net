@@ -2,7 +2,7 @@
 
 # Wireshark Helper
 
-[![HitCount](http://hits.dwyl.com/stangri/docs.openwrt.melmac.net/wireshark-helper.svg)](http://hits.dwyl.com/stangri/docs.openwrt.melmac.net/wireshark-helper)
+[![HitCount](http://hits.dwyl.com/stangri/docsopenwrtmelmacnet/wireshark-helper.svg)](http://hits.dwyl.com/stangri/docsopenwrtmelmacnet/wireshark-helper)
 
 ## Description
 

@@ -2,7 +2,7 @@
 
 # fakeinternet
 
-[![HitCount](http://hits.dwyl.com/stangri/docs.openwrt.melmac.net/fakeinternet.svg)](http://hits.dwyl.com/stangri/docs.openwrt.melmac.net/fakeinternet)
+[![HitCount](http://hits.dwyl.com/stangri/docsopenwrtmelmacnet/fakeinternet.svg)](http://hits.dwyl.com/stangri/docsopenwrtmelmacnet/fakeinternet)
 
 Fake Internet service for OpenWrt/LEDE Project routers.
 

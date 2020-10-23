@@ -3,7 +3,7 @@
 
 # VPN Policy-Based Routing
 
-[![HitCount](http://hits.dwyl.com/stangri/docs.openwrt.melmac.net/vpn-policy-routing.svg)](http://hits.dwyl.com/stangri/docs.openwrt.melmac.net/vpn-policy-routing)
+[![HitCount](http://hits.dwyl.com/stangri/docsopenwrtmelmacnet/vpn-policy-routing.svg)](http://hits.dwyl.com/stangri/docsopenwrtmelmacnet/vpn-policy-routing)
 
 ## Description
 

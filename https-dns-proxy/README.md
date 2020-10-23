@@ -4,7 +4,7 @@
 
 # DNS Over HTTPS Proxy (https-dns-proxy)
 
-[![HitCount](http://hits.dwyl.com/stangri/docs.openwrt.melmac.net/https-dns-proxy.svg)](http://hits.dwyl.com/stangri/docs.openwrt.melmac.net/https-dns-proxy)
+[![HitCount](http://hits.dwyl.com/stangri/docsopenwrtmelmacnet/https-dns-proxy.svg)](http://hits.dwyl.com/stangri/docsopenwrtmelmacnet/https-dns-proxy)
 
 A lean RFC8484-compatible (no JSON API support) DNS-over-HTTPS (DoH) proxy service which supports DoH servers ran by AdGuard, CleanBrowsing, Cloudflare, Google, ODVR (nic.cz) and Quad9. Based on [@aarond10](https://github.com/aarond10)'s [https-dns-proxy](https://github.com/aarond10/https_dns_proxy).
 

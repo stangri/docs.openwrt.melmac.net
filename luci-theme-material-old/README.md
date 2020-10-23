@@ -1,6 +1,6 @@
 # Luci Theme Material (Old Style)
 
-[![HitCount](http://hits.dwyl.com/stangri/docs.openwrt.melmac.net/luci-theme-material-old.svg)](http://hits.dwyl.com/stangri/docs.openwrt.melmac.net/luci-theme-material-old)
+[![HitCount](http://hits.dwyl.com/stangri/docsopenwrtmelmacnet/luci-theme-material-old.svg)](http://hits.dwyl.com/stangri/docsopenwrtmelmacnet/luci-theme-material-old)
 
 ## Description
 

@@ -2,7 +2,7 @@
 
 # Advanced Reboot Web UI (luci-app-advanced-reboot)
 
-[![HitCount](http://hits.dwyl.com/stangri/docs.openwrt.melmac.net/luci-app-advanced-reboot.svg)](http://hits.dwyl.com/stangri/docs.openwrt.melmac.net/luci-app-advanced-reboot)
+[![HitCount](http://hits.dwyl.com/stangri/docsopenwrtmelmacnet/luci-app-advanced-reboot.svg)](http://hits.dwyl.com/stangri/docsopenwrtmelmacnet/luci-app-advanced-reboot)
 
 ## Description
 
