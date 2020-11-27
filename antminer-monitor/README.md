@@ -2,7 +2,7 @@
 
 <!--- [![HitCount](http://hits.dwyl.com/stangri/docsopenwrtmelmacnet/antminer-monitor.svg)](http://hits.dwyl.com/stangri/docsopenwrtmelmacnet/antminer-monitor) --->
 
-[![ViewCount](https://views.whatilearened.today/views/github/stangri/docsopenwrtmelmacnet/antminer-monitor.svg)](https://views.whatilearened.today/views/github/stangri/docsopenwrtmelmacnet/antminer-monitor)
+[![ViewCount](https://views.whatilearened.today/views/github/stangri/antminer-monitor.svg)](https://views.whatilearened.today/views/github/stangri/antminer-monitor)
 
 Antminer Monitor service to monitor the status of the local BITMAIN Antminers. This is just the wrapper for [Antminer Monitor python app](https://github.com/anselal/antminer-monitor).
 

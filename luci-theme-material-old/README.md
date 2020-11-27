@@ -2,7 +2,7 @@
 
 <!--- [![HitCount](http://hits.dwyl.com/stangri/docsopenwrtmelmacnet/luci-theme-material-old.svg)](http://hits.dwyl.com/stangri/docsopenwrtmelmacnet/luci-theme-material-old) --->
 
-[![ViewCount](https://views.whatilearened.today/views/github/stangri/docsopenwrtmelmacnet/luci-theme-material-old.svg)](https://views.whatilearened.today/views/github/stangri/docsopenwrtmelmacnet/luci-theme-material-old)
+[![ViewCount](https://views.whatilearened.today/views/github/stangri/luci-theme-material-old.svg)](https://views.whatilearened.today/views/github/stangri/luci-theme-material-old)
 
 ## Description
 

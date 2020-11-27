@@ -4,7 +4,7 @@
 
 <!--- [![HitCount](http://hits.dwyl.com/stangri/docsopenwrtmelmacnet/wireshark-helper.svg)](http://hits.dwyl.com/stangri/docsopenwrtmelmacnet/wireshark-helper) --->
 
-[![ViewCount](https://views.whatilearened.today/views/github/stangri/docsopenwrtmelmacnet/wireshark-helper.svg)](https://views.whatilearened.today/views/github/stangri/docsopenwrtmelmacnet/wireshark-helper)
+[![ViewCount](https://views.whatilearened.today/views/github/stangri/wireshark-helper.svg)](https://views.whatilearened.today/views/github/stangri/wireshark-helper)
 
 ## Description
 

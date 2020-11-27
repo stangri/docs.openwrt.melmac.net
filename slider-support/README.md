@@ -5,7 +5,7 @@
 
 <!--- [![HitCount](http://hits.dwyl.com/stangri/docsopenwrtmelmacnet/slider-support.svg)](http://hits.dwyl.com/stangri/docsopenwrtmelmacnet/slider-support) --->
 
-[![ViewCount](https://views.whatilearened.today/views/github/stangri/docsopenwrtmelmacnet/slider-support.svg)](https://views.whatilearened.today/views/github/stangri/docsopenwrtmelmacnet/slider-support)
+[![ViewCount](https://views.whatilearened.today/views/github/stangri/slider-support.svg)](https://views.whatilearened.today/views/github/stangri/slider-support)
 
 This service enables switching between `Router`, `Access Point` and `Wireless Repeater` modes of operation for supported routers equipped with the slider switch. It also sets the correct `current mode` setting for the `WLAN Blinker` service available on [GitHub](https://docs.openwrt.melmac.net/wlanblinker/)/[jsDelivr](https://cdn.jsdelivr.net/gh/stangri/docs.openwrt.melmac.net/wlanblinker/README.md).
 

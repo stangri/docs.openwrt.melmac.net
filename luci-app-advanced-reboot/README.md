@@ -4,7 +4,7 @@
 
 <!--- [![HitCount](http://hits.dwyl.com/stangri/docsopenwrtmelmacnet/luci-app-advanced-reboot.svg)](http://hits.dwyl.com/stangri/docsopenwrtmelmacnet/luci-app-advanced-reboot) --->
 
-[![ViewCount](https://views.whatilearened.today/views/github/stangri/docsopenwrtmelmacnet/luci-app-advanced-reboot.svg)](https://views.whatilearened.today/views/github/stangri/docsopenwrtmelmacnet/luci-app-advanced-reboot)
+[![ViewCount](https://views.whatilearened.today/views/github/stangri/luci-app-advanced-reboot.svg)](https://views.whatilearened.today/views/github/stangri/luci-app-advanced-reboot)
 
 ## Description
 

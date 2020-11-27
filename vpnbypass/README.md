@@ -5,7 +5,7 @@
 
 <!--- [![HitCount](http://hits.dwyl.com/stangri/docsopenwrtmelmacnet/vpnbypass.svg)](http://hits.dwyl.com/stangri/docsopenwrtmelmacnet/vpnbypass) --->
 
-[![ViewCount](https://views.whatilearened.today/views/github/stangri/docsopenwrtmelmacnet/vpnbypass.svg)](https://views.whatilearened.today/views/github/stangri/docsopenwrtmelmacnet/vpnbypass)
+[![ViewCount](https://views.whatilearened.today/views/github/stangri/vpnbypass.svg)](https://views.whatilearened.today/views/github/stangri/vpnbypass)
 
 A simple [procd](https://openwrt.org/docs/techref/procd)-based `vpnbypass` service for OpenWrt/LEDE Project. This is useful if your router accesses Internet through a VPN client/tunnel, but you want specific traffic (ports, IP ranges, domains or local IP ranges) to be routed outside of this tunnel.
 

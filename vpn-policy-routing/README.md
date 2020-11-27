@@ -5,7 +5,7 @@
 
 <!--- [![HitCount](http://hits.dwyl.com/stangri/docsopenwrtmelmacnet/vpn-policy-routing.svg)](http://hits.dwyl.com/stangri/docsopenwrtmelmacnet/vpn-policy-routing) --->
 
-[![ViewCount](https://views.whatilearened.today/views/github/stangri/docsopenwrtmelmacnet/vpn-policy-routing.svg)](https://views.whatilearened.today/views/github/stangri/docsopenwrtmelmacnet/vpn-policy-routing)
+[![ViewCount](https://views.whatilearened.today/views/github/stangri/vpn-policy-routing.svg)](https://views.whatilearened.today/views/github/stangri/vpn-policy-routing)
 
 ## Description
 
