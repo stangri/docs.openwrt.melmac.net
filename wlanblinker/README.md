@@ -3,7 +3,7 @@
 
 # WLAN Blinker
 
-<!--- [![HitCount](http://hits.dwyl.com/stangri/docsopenwrtmelmacnet/wlanblinker.svg)](http://hits.dwyl.com/stangri/docsopenwrtmelmacnet/wlanblinker) --->
+<!--- [![HitCount](http://hits.dwyl.com/stangri/wlanblinker.svg)](http://hits.dwyl.com/stangri/wlanblinker) --->
 
 [![ViewCount](https://views.whatilearened.today/views/github/stangri/wlanblinker.svg)](https://views.whatilearened.today/views/github/stangri/wlanblinker)
 

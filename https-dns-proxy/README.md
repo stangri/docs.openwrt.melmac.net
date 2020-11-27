@@ -3,7 +3,7 @@
 
 # DNS Over HTTPS Proxy (https-dns-proxy)
 
-<!--- [![HitCount](http://hits.dwyl.com/stangri/docsopenwrtmelmacnet/https-dns-proxy.svg)](http://hits.dwyl.com/stangri/docsopenwrtmelmacnet/https-dns-proxy) --->
+<!--- [![HitCount](http://hits.dwyl.com/stangri/https-dns-proxy.svg)](http://hits.dwyl.com/stangri/https-dns-proxy) --->
 
 [![ViewCount](https://views.whatilearened.today/views/github/stangri/https-dns-proxy.svg)](https://views.whatilearened.today/views/github/stangri/https-dns-proxy)
 

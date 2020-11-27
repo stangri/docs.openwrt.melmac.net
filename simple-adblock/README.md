@@ -3,7 +3,7 @@
 
 # Simple AdBlock
 
-<!--- [![HitCount](http://hits.dwyl.com/stangri/docsopenwrtmelmacnet/simple-adblock.svg)](http://hits.dwyl.com/stangri/docsopenwrtmelmacnet/simple-adblock) --->
+<!--- [![HitCount](http://hits.dwyl.com/stangri/simple-adblock.svg)](http://hits.dwyl.com/stangri/simple-adblock) --->
 
 [![ViewCount](https://views.whatilearened.today/views/github/stangri/simple-adblock.svg)](https://views.whatilearened.today/views/github/stangri/simple-adblock)
 

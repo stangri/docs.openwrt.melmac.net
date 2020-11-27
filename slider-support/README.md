@@ -3,7 +3,7 @@
 
 # Slider Support for select routers
 
-<!--- [![HitCount](http://hits.dwyl.com/stangri/docsopenwrtmelmacnet/slider-support.svg)](http://hits.dwyl.com/stangri/docsopenwrtmelmacnet/slider-support) --->
+<!--- [![HitCount](http://hits.dwyl.com/stangri/slider-support.svg)](http://hits.dwyl.com/stangri/slider-support) --->
 
 [![ViewCount](https://views.whatilearened.today/views/github/stangri/slider-support.svg)](https://views.whatilearened.today/views/github/stangri/slider-support)
 

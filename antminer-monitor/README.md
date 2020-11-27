@@ -1,6 +1,6 @@
 # antminer-monitor
 
-<!--- [![HitCount](http://hits.dwyl.com/stangri/docsopenwrtmelmacnet/antminer-monitor.svg)](http://hits.dwyl.com/stangri/docsopenwrtmelmacnet/antminer-monitor) --->
+<!--- [![HitCount](http://hits.dwyl.com/stangri/antminer-monitor.svg)](http://hits.dwyl.com/stangri/antminer-monitor) --->
 
 [![ViewCount](https://views.whatilearened.today/views/github/stangri/antminer-monitor.svg)](https://views.whatilearened.today/views/github/stangri/antminer-monitor)
 

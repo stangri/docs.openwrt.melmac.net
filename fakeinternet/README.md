@@ -2,7 +2,7 @@
 
 # fakeinternet
 
-<!--- [![HitCount](http://hits.dwyl.com/stangri/docsopenwrtmelmacnet/fakeinternet.svg)](http://hits.dwyl.com/stangri/docsopenwrtmelmacnet/fakeinternet) --->
+<!--- [![HitCount](http://hits.dwyl.com/stangri/fakeinternet.svg)](http://hits.dwyl.com/stangri/fakeinternet) --->
 
 [![ViewCount](https://views.whatilearened.today/views/github/stangri/fakeinternet.svg)](https://views.whatilearened.today/views/github/stangri/fakeinternet)
 

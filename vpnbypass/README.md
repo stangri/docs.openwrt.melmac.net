@@ -3,7 +3,7 @@
 
 # VPN Bypass
 
-<!--- [![HitCount](http://hits.dwyl.com/stangri/docsopenwrtmelmacnet/vpnbypass.svg)](http://hits.dwyl.com/stangri/docsopenwrtmelmacnet/vpnbypass) --->
+<!--- [![HitCount](http://hits.dwyl.com/stangri/vpnbypass.svg)](http://hits.dwyl.com/stangri/vpnbypass) --->
 
 [![ViewCount](https://views.whatilearened.today/views/github/stangri/vpnbypass.svg)](https://views.whatilearened.today/views/github/stangri/vpnbypass)
 

@@ -2,7 +2,7 @@
 
 # Wireshark Helper
 
-<!--- [![HitCount](http://hits.dwyl.com/stangri/docsopenwrtmelmacnet/wireshark-helper.svg)](http://hits.dwyl.com/stangri/docsopenwrtmelmacnet/wireshark-helper) --->
+<!--- [![HitCount](http://hits.dwyl.com/stangri/wireshark-helper.svg)](http://hits.dwyl.com/stangri/wireshark-helper) --->
 
 [![ViewCount](https://views.whatilearened.today/views/github/stangri/wireshark-helper.svg)](https://views.whatilearened.today/views/github/stangri/wireshark-helper)
 
