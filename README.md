@@ -1,6 +1,8 @@
 # stangri's OpenWrt packages documentation
 
-[![HitCount](http://hits.dwyl.com/stangri/docsopenwrtmelmacnet.svg)](http://hits.dwyl.com/stangri/docsopenwrtmelmacnet)
+<!--- [![HitCount](http://hits.dwyl.com/stangri/docsopenwrtmelmacnet.svg)](http://hits.dwyl.com/stangri/docsopenwrtmelmacnet) --->
+
+[![ViewCount](https://views.whatilearened.today/views/github/stangri/docsopenwrtmelmacnet.svg)](https://views.whatilearened.today/views/github/stangri/docsopenwrtmelmacnet)
 
 This is documentation for packages I'm maintaining for OpenWrt/LEDE Project routers. While some of these are packages are already available from official OpenWrt release/snapshots repositories/feeds, [my packages repo](https://repo.openwrt.melmac.net) usually contains newer versions. You can also browse/check-out the [source code](https://source.openwrt.melmac.net).
 

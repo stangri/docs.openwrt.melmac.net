@@ -3,6 +3,10 @@
 
 # WLAN Blinker
 
+<!--- [![HitCount](http://hits.dwyl.com/stangri/docsopenwrtmelmacnet/wlanblinker.svg)](http://hits.dwyl.com/stangri/docsopenwrtmelmacnet/wlanblinker) --->
+
+[![ViewCount](https://views.whatilearened.today/views/github/stangri/docsopenwrtmelmacnet/wlanblinker.svg)](https://views.whatilearened.today/views/github/stangri/docsopenwrtmelmacnet/wlanblinker)
+
 This service can be used to indicate WLAN status by blinking the unused LED.
 
 ## Features

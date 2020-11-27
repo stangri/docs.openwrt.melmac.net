@@ -3,7 +3,9 @@
 
 # Simple AdBlock
 
-[![HitCount](http://hits.dwyl.com/stangri/docsopenwrtmelmacnet/simple-adblock.svg)](http://hits.dwyl.com/stangri/docsopenwrtmelmacnet/simple-adblock)
+<!--- [![HitCount](http://hits.dwyl.com/stangri/docsopenwrtmelmacnet/simple-adblock.svg)](http://hits.dwyl.com/stangri/docsopenwrtmelmacnet/simple-adblock) --->
+
+[![ViewCount](https://views.whatilearened.today/views/github/stangri/docsopenwrtmelmacnet/simple-adblock.svg)](https://views.whatilearened.today/views/github/stangri/docsopenwrtmelmacnet/simple-adblock)
 
 A simple DNSMASQ/Unbound-based AdBlocking service for OpenWrt/LEDE Project.
 
