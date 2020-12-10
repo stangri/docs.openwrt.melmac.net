@@ -3,9 +3,7 @@
 
 # DNS Over HTTPS Proxy (https-dns-proxy)
 
-<!--- [![HitCount](http://hits.dwyl.com/stangri/https-dns-proxy.svg)](http://hits.dwyl.com/stangri/https-dns-proxy) --->
-
-[![ViewCount](https://views.whatilearened.today/views/github/stangri/https-dns-proxy.svg)](https://views.whatilearened.today/views/github/stangri/https-dns-proxy)
+## Description
 
 A lean RFC8484-compatible (no JSON API support) DNS-over-HTTPS (DoH) proxy service which supports DoH servers ran by AdGuard, CleanBrowsing, Cloudflare, Google, ODVR (nic.cz) and Quad9. Based on [@aarond10](https://github.com/aarond10)'s [https-dns-proxy](https://github.com/aarond10/https_dns_proxy).
 
@@ -99,3 +97,6 @@ The https-dns-proxy instance settings are:
 ## Thanks
 
 This OpenWrt package wouldn't have been possible without [@aarond10](https://github.com/aarond10)'s [https-dns-proxy](https://github.com/aarond10/https_dns_proxy) and his active participation in the OpenWrt package itself. Special thanks to [@jow-](https://github.com/jow-) for general package/luci guidance.
+
+<!-- markdownlint-disable MD033 -->
+<script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "911798f2c34b45338f8f8182830a3eb6"}'></script>

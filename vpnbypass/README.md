@@ -3,9 +3,7 @@
 
 # VPN Bypass
 
-<!--- [![HitCount](http://hits.dwyl.com/stangri/vpnbypass.svg)](http://hits.dwyl.com/stangri/vpnbypass) --->
-
-[![ViewCount](https://views.whatilearened.today/views/github/stangri/vpnbypass.svg)](https://views.whatilearened.today/views/github/stangri/vpnbypass)
+## Description
 
 A simple [procd](https://openwrt.org/docs/techref/procd)-based `vpnbypass` service for OpenWrt/LEDE Project. This is useful if your router accesses Internet through a VPN client/tunnel, but you want specific traffic (ports, IP ranges, domains or local IP ranges) to be routed outside of this tunnel.
 
@@ -103,3 +101,6 @@ uci commit dhcp
 ```
 
 This feature requires `dnsmasq-full` to work. See the [Requirements](#requirements) section for more details.
+
+<!-- markdownlint-disable MD033 -->
+<script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "911798f2c34b45338f8f8182830a3eb6"}'></script>

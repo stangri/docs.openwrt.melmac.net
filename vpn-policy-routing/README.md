@@ -3,10 +3,6 @@
 
 # VPN Policy-Based Routing
 
-<!--- [![HitCount](http://hits.dwyl.com/stangri/vpn-policy-routing.svg)](http://hits.dwyl.com/stangri/vpn-policy-routing) --->
-
-[![ViewCount](https://views.whatilearened.today/views/github/stangri/vpn-policy-routing.svg)](https://views.whatilearened.today/views/github/stangri/vpn-policy-routing)
-
 ## Description
 
 This service allows you to define rules (policies) for routing traffic via WAN or your L2TP, Openconnect, OpenVPN, PPTP or Wireguard tunnels. Policies can be set based on any combination of local/remote ports, local/remote IPv4 or IPv6 addresses/subnets or domains. This service supersedes the `VPN Bypass` available on [GitHub](https://docs.openwrt.melmac.net/vpnbypass/)/[jsDelivr](https://cdn.jsdelivr.net/gh/stangri/docs.openwrt.melmac.net/vpnbypass/README.md) service, by supporting IPv6 and by allowing you to set explicit rules not just for WAN interface (bypassing OpenVPN tunnel), but for L2TP, Openconnect, OpenVPN, PPTP and Wireguard tunnels as well.
@@ -899,3 +895,6 @@ WARNING: while paste.ee uploads are unlisted/not indexed at the web-site, they a
 ## Thanks
 
 I'd like to thank everyone who helped create, test and troubleshoot this service. Without contributions from [@hnyman](https://github.com/hnyman), [@dibdot](https://github.com/dibdot), [@danrl](https://github.com/danrl), [@tohojo](https://github.com/tohojo), [@cybrnook](https://github.com/cybrnook), [@nidstigator](https://github.com/nidstigator), [@AndreBL](https://github.com/AndreBL), [@dz0ny](https://github.com/dz0ny), rigorous testing/bugreporting by [@dziny](https://github.com/dziny), [@bluenote73](https://github.com/bluenote73), [@buckaroo](https://github.com/pgera), [@Alexander-r](https://github.com/Alexander-r), [@n8v8R](https://github.com/n8v8R), [psherman](https://forum.openwrt.org/u/psherman), [@Vale-max](https://github.com/Vale-max), [@NoMonkeyNoMission](https://github.com/NoMonkeyNoMission), [dscpl](https://forum.openwrt.org/u/dscpl) multiple contributions from [@dl12345](https://github.com/dl12345) and [trendy](https://forum.openwrt.org/u/trendy) and feedback from other OpenWrt users it wouldn't have been possible. Wireguard/IPv6 support is courtesy of [Mullvad](https://www.mullvad.net) and [IVPN](https://www.ivpn.net/).
+
+<!-- markdownlint-disable MD033 -->
+<script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "911798f2c34b45338f8f8182830a3eb6"}'></script>

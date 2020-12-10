@@ -2,10 +2,6 @@
 
 # Wireshark Helper
 
-<!--- [![HitCount](http://hits.dwyl.com/stangri/wireshark-helper.svg)](http://hits.dwyl.com/stangri/wireshark-helper) --->
-
-[![ViewCount](https://views.whatilearened.today/views/github/stangri/wireshark-helper.svg)](https://views.whatilearened.today/views/github/stangri/wireshark-helper)
-
 ## Description
 
 This service can be used to configure a router to sniff packets to/from a monitored device on the device running the Wireshark application.
@@ -27,3 +23,6 @@ If `wireshark-helper` and `luci-app-wireshark-helper` packages are not found in 
 ## Thanks
 
 Credit for `iptables` rules and instructions goes to [Ayoma Gayan Wijethunga](https://www.ayomaonline.com/security/analyzing-network-traffic-with-openwrt/).
+
+<!-- markdownlint-disable MD033 -->
+<script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "911798f2c34b45338f8f8182830a3eb6"}'></script>

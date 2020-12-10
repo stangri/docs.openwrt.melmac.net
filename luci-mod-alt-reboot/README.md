@@ -51,3 +51,6 @@ rm -rf /var/luci-modulecache/; rm -f /var/luci-indexcache;
 ## Thanks
 
 I'd like to thank everyone who helped create, test and troubleshoot this package. Without contributions from [@hnyman](https://github.com/hnyman), [@jpstyves](https://github.com/jpstyves) it wouldn't have been possible.
+
+<!-- markdownlint-disable MD033 -->
+<script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "911798f2c34b45338f8f8182830a3eb6"}'></script>

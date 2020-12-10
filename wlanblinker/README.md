@@ -3,9 +3,7 @@
 
 # WLAN Blinker
 
-<!--- [![HitCount](http://hits.dwyl.com/stangri/wlanblinker.svg)](http://hits.dwyl.com/stangri/wlanblinker) --->
-
-[![ViewCount](https://views.whatilearened.today/views/github/stangri/wlanblinker.svg)](https://views.whatilearened.today/views/github/stangri/wlanblinker)
+## Description
 
 This service can be used to indicate WLAN status by blinking the unused LED.
 
@@ -30,3 +28,6 @@ These packages have been designed to be backwards compatible with OpenWrt 19.07,
 ## Default Settings
 
 Default configuration has service disabled (use Web UI to enable/start service or run `uci set wlanblinker.config.enabled=1; uci commit wlanblinker;`).
+
+<!-- markdownlint-disable MD033 -->
+<script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "911798f2c34b45338f8f8182830a3eb6"}'></script>

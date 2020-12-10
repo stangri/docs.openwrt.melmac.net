@@ -3,9 +3,7 @@
 
 # Slider Support for select routers
 
-<!--- [![HitCount](http://hits.dwyl.com/stangri/slider-support.svg)](http://hits.dwyl.com/stangri/slider-support) --->
-
-[![ViewCount](https://views.whatilearened.today/views/github/stangri/slider-support.svg)](https://views.whatilearened.today/views/github/stangri/slider-support)
+## Description
 
 This service enables switching between `Router`, `Access Point` and `Wireless Repeater` modes of operation for supported routers equipped with the slider switch. It also sets the correct `current mode` setting for the `WLAN Blinker` service available on [GitHub](https://docs.openwrt.melmac.net/wlanblinker/)/[jsDelivr](https://cdn.jsdelivr.net/gh/stangri/docs.openwrt.melmac.net/wlanblinker/README.md).
 
@@ -44,3 +42,6 @@ While not required, the `travelmate` package available on [GitHub](https://githu
 ### Thanks
 
 Support for AR150 has been implemented based on [code](https://github.com/stangri/source.openwrt.melmac.net/issues/114) provided by [@mantheman](https://github.com/mantheman).
+
+<!-- markdownlint-disable MD033 -->
+<script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "911798f2c34b45338f8f8182830a3eb6"}'></script>

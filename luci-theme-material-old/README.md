@@ -1,9 +1,5 @@
 # Luci Theme Material (Old Style)
 
-<!--- [![HitCount](http://hits.dwyl.com/stangri/luci-theme-material-old.svg)](http://hits.dwyl.com/stangri/luci-theme-material-old) --->
-
-[![ViewCount](https://views.whatilearened.today/views/github/stangri/luci-theme-material-old.svg)](https://views.whatilearened.today/views/github/stangri/luci-theme-material-old)
-
 ## Description
 
 This package brings colorful buttons back to OpenWrt 18.06.0-rc2 and later.
@@ -32,3 +28,6 @@ These packages have been designed to be backwards compatible with OpenWrt 19.07,
 ## How to use
 
 Open the WebUI System->System page (usually at <http://192.168.1.1/cgi-bin/luci/admin/system/system),> select `Language and Style` tab and select `Material_Old` from `Design` drop-down.
+
+<!-- markdownlint-disable MD033 -->
+<script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "911798f2c34b45338f8f8182830a3eb6"}'></script>

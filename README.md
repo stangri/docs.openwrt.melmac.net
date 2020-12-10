@@ -119,4 +119,5 @@ This service can be used to indicate WLAN status by blinking the unused LED. Ple
 
 This service can be used to configure router to sniff packets to/from monitored device on the device running Wireshark app. Please see the README at [GitHub](https://docs.openwrt.melmac.net/wireshark-helper/)/[jsDelivr](https://cdn.jsdelivr.net/gh/stangri/docs.openwrt.melmac.net/wireshark-helper/README.md) for further information.
 
+<!-- markdownlint-disable MD033 -->
 <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "911798f2c34b45338f8f8182830a3eb6"}'></script>

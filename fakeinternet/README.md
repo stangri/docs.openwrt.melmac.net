@@ -2,9 +2,7 @@
 
 # fakeinternet
 
-<!--- [![HitCount](http://hits.dwyl.com/stangri/fakeinternet.svg)](http://hits.dwyl.com/stangri/fakeinternet) --->
-
-[![ViewCount](https://views.whatilearened.today/views/github/stangri/fakeinternet.svg)](https://views.whatilearened.today/views/github/stangri/fakeinternet)
+## Description
 
 Fake Internet service for OpenWrt/LEDE Project routers.
 
@@ -50,3 +48,6 @@ This service hijacks requests to domains listed in the `/etc/config/fakeinternet
 ## Documentation / Discussion
 
 Please head to [OpenWrt Forum](https://forum.openwrt.org/t/fakeinternet-service-package/924/) for discussion of this package.
+
+<!-- markdownlint-disable MD033 -->
+<script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "911798f2c34b45338f8f8182830a3eb6"}'></script>

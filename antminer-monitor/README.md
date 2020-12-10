@@ -1,8 +1,6 @@
 # antminer-monitor
 
-<!--- [![HitCount](http://hits.dwyl.com/stangri/antminer-monitor.svg)](http://hits.dwyl.com/stangri/antminer-monitor) --->
-
-[![ViewCount](https://views.whatilearened.today/views/github/stangri/antminer-monitor.svg)](https://views.whatilearened.today/views/github/stangri/antminer-monitor)
+## Description
 
 Antminer Monitor service to monitor the status of the local BITMAIN Antminers. This is just the wrapper for [Antminer Monitor python app](https://github.com/anselal/antminer-monitor).
 
@@ -29,3 +27,6 @@ If these packages are not found in the official feed/repo for your version of Op
 ## How to use
 
 Use WebUI to start the `antminer-monitor` service or run `/etc/init.d/antminer-monitor start` in the ssh session to the router.
+
+<!-- markdownlint-disable MD033 -->
+<script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "911798f2c34b45338f8f8182830a3eb6"}'></script>

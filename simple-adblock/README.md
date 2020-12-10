@@ -3,11 +3,9 @@
 
 # Simple AdBlock
 
-<!--- [![HitCount](http://hits.dwyl.com/stangri/simple-adblock.svg)](http://hits.dwyl.com/stangri/simple-adblock) --->
+## Description
 
-[![ViewCount](https://views.whatilearened.today/views/github/stangri/simple-adblock.svg)](https://views.whatilearened.today/views/github/stangri/simple-adblock)
-
-A simple DNSMASQ/Unbound-based AdBlocking service for OpenWrt/LEDE Project.
+A simple DNSMASQ/Unbound-based AdBlocking service for OpenWrt.
 
 ## Features
 
@@ -212,3 +210,6 @@ Please head to [OpenWrt Forum](https://forum.openwrt.org/t/simple-adblock-fast-l
 ## Thanks
 
 I'd like to thank everyone who helped create, test and troubleshoot this service. Special thanks to [@hnyman](https://github.com/hnyman) for general package/luci guidance, [@dibdot](https://github.com/dibdot) for general guidance and block-list optimization code, [@ckuethe](https://github.com/ckuethe) for the curl support, non-ASCII filtering and compressed cache code, [@EricLuehrsen](https://github.com/EricLuehrsen) for the Unbound support information, [@mushoz](https://github.com/mushoz) for performance testing and [@phasecat](https://forum.openwrt.org/u/phasecat/summary) for submitting various bugs and testing.
+
+<!-- markdownlint-disable MD033 -->
+<script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "911798f2c34b45338f8f8182830a3eb6"}'></script>
