@@ -1,9 +1,5 @@
 # stangri's OpenWrt packages documentation
 
-<!--- [![HitCount](http://hits.dwyl.com/stangri/docsopenwrtmelmacnet.svg)](http://hits.dwyl.com/stangri/docsopenwrtmelmacnet) --->
-
-[![ViewCount](https://views.whatilearened.today/views/github/stangri/docsopenwrtmelmacnet.svg)](https://views.whatilearened.today/views/github/stangri/docsopenwrtmelmacnet)
-
 This is documentation for packages I'm maintaining for OpenWrt/LEDE Project routers. While some of these are packages are already available from official OpenWrt release/snapshots repositories/feeds, [my packages repo](https://repo.openwrt.melmac.net) usually contains newer versions. You can also browse/check-out the [source code](https://source.openwrt.melmac.net).
 
 ## How to use
@@ -122,3 +118,5 @@ This service can be used to indicate WLAN status by blinking the unused LED. Ple
 ### wireshark-helper & luci-app-wireshark-helper
 
 This service can be used to configure router to sniff packets to/from monitored device on the device running Wireshark app. Please see the README at [GitHub](https://docs.openwrt.melmac.net/wireshark-helper/)/[jsDelivr](https://cdn.jsdelivr.net/gh/stangri/docs.openwrt.melmac.net/wireshark-helper/README.md) for further information.
+
+<script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "911798f2c34b45338f8f8182830a3eb6"}'></script>
