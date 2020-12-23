@@ -761,7 +761,7 @@ config openvpn 'vpnc'
 
 6.  <a name="footnote6"> </a> When using the policies targeting physical devices, make sure you have the following packages installed: `kmod-br-netfilter`, `kmod-ipt-physdev` and `iptables-mod-physdev`. Also, if your physical device is a part of the bridge, you may have to set `net.bridge.bridge-nf-call-iptables` to `1` in your `/etc/sysctl.conf`.
 
-7.  <a name="footnote7"> </a> Because the `ipset` command only adds a first resolved IP address of the domain on add, if the domain name is encountered as the `dest_addr` option of the policy (with no other options set for the policy), it will be attempted to be added as `dnsmasq.ipset` (if enabled), otherwise, the domain name will be resolved when the service starts up and the resolved IP addresses added as either `ipset` (if enabled) or `iptables` rule. Resolving a number of domains on start is a time consuming operation, that's why the `dnsmasq.ipset` is a default option for `dest_ipset`.
+7.  <a name="footnote7"> </a> Because the `ipset` command only adds a first resolved IP address of the domain on add, if the domain name is encountered as the `dest_addr` option of the policy (with no other fields set for the policy), it will be attempted to be added as `dnsmasq.ipset` (if enabled), otherwise, the domain name will be resolved when the service starts up and the resolved IP addresses added as either `ipset` (if enabled) or `iptables` rules. Resolving a number of domains on start is a time consuming operation, that's why the use of `dnsmasq.ipset` value for `resolver_ipset` options is a preferred scenario.
 
 ### First Troubleshooting Step
 
