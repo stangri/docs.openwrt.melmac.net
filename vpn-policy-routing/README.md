@@ -98,7 +98,7 @@ On start, this service creates routing tables for each supported interface (WAN/
 
 ### Processing Policies
 
-Each policy can result in either a new `iptables` rule or, if `src_ipset` or `dest_ipset` are enabled, an `ipset` or a `dnsmasq`'s `ipset` entry.
+Each policy can result in either a new `iptables` rule or, if `src_ipset` or `dest_ipset` or `resolver_ipset` are enabled, an `ipset` or a `dnsmasq`'s `ipset` entry.
 
 -   Policies with local MAC-addresses, IP addresses or local device names can be created as `iptables` rules or `ipset` entries.
 -   Policies with local or remote ports are always created as `iptables` rules.
@@ -107,10 +107,10 @@ Each policy can result in either a new `iptables` rule or, if `src_ipset` or `de
 
 ### Policies Priorities
 
--   If support for `src_ipset` and `dest_ipset` is disabled, then only `iptables` rules are created. The policy priority is the same as its order as listed in Web UI and `/etc/config/vpn-policy-routing`. The higher the policy is in the Web UI and configuration file, the higher its priority is.
--   If support for `src_ipset` and `dest_ipset` is enabled, then the `ipset` entries have the highest priority (irrelevant of their position in the policies list) and the other policies are processed in the same order as they are listed in Web UI and `/etc/config/vpn-policy-routing`.
--   If there are conflicting `ipset` entries for different interfaces, the priority is given to the interface which is listed first in the `/etc/config/network` file.
--   If set, the `DSCP` policies trump all other policies, including the `ipset` ones.
+-   If support for `src_ipset`, `dest_ipset` and `resolver_ipset` is disabled, then only `iptables` rules are created. The policy priority is the same as its order as listed in Web UI and `/etc/config/vpn-policy-routing`. The higher the policy is in the Web UI and configuration file, the higher its priority is.
+-   If support for `src_ipset`, `dest_ipset` or `resolver_ipset` is enabled, then the `ipset`/`dnsmasq.ipset` entries have the highest priority (irrelevant of their position in the policies list) and the other policies are processed in the same order as they are listed in Web UI and `/etc/config/vpn-policy-routing`.
+-   If there are conflicting `ipset`/`dnsmasq.ipset` entries for different interfaces, the priority is given to the interface which is listed first in the `/etc/config/network` file.
+-   If set, the `DSCP` policies trump all other policies, including the `ipset`/`dnsmasq.ipset` ones.
 
 ## How To Install
 
@@ -761,7 +761,7 @@ config openvpn 'vpnc'
 
 6.  <a name="footnote6"> </a> When using the policies targeting physical devices, make sure you have the following packages installed: `kmod-br-netfilter`, `kmod-ipt-physdev` and `iptables-mod-physdev`. Also, if your physical device is a part of the bridge, you may have to set `net.bridge.bridge-nf-call-iptables` to `1` in your `/etc/sysctl.conf`.
 
-7.  <a name="footnote7"> </a> Because the `ipset` command only adds a first resolved IP address of the domain on add, if the domain name is encountered as the `dest_addr` option of the policy (with no other fields set for the policy), it will be attempted to be added as `dnsmasq.ipset` (if enabled), otherwise, the domain name will be resolved when the service starts up and the resolved IP addresses added as either `ipset` (if enabled) or `iptables` rules. Resolving a number of domains on start is a time consuming operation, that's why the use of `dnsmasq.ipset` value for `resolver_ipset` options is a preferred scenario.
+7.  <a name="footnote7"> </a> Because the `ipset` command only adds a first resolved IP address of the domain on add, if the domain name is encountered as the `dest_addr` option of the policy (with no other fields set for the policy), it will be attempted to be added as `dnsmasq.ipset` (if `resolver_ipset` is set to `dnsmasq.ipset`), otherwise, the domain name will be resolved when the service starts up and the resolved IP addresses added as either `ipset` (if enabled) or `iptables` rules. Resolving a number of domains on start is a time consuming operation, that's why the use of `dnsmasq.ipset` value for `resolver_ipset` options is a preferred scenario.
 
 ### First Troubleshooting Step
 
@@ -869,11 +869,11 @@ If you just use the private DNS queries (WARP), [A Word About DNS-over-HTTPS](#a
 
 ### A Word About DNS-over-HTTPS
 
-Some browsers, like [Mozilla Firefox](https://support.mozilla.org/en-US/kb/firefox-dns-over-https#w_about-dns-over-https) or [Google Chrome/Chromium](https://blog.chromium.org/2019/09/experimenting-with-same-provider-dns.html) have [DNS-over-HTTPS proxy](https://en.wikipedia.org/wiki/DNS_over_HTTPS) built-in. Their requests to web-sites cannot be affected if the `dnsmasq.ipset` is set for the `dest_ipset` option. To fix this, you can try either of the following:
+Some browsers, like [Mozilla Firefox](https://support.mozilla.org/en-US/kb/firefox-dns-over-https#w_about-dns-over-https) or [Google Chrome/Chromium](https://blog.chromium.org/2019/09/experimenting-with-same-provider-dns.html) have [DNS-over-HTTPS proxy](https://en.wikipedia.org/wiki/DNS_over_HTTPS) built-in. Their requests to web-sites cannot be affected if the `dnsmasq.ipset` is set for the `resolver_ipset` option. To fix this, you can try either of the following:
 
-1.  Disable the DNS-over-HTTPS support in your browser and use the OpenWrt's `net/https-dns-proxy` (README on [GitHub](https://docs.openwrt.melmac.net/https-dns-proxy)/[jsDelivr](https://cdn.jsdelivr.net/gh/stangri/docs.openwrt.melmac.net/https-dns-proxy/)) package with optional `https-dns-proxy` WebUI/luci app. You can then continue to use `dnsmasq.ipset` setting for the `dest_ipset` in VPN Policy Routing.
+1.  Disable the DNS-over-HTTPS support in your browser and use the OpenWrt's `net/https-dns-proxy` (README on [GitHub](https://docs.openwrt.melmac.net/https-dns-proxy)/[jsDelivr](https://cdn.jsdelivr.net/gh/stangri/docs.openwrt.melmac.net/https-dns-proxy/)) package with optional `https-dns-proxy` WebUI/luci app. You can then continue to use `dnsmasq.ipset` setting for the `resolver_ipset` in VPN Policy Routing.
 
-2.  Continue using DNS-over-HTTPS in your browser (which, by the way, also limits your options for router-level AdBlocking as described in `dnsmasq.ipset` option description here of `net/simple-adblock` README on [GitHub](https://docs.openwrt.melmac.net/simple-adblock/#dns-resolution-option)/[jsDelivr](https://cdn.jsdelivr.net/gh/stangri/docs.openwrt.melmac.net/simple-adblock/README.md#dns-resolution-option)), you than would either have to disable the  `dest_ipset` or switch it to `ipset`. Please note, you will lose all the benefits of [`dnsmasq.ipset`](#use-dnsmasq-ipset) option.
+2.  Continue using DNS-over-HTTPS in your browser (which, by the way, also limits your options for router-level AdBlocking as described in [`dnsmasq.ipset`](#use-dnsmasq-ipset) option description here of `net/simple-adblock` README on [GitHub](https://docs.openwrt.melmac.net/simple-adblock/#dns-resolution-option)/[jsDelivr](https://cdn.jsdelivr.net/gh/stangri/docs.openwrt.melmac.net/simple-adblock/README.md#dns-resolution-option)), you than would either have to switch the `resolver_ipset` to `none`. Please note, you will lose all the benefits of [`dnsmasq.ipset`](#use-dnsmasq-ipset) option.
 
 ### A Word About HTTP/3 (QUICK)
 
