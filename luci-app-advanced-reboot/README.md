@@ -80,7 +80,7 @@ If the `luci-app-advanced-reboot` package is not found in the official feed/repo
 
 ## Thanks
 
-I'd like to thank everyone who helped create, test and troubleshoot this package. Without help from [@hnyman](https://github.com/hnyman), [@jpstyves](https://github.com/jpstyves), [@imi2003](https://github.com/imi2003), [@jeffsf](https://github.com/jeffsf) and many contributions from [@slh](https://github.com/pkgadd) it wouldn't have been possible.
+I'd like to thank everyone who helped create, test and troubleshoot this package. Without help from [@hnyman](https://github.com/hnyman), [@jpstyves](https://github.com/jpstyves), [@imi2003](https://github.com/imi2003), [@jeffsf](https://github.com/jeffsf), [@Ansuel](https://github.com/Ansuel), and many contributions from [@slh](https://github.com/pkgadd) it wouldn't have been possible.
 
 <!-- markdownlint-disable MD033 -->
 <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "911798f2c34b45338f8f8182830a3eb6"}'></script>
