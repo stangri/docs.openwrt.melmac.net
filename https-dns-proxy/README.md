@@ -1,4 +1,5 @@
 <!-- markdownlint-disable MD013 -->
+
 <!-- markdownlint-disable MD030 -->
 
 # DNS Over HTTPS Proxy (https-dns-proxy)
@@ -80,23 +81,25 @@ Starting with `https-dns-proxy` version `2019-12-03-3` and higher, when the serv
 
 The https-dns-proxy instance settings are:
 
-| Parameter               | Type       | Default     | Description                                                                                                                                                     |
-| ----------------------- | ---------- | ----------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| bootstrap_dns           | IP Address |             | The non-encrypted DNS servers to be used to resolve the DoH server name on start.                                                                               |
-| listen_addr             | IP Address | 127.0.0.1   | The local IP address to listen to requests.                                                                                                                     |
-| listen_port             | Port       | 5053 and up | If this setting is omitted, the service will start the first https-dns-proxy instance on port 5053, second on 5054 and so on.                                   |
-| logfile                 | Filepath   |             | Full filepath to the file to log the instance events to.                                                                                                        |
-| resolver_url            | URL        |             | The https URL to the RFC8484-compatible resolver.                                                                                                               |
-| proxy_server            | URL        |             | Local proxy server to use when accessing resolvers.                                                                                                             |
-| user                    | String     | nobody      | Local user to run instance under.                                                                                                                               |
-| group                   | String     | nogroup     | Local group to run instance under.                                                                                                                              |
-| use_http1               | Boolean    | 0           | If set to 1, use HTTP/1 on installations with broken/outdated `curl` package. Included for posterity reasons, you will most likely not ever need it on OpenWrt. |
-| verbosity               | Integer    | 0           | Logging verbosity level. Fatal = 0, error = 1, warning = 2, info = 3, debug = 4.                                                                                |
-| use_ipv6_resolvers_only | Boolean    | 0           | If set to 1, forces IPv6 DNS resolvers instead of IPv4.                                                                                                         |
+| Parameter               | Type           | Default     | Description                                                                                                                                                     |
+| ----------------------- | -------------- | ----------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| bootstrap_dns           | IP Address     |             | The non-encrypted DNS servers to be used to resolve the DoH server name on start.                                                                               |
+| dscp_codepoint          | Integer [0-63] |             | Optional DSCP codepoint [0-63] to set on upstream DNS server connections.                                                                                       |
+| listen_addr             | IP Address     | 127.0.0.1   | The local IP address to listen to requests.                                                                                                                     |
+| listen_port             | Port           | 5053 and up | If this setting is omitted, the service will start the first https-dns-proxy instance on port 5053, second on 5054 and so on.                                   |
+| logfile                 | Filepath       |             | Full filepath to the file to log the instance events to.                                                                                                        |
+| resolver_url            | URL            |             | The https URL to the RFC8484-compatible resolver.                                                                                                               |
+| proxy_server            | URL            |             | Local proxy server to use when accessing resolvers.                                                                                                             |
+| user                    | String         | nobody      | Local user to run instance under.                                                                                                                               |
+| group                   | String         | nogroup     | Local group to run instance under.                                                                                                                              |
+| use_http1               | Boolean        | 0           | If set to 1, use HTTP/1 on installations with broken/outdated `curl` package. Included for posterity reasons, you will most likely not ever need it on OpenWrt. |
+| verbosity               | Integer        | 0           | Logging verbosity level. Fatal = 0, error = 1, warning = 2, info = 3, debug = 4.                                                                                |
+| use_ipv6_resolvers_only | Boolean        | 0           | If set to 1, forces IPv6 DNS resolvers instead of IPv4.                                                                                                         |
 
 ## Thanks
 
 This OpenWrt package wouldn't have been possible without [@aarond10](https://github.com/aarond10)'s [https-dns-proxy](https://github.com/aarond10/https_dns_proxy) and his active participation in the OpenWrt package itself. Special thanks to [@jow-](https://github.com/jow-) for general package/luci guidance.
 
 <!-- markdownlint-disable MD033 -->
+
 <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "911798f2c34b45338f8f8182830a3eb6"}'></script>
