@@ -111,7 +111,7 @@ Each policy can result in either a new `iptables` rule or, if `src_ipset` or `de
 -   If support for `src_ipset`, `dest_ipset` or `resolver_ipset` is enabled, then the `ipset`/`dnsmasq.ipset` entries have the highest priority (irrelevant of their position in the policies list) and the other policies are processed in the same order as they are listed in Web UI and `/etc/config/vpn-policy-routing`.
 -   If there are conflicting `ipset`/`dnsmasq.ipset` entries for different interfaces, the priority is given to the interface which is listed first in the `/etc/config/network` file.
 -   If set, the `DSCP` policies trump all other policies, including the `ipset`/`dnsmasq.ipset` ones.
--   If enabled, it is highly recommended that the policies with `IGNORE` target are on top of the policies list.
+-   If enabled, it is highly recommended that the policies with `IGNORE` target are at the top of the policies list.
 
 ## How To Install
 
