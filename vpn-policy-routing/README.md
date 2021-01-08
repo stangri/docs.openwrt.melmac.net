@@ -111,6 +111,7 @@ Each policy can result in either a new `iptables` rule or, if `src_ipset` or `de
 -   If support for `src_ipset`, `dest_ipset` or `resolver_ipset` is enabled, then the `ipset`/`dnsmasq.ipset` entries have the highest priority (irrelevant of their position in the policies list) and the other policies are processed in the same order as they are listed in Web UI and `/etc/config/vpn-policy-routing`.
 -   If there are conflicting `ipset`/`dnsmasq.ipset` entries for different interfaces, the priority is given to the interface which is listed first in the `/etc/config/network` file.
 -   If set, the `DSCP` policies trump all other policies, including the `ipset`/`dnsmasq.ipset` ones.
+-   If enabled, it is highly recommended that the policies with `IGNORE` target are on top of the policies list.
 
 ## How To Install
 
@@ -168,8 +169,6 @@ As per screenshots above, in the Web UI the `vpn-policy-routing` configuration i
 
 | Advanced       | iptables_rule_option     | append/insert | append        | Allows to specify the iptables parameter for rules: `-A` for `append` and `-I` for `insert`. Append is generally speaking more compatible with other packages/firewall rules. Recommended to change to `insert` only to enable compatibility with the `mwan3` package.                                                                                                                                           |
 | Advanced       | icmp_interface           | string        |               | Set the default ICMP protocol interface (interface name in lower case). Use with caution.                                                                                                                                                                                                                                                                                                                        |
-| Advanced       | append_src_rules         | string        |               | Append local IP Tables rules. Can be used to exclude local IP addresses from destinations for policies with local address set.                                                                                                                                                                                                                                                                                   |
-| Advanced       | append_dest_rules        | string        |               | Append local IP Tables rules. Can be used to exclude remote IP addresses from sources for policies with remote address set.                                                                                                                                                                                                                                                                                      |
 | Advanced       | wan_tid                  | integer       | 201           | Starting (WAN) Table ID number for tables created by the `vpn-policy-routing` service.                                                                                                                                                                                                                                                                                                                           |
 | Advanced       | wan_mark                 | hexadecimal   | 0x010000      | Starting (WAN) fw mark for marks used by the `vpn-policy-routing` service. High starting mark is used to avoid conflict with SQM/QoS, this can be changed by user. Change with caution together with `fw_mask`.                                                                                                                                                                                                  |
 | Advanced       | fw_mask                  | hexadecimal   | 0xff0000      | FW Mask used by the `vpn-policy-routing` service. High mask is used to avoid conflict with SQM/QoS, this can be changed by user. Change with caution together with `wan_mark`.                                                                                                                                                                                                                                   |
@@ -177,6 +176,7 @@ As per screenshots above, in the Web UI the `vpn-policy-routing` configuration i
 | Web UI         | webui_protocol_column    | boolean       | 0             | Shows `Protocol` column for policies, allowing to specify the protocol for `iptables` rules for policies.                                                                                                                                                                                                                                                                                                        |
 | Web UI         | webui_supported_protocol | list          | 0             | List of protocols to display in the `Protocol` column for policies.                                                                                                                                                                                                                                                                                                                                              |
 | Web UI         | webui_chain_column       | boolean       | 0             | Shows `Chain` column for policies, allowing to specify `PREROUTING` (default), `FORWARD`, `INPUT`, or `OUTPUT` chain for `iptables` rules for policies.                                                                                                                                                                                                                                                          |
+| Web UI         | webui_show_ignore_target       | boolean       | 0             | Adds `IGNORE` to the list of interfaces for policies, allowing you to skip further processing by VPN Policy Routing.                                                                                                                                                                                                                                                          |
 | Web UI         | webui_sorting            | boolean       | 1             | Shows the Up/Down buttons for policies, allowing you to move a policy up or down in the list/priority.                                                                                                                                                                                                                                                                                                           |
 |                | wan_dscp                 | integer       |               | Allows use of [DSCP-tag based policies](#dscp-tag-based-policies) for WAN interface.                                                                                                                                                                                                                                                                                                                             |
 |                | {interface_name}\_dscp   | integer       |               | Allows use of [DSCP-tag based policies](#dscp-tag-based-policies) for a VPN interface.                                                                                                                                                                                                                                                                                                                           |
@@ -397,14 +397,18 @@ config openvpn 'vpnserver'
 
 #### Local OpenVPN Server + OpenVPN Client (Scenario 2)
 
-If the OpenVPN client is **not** used as default routing and you create policies to selectively use the OpenVPN client, make sure your settings are as following (three dots on the line imply other options can be listed in the section as well).
+If the OpenVPN client is **not** used as default routing and you create policies to selectively use the OpenVPN client, make sure your settings are as following (three dots on the line imply other options can be listed in the section as well). Make sure that the policy mentioned below is at the top of your policies list.
 
 Relevant part of `/etc/config/vpn-policy-routing`:
 
 ```text
 config vpn-policy-routing 'config'
   list ignored_interface 'vpnserver'
-  option append_src_rules '! -d 192.168.200.0/24'
+  ...
+config policy
+  option name 'Ignore Local Traffic'
+  option interface 'ignore'
+  option dest_address '192.168.200.0/24'
   ...
 ```
 
@@ -584,14 +588,18 @@ config rule
 
 Yes, I'm aware that technically there are no clients nor servers in Wireguard, it's all peers, but for the sake of README readability I will use the terminology similar to the OpenVPN Server + Client setups.
 
-If the Wireguard client is **not** used as default routing and you create policies to selectively use the Wireguard client, make sure your settings are as following (three dots on the line imply other options can be listed in the section as well).
+If the Wireguard client is **not** used as default routing and you create policies to selectively use the Wireguard client, make sure your settings are as following (three dots on the line imply other options can be listed in the section as well).Make sure that the policy mentioned below is at the top of your policies list.
 
 Relevant part of `/etc/config/vpn-policy-routing`:
 
 ```text
 config vpn-policy-routing 'config'
   list ignored_interface 'wgserver'
-  option append_src_rules '! -d 192.168.200.0/24'
+  ...
+config policy
+  option name 'Ignore Local Traffic'
+  option interface 'ignore'
+  option dest_address '192.168.200.0/24'
   ...
 ```
 
