@@ -15,7 +15,7 @@ This service allows you to define rules (policies) for routing traffic via WAN o
 -   Any policy can target either WAN or a VPN tunnel interface.
 -   L2TP tunnels supported (with protocol names l2tp\*).
 -   Openconnect tunnels supported (with protocol names openconnect\*).
--   OpenVPN tunnels supported (with device names tun\* or tap\*).[<sup>#1</sup>](#footnote1) [<sup>#2</sup>](#footnote2)
+-   OpenVPN tunnels supported (with device names tun\*).[<sup>#1</sup>](#footnote1) [<sup>#2</sup>](#footnote2)
 -   PPTP tunnels supported (with protocol names pptp\*).
 -   Wireguard tunnels supported (with protocol names wireguard\*).
 
@@ -159,7 +159,7 @@ As per screenshots above, in the Web UI the `vpn-policy-routing` configuration i
 | Basic          | strict_enforcement  | boolean     | 1             | Enforce policies when their interface is down. See [Strict enforcement](#strict-enforcement) for more details.                                                                                                                                                                                                                                                                                                            |
 | Basic          | resolver_ipset      | string      | dnsmasq.ipset | Enable/disable use of the resolver ipset option for domain-only remote policies (policies with only a domain as a remote address and no other fields set). This speeds up service start-up and operation. Currently supported options are `none` and `dnsmasq.ipset` (see [Use DNSMASQ ipset](#use-dnsmasq-ipset) and [<sup>#7</sup>](#footnote7) for more details). Make sure the [requirements](#requirements) are met. |
 | Basic          | ipv6_enabled        | boolean     | 0             | Enable/disable IPv6 support.                                                                                                                                                                                                                                                                                                                                                                                              |
-| Advanced       | supported_interface | list/string |               | Allows to specify the space-separated list of interface names (in lower case) to be explicitly supported by the `vpn-policy-routing` service. Can be useful if your OpenVPN tunnels have dev option other than tun\* or tap\*.                                                                                                                                                                                            |
+| Advanced       | supported_interface | list/string |               | Allows to specify the space-separated list of interface names (in lower case) to be explicitly supported by the `vpn-policy-routing` service. Can be useful if your OpenVPN tunnels have dev option other than tun\*.                                                                                                                                                                                                     |
 | Advanced       | ignored_interface   | list/string |               | Allows to specify the space-separated list of interface names (in lower case) to be ignored by the `vpn-policy-routing` service. Can be useful if running both VPN server and VPN client on the router.                                                                                                                                                                                                                   |
 | Advanced       | boot_timeout        | number      | 30            | Allows to specify the time (in seconds) for `vpn-policy-routing` service to wait for WAN gateway discovery on boot. Can be useful on devices with ADSL modem built in.                                                                                                                                                                                                                                                    |
 
@@ -759,7 +759,7 @@ config openvpn 'vpnc'
 
 1.  <a name="footnote1"> </a> See [note about multiple OpenVPN clients](#multiple-openvpn-clients).
 
-2.  <a name="footnote2"> </a> If your `OpenVPN` interface has the device name different from tun\* or tap\*, is not up and is not explicitly listed in `supported_interface` option, it may not be available in the policies `Interface` drop-down within WebUI.
+2.  <a name="footnote2"> </a> If your `OpenVPN` interface has the device name different from tun\*, is not up and is not explicitly listed in `supported_interface` option, it may not be available in the policies `Interface` drop-down within WebUI.
 
 3.  <a name="footnote3"> </a> If your default routing is set to the VPN tunnel, then the true WAN interface cannot be discovered using OpenWrt built-in functions, so service will assume your network interface ending with or starting with `wan` is the true WAN interface.
 
