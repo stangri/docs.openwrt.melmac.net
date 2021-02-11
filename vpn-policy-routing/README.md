@@ -296,6 +296,36 @@ config policy
   option dest_addr 'emby.media app.emby.media tv.emby.media'
 ```
 
+#### Ignore Requests (replace `append_src_rules`)
+
+The following policy allows you to skip processing of some requests (like local LAN traffic). This is a replacement for `append_src_rules` which is no longer supported in versions 0.3.x forward.
+
+```text
+config vpn-policy-routing 'config'
+  ...
+  option webui_show_ignore_target '1'
+
+config policy
+  option name 'Ignore Local Requests by Destination'
+  option interface 'ignore'
+  option dest_addr '192.168.200.0/24'
+```
+
+#### Ignore Requests (replace `append_dest_rules`)
+
+The following policy allows you to skip processing of some requests. This is a replacement for `append_dest_rules` which is no longer supported in versions 0.3.x forward.
+
+```text
+config vpn-policy-routing 'config'
+  ...
+  option webui_show_ignore_target '1'
+
+config policy
+  option name 'Ignore Local Requests by Source'
+  option interface 'ignore'
+  option src_addr '192.168.1.0/24'
+```
+
 #### Local OpenVPN Server + OpenVPN Client (Scenario 1)
 
 If the OpenVPN client on your router is used as default routing (for the whole internet), make sure your settings are as following (three dots on the line imply other options can be listed in the section as well).
