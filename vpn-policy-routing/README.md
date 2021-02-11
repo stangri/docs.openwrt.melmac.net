@@ -298,7 +298,15 @@ config policy
 
 #### Ignore Requests (replace `append_src_rules`)
 
-The following policy allows you to skip processing of some requests (like local LAN traffic). This is a replacement for `append_src_rules` which is no longer supported in versions 0.3.x forward.
+Since the `append_src_rules` option is no longer supported in vpn-policy-routing from version 0.3.x forward, replace:
+
+```text
+config vpn-policy-routing 'config'
+  ...
+  append_src_rules '! -d 192.168.200.0/24'
+```
+
+With the following policy allowing you to skip processing of some requests (like traffic to an OpenVPN or Wireguard server running on the router):
 
 ```text
 config vpn-policy-routing 'config'
@@ -313,7 +321,15 @@ config policy
 
 #### Ignore Requests (replace `append_dest_rules`)
 
-The following policy allows you to skip processing of some requests. This is a replacement for `append_dest_rules` which is no longer supported in versions 0.3.x forward.
+Since the `append_dest_rules` option is no longer supported in vpn-policy-routing from version 0.3.x forward, replace:
+
+```text
+config vpn-policy-routing 'config'
+  ...
+  append_dest_rules '! -s 192.168.1.1/24'
+```
+
+With the following policy allowing you to skip processing of some requests:
 
 ```text
 config vpn-policy-routing 'config'
@@ -323,7 +339,7 @@ config vpn-policy-routing 'config'
 config policy
   option name 'Ignore Local Requests by Source'
   option interface 'ignore'
-  option src_addr '192.168.1.0/24'
+  option src_addr '192.168.1.1/24'
 ```
 
 #### Local OpenVPN Server + OpenVPN Client (Scenario 1)
