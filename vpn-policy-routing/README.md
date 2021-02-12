@@ -319,6 +319,8 @@ config policy
   option dest_addr '192.168.200.0/24'
 ```
 
+It's a good idea to keep the policies targeting `ignore` interface at the top of the config file/list of policies displayed in WebUI to make sure they are processed first.
+
 #### Ignore Requests (replace `append_dest_rules`)
 
 Since the `append_dest_rules` option is no longer supported in vpn-policy-routing from version 0.3.x forward, replace:
@@ -341,6 +343,8 @@ config policy
   option interface 'ignore'
   option src_addr '192.168.1.1/24'
 ```
+
+It's a good idea to keep the policies targeting `ignore` interface at the top of the config file/list of policies displayed in WebUI to make sure they are processed first.
 
 #### Local OpenVPN Server + OpenVPN Client (Scenario 1)
 
