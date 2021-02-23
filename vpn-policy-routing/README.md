@@ -939,6 +939,27 @@ If you want to target traffic using HTTP/3 protocol, you can use the `AUTO` as t
 
 Due to the nature of IPv6, it's not supposed to be routed same way as IPv4 with this package, but a fellow user has graciously contributed a [gist detailing their experience to get IPv6 routing working](https://gist.github.com/NoMonkeyNoMission/3bd8413029b1f728c1f00bc1ac0e98b4).
 
+### A Word About Routing Netflix/Amazon Prime/Hulu Traffic
+
+There are two following scenarios with VPN connections and Netflix/Amazon Prime/Hulu traffic.
+
+#### Routing Netflix/Amazon Prime/Hulu Traffic via VPN Tunnel
+
+If you live in a country where Netflix/Amazon Prime/Hulu are not available and want to circumvent geo-fencing, this package can't help you. The Netflix/Amazon Prime/Hulu do a great job detecing VPN usage when accessing their services and circumventing geographical restrictions is not only dubiously legal, it's also technically very challenging.
+
+#### Routing Netflix/Amazon Prime/Hulu Traffic via WAN
+
+If you live in a country where Netflix/Amazon Prime/Hulu are available, you obviously do NOT want to use VPN tunnel for their traffic.
+
+If the VPN tunnel is not used as a default gateway on your router, you should not have a problem accessing Netflix/Amazon Prime/Hulu (just make sure that your DNS requests are not routed via VPN tunnel either).
+
+If the VPN tunnel is used as a default gateway, either:
+
+-   send ALL traffic from your multimedia devices (by using their IP addresses or device names in the `src_addr` option in config file or Local addresses /devices field in WebUI) accessing Netflix/Amazon Prime/Hulu to WAN; this is the more reliable and recommended method.
+-   use the Netflix/AWS custom user files in combination with the Netflix/Amazon Prime/Hulu domains and `dnsmasq.ipset` option to route traffic to Netflix/Amazon via WAN; this is definitely less reliable method and may not work in all regions.
+
+Either way make sure that your DNS requests are not routed via VPN Tunnel!
+
 ## Discussion
 
 Please head to [OpenWrt Forum](https://forum.openwrt.org/t/vpn-policy-based-routing-web-ui-discussion/10389) for discussions of this service.
