@@ -956,7 +956,7 @@ If the VPN tunnel is not used as a default gateway on your router, you should no
 If the VPN tunnel is used as a default gateway, either:
 
 -   send ALL traffic from your multimedia devices (by using their IP addresses or device names in the `src_addr` option in config file or Local addresses /devices field in WebUI) accessing Netflix/Amazon Prime/Hulu to WAN; this is the more reliable and recommended method.
--   use the Netflix/AWS custom user files in combination with the Netflix/Amazon Prime/Hulu domains and `dnsmasq.ipset` option to route traffic to Netflix/Amazon via WAN; this is definitely less reliable method and may not work in all regions.
+-   use the [Netflix/AWS custom user files](https://docs.openwrt.melmac.net/vpn-policy-routing/#custom-user-files) in combination with the [Netflix](https://docs.openwrt.melmac.net/vpn-policy-routing/#netflix-domains)/Amazon Prime/Hulu domains and `dnsmasq.ipset` option to route traffic to Netflix/Amazon via WAN; this is definitely less reliable method and may not work in all regions.
 
 Either way make sure that your DNS requests are not routed via VPN Tunnel!
 
