@@ -1,4 +1,5 @@
 <!-- markdownlint-disable MD013 -->
+
 <!-- markdownlint-disable MD030 -->
 
 # Simple AdBlock
@@ -83,10 +84,10 @@ opkg update; opkg install ip6tables-mod-nat kmod-ipt-nat6;
 
 ### Requirements for Faster Block-list Processing
 
-The `coreutils-sort` is an optional, but recommended package as it speeds up sorting and removing duplicates from the merged list dramatically. If opkg complains that it can't install `coreutils-sort` because /usr/bin/sort is already provided by busybox, you can run the following command:
+The `gawk`, `grep`, `sed` and `coreutils-sort` are the optional, but recommended packages as they speed up processing dramatically. You can install these recommended packages by running the following command:
 
 ```sh
-opkg --force-overwrite install coreutils-sort
+opkg --force-overwrite install gawk grep sed coreutils-sort
 ```
 
 ## Unmet Dependencies
@@ -212,4 +213,5 @@ Please head to [OpenWrt Forum](https://forum.openwrt.org/t/simple-adblock-fast-l
 I'd like to thank everyone who helped create, test and troubleshoot this service. Special thanks to [@hnyman](https://github.com/hnyman) for general package/luci guidance, [@dibdot](https://github.com/dibdot) for general guidance and block-list optimization code, [@ckuethe](https://github.com/ckuethe) for the curl support, non-ASCII filtering and compressed cache code, [@EricLuehrsen](https://github.com/EricLuehrsen) for the Unbound support information, [@mushoz](https://github.com/mushoz) for performance testing and [@phasecat](https://forum.openwrt.org/u/phasecat/summary) for submitting various bugs and testing.
 
 <!-- markdownlint-disable MD033 -->
+
 <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "911798f2c34b45338f8f8182830a3eb6"}'></script>
