@@ -964,9 +964,9 @@ Either way make sure that your DNS requests are not routed via VPN Tunnel!
 
 ### A Word About Interface Hotplug Script
 
-Sometimes[<sup>#1</sup>](#footnote1) the service doesn't get reloaded when supported interfaces go up or down. This can be an annoying experience since the service may start before all supported VPN connections are up and then not get updated when the VPN connections get established. In that case, run the following command from CLI to create the interface hotplug script to cause the service to be reloaded in interface updates:
+Sometimes[<sup>#8</sup>](#footnote8) the service doesn't get reloaded when supported interfaces go up or down. This can be an annoying experience since the service may start before all supported VPN connections are up and then not get updated when the VPN connections get established. In that case, run the following command from CLI to create the interface hotplug script to cause the service to be reloaded in interface updates:
 
-```ssh
+```sh
 mkdir -p /etc/hotplug.d/iface/
 cat << 'EOF' >> /etc/hotplug.d/iface/70-vpn-policy-routing
 #!/bin/sh
