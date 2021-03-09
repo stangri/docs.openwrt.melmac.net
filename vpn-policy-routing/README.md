@@ -803,27 +803,7 @@ config openvpn 'vpnc'
   ...
 ```
 
-## Footnotes/Known Issues
-
-1.  <a name="footnote1"> </a> See [note about multiple OpenVPN clients](#multiple-openvpn-clients).
-
-2.  <a name="footnote2"> </a> If your `OpenVPN` interface has the device name different from tun\*, is not up and is not explicitly listed in `supported_interface` option, it may not be available in the policies `Interface` drop-down within WebUI.
-
-3.  <a name="footnote3"> </a> If your default routing is set to the VPN tunnel, then the true WAN interface cannot be discovered using OpenWrt built-in functions, so service will assume your network interface ending with or starting with `wan` is the true WAN interface.
-
-4.  <a name="footnote4"> </a> The service does **NOT** support the "killswitch" router mode (where if you stop the VPN tunnel, you have no internet connection). For proper operation, leave all the default OpenWrt `network` and `firewall` settings for `lan` and `wan` intact.
-
-5.  <a name="footnote5"> </a> When using the `dnsmasq.ipset` option, please make sure to flush the DNS cache of the local devices, otherwise domain policies may not work until you do. If you're not sure how to flush the DNS cache (or if the device/OS doesn't offer an option to flush its DNS cache), reboot your local devices when starting to use the service and/or when connecting data-capable device to your WiFi.
-
-6.  <a name="footnote6"> </a> When using the policies targeting physical devices, make sure you have the following packages installed: `kmod-br-netfilter`, `kmod-ipt-physdev` and `iptables-mod-physdev`. Also, if your physical device is a part of the bridge, you may have to set `net.bridge.bridge-nf-call-iptables` to `1` in your `/etc/sysctl.conf`.
-
-7.  <a name="footnote7"> </a> Because the `ipset` command only adds a first resolved IP address of the domain on add, if the domain name is encountered as the `dest_addr` option of the policy (with no other fields set for the policy), it will be attempted to be added as `dnsmasq.ipset` (if `resolver_ipset` is set to `dnsmasq.ipset`), otherwise, the domain name will be resolved when the service starts up and the resolved IP addresses added as either `ipset` (if enabled) or `iptables` rules. Resolving a number of domains on start is a time consuming operation, that's why the use of `dnsmasq.ipset` value for `resolver_ipset` options is a preferred scenario.
-
-### First Troubleshooting Step
-
-If your router is set to use [default routing via VPN tunnel](#a-word-about-default-routing) and the WAN-targeting policies do not work, you need to stop your VPN tunnel first and ensure that you still have internet connection. If your router is set up to use the default routing via VPN tunnel and when you stop the VPN tunnel you have no internet connection, this package can't help you. You first need to make sure that you do have internet connection when the VPN tunnel is stopped.
-
-### Multiple OpenVPN Clients
+#### Multiple OpenVPN Clients
 
 If you use multiple OpenVPN clients on your router, the order in which their devices are named (tun0, tun1, etc) is not guaranteed by OpenWrt/LEDE Project. The following settings are recommended in this case.
 
@@ -862,6 +842,28 @@ config vpn-policy-routing 'config'
   list supported_interface 'vpnclient0 vpnclient1'
   ...
 ```
+
+## Footnotes/Known Issues
+
+1.  <a name="footnote1"> </a> See [note about multiple OpenVPN clients](#multiple-openvpn-clients).
+
+2.  <a name="footnote2"> </a> If your `OpenVPN` interface has the device name different from tun\*, is not up and is not explicitly listed in `supported_interface` option, it may not be available in the policies `Interface` drop-down within WebUI.
+
+3.  <a name="footnote3"> </a> If your default routing is set to the VPN tunnel, then the true WAN interface cannot be discovered using OpenWrt built-in functions, so service will assume your network interface ending with or starting with `wan` is the true WAN interface.
+
+4.  <a name="footnote4"> </a> The service does **NOT** support the "killswitch" router mode (where if you stop the VPN tunnel, you have no internet connection). For proper operation, leave all the default OpenWrt `network` and `firewall` settings for `lan` and `wan` intact.
+
+5.  <a name="footnote5"> </a> When using the `dnsmasq.ipset` option, please make sure to flush the DNS cache of the local devices, otherwise domain policies may not work until you do. If you're not sure how to flush the DNS cache (or if the device/OS doesn't offer an option to flush its DNS cache), reboot your local devices when starting to use the service and/or when connecting data-capable device to your WiFi.
+
+6.  <a name="footnote6"> </a> When using the policies targeting physical devices, make sure you have the following packages installed: `kmod-br-netfilter`, `kmod-ipt-physdev` and `iptables-mod-physdev`. Also, if your physical device is a part of the bridge, you may have to set `net.bridge.bridge-nf-call-iptables` to `1` in your `/etc/sysctl.conf`.
+
+7.  <a name="footnote7"> </a> Because the `ipset` command only adds a first resolved IP address of the domain on add, if the domain name is encountered as the `dest_addr` option of the policy (with no other fields set for the policy), it will be attempted to be added as `dnsmasq.ipset` (if `resolver_ipset` is set to `dnsmasq.ipset`), otherwise, the domain name will be resolved when the service starts up and the resolved IP addresses added as either `ipset` (if enabled) or `iptables` rules. Resolving a number of domains on start is a time consuming operation, that's why the use of `dnsmasq.ipset` value for `resolver_ipset` options is a preferred scenario.
+
+8.  <a name="footnote8"> </a> When service is started, it subscribes to the supported interfaces updates thru the PROCD. While I was never able to reproduce the issue, some customers report that this method doesn't always work in which case you may want to [set up iface hotplug script](#a-word-about-interface-hotplug-script) to reload service when relevant interface(s) are updated.
+
+## FAQ
+
+You may find some useful information in sections below.
 
 ### A Word About Default Routing
 
@@ -960,9 +962,22 @@ If the VPN tunnel is used as a default gateway, either:
 
 Either way make sure that your DNS requests are not routed via VPN Tunnel!
 
-## Discussion
+### A Word About Interface Hotplug Script
 
-Please head to [OpenWrt Forum](https://forum.openwrt.org/t/vpn-policy-based-routing-web-ui-discussion/10389) for discussions of this service.
+Sometimes[<sup>#1</sup>](#footnote1) the service doesn't get reloaded when supported interfaces go up or down. This can be an annoying experience since the service may start before all supported VPN connections are up and then not get updated when the VPN connections get established. In that case, run the following command from CLI to create the interface hotplug script to cause the service to be reloaded in interface updates:
+
+```ssh
+mkdir -p /etc/hotplug.d/iface/
+cat << 'EOF' >> /etc/hotplug.d/iface/70-vpn-policy-routing
+#!/bin/sh
+
+if [ "$ACTION" != "ifup" ] && [ "$ACTION" != "ifupdate" ]; then exit 0; fi
+
+logger -t vpn-policy-routing "Reloading vpn-policy-routing due to $ACTION of $INTERFACE ($DEVICE)"
+
+/etc/init.d/vpn-policy-routing reload
+EOF
+```
 
 ## Getting Help
 
@@ -978,6 +993,14 @@ If things are not working as intended, please include the following in your post
 If you don't want to post the `/etc/init.d/vpn-policy-routing support` output in a public forum, there's a way to have the support details automatically uploaded to my account at paste.ee by running: `/etc/init.d/vpn-policy-routing support -p`. You need to have the following packages installed to enable paste.ee upload functionality: `curl libopenssl ca-bundle`.
 
 WARNING: while paste.ee uploads are unlisted/not indexed at the web-site, they are still publicly available.
+
+### First Troubleshooting Step
+
+If your router is set to use [default routing via VPN tunnel](#a-word-about-default-routing) and the WAN-targeting policies do not work, you need to stop your VPN tunnel first and ensure that you still have internet connection. If your router is set up to use the default routing via VPN tunnel and when you stop the VPN tunnel you have no internet connection, this package can't help you. You first need to make sure that you do have internet connection when the VPN tunnel is stopped.
+
+## Discussion
+
+Please head to [OpenWrt Forum](https://forum.openwrt.org/t/vpn-policy-based-routing-web-ui-discussion/10389) for discussions of this service.
 
 ## Thanks
 
