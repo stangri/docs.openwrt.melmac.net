@@ -67,7 +67,7 @@ Two example custom user-files are provided: `/etc/vpn-policy-routing.aws.user` a
 ### Other Features
 
 -   Doesn't stay in memory, creates the routing tables and `iptables` rules/`ipset` entries which are automatically updated when supported/monitored interface changes.
--   Proudly made in :maple_leaf: Canada :maple_leaf: , using locally-sourced electrons.
+-   Proudly made in :maple_leaf: Canada :maple_leaf:, using locally-sourced electrons.
 
 ## Screenshots (luci-app-vpn-policy-routing)
 
