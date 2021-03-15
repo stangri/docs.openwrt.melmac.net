@@ -72,25 +72,25 @@ Two example custom user-files are provided: `/etc/vpn-policy-routing.aws.user` a
 ## Screenshots (luci-app-vpn-policy-routing)
 
 Service Status
-![screenshot](https://docs.openwrt.melmac.net/vpn-policy-routing/screenshots/screenshot04-status.png "Service Status")
+![screenshot](https://docs.openwrt.melmac.net/vpn-policy-routing/screenshots/01-status.png "Service Status")
 
 Configuration - Basic Configuration
-![screenshot](https://docs.openwrt.melmac.net/vpn-policy-routing/screenshots/screenshot04-config-basic.png "Basic Configuration")
+![screenshot](https://docs.openwrt.melmac.net/vpn-policy-routing/screenshots/02-config-basic.png "Basic Configuration")
 
 Configuration - Advanced Configuration
-![screenshot](https://docs.openwrt.melmac.net/vpn-policy-routing/screenshots/screenshot04-config-advanced.png "Advanced Configuration")
+![screenshot](https://docs.openwrt.melmac.net/vpn-policy-routing/screenshots/03-config-advanced.png "Advanced Configuration")
 
 Configuration - WebUI Configuration
-![screenshot](https://docs.openwrt.melmac.net/vpn-policy-routing/screenshots/screenshot04-config-webui.png "WebUI Configuration")
+![screenshot](https://docs.openwrt.melmac.net/vpn-policy-routing/screenshots/04-config-webui.png "WebUI Configuration")
 
 Policies
-![screenshot](https://docs.openwrt.melmac.net/vpn-policy-routing/screenshots/screenshot04-policies.png "Policies")
+![screenshot](https://docs.openwrt.melmac.net/vpn-policy-routing/screenshots/05-policies.png "Policies")
 
 DSCP Tagging
-![screenshot](https://docs.openwrt.melmac.net/vpn-policy-routing/screenshots/screenshot04-dscp.png "DSCP Tagging")
+![screenshot](https://docs.openwrt.melmac.net/vpn-policy-routing/screenshots/06-dscp-tag.png "DSCP Tagging")
 
 Custom User File Includes
-![screenshot](https://docs.openwrt.melmac.net/vpn-policy-routing/screenshots/screenshot04-userfiles.png "Custom User File Includes")
+![screenshot](https://docs.openwrt.melmac.net/vpn-policy-routing/screenshots/07-custom-user-files.png "Custom User File Includes")
 
 ## How It Works
 
