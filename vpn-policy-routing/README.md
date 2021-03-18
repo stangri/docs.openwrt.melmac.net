@@ -970,11 +970,7 @@ Sometimes[<sup>#8</sup>](#footnote8) the service doesn't get reloaded when suppo
 mkdir -p /etc/hotplug.d/iface/
 cat << 'EOF' >> /etc/hotplug.d/iface/70-vpn-policy-routing
 #!/bin/sh
-
-if [ "$ACTION" != "ifup" ] && [ "$ACTION" != "ifupdate" ]; then exit 0; fi
-
 logger -t vpn-policy-routing "Reloading vpn-policy-routing due to $ACTION of $INTERFACE ($DEVICE)"
-
 /etc/init.d/vpn-policy-routing reload
 EOF
 ```
