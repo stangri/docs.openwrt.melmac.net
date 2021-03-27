@@ -47,11 +47,7 @@ Allowed and Blocked Lists Management
 
 ## Requirements
 
-To download the hosts/domains files this service requires one of the following packages to be installed on your device: `wget` or `uclient-fetch` or `curl`. If you want to download lists over HTTPS (recommended), you also need to install support for HTTPS/SSL downloads on your device. For OpenWrt 19.07 and up the following commands will install the minimal requirements:
-
-```sh
-opkg update; opkg install wget; opkg remove wget-nossl;
-```
+Starting with OpenWrt 19.07 and up the required packages should be automatically installed when you install `simple-adblock`.
 
 ### Requirements for file:// Scheme
 
@@ -90,7 +86,7 @@ opkg --force-overwrite install gawk grep sed coreutils-sort
 
 ## Unmet Dependencies
 
-If you are running a development (trunk/snapshot) build of OpenWrt/LEDE Project on your router and your build is outdated (meaning that packages of the same revision/commit hash are no longer available and when you try to satisfy the [requirements](#requirements) you get errors), please flash either current LEDE release image or current development/snapshot image.
+If you are running a development (snapshot) build of OpenWrt on your router and your build is outdated (meaning that packages of the same revision/commit hash are no longer available and when you try to satisfy the [requirements](#requirements) you get errors), please flash either current OpenWrt release image or current development/snapshot image.
 
 ## How To Install
 
