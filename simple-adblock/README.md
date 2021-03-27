@@ -47,12 +47,10 @@ Allowed and Blocked Lists Management
 
 ## Requirements
 
-To download the hosts/domains files this service requires one of the following packages to be installed on your device: `wget` or `uclient-fetch` or `curl`. If you want to download lists over HTTPS (recommended), you also need to install support for HTTPS/SSL downloads on your device. For most devices starting with OpenWrt 15.05.1 and up the following commands will install the minimal requirements:
+To download the hosts/domains files this service requires one of the following packages to be installed on your device: `wget` or `uclient-fetch` or `curl`. If you want to download lists over HTTPS (recommended), you also need to install support for HTTPS/SSL downloads on your device. For OpenWrt 19.07 and up the following commands will install the minimal requirements:
 
 ```sh
-opkg update; if ubus -S call system board | grep -q '15.05'; then
-opkg install ca-certificates wget libopenssl; else
-opkg install uclient-fetch libustream-mbedtls ca-bundle ca-certificates; fi
+opkg update; opkg install wget; opkg remove wget-nossl;
 ```
 
 ### Requirements for file:// Scheme
@@ -71,7 +69,7 @@ If you want to use the [`dnsmasq.ipset` option](#dns-resolution-option) you need
 
 ```sh
 opkg update; cd /tmp/; opkg download dnsmasq-full; opkg install ipset;
-opkg remove dnsmasq; opkg install /tmp/dnsmasq-full*; rm -f /tmp/dnsmasq-full*;
+opkg remove dnsmasq; opkg install /tmp/dnsmasq-full*.ipk; rm -f /tmp/dnsmasq-full*.ipk;
 ```
 
 ### Requirements for IPv6 Support
