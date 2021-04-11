@@ -968,10 +968,21 @@ Sometimes[<sup>#8</sup>](#footnote8) the service doesn't get reloaded when suppo
 
 ```sh
 mkdir -p /etc/hotplug.d/iface/
-cat << 'EOF' >> /etc/hotplug.d/iface/70-vpn-policy-routing
+cat << 'EOF' > /etc/hotplug.d/iface/70-vpn-policy-routing
 #!/bin/sh
 logger -t vpn-policy-routing "Reloading vpn-policy-routing due to $ACTION of $INTERFACE ($DEVICE)"
 /etc/init.d/vpn-policy-routing reload
+EOF
+```
+
+For `vpn-policy-routing` package version 0.3.4 and up you can use the following script which will only reload what's relevant to the reloaded interface:
+
+```sh
+mkdir -p /etc/hotplug.d/iface/
+cat << 'EOF' > /etc/hotplug.d/iface/70-vpn-policy-routing
+#!/bin/sh
+logger -t vpn-policy-routing "Reloading vpn-policy-routing due to $ACTION of $INTERFACE ($DEVICE)"
+/etc/init.d/vpn-policy-routing reload_interface "$INTERFACE"
 EOF
 ```
 
