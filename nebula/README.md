@@ -76,7 +76,7 @@ config interface 'nebula1'
 
 ## Documentation / Discussion
 
-Please head to [OpenWrt Forum](https://forum.openwrt.org/t/vpn-bypass-split-tunneling-service-luci-ui/1106) for discussions of this service.
+Please head to [OpenWrt Forum](https://forum.openwrt.org/t/slacks-nebula-on-openwrt-discussion-thread/85431) for discussions of this package.
 
 <!-- markdownlint-disable MD033 -->
 
