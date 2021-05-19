@@ -78,7 +78,7 @@ config interface 'nebula1'
 
 ## Documentation / Discussion
 
-Please head to [OpenWrt Forum](https://forum.openwrt.org/t/slacks-nebula-on-openwrt-discussion-thread/85431) for discussions of this package.
+Please head to [OpenWrt Forum](https://forum.openwrt.org/t/slacks-nebula-on-openwrt-discussion-thread/85431) for discussions of these packages.
 
 <!-- markdownlint-disable MD033 -->
 
