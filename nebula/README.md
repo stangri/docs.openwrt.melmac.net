@@ -14,6 +14,8 @@ OpenWrt repositories contain following packages:
 
 -   nebula: This is the principal binary package. This package is required for nebula peer or lighthouse operations. Unless you want to start nebula manually, you may want to also install _either_ `nebula-service` _or_ `nebula-proto` package.
 -   nebula-cert: This package contains only `nebula-cert` binary required to generate certificates not _not_ necessary for the nebula peer or lighthouse operations.
+-   nebula-proto: This package contains only OpenWrt protocol/interface support for nebula. You will need to create a new interface for nebula node/lighthouse if you want to use this package.
+-   nebula-service: This package contains only OpenWrt-specific init.d script for nebula. This package starts a node/lighthouse for each `.yml` config file it finds in `/etc/nebula/` directory.
 
 ## Requirements
 
@@ -72,7 +74,7 @@ config interface 'nebula1'
 
    When the nebula interface is brough up, it will automatically open the UDP port referenced in the `.yml` config file in the router's firewall.
 
--   nebula-service: This package contains and `init.d`/service script which scans the `/etc/nebula/` directory for `.yml` config files and creates a nebula peer for each located `.yml` config file. When each peer is started, it will automatically open the UDP port referenced in the `.yml` config file in the router's firewall.
+-   nebula-service: This package contains and `init.d`/service script which scans the `/etc/nebula/` directory for `.yml` config files and creates a nebula node/lighthouse for each located `.yml` config file. When each node/lighthouse is started, it will automatically open the UDP port referenced in the `.yml` config file in the router's firewall.
 
 ## Documentation / Discussion
 
