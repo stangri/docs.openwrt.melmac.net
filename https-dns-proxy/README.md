@@ -66,9 +66,7 @@ config https-dns-proxy
   option group 'nogroup'
 ```
 
-The `update_dnsmasq_config` option can be set to dash (set to `'-'` to not change `DNSMASQ` server settings on start/stop), can be set to `'*'` to affect all `DNSMASQ` instance server settings or have a space-separated list of `DNSMASQ` instances to affect (like `'0 4 5'`). If this option is omitted, the default setting is `'*'`.
-
-Starting with `https-dns-proxy` version `2019-12-03-3` and higher, when the service is set to update the DNSMASQ servers setting on start/stop, it does not override entries which contain either `#` or `/`, so the entries like listed below will be kept in use:
+The `update_dnsmasq_config` option can be set to dash (set to `'-'` to not change `DNSMASQ` server settings on start/stop), can be set to `'*'` to affect all `DNSMASQ` instance server settings or have a space-separated list of `DNSMASQ` instances or named sections to affect (like `'0 4 5'` or `'0 backup_dns 5'`). If this option is omitted, the default setting is `'*'`. When the service is set to update the DNSMASQ servers setting on start/stop, it does not override entries which contain either `#` or `/`, so the entries like listed below will be kept in use:
 
 ```test
   list server '/onion/127.0.0.1#65453'
@@ -100,7 +98,7 @@ The https-dns-proxy instance settings are:
 
 ## Thanks
 
-This OpenWrt package wouldn't have been possible without [@aarond10](https://github.com/aarond10)'s [https-dns-proxy](https://github.com/aarond10/https_dns_proxy) and his active participation in the OpenWrt package itself. Special thanks to [@jow-](https://github.com/jow-) for general package/luci guidance.
+This OpenWrt package wouldn't have been possible without [@aarond10](https://github.com/aarond10)'s [https-dns-proxy](https://github.com/aarond10/https_dns_proxy) and his active participation in the OpenWrt package itself. Thanks to [@oldium](https://github.com/oldium) and [@curtdept](https://github.com/curtdept) for their contributions to this package. Special thanks to [@jow-](https://github.com/jow-) for general package/luci guidance.
 
 <!-- markdownlint-disable MD033 -->
 
