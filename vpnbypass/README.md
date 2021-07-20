@@ -1,4 +1,5 @@
 <!-- markdownlint-disable MD013 -->
+
 <!-- markdownlint-disable MD030 -->
 
 # VPN Bypass
@@ -103,4 +104,9 @@ uci commit dhcp
 This feature requires `dnsmasq-full` to work. See the [Requirements](#requirements) section for more details.
 
 <!-- markdownlint-disable MD033 -->
+
 <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "911798f2c34b45338f8f8182830a3eb6"}'></script>
+
+# Thanks
+
+I'd like to thank everyone who helped create, test and troubleshoot this package. I would also like to specifically thank: [T81](https://github.com/T81) for thorough testing and assistance with bugfixing and [vsviridov](https://github.com/vsviridov) and [jow](https://github.com/jow-) for their invaluable contributions in migrating the WebUI for this package to client-side rendering.
