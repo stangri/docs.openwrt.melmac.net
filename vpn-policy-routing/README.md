@@ -754,7 +754,7 @@ Relevant part of `/etc/config/vpn-policy-routing`:
 
 ```text
 config vpn-policy-routing 'config'
-  list supported_interface 'vpnc'
+  list supported_interface 'vpnclient'
   ...
 ```
 
@@ -763,7 +763,7 @@ The recommended network/firewall settings are below.
 Relevant part of `/etc/config/network` (**DO NOT** modify default OpenWrt network settings for neither `wan` nor `lan`):
 
 ```text
-config interface 'vpnc'
+config interface 'vpnclient'
   option proto 'none'
   option ifname 'ovpnc0'
 ```
@@ -772,8 +772,8 @@ Relevant part of `/etc/config/firewall` (**DO NOT** modify default OpenWrt firew
 
 ```text
 config zone
-  option name 'vpnc'
-  option network 'vpnc'
+  option name 'vpnclient'
+  option network 'vpnclient'
   option input 'REJECT'
   option forward 'REJECT'
   option output 'ACCEPT'
@@ -782,7 +782,7 @@ config zone
 
 config forwarding
   option src 'lan'
-  option dest 'vpnc'
+  option dest 'vpnclient'
 ```
 
 If you have a Guest Network, add the following to the `/etc/config/firewall`:
@@ -790,13 +790,13 @@ If you have a Guest Network, add the following to the `/etc/config/firewall`:
 ```text
 config forwarding
   option src 'guest'
-  option dest 'vpnc'
+  option dest 'vpnclient'
 ```
 
 Relevant part of `/etc/config/openvpn` (configure the rest of the client connection for your specifics by either referring to an existing `.ovpn` file or thru the OpenWrt uci settings):
 
 ```text
-config openvpn 'vpnc'
+config openvpn 'vpnclient'
   option enabled '1'
   option client '1'
   option dev_type 'tun'
