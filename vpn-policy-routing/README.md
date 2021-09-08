@@ -872,7 +872,7 @@ Service does not alter the default routing. Depending on your VPN tunnel setting
 
 #### OpenVPN tunnel configured via uci (/etc/config/openvpn)
 
-Set the following to the appropriate section of your `/etc/config/openvpn`:
+To unset an OpenVPN tunnel as default route, set the following to the appropriate section of your `/etc/config/openvpn`:
 
 -   For OpenVPN 2.4 and newer client config:
 
@@ -894,7 +894,7 @@ Set the following to the appropriate section of your `/etc/config/openvpn`:
 
 #### OpenVPN tunnel configured with .ovpn file
 
-Set the following to the appropriate section of your `.ovpn` file:
+To unset an OpenVPN tunnel as default route, set the following to the appropriate section of your `.ovpn` file:
 
 -   For OpenVPN 2.4 and newer client `.ovpn` file:
 
@@ -909,6 +909,8 @@ Set the following to the appropriate section of your `.ovpn` file:
     ```
 
 #### Wireguard tunnel
+
+To unset a Wireguard tunnel as default route, set the following to the appropriate section of your `/etc/config/network`:
 
 -   For your Wireguard (client) config:
 
