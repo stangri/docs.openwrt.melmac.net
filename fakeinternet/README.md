@@ -19,8 +19,8 @@ opkg update; opkg install uhttpd dnsmasq;
 If you want to install `dnsmasq-full`, run the following commands:
 
 ```sh
-opkg update; cd /tmp/; opkg download dnsmasq-full; opkg remove dnsmasq;
-opkg install /tmp/dnsmasq-full*.ipk; rm -f /tmp/dnsmasq-full*.ipk;
+opkg update; cd /tmp/ && opkg download dnsmasq-full; opkg remove dnsmasq;
+opkg install dnsmasq-full --cache /tmp/; rm -f /tmp/dnsmasq-full*.ipk;
 ```
 
 ### Unmet dependencies
