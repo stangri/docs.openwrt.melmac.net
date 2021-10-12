@@ -141,7 +141,8 @@ opkg update; opkg install ipset resolveip ip-full kmod-ipt-ipset iptables
 If you want to use `dnsmasq`'s `ipset` support, you will need to install `dnsmasq-full` instead of the `dnsmasq`. To do that, connect to your router via ssh and run the following command:
 
 ```sh
-opkg update; opkg remove dnsmasq; opkg install dnsmasq-full;
+opkg update; cd /tmp/; opkg download dnsmasq-full; opkg install ipset;
+opkg remove dnsmasq; opkg install /tmp/dnsmasq-full*.ipk; rm -f /tmp/dnsmasq-full*.ipk;
 ```
 
 ### Unmet dependencies

@@ -16,6 +16,13 @@ To satisfy the requirements, connect to your router via ssh and run the followin
 opkg update; opkg install uhttpd dnsmasq;
 ```
 
+If you want to install `dnsmasq-full`, run the following commands:
+
+```sh
+opkg update; cd /tmp/; opkg download dnsmasq-full; opkg remove dnsmasq;
+opkg install /tmp/dnsmasq-full*.ipk; rm -f /tmp/dnsmasq-full*.ipk;
+```
+
 ### Unmet dependencies
 
 If you are running a development (trunk/snapshot) build of OpenWrt on your router and your build is outdated (meaning that packages of the same revision/commit hash are no longer available and when you try to satisfy the [requirements](#requirements) you get errors), please flash either current OpenWrt release image or current development/snapshot image.
@@ -50,4 +57,5 @@ This service hijacks requests to domains listed in the `/etc/config/fakeinternet
 Please head to [OpenWrt Forum](https://forum.openwrt.org/t/fakeinternet-service-package/924/) for discussion of this package.
 
 <!-- markdownlint-disable MD033 -->
+
 <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "911798f2c34b45338f8f8182830a3eb6"}'></script>
