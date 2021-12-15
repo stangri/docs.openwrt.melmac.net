@@ -95,6 +95,10 @@ This package enables Web UI for reboot to another partition functionality on sup
 
 This package brings back the old button styles to the `luci-theme-material` on OpenWrt 18.06.0-rc2 and later. Please see the README at [GitHub](https://docs.openwrt.melmac.net/luci-theme-material-old/)/[jsDelivr](https://cdn.jsdelivr.net/gh/stangri/docs.openwrt.melmac.net/luci-theme-material-old/README.md) for further information.
 
+### pbr & luci-app-pbr
+
+This service can be used to enable policy-based routing for WAN/WAN6 interfaces and multiple VPN tunnels. Supported VPN protocols include: L2TP, Openconnect, OpenVPN, Softether and Wireguard. Policies can be based on domain names, IP addresses, ports or any combination of the above. This service supports policies for both outgoing and incoming traffic to target specific interfaces/tunnels. Please see the README at [GitHub](https://docs.openwrt.melmac.net/pbr/)/[jsDelivr](https://cdn.jsdelivr.net/gh/stangri/docs.openwrt.melmac.net/pbr/README.md) for further information.
+
 ### simple-adblock & luci-app-simple-adblock
 
 This service provides lightweight and very fast dnsmasq-based ad blocking. Please see the README at [GitHub](https://docs.openwrt.melmac.net/simple-adblock/)/[jsDelivr](https://cdn.jsdelivr.net/gh/stangri/docs.openwrt.melmac.net/simple-adblock/README.md) and [OpenWrt Forum Thread](https://forum.openwrt.org/t/simple-adblock-fast-lightweight-and-fully-uci-luci-configurable-ad-blocking/1327) for further information.
@@ -105,11 +109,11 @@ This package enables switching between `Router`, `Access Point` and `Wireless Re
 
 ### vpn-policy-routing & luci-app-vpn-policy-routing
 
-This service can be used to enable policy-based routing for WAN/WAN6 interfaces and multiple VPN tunnels. Supported VPN protocols include: L2TP, Openconnect, OpenVPN and Wireguard. Policies can be based on domain names, IP addresses, ports or any combination of the above. This service supports policies for both outgoing and incoming traffic to target specific interfaces/tunnels. Please see the README at [GitHub](https://docs.openwrt.melmac.net/vpn-policy-routing/)/[jsDelivr](https://cdn.jsdelivr.net/gh/stangri/docs.openwrt.melmac.net/vpn-policy-routing/README.md) and [OpenWrt Forum Thread](https://forum.openwrt.org/t/vpn-policy-based-routing-web-ui-discussion/10389) for further information.
+This service can be used to enable policy-based routing for WAN/WAN6 interfaces and multiple VPN tunnels. Supported VPN protocols include: L2TP, Openconnect, OpenVPN and Wireguard. Policies can be based on domain names, IP addresses, ports or any combination of the above. This service supports policies for both outgoing and incoming traffic to target specific interfaces/tunnels. Please see the README at [GitHub](https://docs.openwrt.melmac.net/vpn-policy-routing/)/[jsDelivr](https://cdn.jsdelivr.net/gh/stangri/docs.openwrt.melmac.net/vpn-policy-routing/README.md) and [OpenWrt Forum Thread](https://forum.openwrt.org/t/vpn-policy-based-routing-web-ui-discussion/10389) for further information. This package has been obsoleted by [pbr](#pbr--luci-app-pbr).
 
 ### vpnbypass & luci-app-vpnbypass
 
-This service can be used to enable split tunneling for outgoing traffic for a single OpenVPN tunnel used as the default gateway. Supports accessing domains, IP ranges outside of your OpenVPN tunnel (bypassing OpenVPN tunnel) over IPv4. Please see the README at [GitHub](https://docs.openwrt.melmac.net/vpnbypass/)/[jsDelivr](https://cdn.jsdelivr.net/gh/stangri/docs.openwrt.melmac.net/vpnbypass/README.md) and [OpenWrt Forum Thread](https://forum.openwrt.org/t/vpn-bypass-split-tunneling-service-luci-ui/1106/12) for further information.
+This service can be used to enable split tunneling for outgoing traffic for a single OpenVPN tunnel used as the default gateway. Supports accessing domains, IP ranges outside of your OpenVPN tunnel (bypassing OpenVPN tunnel) over IPv4. Please see the README at [GitHub](https://docs.openwrt.melmac.net/vpnbypass/)/[jsDelivr](https://cdn.jsdelivr.net/gh/stangri/docs.openwrt.melmac.net/vpnbypass/README.md) and [OpenWrt Forum Thread](https://forum.openwrt.org/t/vpn-bypass-split-tunneling-service-luci-ui/1106/12) for further information. This package has been obsoleted by [pbr](#pbr--luci-app-pbr).
 
 ### wlanblinker & luci-app-wlanblinker
 
