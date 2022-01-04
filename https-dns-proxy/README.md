@@ -43,11 +43,14 @@ By default, the service will intelligently override existing `DNSMASQ` servers s
 
 ## Configuration Settings
 
-Configuration contains the (named) "main" config section where you can configure which `DNSMASQ` settings the service will automatically affect and the typed (unnamed) https-dns-proxy instance settings. The original config file is included below:
+Configuration contains the general (named) "main" config section where you can configure which `DNSMASQ` settings the service will automatically affect and the typed (unnamed) https-dns-proxy instance settings. The original config file is included below:
 
 ```text
 config main 'config'
   option update_dnsmasq_config '*'
+  option force_dns '1'
+  list force_dns_port '53'
+  list force_dns_port '853'
 
 config https-dns-proxy
   option bootstrap_dns '8.8.8.8,8.8.4.4'
@@ -66,6 +69,10 @@ config https-dns-proxy
   option group 'nogroup'
 ```
 
+### General Settings
+
+#### update_dnsmasq_config
+
 The `update_dnsmasq_config` option can be set to dash (set to `'-'` to not change `DNSMASQ` server settings on start/stop), can be set to `'*'` to affect all `DNSMASQ` instance server settings or have a space-separated list of `DNSMASQ` instances or named sections to affect (like `'0 4 5'` or `'0 backup_dns 5'`). If this option is omitted, the default setting is `'*'`. When the service is set to update the DNSMASQ servers setting on start/stop, it does not override entries which contain either `#` or `/`, so the entries like listed below will be kept in use:
 
 ```test
@@ -76,6 +83,12 @@ The `update_dnsmasq_config` option can be set to dash (set to `'-'` to not chang
   list server '127.0.0.1#55353'
   list server '127.0.0.1#65353'
 ```
+
+#### force_dns
+
+The `force_dns` setting is used to force the router's default resolver to all connected devices even if they are set to use other DNS resolvers or if other DNS resolvers are hardcoded in connected devices' settings. You can additionally control which ports the `force_dns` setting should be actvive on, the default values are `53` (regular DNS) and `853` (DNS over TLS). If the listed port is open/active on OpenWrt router, the service will create a `redirect` to the indicated port number, otherwise the service will create a `REJECT` rule.
+
+### Instance Settings
 
 The https-dns-proxy instance settings are:
 
