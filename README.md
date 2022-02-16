@@ -11,20 +11,34 @@ The repository is currently hosted at [GitHub](https://github.com). If you have 
 #### Add Repository (GitHub)
 
 ```sh
-opkg update; if ubus -S call system board | grep -q '15.05'; then opkg install ca-certificates wget libopenssl; else opkg install uclient-fetch libustream-mbedtls ca-bundle ca-certificates; fi
+opkg update
+if ubus -S call system board | grep -q '15.05'; then
+  opkg install ca-certificates wget libopenssl
+elif ubus -S call system board | grep -q '19.07'; then
+  opkg install uclient-fetch libustream-mbedtls ca-bundle ca-certificates
+else
+  opkg install wget-ssl
+fi
 echo -e -n 'untrusted comment: OpenWrt usign key of Stan Grishin\nRWR//HUXxMwMVnx7fESOKO7x8XoW4/dRidJPjt91hAAU2L59mYvHy0Fa\n' > /etc/opkg/keys/7ffc7517c4cc0c56
 sed -i '/stangri_repo/d' /etc/opkg/customfeeds.conf
-! grep -q 'stangri_repo' /etc/opkg/customfeeds.conf && echo 'src/gz stangri_repo https://repo.openwrt.melmac.net' >> /etc/opkg/customfeeds.conf
+echo 'src/gz stangri_repo https://repo.openwrt.melmac.net' >> /etc/opkg/customfeeds.conf
 opkg update
 ```
 
 #### Add Repository (jsDelivr)
 
 ```sh
-opkg update; if ubus -S call system board | grep -q '15.05'; then opkg install ca-certificates wget libopenssl; else opkg install uclient-fetch libustream-mbedtls ca-bundle ca-certificates; fi
-echo -e -n 'untrusted comment: OpenWrt usign key of Stan Grishin\nRWR//HUXxMwMVnx7fESOKO7x8XoW4/dRidJPjt91hAAU2L59mYvHy0Fa\n' > /etc/opkg/keys/7ffc7517c4cc0c56
+opkg update
+if ubus -S call system board | grep -q '15.05'; then
+  opkg install ca-certificates wget libopenssl
+elif ubus -S call system board | grep -q '19.07'; then
+  opkg install uclient-fetch libustream-mbedtls ca-bundle ca-certificates
+else
+  opkg install wget-ssl
+fi
+echo -e -n 'untrusted comment: OpenWrt usign key of Stan Grishin\\nRWR//HUXxMwMVnx7fESOKO7x8XoW4/dRidJPjt91hAAU2L59mYvHy0Fa\\n' > /etc/opkg/keys/7ffc7517c4cc0c56
 sed -i '/stangri_repo/d' /etc/opkg/customfeeds.conf
-! grep -q 'stangri_repo' /etc/opkg/customfeeds.conf && echo 'src/gz stangri_repo https://cdn.jsdelivr.net/gh/stangri/repo.openwrt.melmac.net' >> /etc/opkg/customfeeds.conf
+echo 'src/gz stangri_repo https://cdn.jsdelivr.net/gh/stangri/repo.openwrt.melmac.net' >> /etc/opkg/customfeeds.conf
 opkg update
 ```
 
