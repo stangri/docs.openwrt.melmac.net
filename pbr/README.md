@@ -996,6 +996,7 @@ Unlike the `vpn-policy-routing`, the `pbr` package:
 -   can only make minimal changes on a single interface reload (it does not reload the whole service).
 -   can only reload policies on service reload (it does not reload the network-related parts).
 -   implements the new `secure_reload` option to kill all traffic during the service start/restart/reload.
+-   only supports OpenWrt 21.02 and newer
 
 ### A Word About Migrating from `vpn-policy-routing`
 
