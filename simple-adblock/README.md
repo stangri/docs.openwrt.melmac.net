@@ -64,7 +64,7 @@ In order to actually block the ads, this service requires one of the following D
 If you want to use the [`dnsmasq.ipset` option](#dns-resolution-option) you need to install `ipset` and  `dnsmasq-full` instead of the `dnsmasq`. To do that, connect to your router via ssh and run the following command:
 
 ```sh
-opkg update; cd /tmp/ && opkg download dnsmasq-full; opkg install ipset;
+opkg update; cd /tmp/ && opkg download dnsmasq-full; opkg install ipset libnettle8 libnetfilter-conntrack3;
 opkg remove dnsmasq; opkg install dnsmasq-full --cache /tmp/; rm -f /tmp/dnsmasq-full*.ipk;
 ```
 

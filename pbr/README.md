@@ -98,7 +98,7 @@ On start, this service creates routing tables for each supported interface (WAN/
 
 ### Processing Policies
 
-Each policy can result in either a new `iptables` rule or, if `src_ipset` or `dest_ipset` or `resolver_ipset` are enabled, an `ipset` or a `dnsmasq`'s `ipset` entry.
+Each policy can result in either a new `iptables` rule or, if `src_ipset` or `dest_ipset` or `resolver_ipset` are enabled, a new `iptables` rule and an `ipset` or a `dnsmasq`'s `ipset` entry.
 
 -   Policies with local MAC-addresses, IP addresses or local device names can be created as `iptables` rules or `ipset` entries.
 -   Policies with local or remote ports are always created as `iptables` rules.
@@ -139,7 +139,7 @@ opkg update; opkg install ipset resolveip ip-full kmod-ipt-ipset iptables
 If you want to use `dnsmasq`'s `ipset` support, you will need to install `dnsmasq-full` instead of the `dnsmasq`. To do that, connect to your router via ssh and run the following command:
 
 ```sh
-opkg update; cd /tmp/ && opkg download dnsmasq-full; opkg install ipset;
+opkg update; cd /tmp/ && opkg download dnsmasq-full; opkg install ipset libnettle8 libnetfilter-conntrack3;
 opkg remove dnsmasq; opkg install dnsmasq-full --cache /tmp/; rm -f /tmp/dnsmasq-full*.ipk;
 ```
 

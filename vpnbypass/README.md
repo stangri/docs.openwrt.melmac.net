@@ -29,7 +29,7 @@ This service requires the following packages to be installed on your router: `ip
 To fully satisfy the requirements for both IP/Port VPN Bypass and Domain Bypass features connect via ssh to your router and run the following commands:
 
 ```sh
-opkg update; cd /tmp/ && opkg download dnsmasq-full; opkg install ipset iptables;
+opkg update; cd /tmp/ && opkg download dnsmasq-full; opkg install ipset iptables libnettle8 libnetfilter-conntrack3;
 opkg remove dnsmasq; opkg install dnsmasq-full --cache /tmp/; rm -f /tmp/dnsmasq-full*.ipk;
 ```
 
