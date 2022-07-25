@@ -458,7 +458,7 @@ config vpn-policy-routing 'config'
 config policy
   option name 'Ignore Local Traffic'
   option interface 'ignore'
-  option dest_address '192.168.200.0/24'
+  option dest_addr '192.168.200.0/24'
   ...
 ```
 
@@ -562,7 +562,7 @@ config vpn-policy-routing 'config'
 config policy
   option name 'Ignore Local Traffic'
   option interface 'ignore'
-  option dest_address '192.168.200.0/24'
+  option dest_addr '192.168.200.0/24'
   ...
 ```
 
