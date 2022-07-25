@@ -122,9 +122,11 @@ If you want to use CLI to customize `simple-adblock` config, refer to the [Custo
 
 Once the service is enabled in the [config file](#default-settings), run `/etc/init.d/simple-adblock start` to start the service. Either `/etc/init.d/simple-adblock restart` or `/etc/init.d/simple-adblock reload` will only restart the service and/or re-download the lists if there were relevant changes in the config file since the last successful start. Had the previous start resulted in any error, either `/etc/init.d/simple-adblock start`, `/etc/init.d/simple-adblock restart` or `/etc/init.d/simple-adblock reload` will attempt to re-download the lists.
 
-If you want to force simple-adblock to re-download the lists, run `/etc/init.d/simple-adblock dl`.
+If you want to remove the domain(s) from the current block-list and add domain(s) to the config's allow-list, run `/etc/init.d/simple-adblock allow test-domain.com`.
 
 If you want to check if the specific domain (or part of the domain name) is being blocked, run `/etc/init.d/simple-adblock check test-domain.com`.
+
+If you want to force simple-adblock to re-download the lists, run `/etc/init.d/simple-adblock dl`.
 
 ## Configuration Settings
 
