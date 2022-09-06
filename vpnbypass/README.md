@@ -8,7 +8,7 @@
 
 TLDR: Even tho this package depends on iptables/ipset and dnsmasq support for ipset, it works just fine with recently released OpenWrt 22.03.0. You can safely ignore the warning on the Status -> Firewall page about legacy iptables rules created by this package.
 
-There are plans to transition `pbr` package to nftables when the nft sets support is integrated in OpenWrt's `dnsmasq` package. Until then, the transition is impossible since dnsmasq only supports ipsets and it's recommended and very frequently used feature to enforce proper policies for domains. Please note that both `vpn-policy-routing` and `vpnbypass` packages will not be transitioned to nftables and will become obsolete once OpenWrt's `dnsmasq` package supports nft sets.
+There are plans to transition `pbr` package to nftables when the nft sets support is integrated in OpenWrt's `dnsmasq` package. Until then, the transition is impossible since OpenWrt's `dnsmasq` only supports ipsets and it's a recommended and very frequently used feature to enforce proper policies for domains. Please note that both `vpn-policy-routing` and `vpnbypass` packages will not be transitioned to nftables and will become obsolete once OpenWrt's `dnsmasq` package no longer supports ipset.
 
 ## Description
 
