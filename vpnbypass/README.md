@@ -4,6 +4,12 @@
 
 # VPN Bypass
 
+## Statement about OpenWrt 22.03.0 Release and This Package
+
+TLDR: Even tho this package depends on iptables/ipset and dnsmasq support for ipset, it works just fine with recently released OpenWrt 22.03.0. You can safely ignore the warning on the Status -> Firewall page about legacy iptables rules created by this package.
+
+There are plans to transition `pbr` package to nftables when the nft sets support is integrated in OpenWrt's `dnsmasq` package. Until then, the transition is impossible since dnsmasq only supports ipsets and it's recommended and very frequently used feature to enforce proper policies for domains. Please note that both `vpn-policy-routing` and `vpnbypass` packages will not be transitioned to nftables and will become obsolete once OpenWrt's `dnsmasq` package supports nft sets.
+
 ## Description
 
 A simple [procd](https://openwrt.org/docs/techref/procd)-based `vpnbypass` service for OpenWrt. This is useful if your router accesses Internet through a VPN client/tunnel, but you want specific traffic (ports, IP ranges, domains or local IP ranges) to be routed outside of this tunnel.

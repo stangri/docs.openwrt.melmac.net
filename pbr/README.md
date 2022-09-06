@@ -4,6 +4,12 @@
 
 # Policy-Based Routing
 
+## Statement about OpenWrt 22.03.0 Release and This Package
+
+TLDR: Even tho this package depends on iptables/ipset and dnsmasq support for ipset, it works just fine with recently released OpenWrt 22.03.0. You can safely ignore the warning on the Status -> Firewall page about legacy iptables rules created by this package.
+
+There are plans to transition `pbr` package to nftables when the nft sets support is integrated in OpenWrt's `dnsmasq` package. Until then, the transition is impossible since dnsmasq only supports ipsets and it's recommended and very frequently used feature to enforce proper policies for domains. Please note that both `vpn-policy-routing` and `vpnbypass` packages will not be transitioned to nftables and will become obsolete once OpenWrt's `dnsmasq` package supports nft sets.
+
 ## Description
 
 This service allows you to define rules (policies) for routing traffic via WAN or your L2TP, Openconnect, OpenVPN, PPTP, Softether or Wireguard tunnels. Policies can be set based on any combination of local/remote ports, local/remote IPv4 or IPv6 addresses/subnets or domains. This service supersedes and obsoletes the `VPN Bypass` ([README at GitHub](https://docs.openwrt.melmac.net/vpnbypass/)/[README at jsDelivr](https://cdn.jsdelivr.net/gh/stangri/docs.openwrt.melmac.net/vpnbypass/README.md)) and `VPN Policy Routing` ([README at GitHub](https://docs.openwrt.melmac.net/pbr/)/[README at jsDelivr](https://cdn.jsdelivr.net/gh/stangri/docs.openwrt.melmac.net/pbr/README.md)) services. For information on transition from `vpn-policy-routing` package please read about [differences](#a-word-about-differences-from-vpn-policy-routing) and [migration](#a-word-about-migrating-from-vpn-policy-routing).
