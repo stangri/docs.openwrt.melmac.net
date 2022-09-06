@@ -4,7 +4,7 @@
 
 # Policy-Based Routing
 
-## Statement about OpenWrt 22.03.0 Release and This Package
+## Statement about OpenWrt 22.03.0 release and this package
 
 TLDR: Even tho this package depends on iptables/ipset and dnsmasq support for ipset, it works just fine with recently released OpenWrt 22.03.0. You can safely ignore the warning on the Status -> Firewall page about legacy iptables rules created by this package.
 
