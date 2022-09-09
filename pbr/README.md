@@ -48,9 +48,9 @@ You can also set policies for traffic with specific DSCP tag. On Windows 10, for
 
 ### Custom User Files
 
-If the custom user file includes are set, the service will load and execute them after setting up ip tables and ipsets and processing policies. This allows, for example, to add large numbers of domains/IP addresses to ipsets without manually adding all of them to the config file.
+If the custom user file includes are set, the service will load and execute them after setting up routing and the sets and processing policies. This allows, for example, to add large numbers of domains/IP addresses to ipsets or nft sets without manually adding all of them to the config file.
 
-Two example custom user-files are provided: `/usr/share/pbr/pbr.user.aws` and `/usr/share/pbr/pbr.user.netflix`. They are provided to pull the AWS and Netflix IP addresses into the `pbr_wan_4_dst_ip` set.
+Two example custom user-files are provided: `/usr/share/pbr/pbr.user.aws` and `/usr/share/pbr/pbr.user.netflix`. They are provided to pull the AWS and Netflix IP addresses into the default WAN IPv4 sets the service sets up, indicated in the `TARGET_IPSET` variable at the top of each script.
 
 ### Strict Enforcement
 
@@ -62,12 +62,12 @@ Two example custom user-files are provided: `/usr/share/pbr/pbr.user.aws` and `/
 
 #### Use DNSMASQ ipset Support
 
--   The `pbr-iptables` package can be configured to utilize `dnsmasq`'s `ipset` support, which requires the `dnsmasq-full` package with ipset support to be installed (see [How to install dnsmasq-full](#how-to-install-dnsmasq-full)). This significantly improves the start up time because `dnsmasq` resolves the domain names and adds them to appropriate `ipset` in background. Another benefit of using `dnsmasq`'s `ipset` is that it also automatically adds third-level domains to the `ipset`: if `domain.com` is added to the policy, this policy will affect all `*.domain.com` subdomains. This also works for top-level domains as well, a policy targeting the `at` for example, will affect all the `*.at` domains.
+-   The `pbr-iptables` package can be configured to utilize `dnsmasq`'s `ipset` support, which requires the `dnsmasq-full` package with `ipset` support to be installed (see [How to install dnsmasq-full](#how-to-install-dnsmasq-full)). This significantly improves the start up time because `dnsmasq` resolves the domain names and adds them to appropriate `ipset` in background. Another benefit of using `dnsmasq`'s `ipset` support is that it also automatically adds third-level domains to the `ipset`: if `domain.com` is added to the policy, this policy will affect all `*.domain.com` subdomains. This also works for top-level domains as well, a policy targeting the `at` for example, will affect all the `*.at` domains.
 -   Please review the [Footnotes/Known Issues](#footnotesknown-issues) section, specifically [<sup>#5</sup>](#footnote5) and [<sup>#7</sup>](#footnote7) and any other information in that section relevant to domain-based routing/DNS.
 
 #### Use DNSMASQ nft sets Support
 
--   The `pbr-nftables` package can be configure to utilize `dnsmasq`'s `nft sets` support, which requires the `dnsmasq-full` package with nft sets support to be installed (see [How to install dnsmasq-full](#how-to-install-dnsmasq-full)). This significantly improves the start up time because `dnsmasq` resolves the domain names and adds them to appropriate `ipset` in background. Another benefit of using `dnsmasq`'s `ipset` is that it also automatically adds third-level domains to the `ipset`: if `domain.com` is added to the policy, this policy will affect all `*.domain.com` subdomains. This also works for top-level domains as well, a policy targeting the `at` for example, will affect all the `*.at` domains.
+-   The `pbr-nftables` package can be configure to utilize `dnsmasq`'s `nft` `sets` support, which requires the `dnsmasq-full` package with `nft` `sets` support to be installed (see [How to install dnsmasq-full](#how-to-install-dnsmasq-full)). This significantly improves the start up time because `dnsmasq` resolves the domain names and adds them to appropriate `nft` `set` in background. Another benefit of using `dnsmasq`'s `nft` `set` support is that it also automatically adds third-level domains to the `set`: if `domain.com` is added to the policy, this policy will affect all `*.domain.com` subdomains. This also works for top-level domains as well, a policy targeting the `at` for example, will affect all the `*.at` domains.
 -   Please review the [Footnotes/Known Issues](#footnotesknown-issues) section, specifically [<sup>#5</sup>](#footnote5) and [<sup>#7</sup>](#footnote7) and any other information in that section relevant to domain-based routing/DNS.
 
 ### Customization
@@ -77,7 +77,7 @@ Two example custom user-files are provided: `/usr/share/pbr/pbr.user.aws` and `/
 
 ### Other Features
 
--   Doesn't stay in memory, creates the routing tables and `iptables` rules/`ipset` entries which are automatically updated when supported/monitored interface changes.
+-   Doesn't stay in memory, creates the routing tables and `iptables` rules/`sets` entries which are automatically updated when supported/monitored interface changes.
 -   Proudly made in :maple_leaf: Canada :maple_leaf:, using locally-sourced electrons.
 
 ## Screenshots (luci-app-pbr)
@@ -105,21 +105,35 @@ Custom User File Includes
 
 ## How It Works
 
-On start, this service creates routing tables for each supported interface (WAN/WAN6 and VPN tunnels) which are used to route specially marked packets. For the `mangle` table's `PREROUTING`, `FORWARD`, `INPUT` and `OUTPUT` chains, the service creates corresponding `PBR_*` chains to which policies are assigned. Evaluation and marking of packets happen in these `PBR_*` chains. If enabled, the service also creates the remote/local ipsets per each supported interface and the corresponding `iptables` rule for marking packets matching the `ipset`. The service then processes the user-created policies.
+### How It Works (pbr-iptables)
+
+On start, this service creates routing tables for each supported interface (WAN/WAN6 and VPN tunnels) which are used to route specially marked packets. For the `mangle` table's `PREROUTING`, `FORWARD`, `INPUT` and `OUTPUT` chains, the service creates corresponding `PBR_*` chains to which policies are assigned. Evaluation of packets happens in these `PBR_*` chains after which the packets are sent for marking to the `PBR_MARK*` chains. If enabled, the service also creates the ipsets (and the corresponding `iptables` rule for marking packets matching the `ipset`) for `dest_addr` and `src_addr` entries. The service then processes the user-created policies.
+
+### How It Works (pbr-nftables)
+
+On start, this service creates routing tables for each supported interface (WAN/WAN6 and VPN tunnels) which are used to route specially marked packets. The corresponding hooks for the `prerouting`, `forward`, `input` and `output` chains are created (with the names like `pbr_prerouting`, etc.), to which policies are assigned. Evaluation of packets happens in these `pbr_*` chains after which the packets are sent for marking to the `pbr_mark_*` chains. Whenever possible, the service also creates named sets for `dest_addr` and `src_addr` entries and anonymous sets for `dest_port` and `src_port`. The service then processes the user-created policies.
 
 ### Processing Policies
 
-Each policy can result in either a new `iptables` rule or, if `src_ipset` or `dest_ipset` or `resolver_ipset` are enabled, a new `iptables` rule and an `ipset` or a `dnsmasq`'s `ipset` entry.
+Each policy can result in either a new `iptables` or `nft` rule and possibly an `ipset` or a named `nft` `set` to match `dest_addr` and `src_addr`. Anonymous sets may be created within `nft` rules for `dest_port` and `src_port`.
 
--   Policies with local MAC-addresses, IP addresses or local device names can be created as `iptables` rules or `ipset` entries.
--   Policies with local or remote ports are always created as `iptables` rules.
--   Policies with local or remote netmasks can be created as `iptables` rules or `ipset` entries.
--   Policies with no ports specified can be created as `iptables` rules or `dnsmasq`'s `ipset` or an `ipset` (if enabled).
+#### Processing Policies (pbr-iptables)
+
+-   Policies with the MAC-addresses, IP addresses or local device names in `src_addr` can be created as `iptables` rules or `ipset` entries.
+-   Policies with non-empty `dest_port` and `src_port` are always created as `iptables` rules.
+-   Policies with the netmasks in `dest_addr` or `src_addr` can be created as `iptables` rules or `ipset` entries.
+-   Policies with empty `dest_port` and `src_port` may be created as `iptables` rules or `dnsmasq`'s `ipset` or an `ipset` (if enabled).
+
+#### Processing Policies (pbr-nftables)
+
+-   Policies with the MAC-addresses, IP addresses, netmasks, local device names or domains will result in a rule targeting named `nft` `sets`.
+-   Policies with non-empty `dest_port` and `src_port` will be created with anonymous `nft` `sets` within the rule.
+-   The `dnsmasq` `nftset` entries will be used for domains (if supported and enabled).
 
 ### Policies Priorities
 
 -   The policy priority is the same as its order as listed in Web UI and `/etc/config/pbr`. The higher the policy is in the Web UI and configuration file, the higher its priority is.
--   If set, the `DSCP` policies trump all other policies.
+-   If set, the `DSCP` policies is set up first when creating the interface routing.
 -   If enabled, it is highly recommended that the policies with `IGNORE` target are at the top of the policies list.
 
 ## How To Install
@@ -137,13 +151,7 @@ These packages have been designed to be work on OpenWrt 21.02 and newer.
 
 ### Requirements
 
-This service requires the following packages to be installed on your router: `ipset`, `resolveip`, `ip-full` (or a `busybox` built with `ip` support), `kmod-ipt-ipset` and `iptables`.
-
-To satisfy the requirements, connect to your router via ssh and run the following commands:
-
-```sh
-opkg update; opkg install ipset resolveip ip-full kmod-ipt-ipset iptables
-```
+Depending on the package flavour, some packages may need to be installed on your router.
 
 #### Requirements (pbr-iptables)
 
@@ -216,7 +224,7 @@ Default configuration has service disabled (use Web UI to enable/start service o
 
 Each policy may have a combination of the options below, the `name` and `interface`  options are required.
 
-The `src_addr`, `src_port`, `dest_addr` and `dest_port` options supports parameter negation, for example if you want to **exclude** remote port 80 from the policy, set `dest_port="!80"` (notice lack of space between `!` and parameter).
+The `src_addr`, `src_port`, `dest_addr` and `dest_port` options supports parameter negation, for example if you want to **exclude** remote port 80 from the policy, set `dest_port` to `"!80"` (notice lack of space between `!` and parameter).
 
 | Option        | Default    | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
 | ------------- | ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
