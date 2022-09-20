@@ -8,7 +8,7 @@
 
 TLDR: Even tho this package depends on iptables/ipset and dnsmasq support for ipset, it works just fine with recently released OpenWrt 22.03.0. You can safely ignore the warning on the Status -> Firewall page about legacy iptables rules created by this package.
 
-There are now two packages of `pbr` available: `pbr-iptables` if you want to use iptables/ipset/dnsmasq.ipset options and `pbr-nftables` which supports nft (but because OpenWrt's `dnsmasq` doesn't support nft sets yet, you can't use `dnsmasq` to resolve domain names from policies). Please note that both `vpn-policy-routing` and `vpnbypass` packages will not be transitioned to nftables and will become obsolete once OpenWrt's `dnsmasq` package no longer supports ipset.
+The `vpnbypass` has been superceeded by the new package called [`pbr`](https://docs.openwrt.melmac.net/pbr/) and there are now two versions of `pbr` available: `pbr-iptables` if you want to use iptables/ipset/dnsmasq.ipset options and `pbr-nftables` which supports nft (but because OpenWrt's `dnsmasq` doesn't support nft sets yet, you can't use `dnsmasq` to resolve domain names from policies). Please note that `vpnbypass` will not be transitioned to nftables and will become obsolete once OpenWrt's `dnsmasq` package no longer supports ipset.
 
 ## Description
 

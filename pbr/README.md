@@ -6,9 +6,27 @@
 
 ## Statement about OpenWrt 22.03.0 release and this package
 
-TLDR: Even tho this package depends on iptables/ipset and dnsmasq support for ipset, it works just fine with recently released OpenWrt 22.03.0. You can safely ignore the warning on the Status -> Firewall page about legacy iptables rules created by this package.
+There are now two packages of this service available:
 
-There are now two packages of `pbr` available: `pbr-iptables` if you want to use iptables/ipset/dnsmasq.ipset options and `pbr-nftables` which supports nft (but because OpenWrt's `dnsmasq` doesn't support nft sets yet, you can't use `dnsmasq` to resolve domain names from policies). Please note that both `vpn-policy-routing` and `vpnbypass` packages will not be transitioned to nftables and will become obsolete once OpenWrt's `dnsmasq` package no longer supports ipset.
+-   `pbr-iptables` which supports fw3, iptables, ipset and `dnsmasq.ipset` option
+-   `pbr` which supports fw4, nft, nft sets and `dnsmasq.nftset` option (but because OpenWrt's `dnsmasq` doesn't support nft sets yet, you can't use `dnsmasq` to resolve domain names from policies) as well as fw3, iptables, ipset and `dnsmasq.ipset` option.
+
+Both packages install the same init script (what you actually run when you invoke `service pbr ...` or `/etc/init.d/pbr ...`), however both packages install some specific files and `pbr` can run in either `nft` or `iptables`/`ipset` mode, whereas `pbr-iptables` can only run in `iptables`/`ipset` mode.
+
+The package-specific files that `pbr-iptables` installs are:
+
+-   the `/etc/config/pbr` file with the `resolver_set` set to `dnsmasq.ipset`
+
+The package-specific files that `pbr` installs are:
+
+-   the `/etc/config/pbr` file with the `resolver_set` set to `none` (will be switched to `dnsmasq.nftset` when OpenWrt's `dnsmasq` supports it)
+-   the `fw4`-specific `nft` scripts (installed into `/usr/share/nftables.d/`) to set up default service chains as part of the fw4 start/restart/reload processes
+
+The `pbr` decides wherver to use `iptables`/`ipset` mode or `nft` mode on run time. If the `nft` binary is available, the `resolver_set` is not set to `dnsmasq.ipset` and a main `pbr_prerouting` chain has been created by the `fw4`-specific `nft` script, it runs in the `nft` mode, otherwise it runs in the `iptables`/`ipset` mode.
+
+Each package of the service has its own dependencies, so only `pbr-iptables` can be installed on OpenWrt 21.02 and earlier, but either `pbr` or `pbr-iptables` can be installed on OpenWrt 22.03. It is recommended to install `pbr` on OpenWrt 22.03 and (if needed), change `resolver_set` option to `dnsmasq.ipset` to [use dnsmasq ipset support](#use-dnsmasq-ipset-support) and force `iptables`/`ipset` mode.
+
+Both `pbr-iptables` and `pbr` in `iptables`/`ipset` mode work just fine with recently released OpenWrt 22.03.0. You can safely ignore the warning on the Status -> Firewall page about legacy iptables rules created by either package.
 
 ## Description
 
@@ -62,12 +80,12 @@ Two example custom user-files are provided: `/usr/share/pbr/pbr.user.aws` and `/
 
 #### Use DNSMASQ ipset Support
 
--   The `pbr-iptables` package can be configured to utilize `dnsmasq`'s `ipset` support, which requires the `dnsmasq-full` package with `ipset` support to be installed (see [How to install dnsmasq-full](#how-to-install-dnsmasq-full)). This significantly improves the start up time because `dnsmasq` resolves the domain names and adds them to appropriate `ipset` in background. Another benefit of using `dnsmasq`'s `ipset` support is that it also automatically adds third-level domains to the `ipset`: if `domain.com` is added to the policy, this policy will affect all `*.domain.com` subdomains. This also works for top-level domains as well, a policy targeting the `at` for example, will affect all the `*.at` domains.
+-   Either version of the service package can be configured to utilize `dnsmasq`'s `ipset` support, which requires the `dnsmasq-full` package with `ipset` support to be installed (see [How to install dnsmasq-full](#how-to-install-dnsmasq-full)). This significantly improves the start up time because `dnsmasq` resolves the domain names and adds them to appropriate `ipset` in background. Another benefit of using `dnsmasq`'s `ipset` support is that it also automatically adds third-level domains to the `ipset`: if `domain.com` is added to the policy, this policy will affect all `*.domain.com` subdomains. This also works for top-level domains as well, a policy targeting the `at` for example, will affect all the `*.at` domains.
 -   Please review the [Footnotes/Known Issues](#footnotesknown-issues) section, specifically [<sup>#5</sup>](#footnote5) and [<sup>#7</sup>](#footnote7) and any other information in that section relevant to domain-based routing/DNS.
 
 #### Use DNSMASQ nft sets Support
 
--   The `pbr-nftables` package can be configure to utilize `dnsmasq`'s `nft` `sets` support, which requires the `dnsmasq-full` package with `nft` `sets` support to be installed (see [How to install dnsmasq-full](#how-to-install-dnsmasq-full)). This significantly improves the start up time because `dnsmasq` resolves the domain names and adds them to appropriate `nft` `set` in background. Another benefit of using `dnsmasq`'s `nft` `set` support is that it also automatically adds third-level domains to the `set`: if `domain.com` is added to the policy, this policy will affect all `*.domain.com` subdomains. This also works for top-level domains as well, a policy targeting the `at` for example, will affect all the `*.at` domains.
+-   The `pbr` package can be configure to utilize `dnsmasq`'s `nft` `sets` support, which requires the `dnsmasq-full` package with `nft` `sets` support to be installed (see [How to install dnsmasq-full](#how-to-install-dnsmasq-full)). This significantly improves the start up time because `dnsmasq` resolves the domain names and adds them to appropriate `nft` `set` in background. Another benefit of using `dnsmasq`'s `nft` `set` support is that it also automatically adds third-level domains to the `set`: if `domain.com` is added to the policy, this policy will affect all `*.domain.com` subdomains. This also works for top-level domains as well, a policy targeting the `at` for example, will affect all the `*.at` domains.
 -   Please review the [Footnotes/Known Issues](#footnotesknown-issues) section, specifically [<sup>#5</sup>](#footnote5) and [<sup>#7</sup>](#footnote7) and any other information in that section relevant to domain-based routing/DNS.
 
 ### Customization
@@ -105,26 +123,26 @@ Custom User File Includes
 
 ## How It Works
 
-### How It Works (pbr-iptables)
+### How It Works (`iptables`/`ipset` mode)
 
 On start, this service creates routing tables for each supported interface (WAN/WAN6 and VPN tunnels) which are used to route specially marked packets. For the `mangle` table's `PREROUTING`, `FORWARD`, `INPUT` and `OUTPUT` chains, the service creates corresponding `PBR_*` chains to which policies are assigned. Evaluation of packets happens in these `PBR_*` chains after which the packets are sent for marking to the `PBR_MARK*` chains. If enabled, the service also creates the ipsets (and the corresponding `iptables` rule for marking packets matching the `ipset`) for `dest_addr` and `src_addr` entries. The service then processes the user-created policies.
 
-### How It Works (pbr-nftables)
+### How It Works (`nft` mode)
 
-On start, this service creates routing tables for each supported interface (WAN/WAN6 and VPN tunnels) which are used to route specially marked packets. The corresponding hooks for the `prerouting`, `forward`, `input` and `output` chains are created (with the names like `pbr_prerouting`, etc.), to which policies are assigned. Evaluation of packets happens in these `pbr_*` chains after which the packets are sent for marking to the `pbr_mark_*` chains. Whenever possible, the service also creates named sets for `dest_addr` and `src_addr` entries and anonymous sets for `dest_port` and `src_port`. The service then processes the user-created policies.
+On start, this service creates routing tables for each supported interface (WAN/WAN6 and VPN tunnels) which are used to route specially marked packets. Rules for the policies are created in the service-specific chains set up by the `fw4`-specific `nft` scripts installed with the package. Evaluation of packets happens in these `pbr_*` chains after which the packets are sent for marking to the `pbr_mark_*` chains. Whenever possible, the service also creates named sets for `dest_addr` and `src_addr` entries and anonymous sets for `dest_port` and `src_port`. The service then processes the user-created policies.
 
 ### Processing Policies
 
 Each policy can result in either a new `iptables` or `nft` rule and possibly an `ipset` or a named `nft` `set` to match `dest_addr` and `src_addr`. Anonymous sets may be created within `nft` rules for `dest_port` and `src_port`.
 
-#### Processing Policies (pbr-iptables)
+#### Processing Policies (`iptables`/`ipset` mode)
 
 -   Policies with the MAC-addresses, IP addresses or local device names in `src_addr` can be created as `iptables` rules or `ipset` entries.
 -   Policies with non-empty `dest_port` and `src_port` are always created as `iptables` rules.
 -   Policies with the netmasks in `dest_addr` or `src_addr` can be created as `iptables` rules or `ipset` entries.
 -   Policies with empty `dest_port` and `src_port` may be created as `iptables` rules or `dnsmasq`'s `ipset` or an `ipset` (if enabled).
 
-#### Processing Policies (pbr-nftables)
+#### Processing Policies ('nft' mode)
 
 -   Policies with the MAC-addresses, IP addresses, netmasks, local device names or domains will result in a rule targeting named `nft` `sets`.
 -   Policies with non-empty `dest_port` and `src_port` will be created with anonymous `nft` `sets` within the rule.
@@ -163,9 +181,9 @@ To satisfy the requirements, connect to your router via ssh and run the followin
 opkg update; opkg install ipset resolveip ip-full kmod-ipt-ipset iptables
 ```
 
-#### Requirements (pbr-nftables)
+#### Requirements (pbr)
 
-Default builds of OpenWrt 22.03.0 and later are fully compatible with `pbr-nftables` and require no additional packages. If you're using a non-standard build, you may have to install the following packages to be installed on your router: `resolveip`, `ip-full` (or a `busybox` built with `ip` support).
+Default builds of OpenWrt 22.03.0 and later are fully compatible with `pbr` and require no additional packages. If you're using a non-standard build, you may have to install the following packages to be installed on your router: `resolveip`, `ip-full` (or a `busybox` built with `ip` support).
 
 To satisfy the requirements, connect to your router via ssh and run the following commands:
 
