@@ -14,7 +14,7 @@ A lean RFC8484-compatible (no JSON API support) DNS-over-HTTPS (DoH) proxy servi
 -   Compact size.
 -   Web UI (`luci-app-https-dns-proxy`) available.
 -   (By default) automatically updates DNSMASQ settings to use DoH proxy when it's started and reverts to old DNSMASQ resolvers when DoH proxy is stopped.
--   (By default) automatically adds records for [canary domain(s)](https://support.mozilla.org/en-US/kb/canary-domain-use-application-dnsnet) upon start and removes them upon service stop.
+-   (By default) automatically adds records for canary domains[<sup>1</sup>](https://support.mozilla.org/en-US/kb/canary-domain-use-application-dnsnet)<sup>,</sup>[<sup>2</sup>](https://developer.apple.com/support/prepare-your-network-for-icloud-private-relay) upon start and removes them upon service stop.
 
 ## Screenshots (luci-app-https-dns-proxy)
 
