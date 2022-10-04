@@ -142,7 +142,7 @@ Each policy can result in either a new `iptables` or `nft` rule and possibly an 
 -   Policies with the netmasks in `dest_addr` or `src_addr` can be created as `iptables` rules or `ipset` entries.
 -   Policies with empty `dest_port` and `src_port` may be created as `iptables` rules or `dnsmasq`'s `ipset` or an `ipset` (if enabled).
 
-#### Processing Policies ('nft' mode)
+#### Processing Policies (`nft` mode)
 
 -   Policies with the MAC-addresses, IP addresses, netmasks, local device names or domains will result in a rule targeting named `nft` `sets`.
 -   Policies with non-empty `dest_port` and `src_port` will be created with anonymous `nft` `sets` within the rule.
