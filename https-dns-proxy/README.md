@@ -49,6 +49,8 @@ Configuration contains the general (named) "main" config section where you can c
 ```text
 config main 'config'
   option update_dnsmasq_config '*'
+  option canary_domains_icloud '1'
+  option canary_domains_mozilla '1'
   option force_dns '1'
   list force_dns_port '53'
   list force_dns_port '853'
@@ -85,9 +87,17 @@ The `update_dnsmasq_config` option can be set to dash (set to `'-'` to not chang
   list server '127.0.0.1#65353'
 ```
 
+### canary_domains_icloud
+
+This setting enables router to block requests to iCloud Private Relay canary domains, indicating that the local device should use the router's dns resolution (encrypted with `https-dns-proxy`) instead of the encrypted/proprietary iCloud Private Relay resolvers. This is set to `1` (enabled) by default.
+
+### canary_domains_mozilla
+
+This setting enables router to block requests to Mozilla canary domains, indicating that the local device should use the router's dns resolution (encrypted with `https-dns-proxy`) instead of the encrypted Mozilla resolvers. This is set to `1` (enabled) by default.
+
 #### force_dns
 
-The `force_dns` setting is used to force the router's default resolver to all connected devices even if they are set to use other DNS resolvers or if other DNS resolvers are hardcoded in connected devices' settings. You can additionally control which ports the `force_dns` setting should be actvive on, the default values are `53` (regular DNS) and `853` (DNS over TLS). If the listed port is open/active on OpenWrt router, the service will create a `redirect` to the indicated port number, otherwise the service will create a `REJECT` rule.
+The `force_dns` setting is used to force the router's default resolver to all connected devices even if they are set to use other DNS resolvers or if other DNS resolvers are hardcoded in connected devices' settings. You can additionally control which ports the `force_dns` setting should be actvive on, the default values are `53` (regular DNS) and `853` (DNS over TLS). If the listed port is open/active on OpenWrt router, the service will create a `redirect` to the indicated port number, otherwise the service will create a `REJECT` rule. The intention for `REJECT` is that if the encrypted DNS requests has failed for your local device, it will fall-back on an unencrypted DNS request which will be then intercepted by the router and sent to the https-dns-proxy service. This is set to `1` (enabled) by default.
 
 ### Instance Settings
 
