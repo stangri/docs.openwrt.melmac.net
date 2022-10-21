@@ -165,7 +165,16 @@ opkg install pbr luci-app-pbr
 
 If these packages are not found in the official feed/repo for your version of OpenWrt, you will need to add a custom repo to your router following instructions on [GitHub](https://docs.openwrt.melmac.net/#on-your-router)/[jsDelivr](https://cdn.jsdelivr.net/gh/stangri/docs.openwrt.melmac.net/README.md#on-your-router) first.
 
-These packages have been designed to be work on OpenWrt 21.02 and newer.
+These packages have been designed to be work on OpenWrt 22.03 and newer.
+
+### How to install dnsmasq-full
+
+If you want to use `dnsmasq`'s `ipset` support, you will need to install `dnsmasq-full` instead of the `dnsmasq`. To do that, connect to your router via ssh and run the following command:
+
+```sh
+opkg update; cd /tmp/ && opkg download dnsmasq-full; opkg install ipset libnettle8 libnetfilter-conntrack3 iptables kmod-ipt-ipset iptables-mod-ipopt;
+opkg remove dnsmasq; opkg install dnsmasq-full --cache /tmp/; rm -f /tmp/dnsmasq-full*.ipk;
+```
 
 ### Requirements
 
