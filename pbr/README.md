@@ -25,7 +25,7 @@ The package-specific files that `pbr` installs are:
 
 The `pbr` decides wherver to use `iptables`/`ipset` mode or `nft` mode on run time. If the `nft` binary is available, the `resolver_set` is not set to `dnsmasq.ipset` and a main `pbr_prerouting` chain has been created by the `fw4`-specific `nft` script, it runs in the `nft` mode, otherwise it runs in the `iptables`/`ipset` mode.
 
-Each package of the service has its own dependencies, so only `pbr-iptables` can be installed on OpenWrt 21.02 and earlier, but either `pbr` or `pbr-iptables` can be installed on OpenWrt 22.03. It is recommended to install `pbr` on OpenWrt 22.03 and if you want to use [use dnsmasq ipset support](#use-dnsmasq-ipset-support), [install dnsmasq-full](#how-to-install-dnsmasq-full), [install legacy iptables/ipset packages](@how-to-install-legacy-iptables_ipset-packages) and then change `resolver_set` option to `dnsmasq.ipset` to force `iptables`/`ipset` mode.
+Each package of the service has its own dependencies, so only `pbr-iptables` can be installed on OpenWrt 21.02 and earlier, but either `pbr` or `pbr-iptables` can be installed on OpenWrt 22.03. It is recommended to install `pbr` on OpenWrt 22.03 and if you want to use [use dnsmasq ipset support](#use-dnsmasq-ipset-support), [install dnsmasq-full](#how-to-install-dnsmasq-full), also [install legacy iptables/ipset packages](#how-to-install-legacy-iptablesipset-packages) and then change `resolver_set` option to `dnsmasq.ipset` to force `iptables`/`ipset` mode.
 
 Both `pbr-iptables` and `pbr` in `iptables`/`ipset` mode work just fine with recently released OpenWrt 22.03.0. You can safely ignore the warning on the Status -> Firewall page about legacy iptables rules created by either package.
 
@@ -194,7 +194,7 @@ opkg update; opkg install resolveip ip-full
 
 ### How to install dnsmasq-full
 
-If you want to use `dnsmasq`'s `ipset` or `nftset` support, you will need to install `dnsmasq-full` instead of the `dnsmasq`. To do that, connect to your router via ssh and run the following commands:
+If you want to use `dnsmasq`'s `ipset` or `nft` `sets` support, you will need to install `dnsmasq-full` instead of the `dnsmasq`. To do that, connect to your router via ssh and run the following commands:
 
 ```sh
 opkg update
