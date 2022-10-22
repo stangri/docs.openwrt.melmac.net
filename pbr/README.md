@@ -16,6 +16,7 @@ Both packages install the same init script (what you actually run when you invok
 The package-specific files that `pbr-iptables` installs are:
 
 -   the `/etc/config/pbr` file with the `resolver_set` set to `dnsmasq.ipset`
+-   legacy iptables/ipset packages
 
 The package-specific files that `pbr` installs are:
 
@@ -24,7 +25,7 @@ The package-specific files that `pbr` installs are:
 
 The `pbr` decides wherver to use `iptables`/`ipset` mode or `nft` mode on run time. If the `nft` binary is available, the `resolver_set` is not set to `dnsmasq.ipset` and a main `pbr_prerouting` chain has been created by the `fw4`-specific `nft` script, it runs in the `nft` mode, otherwise it runs in the `iptables`/`ipset` mode.
 
-Each package of the service has its own dependencies, so only `pbr-iptables` can be installed on OpenWrt 21.02 and earlier, but either `pbr` or `pbr-iptables` can be installed on OpenWrt 22.03. It is recommended to install `pbr` on OpenWrt 22.03 and (if needed), change `resolver_set` option to `dnsmasq.ipset` to [use dnsmasq ipset support](#use-dnsmasq-ipset-support) and force `iptables`/`ipset` mode.
+Each package of the service has its own dependencies, so only `pbr-iptables` can be installed on OpenWrt 21.02 and earlier, but either `pbr` or `pbr-iptables` can be installed on OpenWrt 22.03. It is recommended to install `pbr` on OpenWrt 22.03 and if you want to use [use dnsmasq ipset support](#use-dnsmasq-ipset-support), [install dnsmasq-full](#how-to-install-dnsmasq-full), [install legacy iptables/ipset packages](@how-to-install-legacy-iptables_ipset-packages) and then change `resolver_set` option to `dnsmasq.ipset` to force `iptables`/`ipset` mode.
 
 Both `pbr-iptables` and `pbr` in `iptables`/`ipset` mode work just fine with recently released OpenWrt 22.03.0. You can safely ignore the warning on the Status -> Firewall page about legacy iptables rules created by either package.
 
@@ -167,15 +168,6 @@ If these packages are not found in the official feed/repo for your version of Op
 
 These packages have been designed to be work on OpenWrt 22.03 and newer.
 
-### How to install dnsmasq-full
-
-If you want to use `dnsmasq`'s `ipset` support, you will need to install `dnsmasq-full` instead of the `dnsmasq`. To do that, connect to your router via ssh and run the following command:
-
-```sh
-opkg update; cd /tmp/ && opkg download dnsmasq-full; opkg install ipset libnettle8 libnetfilter-conntrack3 iptables kmod-ipt-ipset iptables-mod-ipopt;
-opkg remove dnsmasq; opkg install dnsmasq-full --cache /tmp/; rm -f /tmp/dnsmasq-full*.ipk;
-```
-
 ### Requirements
 
 Depending on the package flavour, some packages may need to be installed on your router.
@@ -202,12 +194,26 @@ opkg update; opkg install resolveip ip-full
 
 ### How to install dnsmasq-full
 
-If you want to use `dnsmasq`'s set support, you will need to install `dnsmasq-full` instead of the `dnsmasq`. To do that, connect to your router via ssh and run the following command:
+If you want to use `dnsmasq`'s `ipset` or `nftset` support, you will need to install `dnsmasq-full` instead of the `dnsmasq`. To do that, connect to your router via ssh and run the following commands:
 
 ```sh
-opkg update; cd /tmp/ && opkg download dnsmasq-full; opkg install ipset libnettle8 libnetfilter-conntrack3;
-opkg remove dnsmasq; opkg install dnsmasq-full --cache /tmp/; rm -f /tmp/dnsmasq-full*.ipk;
+opkg update
+cd /tmp/ && opkg download dnsmasq-full
+opkg remove dnsmasq
+opkg install dnsmasq-full --cache /tmp/
+rm -f /tmp/dnsmasq-full*.ipk
 ```
+
+### How to install legacy iptables/ipset packages
+
+If you install `pbr` (and not the `pbr-iptables`, which brings all necessary legacy dependencies), but want to use `pbr` in `iptables` mode on OpenWrt 22.03, you will need to connect to your router via ssh and run the following commands:
+
+```sh
+opkg update
+opkg install ipset libnettle8 libnetfilter-conntrack3 iptables kmod-ipt-ipset iptables-mod-ipopt
+```
+
+If you want to use `dnsmasq`'s `ipset` support, you will need to install [`dnsmasq-full` instead of the `dnsmasq`](#how-to-install-dnsmasq-full).
 
 ### Unmet dependencies
 
