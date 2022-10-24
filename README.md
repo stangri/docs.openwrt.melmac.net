@@ -111,7 +111,7 @@ This package brings back the old button styles to the `luci-theme-material` on O
 
 ### pbr & luci-app-pbr
 
-This service can be used to enable policy-based routing for WAN/WAN6 interfaces and multiple VPN tunnels. Supported VPN protocols include: L2TP, Openconnect, OpenVPN, Softether and Wireguard. Policies can be based on domain names, IP addresses, ports or any combination of the above. This service supports policies for both outgoing and incoming traffic to target specific interfaces/tunnels. Please see the README at [GitHub](https://docs.openwrt.melmac.net/pbr/)/[jsDelivr](https://cdn.jsdelivr.net/gh/stangri/docs.openwrt.melmac.net/pbr/README.md) for further information.
+This service can be used to enable policy-based routing for WAN/WAN6 interfaces and multiple VPN tunnels. Supported VPN protocols include: L2TP, Openconnect, OpenVPN, Softether and Wireguard. Policies can be based on domain names, IP addresses, ports or any combination of the above. This service supports policies for both outgoing and incoming traffic to target specific interfaces/tunnels. Please see the README at [GitHub](https://docs.openwrt.melmac.net/pbr/)/[jsDelivr](https://cdn.jsdelivr.net/gh/stangri/docs.openwrt.melmac.net/pbr/README.md) and [OpenWrt Forum Thread](https://forum.openwrt.org/t/policy-based-routing-pbr-package-discussion/140639/1) for further information.
 
 ### simple-adblock & luci-app-simple-adblock
 

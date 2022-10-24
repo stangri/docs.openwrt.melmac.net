@@ -157,14 +157,25 @@ Each policy can result in either a new `iptables` or `nft` rule and possibly an 
 
 ## How To Install
 
-Please make sure that the [requirements](#requirements) are satisfied and install `pbr` and `luci-app-pbr` from Web UI or connect to your router via ssh and run the following commands:
+Until I send the requests to have this package (and accompanying WebUI package) to be included in the official OpenWrt 22.03 repo (or if you want to use the package on an unsupported older OpenWrt version), you will need to add my repo to your router following instructions at the [How to Use Section of repo documentation](https://docs.openwrt.melmac.net/#how-to-use).
+
+Then, please make sure that the [requirements](#requirements) are satisfied and install `pbr` and `luci-app-pbr` from Web UI or connect to your router via ssh and run the following commands:
+
+On OpenWrt 22.03 and newer:
 
 ```sh
 opkg update
 opkg install pbr luci-app-pbr
 ```
 
-If these packages are not found in the official feed/repo for your version of OpenWrt, you will need to add a custom repo to your router following instructions on [GitHub](https://docs.openwrt.melmac.net/#on-your-router)/[jsDelivr](https://cdn.jsdelivr.net/gh/stangri/docs.openwrt.melmac.net/README.md#on-your-router) first.
+On OpenWrt 21.02 and older (not tested/supported):
+
+```sh
+opkg update
+opkg install pbr-iptables luci-app-pbr
+```
+
+Again, until these packages are found in the official feed/repo for your version of OpenWrt, you will need to add a custom repo to your router following instructions on [GitHub](https://docs.openwrt.melmac.net/#on-your-router)/[jsDelivr](https://cdn.jsdelivr.net/gh/stangri/docs.openwrt.melmac.net/README.md#on-your-router) first.
 
 These packages have been designed to be work on OpenWrt 22.03 and newer.
 
