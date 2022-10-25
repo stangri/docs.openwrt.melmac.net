@@ -48,7 +48,7 @@ Configuration contains the general (named) "main" config section where you can c
 
 ```text
 config main 'config'
-  option update_dnsmasq_config '*'
+  option dnsmasq_config_update '*'
   option canary_domains_icloud '1'
   option canary_domains_mozilla '1'
   option force_dns '1'
@@ -74,9 +74,17 @@ config https-dns-proxy
 
 ### General Settings
 
-#### update_dnsmasq_config
+#### canary_domains_icloud
 
-The `update_dnsmasq_config` option can be set to dash (set to `'-'` to not change `DNSMASQ` server settings on start/stop), can be set to `'*'` to affect all `DNSMASQ` instance server settings or have a space-separated list of `DNSMASQ` instances or named sections to affect (like `'0 4 5'` or `'0 backup_dns 5'`). If this option is omitted, the default setting is `'*'`. When the service is set to update the DNSMASQ servers setting on start/stop, it does not override entries which contain either `#` or `/`, so the entries like listed below will be kept in use:
+This setting enables router to block requests to iCloud Private Relay canary domains, indicating that the local device should use the router's dns resolution (encrypted with `https-dns-proxy`) instead of the encrypted/proprietary iCloud Private Relay resolvers. This is set to `1` (enabled) by default. Shown in WebUI and processed only if `force_dns` is also set to 1.
+
+#### canary_domains_mozilla
+
+This setting enables router to block requests to Mozilla canary domains, indicating that the local device should use the router's dns resolution (encrypted with `https-dns-proxy`) instead of the encrypted Mozilla resolvers. This is set to `1` (enabled) by default. Shown in WebUI and processed only if `force_dns` is also set to 1.
+
+#### dnsmasq_config_update
+
+The `dnsmasq_config_update` option can be set to dash (set to `'-'` to not change `DNSMASQ` server settings on start/stop), can be set to `'*'` to affect all `DNSMASQ` instance server settings or have a space-separated list of `DNSMASQ` instances or named sections to affect (like `'0 4 5'` or `'0 backup_dns 5'`). If this option is omitted, the default setting is `'*'`. When the service is set to update the DNSMASQ servers setting on start/stop, it does not override entries which contain either `#` or `/`, so the entries like listed below will be kept in use:
 
 ```test
   list server '/onion/127.0.0.1#65453'
@@ -87,17 +95,13 @@ The `update_dnsmasq_config` option can be set to dash (set to `'-'` to not chang
   list server '127.0.0.1#65353'
 ```
 
-### canary_domains_icloud
-
-This setting enables router to block requests to iCloud Private Relay canary domains, indicating that the local device should use the router's dns resolution (encrypted with `https-dns-proxy`) instead of the encrypted/proprietary iCloud Private Relay resolvers. This is set to `1` (enabled) by default. Shown in WebUI and processed only if `force_dns` is also set to 1.
-
-### canary_domains_mozilla
-
-This setting enables router to block requests to Mozilla canary domains, indicating that the local device should use the router's dns resolution (encrypted with `https-dns-proxy`) instead of the encrypted Mozilla resolvers. This is set to `1` (enabled) by default. Shown in WebUI and processed only if `force_dns` is also set to 1.
-
 #### force_dns
 
 The `force_dns` setting is used to force the router's default resolver to all connected devices even if they are set to use other DNS resolvers or if other DNS resolvers are hardcoded in connected devices' settings. You can additionally control which ports the `force_dns` setting should be actvive on, the default values are `53` (regular DNS) and `853` (DNS over TLS). If the listed port is open/active on OpenWrt router, the service will create a `redirect` to the indicated port number, otherwise the service will create a `REJECT` rule. The intention for `REJECT` is that if the encrypted DNS requests has failed for your local device, it will fall-back on an unencrypted DNS request which will be then intercepted by the router and sent to the https-dns-proxy service. This is set to `1` (enabled) by default.
+
+#### procd_trigger_wan6
+
+The service is restarted on WAN interface updates. As [OpenWrt may have floods of WAN6 updates](https://github.com/openwrt/openwrt/issues/5723#issuecomment-1040233237), the workaround for having the service restarted (and cause two `dnsmasq` restarts in turn) was to implement the `procd_trigger_wan6` boolean option (set to '0' as default) to enable/disable service restarts to be triggered by the WAN6 updates.
 
 ### Instance Settings
 
