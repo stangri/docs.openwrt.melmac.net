@@ -126,7 +126,7 @@ Custom User File Includes
 
 ### How It Works (`iptables`/`ipset` mode)
 
-On start, this service creates routing tables for each supported interface (WAN/WAN6 and VPN tunnels) which are used to route specially marked packets. For the `mangle` table's `PREROUTING`, `FORWARD`, `INPUT` and `OUTPUT` chains, the service creates corresponding `PBR_*` chains to which policies are assigned. Evaluation of packets happens in these `PBR_*` chains after which the packets are sent for marking to the `PBR_MARK*` chains. If enabled, the service also creates the ipsets (and the corresponding `iptables` rule for marking packets matching the `ipset`) for `dest_addr` and `src_addr` entries. The service then processes the user-created policies.
+On start, this service creates routing tables for each supported interface (WAN/WAN6 and VPN tunnels) which are used to route specially marked packets. For the `mangle` table's `FORWARD`, `INPUT`, `OUTPUT`, `PREROUTING` and `POSTROUTING` chains, the service creates corresponding `PBR_*` chains to which policies are assigned. Evaluation of packets happens in these `PBR_*` chains after which the packets are sent for marking to the `PBR_MARK*` chains. If enabled, the service also creates the ipsets (and the corresponding `iptables` rule for marking packets matching the `ipset`) for `dest_addr` and `src_addr` entries. The service then processes the user-created policies.
 
 ### How It Works (`nft` mode)
 
@@ -265,17 +265,17 @@ Each policy may have a combination of the options below, the `name` and `interfa
 
 The `src_addr`, `src_port`, `dest_addr` and `dest_port` options supports parameter negation, for example if you want to **exclude** remote port 80 from the policy, set `dest_port` to `"!80"` (notice lack of space between `!` and parameter).
 
-| Option        | Default    | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
-| ------------- | ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **name**      |            | Policy name, it **must** be set.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
-| enabled       | 1          | Enable/disable policy. To display the `Enable` checkbox column for policies in the WebUI, make sure to select `Enabled` for `Show Enable Column` in the `Web UI` tab.                                                                                                                                                                                                                                                                                                                                                                                         |
-| **interface** |            | Policy interface, it **must** be set.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
-| src_addr      |            | List of space-separated local/source IP addresses, CIDRs, hostnames or mac addresses (colon-separated). You can also specify a local physical device (like a specially created wlan) prepended by an `@` symbol.                                                                                                                                                                                                                                                                                                                                              |
-| src_port      |            | List of space-separated local/source ports or port-ranges.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
-| dest_addr     |            | List of space-separated remote/target IP addresses, CIDRs or hostnames/domain names.                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
-| dest_port     |            | List of space-separated remote/target ports or port-ranges.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
-| proto         | auto       | Policy protocol, can be any valid protocol from `/etc/protocols` for CLI/uci or can be selected from the values set in `webui_supported_protocol`. To display the `Protocol` column for policies in the WebUI, make sure to select `Enabled` for `Show Protocol Column` in the `Web UI` tab.<br/>Special cases: `auto` will try to intelligently insert protocol-agnostic policy and fall back to TCP/UDP if the protocol must be selected for specific policy; `all` will always insert a protocol-agnostic policy (which may fail depending on the policy). |
-| chain         | PREROUTING | Policy chain, can be either `PREROUTING`, `FORWARDING`, `INPUT` or `OUTPUT`. This setting is case-sensitive. To display the `Chain` column for policies in the WebUI, make sure to select `Enabled` for `Show Chain Column` in the `Web UI` tab.                                                                                                                                                                                                                                                                                                              |
+| Option        | Default    | Description                                                                                                                                                                                                      |
+| ------------- | ---------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **name**      |            | Policy name, it **must** be set.                                                                                                                                                                                 |
+| enabled       | 1          | Enable/disable policy. To display the `Enable` checkbox column for policies in the WebUI, make sure to select `Enabled` for `Show Enable Column` in the `Web UI` tab.                                            |
+| **interface** |            | Policy interface, it **must** be set.                                                                                                                                                                            |
+| src_addr      |            | List of space-separated local/source IP addresses, CIDRs, hostnames or mac addresses (colon-separated). You can also specify a local physical device (like a specially created wlan) prepended by an `@` symbol. |
+| src_port      |            | List of space-separated local/source ports or port-ranges.                                                                                                                                                       |
+| dest_addr     |            | List of space-separated remote/target IP addresses, CIDRs or hostnames/domain names.                                                                                                                             |
+| dest_port     |            | List of space-separated remote/target ports or port-ranges.                                                                                                                                                      |
+| proto         | auto       | Policy protocol, can be any valid protocol from `/etc/protocols` for CLI/uci or can be selected from the values set in `webui_supported_protocol`.                                                               |
+| chain         | prerouting | Policy chain, can be either `forward`, `input`, `prerouting`, `postrouting` or `output`. This setting is case-sensitive.                                                                                         |
 
 ### Custom User Files Include Options
 
@@ -439,7 +439,7 @@ config policy
   option interface 'wan'
   option proto 'tcp'
   option src_port '1194'
-  option chain 'OUTPUT'
+  option chain 'output'
 ```
 
 The network/firewall/openvpn settings are below.
@@ -975,6 +975,8 @@ Unlike the `vpn-policy-routing`, the `pbr` package:
 -   can only reload policies on service reload (it does not reload the network-related parts).
 -   implements the new `secure_reload` option to kill all traffic during the service start/restart/reload.
 -   only supports OpenWrt 21.02 and newer
+-   supports fw4 and nft/nft sets (and dnsmasq nft set support) on OpenWrt 22.03
+-   chain names in config file should be in lower case, not upper case
 
 ### A Word About Migrating from `vpn-policy-routing`
 
@@ -989,6 +991,11 @@ if [ -s /etc/config/vpn-policy-routing ]; then
   sed 's/vpn-policy-routing/pbr/g' /etc/config/vpn-policy-routing > /etc/config/pbr
   sed -i 's/resolver_ipset/resolver_set/g' /etc/config/pbr
   sed -i 's/iptables_rule_option/rule_create_option/g' /etc/config/pbr
+  sed -i "s/'FORWARD'/'forward'/g" /etc/config/pbr
+  sed -i "s/'INPUT'/'input'/g" /etc/config/pbr
+  sed -i "s/'OUTPUT'/'output'/g" /etc/config/pbr
+  sed -i "s/'PREROUTING'/'prerouting'/g" /etc/config/pbr
+  sed -i "s/'POSTROUTING'/'postrouting'/g" /etc/config/pbr
   uci set vpn-policy-routing.config.enabled=0; uci commit;
 fi
 ```
