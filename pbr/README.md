@@ -1008,12 +1008,14 @@ If things are not working as intended, please include the following in your post
 -   content of `/etc/config/firewall`
 -   content of `/etc/config/network`
 -   content of `/etc/config/pbr`
--   the output of `/etc/init.d/pbr support`
+-   the output of `/etc/init.d/pbr status`
 -   the output of `/etc/init.d/pbr reload` with verbosity setting set to 2
 
-If you don't want to post the `/etc/init.d/pbr support` output in a public forum, there's a way to have the support details automatically uploaded to my account at paste.ee by running: `/etc/init.d/pbr support -p`. You need to have the following packages installed to enable paste.ee upload functionality: `curl libopenssl ca-bundle`.
+<!--
+If you don't want to post the `/etc/init.d/pbr status` output in a public forum, there's a way to have the support details automatically uploaded to my account at paste.ee by running: `/etc/init.d/pbr status -p`. You need to have the following packages installed to enable paste.ee upload functionality: `curl libopenssl ca-bundle`.
 
 WARNING: while paste.ee uploads are unlisted/not indexed at the web-site, they are still publicly available.
+\-->
 
 ### First Troubleshooting Step
 
