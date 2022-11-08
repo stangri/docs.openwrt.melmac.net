@@ -10,19 +10,21 @@ This package allows you to reboot to an alternative partition on the supported (
 
 Currently supported dual-partition devices include:
 
--   Linksys EA3500
 -   Linksys E4200v2
+-   Linksys EA3500
 -   Linksys EA4500
 -   Linksys EA6350v3
+-   Linksys EA7300v1
 -   Linksys EA7300v2
 -   Linksys EA7500v1
+-   Linksys EA7500v2
 -   Linksys EA8300
 -   Linksys EA8500
 -   Linksys MR8300
 -   Linksys WRT1200AC
 -   Linksys WRT1900AC
--   Linksys WRT1900ACv2
 -   Linksys WRT1900ACS
+-   Linksys WRT1900ACv2
 -   Linksys WRT3200ACM
 -   Linksys WRT32X
 -   ZyXEL NBG6817
