@@ -375,7 +375,7 @@ config policy
 
 #### Ignore Target
 
-The service allows you to set an interface for a specific policy to `ignore` to skip futher processing of matched traffic. Some use cases are listed below.
+The service allows you to set an interface for a specific policy to `ignore` to skip futher processing of matched traffic. This option needs to be explicitly enabled for use in WebUI, check [Service Configuration Settings](#service-configuration-settings) for details. Some use cases are listed below.
 
 ##### Ignore Requests (replace `append_src_rules`)
 
