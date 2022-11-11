@@ -249,6 +249,7 @@ As per screenshots above, in the Web UI the `pbr` configuration is split into `B
 | Advanced            | wan_mark                 | hexadecimal | 010000                       | Starting (WAN) fw mark for marks used by the `pbr` service. High starting mark is used to avoid conflict with SQM/QoS, this can be changed by user. Change with caution together with `fw_mask`.                                                                                                                                                                                                                                                               |
 | Advanced            | fw_mask                  | hexadecimal | ff0000                       | FW Mask used by the `pbr` service. High mask is used to avoid conflict with SQM/QoS, this can be changed by user. Change with caution together with `wan_mark`.                                                                                                                                                                                                                                                                                                |
 | Hidden/Experimental | secure_reload            | boolean     | 0                            | When enabled, kills router traffic during service start/restart/reload operations to prevent traffic leaks on unwanted interface.                                                                                                                                                                                                                                                                                                                              |
+| Web UI              | webui_show_ignore_target | boolean     | 0                            | When enabled, show `ignore` in the list of interfaces.                                                                                                                                                                                                                                                                                                                                                                                                         |
 | Web UI              | webui_supported_protocol | list        | 0                            | List of protocols to display in the `Protocol` column for policies.                                                                                                                                                                                                                                                                                                                                                                                            |
 |                     | wan_dscp                 | integer     |                              | Allows use of [DSCP-tag based policies](#dscp-tag-based-policies) for WAN interface.                                                                                                                                                                                                                                                                                                                                                                           |
 |                     | {interface_name}\_dscp   | integer     |                              | Allows use of [DSCP-tag based policies](#dscp-tag-based-policies) for a VPN interface.                                                                                                                                                                                                                                                                                                                                                                         |
@@ -372,7 +373,11 @@ config policy
   option dest_addr 'emby.media app.emby.media tv.emby.media'
 ```
 
-#### Ignore Requests (replace `append_src_rules`)
+#### Ignore Target
+
+The service allows you to set an interface for a specific policy to `ignore` to skip futher processing of matched traffic. Some use cases are listed below.
+
+##### Ignore Requests (replace `append_src_rules`)
 
 Since the `append_src_rules` option is no longer supported in pbr from version 0.3.x forward, replace:
 
@@ -397,7 +402,7 @@ config policy
 
 It's a good idea to keep the policies targeting `ignore` interface at the top of the config file/list of policies displayed in WebUI to make sure they are processed first.
 
-#### Ignore Requests (replace `append_dest_rules`)
+##### Ignore Requests (replace `append_dest_rules`)
 
 Since the `append_dest_rules` option is no longer supported in pbr from version 0.3.x forward, replace:
 
