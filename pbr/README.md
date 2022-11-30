@@ -715,6 +715,31 @@ config rule
   option dest_port '61820'
 ```
 
+#### Local Wireguard Server + Another VPN Client (Scenario 1)
+
+Yes, I'm aware that technically there are no clients nor servers in Wireguard, it's all peers, but for the sake of README readability I will use the terminology similar to the OpenVPN Server + Client setups.
+
+If another VPN client is used as default routing (for the whole internet), sadly no `pbr` rule will allow it to intercept and properly route the `UDP` traffic of Wireguard server, please either use the OpenVPN server and configure it to use `TCP` protocol or use the Scenario 2 below.
+
+#### Local Wireguard Server + Another VPN Client (Scenario 2)
+
+Yes, I'm aware that technically there are no clients nor servers in Wireguard, it's all peers, but for the sake of README readability I will use the terminology similar to the OpenVPN Server + Client setups.
+
+If another VPN client is **not** used as default routing and you create policies to selectively use the VPN client, make sure your settings are as following (three dots on the line imply other options can be listed in the section as well). Make sure that the policy mentioned below is at the top of your policies list.
+
+Relevant part of `/etc/config/pbr`:
+
+```text
+config pbr 'config'
+  list ignored_interface 'wgserver'
+  ...
+config policy
+  option name 'Ignore Local Traffic'
+  option interface 'ignore'
+  option dest_addr '192.168.200.0/24'
+  ...
+```
+
 #### Netflix Domains
 
 The following policy should route US Netflix traffic via WAN. For capturing international Netflix domain names, you can refer to the getdomainnames.sh-specific instructions on [GitHub](https://github.com/Xentrk/netflix-vpn-bypass/blob/master/README.md#ipset_netflix_domainssh)/[jsDelivr](https://cdn.jsdelivr.net/gh/Xentrk/netflix-vpn-bypass/README.md#ipset_netflix_domainssh) and don't forget to adjust them for OpenWrt. This may not work if Netflix changes things. For more reliable US Netflix routing you may want to consider also using [custom user files](#custom-user-files).
