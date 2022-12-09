@@ -84,7 +84,7 @@ If the `luci-app-advanced-reboot` package is not found in the official feed/repo
 
 ## Thanks
 
-I'd like to thank everyone who helped create, test and troubleshoot this package. Without help from [@hnyman](https://github.com/hnyman), [@jpstyves](https://github.com/jpstyves), [@imi2003](https://github.com/imi2003), [@jeffsf](https://github.com/jeffsf), [@Ansuel](https://github.com/Ansuel), [@djadair](https://github.com/djadair), and many contributions from [@slh](https://github.com/pkgadd) it wouldn't have been possible.
+I'd like to thank everyone who helped create, test and troubleshoot this package. Without help from [@hnyman](https://github.com/hnyman), [@jpstyves](https://github.com/jpstyves), [@imi2003](https://github.com/imi2003), [@jeffsf](https://github.com/jeffsf), [@Ansuel](https://github.com/Ansuel), [@djadair](https://github.com/djadair), [@tiagofreire-pt](https://github.com/tiagofreire-pt), and many contributions from [@slh](https://github.com/pkgadd) it wouldn't have been possible.
 
 <!-- markdownlint-disable MD033 -->
 
