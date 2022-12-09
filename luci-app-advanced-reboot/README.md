@@ -27,7 +27,8 @@ Currently supported dual-partition devices include:
 -   Linksys WRT1900ACv2
 -   Linksys WRT3200ACM
 -   Linksys WRT32X
--   Xiaomi AX900
+-   Xiaomi AX3600
+-   Xiaomi AX9000
 -   ZyXEL NBG6817
 
 If your device is not in the list above, however it is a [dual-firmware device](https://openwrt.org/tag/dual_firmware?do=showtag&tag=dual_firmware) and you're interested in having your device supported, please post in [OpenWrt Forum Support Thread](https://forum.openwrt.org/t/web-ui-to-reboot-to-another-partition-dual-partition-routers/3423).
