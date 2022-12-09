@@ -107,24 +107,31 @@ Two example custom user-files are provided: `/usr/share/pbr/pbr.user.aws` and `/
 ## Screenshots (luci-app-pbr)
 
 Service Status
+
 ![screenshot](https://docs.openwrt.melmac.net/pbr/screenshots/01-status.png "Service Status")
 
 Configuration - Basic Configuration
+
 ![screenshot](https://docs.openwrt.melmac.net/pbr/screenshots/02-config-basic.png "Basic Configuration")
 
 Configuration - Advanced Configuration
+
 ![screenshot](https://docs.openwrt.melmac.net/pbr/screenshots/03-config-advanced.png "Advanced Configuration")
 
 Configuration - WebUI Configuration
+
 ![screenshot](https://docs.openwrt.melmac.net/pbr/screenshots/04-config-webui.png "WebUI Configuration")
 
 Policies
+
 ![screenshot](https://docs.openwrt.melmac.net/pbr/screenshots/05-policies.png "Policies")
 
 DSCP Tagging
+
 ![screenshot](https://docs.openwrt.melmac.net/pbr/screenshots/06-dscp-tag.png "DSCP Tagging")
 
 Custom User File Includes
+
 ![screenshot](https://docs.openwrt.melmac.net/pbr/screenshots/07-custom-user-files.png "Custom User File Includes")
 
 ## How It Works
@@ -242,7 +249,7 @@ As per screenshots above, in the Web UI the `pbr` configuration is split into `B
 | Basic               | <a name="enabled"></a>enabled                                   | boolean     | 0                                                     | Enable/disable the `pbr` service.                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
 | Basic               | <a name="verbosity"></a>verbosity                               | integer     | 2                                                     | Can be set to 0, 1 or 2 to control the console and system log output verbosity of the `pbr` service.                                                                                                                                                                                                                                                                                                                                                                                |
 | Basic               | <a name="strict_enforcement"></a>strict_enforcement             | boolean     | 1                                                     | Enforce policies when their interface is down. See [Strict enforcement](#strict-enforcement) for more details.                                                                                                                                                                                                                                                                                                                                                                      |
-| Basic               | <a name="resolver_set"></a>resolver_set                         | string      | `pbr`: dnsmasq.nftset; `pbr-iptables`: dnsmasq.ipset; | Enable/disable use of the resolver ipset option for domain-only remote policies (policies with only a domain as a remote address and no other fields set). This speeds up service start-up and operation. Currently supported options are `none`, `adguardhome.ipset`, `dnsmasq.ipset` and  `dnsmasq.nftset` (see  [Use Resolver's Set Support](#use-resolvers-set-support) and [<sup>#7</sup>](#footnote7) for more details). Make sure the [requirements](#requirements) are met. |
+| Basic               | <a name="resolver_set"></a>resolver_set                         | string      | `pbr`: dnsmasq.nftset<br />`pbr-iptables`: dnsmasq.ipset | Enable/disable use of the resolver ipset option for domain-only remote policies (policies with only a domain as a remote address and no other fields set). This speeds up service start-up and operation. Currently supported options are `none`, `adguardhome.ipset`, `dnsmasq.ipset` and  `dnsmasq.nftset` (see  [Use Resolver's Set Support](#use-resolvers-set-support) and [<sup>#7</sup>](#footnote7) for more details). Make sure the [requirements](#requirements) are met. |
 | Basic               | <a name="ipv6_enabled"></a>ipv6_enabled                         | boolean     | 0                                                     | Enable/disable IPv6 support.                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
 | Advanced            | <a name="supported_interface"></a>supported_interface           | list/string |                                                       | Allows to specify the space-separated list of interface names (in lower case) to be explicitly supported by the `pbr` service. Can be useful if your OpenVPN tunnels have dev option other than tun\*.                                                                                                                                                                                                                                                                              |
 | Advanced            | <a name="ignored_interface"></a>ignored_interface               | list/string |                                                       | Allows to specify the space-separated list of interface names (in lower case) to be ignored by the `pbr` service. Can be useful if running both VPN server and VPN client on the router.                                                                                                                                                                                                                                                                                            |

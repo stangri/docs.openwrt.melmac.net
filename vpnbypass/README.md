@@ -4,11 +4,13 @@
 
 # VPN Bypass
 
-## Statement about OpenWrt 22.03.0 release and this package
+## Statement about OpenWrt 22.03 and this package
 
-TLDR: Even tho this package depends on iptables/ipset and dnsmasq support for ipset, it works just fine with recently released OpenWrt 22.03.0. You can safely ignore the warning on the Status -> Firewall page about legacy iptables rules created by this package.
+The OpenWrt 22.03 release brought the use of `nft` instead of `iptables` and this package heavily depends on `iptables`. Due to this, I have created the new package: [`pbr`](https://docs.openwrt.melmac.net/pbr/) and in the OpenWrt 22.03 (and newer) the `pbr` has replaced both `vpn-policy-routing` and `vpnbypass` packages in OpenWrt repositories.
 
-The `vpnbypass` has been superceeded by the new package called [`pbr`](https://docs.openwrt.melmac.net/pbr/) and there are now two versions of `pbr` available: `pbr-iptables` if you want to use iptables/ipset/dnsmasq.ipset options and `pbr-nftables` which supports nft (but because OpenWrt's `dnsmasq` doesn't support nft sets yet, you can't use `dnsmasq` to resolve domain names from policies). Please note that `vpnbypass` will not be transitioned to nftables and will become obsolete once OpenWrt's `dnsmasq` package no longer supports ipset.
+As the `vpnbypass` package is now obsolete in the current OpenWrt development and latest release branches, no further updates nor development will happen.
+
+If you need a policy-based routing on an OpenWrt older than 22.03, I would recommend you [install the `pbr-iptables` package from my personal repo](https://docs.openwrt.melmac.net/pbr/#how-to-install---openwrt-2102-and-older).
 
 ## Description
 

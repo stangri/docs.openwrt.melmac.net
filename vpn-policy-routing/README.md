@@ -6,9 +6,11 @@
 
 ## Statement about OpenWrt 22.03 and this package
 
-The OpenWrt 22.03 release brought the use of `nft` instead of `iptables` and this package heavily depends on `iptables`. Due to this, I have created the new package: [`pbr`](https://docs.openwrt.melmac.net/pbr/) and in the OpenWrt 22.03 (and newer) and snapshots the `pbr` has replaced both `vpn-policy-routing` and `vpnbypass` packages in OpenWrt packages repos for 22.03 and snapshots.
+The OpenWrt 22.03 release brought the use of `nft` instead of `iptables` and this package heavily depends on `iptables`. Due to this, I have created the new package: [`pbr`](https://docs.openwrt.melmac.net/pbr/) and in the OpenWrt 22.03 (and newer) the `pbr` has replaced both `vpn-policy-routing` and `vpnbypass` packages in OpenWrt repositories.
 
-If you need a policy-based routing on an OpenWrt older than 22.03, I would recommend you [install the `pbr-iptables` package from my personal repo]().
+As the `vpn-policy-routing` package is now obsolete in the current OpenWrt development and latest release branches, no further updates nor development will happen.
+
+If you need a policy-based routing on an OpenWrt older than 22.03, I would recommend you [install the `pbr-iptables` package from my personal repo](https://docs.openwrt.melmac.net/pbr/#how-to-install---openwrt-2102-and-older). Please make sure to read the following sections: [differences between `pbr` and `vpn-policy-routing`](https://docs.openwrt.melmac.net/pbr/#a-word-about-differences-from-vpn-policy-routing) and [migrting from `vpn-policy-routing`](https://docs.openwrt.melmac.net/pbr/#a-word-about-migrating-from-vpn-policy-routing).
 
 ## Description
 
