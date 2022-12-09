@@ -33,6 +33,8 @@ Currently supported dual-partition devices include:
 
 If your device is not in the list above, however it is a [dual-firmware device](https://openwrt.org/tag/dual_firmware?do=showtag&tag=dual_firmware) and you're interested in having your device supported, please post in [OpenWrt Forum Support Thread](https://forum.openwrt.org/t/web-ui-to-reboot-to-another-partition-dual-partition-routers/3423).
 
+The package in the official OpenWrt repo only supports the routers supported in the official snapshots or release builds. In rare cases, the package in my own private repo may support routers not yet supported in the package from the official OpenWrt repo.
+
 ## Screenshot (luci-app-advanced-reboot)
 
 ![screenshot](https://docs.openwrt.melmac.net/luci-app-advanced-reboot/screenshots/screenshot02.png "screenshot")
@@ -46,10 +48,11 @@ opkg update
 opkg install luci-app-advanced-reboot
 ```
 
-If the `luci-app-advanced-reboot` package is not found in the official feed/repo for your version of OpenWrt, you will need to add a custom repo to your router following instructions on [GitHub](https://docs.openwrt.melmac.net/#on-your-router)/[jsDelivr](https://cdn.jsdelivr.net/gh/stangri/docs.openwrt.melmac.net/README.md#on-your-router) first.
+If the `luci-app-advanced-reboot` package with support of your device is not found in the official feed/repo for your version of OpenWrt, you will need to add a custom repo to your router following instructions on [GitHub](https://docs.openwrt.melmac.net/#on-your-router)/[jsDelivr](https://cdn.jsdelivr.net/gh/stangri/docs.openwrt.melmac.net/README.md#on-your-router) first.
 
 ## Notes/Known Issues
 
+-   The package in the official OpenWrt repo only supports the routers supported in the official snapshots or release builds. In rare cases, the package in my own private repo may support routers not yet supported in the package from the official OpenWrt repo.
 -   When you reboot to a different partition, your current settings (WiFi SSID/password, etc.) will not apply to a different partition. Different partitions might have completely different settings and even firmware.
 -   If you reboot to a partition which doesn't allow you to switch boot partitions (like stock vendor firmware), you might not be able to boot back to OpenWrt unless you reflash it, losing all the settings.
 -   Some devices allow you to trigger reboot to an alternative partition by interrupting boot 3 times in a row (by resetting/switching off the device or pulling power). As these methods might be different for different devices, do your own homework.
