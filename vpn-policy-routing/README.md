@@ -10,7 +10,7 @@ The OpenWrt 22.03 release brought the use of `nft` instead of `iptables` and thi
 
 As the `vpn-policy-routing` package is now obsolete in the current OpenWrt development and latest release branches, no further updates nor development will happen.
 
-If you need a policy-based routing on an OpenWrt older than 22.03, I would recommend you [install the `pbr-iptables` package from my personal repo](https://docs.openwrt.melmac.net/pbr/#how-to-install---openwrt-2102-and-older). Please make sure to read the following sections: [differences between `pbr` and `vpn-policy-routing`](https://docs.openwrt.melmac.net/pbr/#a-word-about-differences-from-vpn-policy-routing) and [migrting from `vpn-policy-routing`](https://docs.openwrt.melmac.net/pbr/#a-word-about-migrating-from-vpn-policy-routing).
+If you need a policy-based routing on an OpenWrt older than 22.03, I would recommend you [install the `pbr-iptables` package from my personal repo](https://docs.openwrt.melmac.net/pbr/#how-to-install---openwrt-2102-and-older). Please make sure to read the following sections: [differences between `pbr` and `vpn-policy-routing`](https://docs.openwrt.melmac.net/pbr/#a-word-about-differences-from-vpn-policy-routing) and [migrating from `vpn-policy-routing`](https://docs.openwrt.melmac.net/pbr/#a-word-about-migrating-from-vpn-policy-routing).
 
 ## Description
 
