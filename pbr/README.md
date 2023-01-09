@@ -69,7 +69,7 @@ You can also set policies for traffic with specific DSCP tag. On Windows 10, for
 
 If the custom user file includes are set, the service will load and execute them after setting up routing and the sets and processing policies. This allows, for example, to add large numbers of domains/IP addresses to ipsets or nft sets without manually adding all of them to the config file.
 
-Two example custom user-files are provided: `/usr/share/pbr/pbr.user.aws` and `/usr/share/pbr/pbr.user.netflix`. They are provided to pull the AWS and Netflix IP addresses into the default WAN IPv4 sets the service sets up, indicated in the `TARGET_IPSET` variable at the top of each script.
+Two example custom user files are provided: `/usr/share/pbr/pbr.user.aws` and `/usr/share/pbr/pbr.user.netflix`. They are provided to pull the AWS and Netflix IP addresses into the default WAN IPv4 sets the service sets up, indicated in the `TARGET_IPSET` variable at the top of each script.
 
 ### Strict Enforcement
 
@@ -1011,6 +1011,8 @@ if [ -s /etc/config/vpn-policy-routing ]; then
   uci set vpn-policy-routing.config.enabled=0; uci commit;
 fi
 ```
+
+Please note that the ipset/nft set names which service creates for use in the custom user files have changed. Refer to the new custom user files supplied with the package for reference.
 
 ## Getting Help
 
