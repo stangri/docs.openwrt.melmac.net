@@ -406,6 +406,106 @@ Please note, you need to enable `Show Ignore Target` option for the WebUI to lis
 
 It's a good idea to keep the policies targeting `ignore` interface at the top of the config file/list of policies displayed in WebUI to make sure they are processed first.
 
+#### Basic OpenVPN Client Config
+
+There are multiple guides online on how to configure the OpenVPN client on OpenWrt "the easy way", and they usually result either in a kill-switch configuration or configuration where the OpenVPN tunnel  cannot be properly (and separately from WAN) routed, either way, incompatible with the VPN Policy-Based Routing.
+
+Below is the sample OpenVPN client configuration for OpenWrt which is guaranteed to work. If you have already deviated from the instructions below (ie: made any changes to any of the `wan` or `lan` configurations in either `/etc/config/network` or `/etc/config/firewall`), you will need to start from scratch with a fresh OpenWrt install.
+
+Relevant part of `/etc/config/pbr`:
+
+```text
+config pbr 'config'
+  list supported_interface 'vpnclient'
+  ...
+```
+
+The recommended network/firewall settings are below.
+
+Relevant part of `/etc/config/network` (**DO NOT** modify default OpenWrt network settings for neither `wan` nor `lan`):
+
+```text
+config interface 'vpnclient'
+  option proto 'none'
+  option device 'ovpnc0'
+```
+
+Relevant part of `/etc/config/firewall` (**DO NOT** modify default OpenWrt firewall settings for neither `wan` nor `lan`):
+
+```text
+config zone
+  option name 'vpnclient'
+  option network 'vpnclient'
+  option input 'REJECT'
+  option forward 'REJECT'
+  option output 'ACCEPT'
+  option masq '1'
+  option mtu_fix '1'
+
+config forwarding
+  option src 'lan'
+  option dest 'vpnclient'
+```
+
+If you have a Guest Network, add the following to the `/etc/config/firewall`:
+
+```text
+config forwarding
+  option src 'guest'
+  option dest 'vpnclient'
+```
+
+Relevant part of `/etc/config/openvpn` (configure the rest of the client connection for your specifics by either referring to an existing `.ovpn` file or thru the OpenWrt uci settings):
+
+```text
+config openvpn 'vpnclient'
+  option enabled '1'
+  option client '1'
+  option dev_type 'tun'
+  option dev 'ovpnc0'
+  ...
+```
+
+#### Multiple OpenVPN Clients
+
+If you use multiple OpenVPN clients on your router, the order in which their devices are named (tun0, tun1, etc) is not guaranteed by OpenWrt. The following settings are recommended in this case.
+
+For `/etc/config/network`:
+
+```text
+config interface 'vpnclient0'
+  option proto 'none'
+  option device 'ovpnc0'
+
+config interface 'vpnclient1'
+  option proto 'none'
+  option device 'ovpnc1'
+```
+
+For `/etc/config/openvpn`:
+
+```text
+config openvpn 'vpnclient0'
+  option client '1'
+  option dev_type 'tun'
+  option dev 'ovpnc0'
+  ...
+
+config openvpn 'vpnclient1'
+  option client '1'
+  option dev_type 'tun'
+  option dev 'ovpnc1'
+  ...
+```
+
+For `/etc/config/pbr`:
+
+```text
+config pbr 'config'
+  list supported_interface 'vpnclient0 vpnclient1'
+  ...
+```
+
 #### Local OpenVPN Server + OpenVPN Client (Scenario 1)
 
 If the OpenVPN client on your router is used as default routing (for the whole internet), make sure your settings are as following (three dots on the line imply other options can be listed in the section as well).
@@ -432,11 +532,11 @@ Relevant part of `/etc/config/network` (**DO NOT** modify default OpenWrt networ
 ```text
 config interface 'vpnclient'
   option proto 'none'
-  option ifname 'ovpnc0'
+  option device 'ovpnc0'
 
 config interface 'vpnserver'
   option proto 'none'
-  option ifname 'ovpns0'
+  option device 'ovpns0'
   option auto '1'
 ```
 
@@ -526,11 +626,11 @@ Relevant part of `/etc/config/network` (**DO NOT** modify default OpenWrt networ
 ```text
 config interface 'vpnclient'
   option proto 'none'
-  option ifname 'ovpnc0'
+  option device 'ovpnc0'
 
 config interface 'vpnserver'
   option proto 'none'
-  option ifname 'ovpns0'
+  option device 'ovpns0'
   option auto '1'
 ```
 
@@ -738,106 +838,6 @@ config include
 
 config include
   option path '/usr/share/pbr/pbr.user.aws'
-```
-
-#### Basic OpenVPN Client Config
-
-There are multiple guides online on how to configure the OpenVPN client on OpenWrt "the easy way", and they usually result either in a kill-switch configuration or configuration where the OpenVPN tunnel  cannot be properly (and separately from WAN) routed, either way, incompatible with the VPN Policy-Based Routing.
-
-Below is the sample OpenVPN client configuration for OpenWrt which is guaranteed to work. If you have already deviated from the instructions below (ie: made any changes to any of the `wan` or `lan` configurations in either `/etc/config/network` or `/etc/config/firewall`), you will need to start from scratch with a fresh OpenWrt install.
-
-Relevant part of `/etc/config/pbr`:
-
-```text
-config pbr 'config'
-  list supported_interface 'vpnclient'
-  ...
-```
-
-The recommended network/firewall settings are below.
-
-Relevant part of `/etc/config/network` (**DO NOT** modify default OpenWrt network settings for neither `wan` nor `lan`):
-
-```text
-config interface 'vpnclient'
-  option proto 'none'
-  option ifname 'ovpnc0'
-```
-
-Relevant part of `/etc/config/firewall` (**DO NOT** modify default OpenWrt firewall settings for neither `wan` nor `lan`):
-
-```text
-config zone
-  option name 'vpnclient'
-  option network 'vpnclient'
-  option input 'REJECT'
-  option forward 'REJECT'
-  option output 'ACCEPT'
-  option masq '1'
-  option mtu_fix '1'
-
-config forwarding
-  option src 'lan'
-  option dest 'vpnclient'
-```
-
-If you have a Guest Network, add the following to the `/etc/config/firewall`:
-
-```text
-config forwarding
-  option src 'guest'
-  option dest 'vpnclient'
-```
-
-Relevant part of `/etc/config/openvpn` (configure the rest of the client connection for your specifics by either referring to an existing `.ovpn` file or thru the OpenWrt uci settings):
-
-```text
-config openvpn 'vpnclient'
-  option enabled '1'
-  option client '1'
-  option dev_type 'tun'
-  option dev 'ovpnc0'
-  ...
-```
-
-#### Multiple OpenVPN Clients
-
-If you use multiple OpenVPN clients on your router, the order in which their devices are named (tun0, tun1, etc) is not guaranteed by OpenWrt. The following settings are recommended in this case.
-
-For `/etc/config/network`:
-
-```text
-config interface 'vpnclient0'
-  option proto 'none'
-  option ifname 'ovpnc0'
-
-config interface 'vpnclient1'
-  option proto 'none'
-  option ifname 'ovpnc1'
-```
-
-For `/etc/config/openvpn`:
-
-```text
-config openvpn 'vpnclient0'
-  option client '1'
-  option dev_type 'tun'
-  option dev 'ovpnc0'
-  ...
-
-config openvpn 'vpnclient1'
-  option client '1'
-  option dev_type 'tun'
-  option dev 'ovpnc1'
-  ...
-```
-
-For `/etc/config/pbr`:
-
-```text
-config pbr 'config'
-  list supported_interface 'vpnclient0 vpnclient1'
-  ...
 ```
 
 ## Footnotes/Known Issues
