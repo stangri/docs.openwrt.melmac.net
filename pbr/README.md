@@ -1025,12 +1025,6 @@ If things are not working as intended, please include the following in your post
 -   the output of `/etc/init.d/pbr status`
 -   the output of `/etc/init.d/pbr reload` with verbosity setting set to 2
 
-<!--
-If you don't want to post the `/etc/init.d/pbr status` output in a public forum, there's a way to have the support details automatically uploaded to my account at paste.ee by running: `/etc/init.d/pbr status -p`. You need to have the following packages installed to enable paste.ee upload functionality: `curl libopenssl ca-bundle`.
-
-WARNING: while paste.ee uploads are unlisted/not indexed at the web-site, they are still publicly available.
-\-->
-
 ### First Troubleshooting Step
 
 If your router is set to use [default routing via VPN tunnel](#a-word-about-default-routing) and the WAN-targeting policies do not work, you need to stop your VPN tunnel first and ensure that you still have internet connection. If your router is set up to use the default routing via VPN tunnel and when you stop the VPN tunnel you have no internet connection, this package can't help you. You first need to make sure that you do have internet connection when the VPN tunnel is stopped.
