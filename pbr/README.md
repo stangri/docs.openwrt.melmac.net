@@ -430,29 +430,14 @@ config interface 'vpnclient'
   option device 'ovpnc0'
 ```
 
-Relevant part of `/etc/config/firewall` (**DO NOT** modify default OpenWrt firewall settings for neither `wan` nor `lan`):
+Relevant part of `/etc/config/firewall`:
 
 ```text
 config zone
-  option name 'vpnclient'
-  option network 'vpnclient'
-  option input 'REJECT'
-  option forward 'REJECT'
-  option output 'ACCEPT'
-  option masq '1'
-  option mtu_fix '1'
-
-config forwarding
-  option src 'lan'
-  option dest 'vpnclient'
-```
-
-If you have a Guest Network, add the following to the `/etc/config/firewall`:
-
-```text
-config forwarding
-  option src 'guest'
-  option dest 'vpnclient'
+  option name 'wan'
+  list network 'wan'
+  list network 'vpnclient'
+  ...
 ```
 
 Relevant part of `/etc/config/openvpn` (configure the rest of the client connection for your specifics by either referring to an existing `.ovpn` file or thru the OpenWrt uci settings):
@@ -540,41 +525,20 @@ config interface 'vpnserver'
   option auto '1'
 ```
 
-Relevant part of `/etc/config/firewall` (**DO NOT** modify default OpenWrt firewall settings for neither `wan` nor `lan`):
+Relevant part of `/etc/config/firewall`:
 
 ```text
 config zone
-  option name 'vpnclient'
-  option network 'vpnclient'
-  option input 'REJECT'
-  option forward 'ACCEPT'
-  option output 'REJECT'
-  option masq '1'
-  option mtu_fix '1'
-
-config forwarding
-  option src 'lan'
-  option dest 'vpnclient'
+  option name 'lan'
+  list network 'lan'
+  list network 'vpnserver'
+  ...
 
 config zone
-  option name 'vpnserver'
-  option network 'vpnserver'
-  option input 'ACCEPT'
-  option forward 'REJECT'
-  option output 'ACCEPT'
-  option masq '1'
-
-config forwarding
-  option src 'vpnserver'
-  option dest 'wan'
-
-config forwarding
-  option src 'vpnserver'
-  option dest 'lan'
-
-config forwarding
-  option src 'vpnserver'
-  option dest 'vpnclient'
+  option name 'wan'
+  list network 'wan'
+  list network 'vpnclient'
+  ...
 
 config rule
   option name 'Allow-OpenVPN-Inbound'
@@ -634,41 +598,20 @@ config interface 'vpnserver'
   option auto '1'
 ```
 
-Relevant part of `/etc/config/firewall` (**DO NOT** modify default OpenWrt firewall settings for neither `wan` nor `lan`):
+Relevant part of `/etc/config/firewall`:
 
 ```text
 config zone
-  option name 'vpnclient'
-  option network 'vpnclient'
-  option input 'REJECT'
-  option forward 'ACCEPT'
-  option output 'REJECT'
-  option masq '1'
-  option mtu_fix '1'
-
-config forwarding
-  option src 'lan'
-  option dest 'vpnclient'
+  option name 'lan'
+  list network 'lan'
+  list network 'vpnserver'
+  ...
 
 config zone
-  option name 'vpnserver'
-  option network 'vpnserver'
-  option input 'ACCEPT'
-  option forward 'REJECT'
-  option output 'ACCEPT'
-  option masq '1'
-
-config forwarding
-  option src 'vpnserver'
-  option dest 'wan'
-
-config forwarding
-  option src 'vpnserver'
-  option dest 'lan'
-
-config forwarding
-  option src 'vpnserver'
-  option dest 'vpnclient'
+  option name 'wan'
+  list network 'wan'
+  list network 'vpnclient'
+  ...
 
 config rule
   option name 'Allow-OpenVPN-Inbound'
@@ -750,41 +693,20 @@ config wireguard_wgserver
   ...
 ```
 
-Relevant part of `/etc/config/firewall` (**DO NOT** modify default OpenWrt firewall settings for neither `wan` nor `lan`):
+Relevant part of `/etc/config/firewall`:
 
 ```text
 config zone
-  option name 'wgclient'
-  option network 'wgclient'
-  option input 'REJECT'
-  option forward 'ACCEPT'
-  option output 'REJECT'
-  option masq '1'
-  option mtu_fix '1'
-
-config forwarding
-  option src 'lan'
-  option dest 'wgclient'
+  option name 'lan'
+  list network 'lan'
+  list network 'wgserver'
+  ...
 
 config zone
-  option name 'wgserver'
-  option network 'wgserver'
-  option input 'ACCEPT'
-  option forward 'REJECT'
-  option output 'ACCEPT'
-  option masq '1'
-
-config forwarding
-  option src 'wgserver'
-  option dest 'wan'
-
-config forwarding
-  option src 'wgserver'
-  option dest 'lan'
-
-config forwarding
-  option src 'wgserver'
-  option dest 'wgclient'
+  option name 'wan'
+  list network 'wan'
+  list network 'wgclient'
+  ...
 
 config rule
   option name 'Allow-WG-Inbound'
