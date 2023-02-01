@@ -3,7 +3,9 @@
 ## Description
 
 Package provides a shell script which allows to force Failesafe Mode at the next boot.
+
 You can use `brickproof enable` enable Failesafe Mode at next boot.
+
 You can use `brickproof enable` to disable Failesafe Mode at next boot.
 
 <!-- markdownlint-disable MD033 -->
