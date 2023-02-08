@@ -4,5 +4,10 @@ url: "https://docs.openwrt.melmac.net"
 theme: minima
 minima:
   skin: auto
+header_pages:
+  - README.md
+  - https-dns-proxy/README.md
+  - pbr/README.md
+  - simple-adblock/README.md
 plugins:
   - jemoji
