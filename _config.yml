@@ -3,3 +3,4 @@ description: "Documentation site for stangri's OpenWrt packages."
 url: "https://docs.openwrt.melmac.net"
 plugins:
   - jemoji
+theme: minima
