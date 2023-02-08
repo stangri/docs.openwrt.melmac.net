@@ -2,7 +2,7 @@ title: "Welcome to docs.openwrt.melmac.net!"
 description: "Documentation site for stangri's OpenWrt packages."
 url: "https://docs.openwrt.melmac.net"
 author:
-  name: Stan Grishin
+  name: "Stan Grishin"
   email: "stangri@melmac.ca"
 header_pages:
   - https-dns-proxy/
