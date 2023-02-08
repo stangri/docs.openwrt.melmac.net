@@ -5,10 +5,10 @@ author:
   name: Stan Grishin
   email: "stangri@melmac.ca"
 header_pages:
-  - https-dns-proxy/README.md
-  - nebula/README.md
-  - pbr/README.md
-  - simple-adblock/README.md
+  - https-dns-proxy/
+  - nebula/
+  - pbr/
+  - simple-adblock/
 theme: minima
 minima:
   skin: auto
