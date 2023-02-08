@@ -1,4 +1,4 @@
-# Repo README
+# stangri's OpenWrt Packages Documentation
 
 This is documentation for packages I'm maintaining for OpenWrt routers. While some of these are packages are already available from official OpenWrt release/snapshots repositories/feeds, [my packages repo](https://repo.openwrt.melmac.net) usually contains newer versions. You can also browse/check-out the [source code](https://source.openwrt.melmac.net).
 

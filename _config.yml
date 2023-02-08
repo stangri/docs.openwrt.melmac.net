@@ -1,13 +1,17 @@
 title: "Welcome to docs.openwrt.melmac.net!"
 description: "Documentation site for stangri's OpenWrt packages."
 url: "https://docs.openwrt.melmac.net"
+header_pages:
+  - https-dns-proxy/README.md
+  - nebula/README.md
+  - pbr/README.md
+  - simple-adblock/README.md
 theme: minima
 minima:
   skin: auto
-header_pages:
-  - README.md
-  - https-dns-proxy/README.md
-  - pbr/README.md
-  - simple-adblock/README.md
+  social_links:
+    - { platform: github,  user_url: "https://github.com/stangri" }
+    - { platform: facebook, user_url: "https://www.facebook.com/stangri.openwrt/" }
+    - { platform: twitter, user_url: "https://twitter.com/stangri" }
 plugins:
   - jemoji
