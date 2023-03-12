@@ -18,6 +18,7 @@ Currently supported dual-partition devices include:
 -   Linksys EA7300v2
 -   Linksys EA7500v1
 -   Linksys EA7500v2
+-   Linksys EA8100v2
 -   Linksys EA8300
 -   Linksys EA8500
 -   Linksys MR8300
@@ -31,7 +32,7 @@ Currently supported dual-partition devices include:
 -   Xiaomi AX9000
 -   ZyXEL NBG6817
 
-If your device is not in the list above, however it is a [dual-firmware device](https://openwrt.org/tag/dual_firmware?do=showtag&tag=dual_firmware) and you're interested in having your device supported, please post in [OpenWrt Forum Support Thread](https://forum.openwrt.org/t/web-ui-to-reboot-to-another-partition-dual-partition-routers/3423).
+If your device is not in the list above, however it is a [dual-firmware device](https://openwrt.org/tag/dual_firmware?do=showtag&tag=dual_firmware) and you're interested in having your device supported, please refer to [How to add a new device](#how-to-add-a-new-device).
 
 The package in the official OpenWrt repo only supports the routers supported in the official snapshots or release builds. In rare cases, the package in my own private repo may support routers not yet supported in the package from the official OpenWrt repo.
 
@@ -49,6 +50,22 @@ opkg install luci-app-advanced-reboot
 ```
 
 If the `luci-app-advanced-reboot` package with support of your device is not found in the official feed/repo for your version of OpenWrt, you will need to add a custom repo to your router following instructions on [GitHub](https://docs.openwrt.melmac.net/#on-your-router)/[jsDelivr](https://cdn.jsdelivr.net/gh/stangri/docs.openwrt.melmac.net/README.md#on-your-router) first.
+
+## How to add a new device
+
+This package does not implement dual-firmware support to the OpenWrt device, rather it uses built-in OpenWrt tools to browse/switch partitions on dual-firmware devices supported by OpenWrt (usually by the device maintainer/committer into the OpenWrt tree).
+
+The dual-firmware devices need to be explicitly supported by this package (there's no auto-discovery of supported models). If you are interested in having a device supported by this package, please post in the [OpenWrt Forum Support Thread](https://forum.openwrt.org/t/web-ui-to-reboot-to-another-partition-dual-partition-routers/3423) the following information:
+
+-   Link to the device OpenWrt wiki Table of Hardware page and/or link to the git commit to OpenWrt tree with support of the device being added.
+-   The output of the following commands from the console:
+
+    ```sh
+    ubus call system board
+    cat /tmp/sysinfo/board_name
+    cat /proc/mtd
+    fw_print
+    ```
 
 ## Notes/Known Issues
 
