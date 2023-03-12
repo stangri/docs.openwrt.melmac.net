@@ -4,11 +4,11 @@
 
 ## Description
 
-This package allows you to reboot to an alternative partition on the supported (dual-partition) routers and to power off (power down) your OpenWrt device.
+This package allows you to reboot to an alternative partition on the supported (dual-firmware) routers and to power off (power down) your OpenWrt device.
 
 ## Supported Devices
 
-Currently supported dual-partition devices include:
+Currently supported dual-firmware devices include:
 
 -   Linksys E4200v2
 -   Linksys EA3500
@@ -55,7 +55,7 @@ If the `luci-app-advanced-reboot` package with support of your device is not fou
 
 This package does not implement dual-firmware support to the OpenWrt device, rather it uses built-in OpenWrt tools to browse/switch partitions on dual-firmware devices supported by OpenWrt (usually by the device maintainer/committer into the OpenWrt tree).
 
-The dual-firmware devices need to be explicitly supported by this package (there's no auto-discovery of supported models). If you are interested in having a device supported by this package, please post in the [OpenWrt Forum Support Thread](https://forum.openwrt.org/t/web-ui-to-reboot-to-another-partition-dual-partition-routers/3423) the following information:
+The dual-firmware devices need to be explicitly supported by this package (there's no auto-discovery of supported models). If you are interested in having a device supported by this package, please post in the [OpenWrt Forum Support Thread](https://forum.openwrt.org/t/3423) the following information:
 
 -   Link to the device OpenWrt wiki Table of Hardware page and/or link to the git commit to OpenWrt tree with support of the device being added.
 -   The output of the following commands from the console:
