@@ -938,14 +938,24 @@ Please note that the ipset/nft set names which service creates for use in the cu
 
 ## Getting Help
 
-If things are not working as intended, please include the following in your post:
+If things are not working as intended, please first set verbosity to 2 by running these commands
 
--   content of `/etc/config/dhcp`
--   content of `/etc/config/firewall`
--   content of `/etc/config/network`
--   content of `/etc/config/pbr`
--   the output of `/etc/init.d/pbr status`
--   the output of `/etc/init.d/pbr reload` with verbosity setting set to 2
+```sh
+uci set pbr.config.verbosity='2'; uci commit pbr;
+```
+
+and then run the following commands and include their output in your post:
+
+```sh
+ubus call system board
+uci export dhcp
+uci export firewall
+uci export network
+uci export pbr
+/etc/init.d/pbr status
+/etc/init.d/pbr reload
+/etc/init.d/pbr status
+```
 
 ### First Troubleshooting Step
 
