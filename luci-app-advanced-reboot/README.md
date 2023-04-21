@@ -22,12 +22,14 @@ Currently supported dual-firmware devices include:
 -   Linksys EA8300
 -   Linksys EA8500
 -   Linksys MR8300
+-   Linksys WHW01 v1
+-   Linksys WHW03 v2
+-   Linksys WRT32X
 -   Linksys WRT1200AC
 -   Linksys WRT1900AC
 -   Linksys WRT1900ACS
 -   Linksys WRT1900ACv2
 -   Linksys WRT3200ACM
--   Linksys WRT32X
 -   Xiaomi AX3600
 -   Xiaomi AX9000
 -   ZyXEL NBG6817
