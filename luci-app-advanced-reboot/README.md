@@ -64,7 +64,7 @@ The dual-firmware devices need to be explicitly supported by this package (there
     ubus call system board
     cat /tmp/sysinfo/board_name
     cat /proc/mtd
-    fw_print
+    fw_printenv
     ```
 
 ## Notes/Known Issues
