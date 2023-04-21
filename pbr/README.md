@@ -213,18 +213,6 @@ To satisfy the requirements, connect to your router via ssh and run the followin
 opkg update; opkg install ipset resolveip ip-full kmod-ipt-ipset iptables
 ```
 
-### How to install dnsmasq-full
-
-If you want to use `dnsmasq`'s `ipset` or `nft` `sets` support, you will need to install `dnsmasq-full` instead of the `dnsmasq`. To do that, connect to your router via ssh and run the following commands:
-
-```sh
-opkg update
-cd /tmp/ && opkg download dnsmasq-full
-opkg remove dnsmasq
-opkg install dnsmasq-full --cache /tmp/
-rm -f /tmp/dnsmasq-full*.ipk
-```
-
 ### How to install legacy iptables/ipset packages
 
 If you install `pbr` (and not the `pbr-iptables`, which brings all necessary legacy dependencies), but want to use `pbr` in `iptables` mode on OpenWrt 22.03, you will need to connect to your router via ssh and run the following commands:
@@ -235,6 +223,19 @@ opkg install ipset libnettle8 libnetfilter-conntrack3 iptables kmod-ipt-ipset ip
 ```
 
 If you want to use `dnsmasq`'s `ipset` support, you will need to install [`dnsmasq-full` instead of the `dnsmasq`](#how-to-install-dnsmasq-full).
+
+### How to install dnsmasq-full
+
+If you want to use `dnsmasq`'s `ipset` or `nft` `sets` support, you will need to install `dnsmasq-full` instead of the `dnsmasq`. To do that, connect to your router via ssh and run the following commands:
+
+```sh
+opkg update
+opkg install ipset libnettle8 libnetfilter-conntrack3
+cd /tmp/ && opkg download dnsmasq-full
+opkg remove dnsmasq
+opkg install dnsmasq-full --cache /tmp/
+rm -f /tmp/dnsmasq-full*.ipk
+```
 
 ### Unmet dependencies
 
