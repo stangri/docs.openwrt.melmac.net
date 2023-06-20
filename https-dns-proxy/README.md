@@ -99,6 +99,10 @@ The `dnsmasq_config_update` option can be set to dash (set to `'-'` to not chang
 
 The `force_dns` setting is used to force the router's default resolver to all connected devices even if they are set to use other DNS resolvers or if other DNS resolvers are hardcoded in connected devices' settings. You can additionally control which ports the `force_dns` setting should be actvive on, the default values are `53` (regular DNS) and `853` (DNS over TLS). If the listed port is open/active on OpenWrt router, the service will create a `redirect` to the indicated port number, otherwise the service will create a `REJECT` rule. The intention for `REJECT` is that if the encrypted DNS requests has failed for your local device, it will fall-back on an unencrypted DNS request which will be then intercepted by the router and sent to the https-dns-proxy service. This is set to `1` (enabled) by default.
 
+#### procd_fw_src_interfaces
+
+This option allows you to override the interface (`lan` by default) which is used in the PROCD firewall redirects/rules the service creates if `force_dns` is enabled. Only needed if you have renamed or deleted your `lan` interface. If you indicate more than one interface, separate them by spaces.
+
 #### procd_trigger_wan6
 
 The service is restarted on WAN interface updates. As [OpenWrt may have floods of WAN6 updates](https://github.com/openwrt/openwrt/issues/5723#issuecomment-1040233237), the workaround for having the service restarted (and cause two `dnsmasq` restarts in turn) was to implement the `procd_trigger_wan6` boolean option (set to '0' as default) to enable/disable service restarts to be triggered by the WAN6 updates.
