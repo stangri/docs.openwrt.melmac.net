@@ -24,6 +24,14 @@ A lean RFC8484-compatible (no JSON API support) DNS-over-HTTPS (DoH) proxy servi
 
 This proxy requires the following packages to be installed on your router: `libc`, `libcares`, `libcurl`, `libev`, `ca-bundle`. They will be automatically installed when you're installing `https-dns-proxy`.
 
+### HTTP/2 Support
+
+Some resolvers may require `HTTP/2`. By default, `HTTP/2` is supported by `curl` in OpenWrt 22.03 and later, if you run an older version of OpenWrt I'd recommend you upgrade to a most recent released version and make sure the following packages are installed: `curl`, `libcurl4`, `libnghttp2`. Otherwise you'd have to compile a `curl` package for your obsolete version of OpenWrt and enable `HTTP2 protocol` (Config.in file variable `LIBCURL_NGHTTP2`).
+
+### HTTP/3 (QUIC) Support
+
+Some resolvers may require `HTTP/3` (`QUIC`). As of summer of 2023, there's no support for `HTTP/3` in OpenWrt. Once the support for `HTTP/3` is included in OpenWrt, make sure you install the `HTTP/3`-supporting `curl` package and additionally install: `libcurl4`, `libnghttp3`, `libngtcp2`.
+
 ## Unmet Dependencies
 
 If you are running a development (trunk/snapshot) build of OpenWrt on your router and your build is outdated (meaning that packages of the same revision/commit hash are no longer available and when you try to satisfy the [requirements](#requirements) you get errors), please flash either current OpenWrt release image or current development/snapshot image.
