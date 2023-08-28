@@ -31,23 +31,27 @@ If you want a more robust AdBlocking, supporting free memory detection and compl
 
 Service Status
 
-![screenshot](https://docs.openwrt.melmac.net/adblock-fast/screenshots/screenshot08-status.png "Service Status")
+![screenshot](https://docs.openwrt.melmac.net/adblock-fast/screenshots/screenshot10-status.png "Service Status")
 
 Configuration - Basic Configuration
 
-![screenshot](https://docs.openwrt.melmac.net/adblock-fast/screenshots/screenshot08-config-basic.png "Configuration - Basic Configuration")
+![screenshot](https://docs.openwrt.melmac.net/adblock-fast/screenshots/screenshot10-config-basic.png "Configuration - Basic Configuration")
 
 Configuration - Advanced Configuration
 
-![screenshot](https://docs.openwrt.melmac.net/adblock-fast/screenshots/screenshot08-config-advanced.png "Configuration - Advanced Configuration")
+![screenshot](https://docs.openwrt.melmac.net/adblock-fast/screenshots/screenshot10-config-advanced.png "Configuration - Advanced Configuration")
+
+Allowed and Blocked Domains Management
+
+![screenshot](https://docs.openwrt.melmac.net/adblock-fast/screenshots/screenshot10-domains.png "Allowed and Blocked Domains Management")
 
 Allowed and Blocked Lists Management
 
-![screenshot](https://docs.openwrt.melmac.net/adblock-fast/screenshots/screenshot09-lists.png "Allow-list and Block-list Management")
+![screenshot](https://docs.openwrt.melmac.net/adblock-fast/screenshots/screenshot10-lists.png "Allowed and Blocked Lists Management")
 
 ## Requirements
 
-Starting with OpenWrt 19.07 and up the required packages should be automatically installed when you install `adblock-fast`.
+The required packages should be automatically installed when you install `adblock-fast`.
 
 ### Requirements for DNS Resolver
 
