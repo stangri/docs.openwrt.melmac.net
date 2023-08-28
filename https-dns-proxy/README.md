@@ -10,15 +10,25 @@ A lean RFC8484-compatible (no JSON API support) DNS-over-HTTPS (DoH) proxy servi
 
 ## Features
 
--   [RFC8484](https://tools.ietf.org/html/rfc8484)-compatible DoH Proxy.
--   Compact size.
--   Web UI (`luci-app-https-dns-proxy`) available.
--   (By default) automatically updates DNSMASQ settings to use DoH proxy when it's started and reverts to old DNSMASQ resolvers when DoH proxy is stopped.
--   (By default) automatically adds records for canary domains[<sup>1</sup>](https://support.mozilla.org/en-US/kb/canary-domain-use-application-dnsnet)<sup>,</sup>[<sup>2</sup>](https://developer.apple.com/support/prepare-your-network-for-icloud-private-relay) upon start and removes them upon service stop.
+- [RFC8484](https://tools.ietf.org/html/rfc8484)-compatible DoH Proxy.
+- Compact size.
+- Web UI (`luci-app-https-dns-proxy`) available.
+- (By default) automatically updates DNSMASQ settings to use DoH proxy when it's started and reverts to old DNSMASQ resolvers when DoH proxy is stopped.
+- (By default) automatically adds records for canary domains[<sup>1</sup>](https://support.mozilla.org/en-US/kb/canary-domain-use-application-dnsnet)<sup>,</sup>[<sup>2</sup>](https://developer.apple.com/support/prepare-your-network-for-icloud-private-relay) upon start and removes them upon service stop.
 
 ## Screenshots (luci-app-https-dns-proxy)
 
-![screenshot](https://docs.openwrt.melmac.net/https-dns-proxy/screenshots/screenshot01.png "https-dns-proxy screenshot")
+Service Status
+
+![screenshot](https://docs.openwrt.melmac.net/https-dns-proxy/screenshots/screenshot02-status.png "Service Status")
+
+Service Configuration
+
+![screenshot](https://docs.openwrt.melmac.net/https-dns-proxy/screenshots/screenshot02-config.png "Service Configuration")
+
+Service Instances
+
+![screenshot](https://docs.openwrt.melmac.net/https-dns-proxy/screenshots/screenshot02-instances.png "Service Instances")
 
 ## Requirements
 
