@@ -6,15 +6,15 @@
 
 ## Description
 
-A lean RFC8484-compatible (no JSON API support) DNS-over-HTTPS (DoH) proxy service which supports DoH servers ran by AdGuard, CleanBrowsing, Cloudflare, Google, ODVR (nic.cz) and Quad9. Based on [@aarond10](https://github.com/aarond10)'s [https-dns-proxy](https://github.com/aarond10/https_dns_proxy).
+A lean RFC8484-compatible (no JSON API support) DNS-over-HTTPS (DoH) proxy service which supports DoH servers. The accmponying WebUI (`luci-app-https-dns-proxy`) supports [more than 40 public resolvers](https://github.com/stangri/source.openwrt.melmac.net/tree/master/luci-app-https-dns-proxy/root/usr/share/https-dns-proxy/providers). Based on [@aarond10](https://github.com/aarond10)'s [https-dns-proxy](https://github.com/aarond10/https_dns_proxy).
 
 ## Features
 
 - [RFC8484](https://tools.ietf.org/html/rfc8484)-compatible DoH Proxy.
-- Compact size.
-- Web UI (`luci-app-https-dns-proxy`) available.
+- Compact size (about 40Kb installed).
 - (By default) automatically updates DNSMASQ settings to use DoH proxy when it's started and reverts to old DNSMASQ resolvers when DoH proxy is stopped.
 - (By default) automatically adds records for canary domains[<sup>1</sup>](https://support.mozilla.org/en-US/kb/canary-domain-use-application-dnsnet)<sup>,</sup>[<sup>2</sup>](https://developer.apple.com/support/prepare-your-network-for-icloud-private-relay) upon start and removes them upon service stop.
+- Web UI (`luci-app-https-dns-proxy`) available. [More than 40 public resolvers](https://github.com/stangri/source.openwrt.melmac.net/tree/master/luci-app-https-dns-proxy/root/usr/share/https-dns-proxy/providers) are supported within the WebUI for easy configuration.
 
 ## Screenshots (luci-app-https-dns-proxy)
 
