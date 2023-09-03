@@ -80,6 +80,10 @@ The packages source code is available in my packages source on [GitHub](https://
 
 ## Description of packages
 
+### adblock-fast & luci-app-adblock-fast
+
+This service provides lightweight and very fast dnsmasq-based ad blocking. Please see the README at [GitHub](https://docs.openwrt.melmac.net/adblock-fast/)/[jsDelivr](https://cdn.jsdelivr.net/gh/stangri/docs.openwrt.melmac.net/adblock-fast/README.md) and [OpenWrt Forum Thread]() for further information. This package has been obsoleted by [adblock-fast](#adblock-fast--luci-app-adblock-fast).
+
 ### antminer-monitor
 
 This service can be used to monitor local BITMAIN Antminers. This is just the wrapper for [Antminer Monitor python app](https://github.com/anselal/antminer-monitor). **WARNING**: Requires a router with a lot of flash, 128Mb recommended. Please see the README at [GitHub](https://docs.openwrt.melmac.net/antminer-monitor/)/[jsDelivr](https://cdn.jsdelivr.net/gh/stangri/docs.openwrt.melmac.net/antminer-monitor/README.md) for further information.
@@ -97,6 +101,24 @@ This is a lean RFC8484-compatible DNS-over-HTTPS (DoH) proxy service which suppo
 
 This package enables Web UI for reboot to another partition functionality on supported (dual-partition) routers and to power off (power down) your router. Please see the README at [GitHub](https://docs.openwrt.melmac.net/luci-app-advanced-reboot/)/[jsDelivr](https://cdn.jsdelivr.net/gh/stangri/docs.openwrt.melmac.net/luci-app-advanced-reboot/README.md) and [OpenWrt Forum Thread](https://forum.openwrt.org/t/web-ui-to-reboot-to-another-partition-for-dual-partition-routers/3423) for further information.
 
+### pbr & luci-app-pbr
+
+This service can be used to enable policy-based routing for WAN/WAN6 interfaces and multiple VPN tunnels. Supported VPN protocols include: L2TP, Openconnect, OpenVPN, Softether and Wireguard. Policies can be based on domain names, IP addresses, ports or any combination of the above. This service supports policies for both outgoing and incoming traffic to target specific interfaces/tunnels. Please see the README at [GitHub](https://docs.openwrt.melmac.net/pbr/)/[jsDelivr](https://cdn.jsdelivr.net/gh/stangri/docs.openwrt.melmac.net/pbr/README.md) and [OpenWrt Forum Thread](https://forum.openwrt.org/t/policy-based-routing-pbr-package-discussion/140639/1) for further information.
+
+### slider-support
+
+This package enables switching between `Router`, `Access Point` and `Wireless Repeater` modes of operation for supported routers equipped with slider switch. It also sets the correct `current mode` setting for the `WLAN Blinker` service (README at [GitHub](https://docs.openwrt.melmac.net/wlanblinker/)/[jsDelivr](https://cdn.jsdelivr.net/gh/stangri/docs.openwrt.melmac.net/wlanblinker/README.md)). Please see the README at [GitHub](https://docs.openwrt.melmac.net/slider-support/)/[jsDelivr](https://cdn.jsdelivr.net/gh/stangri/docs.openwrt.melmac.net/slider-support/README.md) for further information.
+
+### wlanblinker & luci-app-wlanblinker
+
+This service can be used to indicate WLAN status by blinking the unused LED. Please see the README at [GitHub](https://docs.openwrt.melmac.net/wlanblinker/)/[jsDelivr](https://cdn.jsdelivr.net/gh/stangri/docs.openwrt.melmac.net/wlanblinker/README.md) for further information.
+
+### wireshark-helper & luci-app-wireshark-helper
+
+This service can be used to configure router to sniff packets to/from monitored device on the device running Wireshark app. Please see the README at [GitHub](https://docs.openwrt.melmac.net/wireshark-helper/)/[jsDelivr](https://cdn.jsdelivr.net/gh/stangri/docs.openwrt.melmac.net/wireshark-helper/README.md) for further information.
+
+## Description of outdated/obsolete packages
+
 ### luci-app-easyflash
 
 This package installs Web UI for quickly updating your router firmware if you use automated snapshots build process which produces fully customized images and uploads them to your router. Requires sysupgrade-compatible upgrade file `/tmp/firmware.img` and a one-line description (target/version/filename info) in `/tmp/firmware.tag`. WARNING: does not keep your router settings.
@@ -109,33 +131,17 @@ This package enables Web UI for reboot to another partition functionality on sup
 
 This package brings back the old button styles to the `luci-theme-material` on OpenWrt 18.06.0-rc2 and later. Please see the README at [GitHub](https://docs.openwrt.melmac.net/luci-theme-material-old/)/[jsDelivr](https://cdn.jsdelivr.net/gh/stangri/docs.openwrt.melmac.net/luci-theme-material-old/README.md) for further information.
 
-### pbr & luci-app-pbr
-
-This service can be used to enable policy-based routing for WAN/WAN6 interfaces and multiple VPN tunnels. Supported VPN protocols include: L2TP, Openconnect, OpenVPN, Softether and Wireguard. Policies can be based on domain names, IP addresses, ports or any combination of the above. This service supports policies for both outgoing and incoming traffic to target specific interfaces/tunnels. Please see the README at [GitHub](https://docs.openwrt.melmac.net/pbr/)/[jsDelivr](https://cdn.jsdelivr.net/gh/stangri/docs.openwrt.melmac.net/pbr/README.md) and [OpenWrt Forum Thread](https://forum.openwrt.org/t/policy-based-routing-pbr-package-discussion/140639/1) for further information.
-
 ### simple-adblock & luci-app-simple-adblock
 
-This service provides lightweight and very fast dnsmasq-based ad blocking. Please see the README at [GitHub](https://docs.openwrt.melmac.net/simple-adblock/)/[jsDelivr](https://cdn.jsdelivr.net/gh/stangri/docs.openwrt.melmac.net/simple-adblock/README.md) and [OpenWrt Forum Thread](https://forum.openwrt.org/t/simple-adblock-fast-lightweight-and-fully-uci-luci-configurable-ad-blocking/1327) for further information.
-
-### slider-support
-
-This package enables switching between `Router`, `Access Point` and `Wireless Repeater` modes of operation for supported routers equipped with slider switch. It also sets the correct `current mode` setting for the `WLAN Blinker` service (README at [GitHub](https://docs.openwrt.melmac.net/wlanblinker/)/[jsDelivr](https://cdn.jsdelivr.net/gh/stangri/docs.openwrt.melmac.net/wlanblinker/README.md)). Please see the README at [GitHub](https://docs.openwrt.melmac.net/slider-support/)/[jsDelivr](https://cdn.jsdelivr.net/gh/stangri/docs.openwrt.melmac.net/slider-support/README.md) for further information.
-
-### vpn-policy-routing & luci-app-vpn-policy-routing
-
-This service can be used to enable policy-based routing for WAN/WAN6 interfaces and multiple VPN tunnels. Supported VPN protocols include: L2TP, Openconnect, OpenVPN and Wireguard. Policies can be based on domain names, IP addresses, ports or any combination of the above. This service supports policies for both outgoing and incoming traffic to target specific interfaces/tunnels. Please see the README at [GitHub](https://docs.openwrt.melmac.net/vpn-policy-routing/)/[jsDelivr](https://cdn.jsdelivr.net/gh/stangri/docs.openwrt.melmac.net/vpn-policy-routing/README.md) and [OpenWrt Forum Thread](https://forum.openwrt.org/t/vpn-policy-based-routing-web-ui-discussion/10389) for further information. This package has been obsoleted by [pbr](#pbr--luci-app-pbr).
+This service provides lightweight and very fast dnsmasq-based ad blocking. Please see the README at [GitHub](https://docs.openwrt.melmac.net/simple-adblock/)/[jsDelivr](https://cdn.jsdelivr.net/gh/stangri/docs.openwrt.melmac.net/simple-adblock/README.md) and [OpenWrt Forum Thread](https://forum.openwrt.org/t/simple-adblock-fast-lightweight-and-fully-uci-luci-configurable-ad-blocking/1327) for further information. This package has been obsoleted by [adblock-fast](#adblock-fast--luci-app-adblock-fast).
 
 ### vpnbypass & luci-app-vpnbypass
 
 This service can be used to enable split tunneling for outgoing traffic for a single OpenVPN tunnel used as the default gateway. Supports accessing domains, IP ranges outside of your OpenVPN tunnel (bypassing OpenVPN tunnel) over IPv4. Please see the README at [GitHub](https://docs.openwrt.melmac.net/vpnbypass/)/[jsDelivr](https://cdn.jsdelivr.net/gh/stangri/docs.openwrt.melmac.net/vpnbypass/README.md) and [OpenWrt Forum Thread](https://forum.openwrt.org/t/vpn-bypass-split-tunneling-service-luci-ui/1106/12) for further information. This package has been obsoleted by [pbr](#pbr--luci-app-pbr).
 
-### wlanblinker & luci-app-wlanblinker
+### vpn-policy-routing & luci-app-vpn-policy-routing
 
-This service can be used to indicate WLAN status by blinking the unused LED. Please see the README at [GitHub](https://docs.openwrt.melmac.net/wlanblinker/)/[jsDelivr](https://cdn.jsdelivr.net/gh/stangri/docs.openwrt.melmac.net/wlanblinker/README.md) for further information.
-
-### wireshark-helper & luci-app-wireshark-helper
-
-This service can be used to configure router to sniff packets to/from monitored device on the device running Wireshark app. Please see the README at [GitHub](https://docs.openwrt.melmac.net/wireshark-helper/)/[jsDelivr](https://cdn.jsdelivr.net/gh/stangri/docs.openwrt.melmac.net/wireshark-helper/README.md) for further information.
+This service can be used to enable policy-based routing for WAN/WAN6 interfaces and multiple VPN tunnels. Supported VPN protocols include: L2TP, Openconnect, OpenVPN and Wireguard. Policies can be based on domain names, IP addresses, ports or any combination of the above. This service supports policies for both outgoing and incoming traffic to target specific interfaces/tunnels. Please see the README at [GitHub](https://docs.openwrt.melmac.net/vpn-policy-routing/)/[jsDelivr](https://cdn.jsdelivr.net/gh/stangri/docs.openwrt.melmac.net/vpn-policy-routing/README.md) and [OpenWrt Forum Thread](https://forum.openwrt.org/t/vpn-policy-based-routing-web-ui-discussion/10389) for further information. This package has been obsoleted by [pbr](#pbr--luci-app-pbr).
 
 <!-- markdownlint-disable MD033 -->
 
