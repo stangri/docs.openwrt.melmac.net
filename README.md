@@ -82,7 +82,7 @@ The packages source code is available in my packages source on [GitHub](https://
 
 ### adblock-fast & luci-app-adblock-fast
 
-This service provides lightweight and very fast dnsmasq-based ad blocking. Please see the README at [GitHub](https://docs.openwrt.melmac.net/adblock-fast/)/[jsDelivr](https://cdn.jsdelivr.net/gh/stangri/docs.openwrt.melmac.net/adblock-fast/README.md) and [OpenWrt Forum Thread]() for further information. This package has been obsoleted by [adblock-fast](#adblock-fast--luci-app-adblock-fast).
+This service provides lightweight and very fast dnsmasq-based ad blocking. Please see the README at [GitHub](https://docs.openwrt.melmac.net/adblock-fast/)/[jsDelivr](https://cdn.jsdelivr.net/gh/stangri/docs.openwrt.melmac.net/adblock-fast/README.md) and [OpenWrt Forum Thread](https://forum.openwrt.org/t/adblock-fast-ad-blocking-service-for-dnsmasq-and-unbound/170530) for further information. This package has been obsoleted by [adblock-fast](#adblock-fast--luci-app-adblock-fast).
 
 ### antminer-monitor
 
