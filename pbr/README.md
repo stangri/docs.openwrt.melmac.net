@@ -4,11 +4,97 @@
 
 # Policy-Based Routing
 
-## OpenWrt 23.05.0 release and this package
+<!-- vscode-markdown-toc -->
 
-Unlike the previous release, the OpenWrt 23.05 includes `dnsmasq-full` which supports nft sets, so just [install dnsmasq-full](#how-to-install-dnsmasq-full), install the `pbr` package and and it be automatically configured to use `dnsmasq.nftset` option for resolver.
+- 1. [OpenWrt 23.05.0 release and this package](#OpenWrt23.05.0releaseandthispackage)
+- 2. [OpenWrt 22.03.0 release and this package](#OpenWrt22.03.0releaseandthispackage)
+- 3. [Description](#Description)
+- 4. [Features](#Features)
+  - 4.1. [Gateways/Tunnels](#GatewaysTunnels)
+  - 4.2. [IPv4/IPv6/Port-Based Policies](#IPv4IPv6Port-BasedPolicies)
+  - 4.3. [Domain-Based Policies](#Domain-BasedPolicies)
+  - 4.4. [Physical Device Policies](#PhysicalDevicePolicies)
+  - 4.5. [DSCP Tag-Based Policies](#DSCPTag-BasedPolicies)
+  - 4.6. [Custom User Files](#CustomUserFiles)
+  - 4.7. [Strict Enforcement](#StrictEnforcement)
+  - 4.8. [Use Resolver's Set Support](#UseResolversSetSupport)
+    - 4.8.1. [Use AdGuardHome ipset Support](#UseAdGuardHomeipsetSupport)
+    - 4.8.2. [Use DNSMASQ ipset Support](#UseDNSMASQipsetSupport)
+    - 4.8.3. [Use DNSMASQ nft sets Support](#UseDNSMASQnftsetsSupport)
+  - 4.9. [Customization](#Customization)
+  - 4.10. [Other Features](#OtherFeatures)
+- 5. [Screenshots (luci-app-pbr)](#Screenshotsluci-app-pbr)
+- 6. [How It Works](#HowItWorks)
+  - 6.1. [How It Works (`nft` mode)](#HowItWorksnftmode)
+  - 6.2. [How It Works (`iptables`/`ipset` mode)](#HowItWorksiptablesipsetmode)
+  - 6.3. [Processing Policies](#ProcessingPolicies)
+    - 6.3.1. [Processing Policies (`nft` mode)](#ProcessingPoliciesnftmode)
+    - 6.3.2. [Processing Policies (`iptables`/`ipset` mode)](#ProcessingPoliciesiptablesipsetmode)
+  - 6.4. [Policies Priorities](#PoliciesPriorities)
+  - 6.5. [Processing Custom User Files](#ProcessingCustomUserFiles)
+    - 6.5.1. [Processing Custom User Files (`nft` mode)](#ProcessingCustomUserFilesnftmode)
+    - 6.5.2. [Processing Custom User Files (`iptables`/`ipset` mode)](#ProcessingCustomUserFilesiptablesipsetmode)
+- 7. [How To Install](#HowToInstall)
+  - 7.1. [How To Install - OpenWrt 22.03 and newer](#HowToInstall-OpenWrt22.03andnewer)
+  - 7.2. [How To Install - OpenWrt 21.02 and older](#HowToInstall-OpenWrt21.02andolder)
+  - 7.3. [Requirements](#Requirements)
+    - 7.3.1. [Requirements (pbr)](#Requirementspbr)
+    - 7.3.2. [Requirements (pbr-iptables)](#Requirementspbr-iptables)
+  - 7.4. [How to install legacy iptables/ipset packages](#Howtoinstalllegacyiptablesipsetpackages)
+  - 7.5. [How to install dnsmasq-full](#Howtoinstalldnsmasq-full)
+  - 7.6. [Unmet dependencies](#Unmetdependencies)
+- 8. [Service Configuration Settings](#ServiceConfigurationSettings)
+  - 8.1. [Default Settings](#DefaultSettings)
+  - 8.2. [Policy Options](#PolicyOptions)
+  - 8.3. [Custom User Files Include Options](#CustomUserFilesIncludeOptions)
+  - 8.4. [Example Policies](#ExamplePolicies)
+    - 8.4.1. [Single IP, IP Range, Local Machine, Local MAC Address](#SingleIPIPRangeLocalMachineLocalMACAddress)
+    - 8.4.2. [Logmein Hamachi](#LogmeinHamachi)
+    - 8.4.3. [SIP Port](#SIPPort)
+    - 8.4.4. [Plex Media Server](#PlexMediaServer)
+    - 8.4.5. [Emby Media Server](#EmbyMediaServer)
+    - 8.4.6. [Ignore Target](#IgnoreTarget)
+    - 8.4.7. [Basic OpenVPN Client Config](#BasicOpenVPNClientConfig)
+    - 8.4.8. [Multiple OpenVPN Clients](#MultipleOpenVPNClients)
+    - 8.4.9. [Local OpenVPN Server + OpenVPN Client (Scenario 1)](#LocalOpenVPNServerOpenVPNClientScenario1)
+    - 8.4.10. [Local OpenVPN Server + OpenVPN Client (Scenario 2)](#LocalOpenVPNServerOpenVPNClientScenario2)
+    - 8.4.11. [Local Wireguard Server + Wireguard Client (Scenario 1)](#LocalWireguardServerWireguardClientScenario1)
+    - 8.4.12. [Local Wireguard Server + Wireguard Client (Scenario 2)](#LocalWireguardServerWireguardClientScenario2)
+    - 8.4.13. [Local Wireguard Server + Another VPN Client (Scenario 1)](#LocalWireguardServerAnotherVPNClientScenario1)
+    - 8.4.14. [Local Wireguard Server + Another VPN Client (Scenario 2)](#LocalWireguardServerAnotherVPNClientScenario2)
+    - 8.4.15. [Netflix Domains](#NetflixDomains)
+    - 8.4.16. [Example Custom User Files Includes](#ExampleCustomUserFilesIncludes)
+- 9. [Footnotes/Known Issues](#FootnotesKnownIssues)
+- 10. [FAQ](#FAQ)
+  - 10.1. [A Word About Default Routing](#AWordAboutDefaultRouting)
+    - 10.1.1. [OpenVPN tunnel configured via uci (/etc/config/openvpn)](#OpenVPNtunnelconfiguredviaucietcconfigopenvpn)
+    - 10.1.2. [OpenVPN tunnel configured with .ovpn file](#OpenVPNtunnelconfiguredwith.ovpnfile)
+    - 10.1.3. [Wireguard tunnel](#Wireguardtunnel)
+  - 10.2. [A Word About Cloudflare's 1.1.1.1 App](#AWordAboutCloudflares1.1.1.1App)
+  - 10.3. [A Word About DNS-over-HTTPS](#AWordAboutDNS-over-HTTPS)
+  - 10.4. [A Word About HTTP/3 (QUICK)](#AWordAboutHTTP3QUICK)
+  - 10.5. [A Word About IPv6 Routing](#AWordAboutIPv6Routing)
+  - 10.6. [A Word About Routing Netflix/Amazon Prime/Hulu Traffic](#AWordAboutRoutingNetflixAmazonPrimeHuluTraffic)
+    - 10.6.1. [Routing Netflix/Amazon Prime/Hulu Traffic via VPN Tunnel](#RoutingNetflixAmazonPrimeHuluTrafficviaVPNTunnel)
+    - 10.6.2. [Routing Netflix/Amazon Prime/Hulu Traffic via WAN](#RoutingNetflixAmazonPrimeHuluTrafficviaWAN)
+  - 10.7. [A Word About Interface Hotplug Script](#AWordAboutInterfaceHotplugScript)
+  - 10.8. [A Word About Differences from `vpn-policy-routing`](#AWordAboutDifferencesfromvpn-policy-routing)
+  - 10.9. [A Word About Migrating from `vpn-policy-routing`](#AWordAboutMigratingfromvpn-policy-routing)
+- 11. [Getting Help](#GettingHelp)
+  - 11.1. [First Troubleshooting Step](#FirstTroubleshootingStep)
+- 12. [Thanks](#Thanks)
 
-## OpenWrt 22.03.0 release and this package
+<!-- vscode-markdown-toc-config
+	numbering=true
+	autoSave=true
+	/vscode-markdown-toc-config -->
+<!-- /vscode-markdown-toc -->
+
+## 1. <a name='OpenWrt23.05.0releaseandthispackage'></a>OpenWrt 23.05.0 release and this package
+
+Unlike the previous release, the OpenWrt 23.05 includes `dnsmasq-full` which supports nft sets, so just [install dnsmasq-full](#Howtoinstalldnsmasq-full), install the `pbr` package and and it be automatically configured to use `dnsmasq.nftset` option for resolver.
+
+## 2. <a name='OpenWrt22.03.0releaseandthispackage'></a>OpenWrt 22.03.0 release and this package
 
 There are now two packages of this service available:
 
@@ -29,17 +115,17 @@ The package-specific files that `pbr-iptables` installs are:
 
 The `pbr` decides wherver to use `iptables`/`ipset` mode or `nft` mode on run time. If the `nft` binary is available, the `resolver_set` is not set to `dnsmasq.ipset` and a main `pbr_prerouting` chain has been created by the `fw4`-specific `nft` script, it runs in the `nft` mode, otherwise it runs in the `iptables`/`ipset` mode.
 
-Each package of the service has its own dependencies, so only `pbr-iptables` can be installed on OpenWrt 21.02 and earlier, but either `pbr` or `pbr-iptables` can be installed on OpenWrt 22.03. It is recommended to install `pbr` on OpenWrt 22.03 and if you want to use [use dnsmasq ipset support](#use-dnsmasq-ipset-support), [install dnsmasq-full](#how-to-install-dnsmasq-full), also [install legacy iptables/ipset packages](#how-to-install-legacy-iptablesipset-packages) and then change `resolver_set` option to `dnsmasq.ipset` to force `iptables`/`ipset` mode.
+Each package of the service has its own dependencies, so only `pbr-iptables` can be installed on OpenWrt 21.02 and earlier, but either `pbr` or `pbr-iptables` can be installed on OpenWrt 22.03. It is recommended to install `pbr` on OpenWrt 22.03 and if you want to use [use dnsmasq ipset support](#UseDNSMASQipsetSupport), [install dnsmasq-full](#Howtoinstalldnsmasq-full), also [install legacy iptables/ipset packages](#Howtoinstalllegacyiptablesipsetpackages) and then change `resolver_set` option to `dnsmasq.ipset` to force `iptables`/`ipset` mode.
 
 Both `pbr-iptables` and `pbr` in `iptables`/`ipset` mode work just fine on OpenWrt 22.03. You can safely ignore the warning on the Status -> Firewall page about legacy iptables rules created by either package.
 
-## Description
+## 3. <a name='Description'></a>Description
 
-This service allows you to define rules (policies) for routing traffic via WAN or your L2TP, Openconnect, OpenVPN, PPTP, Softether or Wireguard tunnels. Policies can be set based on any combination of local/remote ports, local/remote IPv4 or IPv6 addresses/subnets or domains. This service supersedes and obsoletes the `VPN Bypass` ([README at GitHub](https://docs.openwrt.melmac.net/vpnbypass/)/[README at jsDelivr](https://cdn.jsdelivr.net/gh/stangri/docs.openwrt.melmac.net/vpnbypass/README.md)) and `VPN Policy Routing` ([README at GitHub](https://docs.openwrt.melmac.net/vpn-policy-routing/)/[README at jsDelivr](https://cdn.jsdelivr.net/gh/stangri/docs.openwrt.melmac.net/vpn-policy-routing/README.md)) services. For information on transition from `vpn-policy-routing` package please read about [differences](#a-word-about-differences-from-vpn-policy-routing) and [migration](#a-word-about-migrating-from-vpn-policy-routing).
+This service allows you to define rules (policies) for routing traffic via WAN or your L2TP, Openconnect, OpenVPN, PPTP, Softether or Wireguard tunnels. Policies can be set based on any combination of local/remote ports, local/remote IPv4 or IPv6 addresses/subnets or domains. This service supersedes and obsoletes the `VPN Bypass` ([README at GitHub](https://docs.openwrt.melmac.net/vpnbypass/)/[README at jsDelivr](https://cdn.jsdelivr.net/gh/stangri/docs.openwrt.melmac.net/vpnbypass/README.md)) and `VPN Policy Routing` ([README at GitHub](https://docs.openwrt.melmac.net/vpn-policy-routing/)/[README at jsDelivr](https://cdn.jsdelivr.net/gh/stangri/docs.openwrt.melmac.net/vpn-policy-routing/README.md)) services. For information on transition from `vpn-policy-routing` package please read about [differences](#AWordAboutDifferencesfromvpn-policy-routing) and [migration](#AWordAboutMigratingfromvpn-policy-routing).
 
-## Features
+## 4. <a name='Features'></a>Features
 
-### Gateways/Tunnels
+### 4.1. <a name='GatewaysTunnels'></a>Gateways/Tunnels
 
 - Any policy can target either WAN or a VPN tunnel interface.
 - L2TP tunnels supported (with protocol names l2tp\*).
@@ -50,28 +136,28 @@ This service allows you to define rules (policies) for routing traffic via WAN o
 - Tor tunnels supported (interface name must match tor).
 - Wireguard tunnels supported (with protocol names wireguard\*).
 
-### IPv4/IPv6/Port-Based Policies
+### 4.2. <a name='IPv4IPv6Port-BasedPolicies'></a>IPv4/IPv6/Port-Based Policies
 
 - Policies based on local names, IPs or subnets. You can specify a single IP (as in `192.168.1.70`) or a local subnet (as in `192.168.1.81/29`) or a local device name (as in `nexusplayer`). IPv6 addresses are also supported.
 - Policies based on local ports numbers. Can be set as an individual port number (`32400`), a range (`5060-5061`), a space-separated list (`80 8080`) or a combination of the above (`80 8080 5060-5061`). Limited to 15 space-separated entries per policy.
 - Policies based on remote IPs/subnets or domain names. Same format/syntax as local IPs/subnets.
 - Policies based on remote ports numbers. Same format/syntax and restrictions as local ports.
 - You can mix the IP addresses/subnets and device (or domain) names in one field separating them by space (like this: `66.220.2.74 he.net tunnelbroker.net`).
-- See [Policy Options](#policy-options) section for more information.
+- See [Policy Options](#PolicyOptions) section for more information.
 
-### Domain-Based Policies
+### 4.3. <a name='Domain-BasedPolicies'></a>Domain-Based Policies
 
-- Policies based on (remote) domain names can be processed in different ways, please review the [Policy Options](#policy-options) section and [Footnotes/Known Issues](#footnotesknown-issues) section, specifically [<sup>#5</sup>](#footnote5) and any other information in that section relevant to domain-based routing/DNS.
+- Policies based on (remote) domain names can be processed in different ways, please review the [Policy Options](#PolicyOptions) section and [Footnotes/Known Issues](#FootnotesKnownIssues) section, specifically [<sup>#5</sup>](#footnote5) and any other information in that section relevant to domain-based routing/DNS.
 
-### Physical Device Policies
+### 4.4. <a name='PhysicalDevicePolicies'></a>Physical Device Policies
 
-- Policies based on a local physical device (like a specially created wlan), please review the [Policy Options](#policy-options) section and [Footnotes/Known Issues](#footnotesknown-issues) section, specifically [<sup>#6</sup>](#footnote6) and any other information in that section relevant to handling physical device.
+- Policies based on a local physical device (like a specially created wlan), please review the [Policy Options](#PolicyOptions) section and [Footnotes/Known Issues](#FootnotesKnownIssues) section, specifically [<sup>#6</sup>](#footnote6) and any other information in that section relevant to handling physical device.
 
-### DSCP Tag-Based Policies
+### 4.5. <a name='DSCPTag-BasedPolicies'></a><a name='dscp-tag-based-policies'></a>DSCP Tag-Based Policies
 
 You can also set policies for traffic with specific DSCP tag. On Windows 10, for example, you can mark traffic from specific apps with DSCP tags (instructions for tagging specific app traffic in Windows 10 can be found [here](http://serverfault.com/questions/769843/cannot-set-dscp-on-windows-10-pro-via-group-policy)).
 
-### Custom User Files
+### 4.6. <a name='CustomUserFiles'></a><a name='custom-user-files'></a>Custom User Files
 
 If the custom user file includes are set, the service will load and execute them after setting up routing and the sets and processing policies. This allows, for example, to add large numbers of domains/IP addresses to ipsets or nft sets without manually adding all of them to the config file.
 
@@ -79,44 +165,44 @@ The following custom user files are provided:
 
 - `/usr/share/pbr/pbr.user.aws`: provided to pull the Continental US AWS IPv4 addresses into the WAN IPv4 sets the service sets up.
 - `/usr/share/pbr/pbr.user.netflix`: provided to pull the Continental US Netflix IPv4 addresses into the WAN IPv4 sets the service sets up.
-- `/usr/share/pbr/pbr.user.wg_server_and_client`: provided to overcome the protocol limitations (see [Local Wireguard Server + Wireguard Client (Scenario 1)](#local-wireguard-server--wireguard-client-scenario-1)), to allow running a wireguard "server" on your router when a wireguard "client" is set up as default routing.
+- `/usr/share/pbr/pbr.user.wg_server_and_client`: provided to overcome the protocol limitations (see [Local Wireguard Server + Wireguard Client (Scenario 1)](#LocalWireguardServerWireguardClientScenario1)), to allow running a wireguard "server" on your router when a wireguard "client" is set up as default routing.
 
-If you want to create your own custom user files, pease refer to [Processing Custom User Files](#processing-custom-user-files).
+If you want to create your own custom user files, pease refer to [Processing Custom User Files](#ProcessingCustomUserFiles).
 
-### Strict Enforcement
+### 4.7. <a name='StrictEnforcement'></a><a name='strict-enforcement'></a>Strict Enforcement
 
 - Supports strict policy enforcement, even if the policy interface is down -- resulting in network being unreachable for specific policy (enabled by default).
 
-### Use Resolver's Set Support
+### 4.8. <a name='UseResolversSetSupport'></a><a name='use-resolvers-set-support'></a>Use Resolver's Set Support
 
 - If supported on the system, service can be set to utilize resolver's set support. Currently supported resolver's set options are listed below.
 
-#### Use AdGuardHome ipset Support
+#### 4.8.1. <a name='UseAdGuardHomeipsetSupport'></a>Use AdGuardHome ipset Support
 
 - Either version of the service package can be configured to utilize `adguardhome`'s `ipset` support, which requires the `AdGuardHome` package version `0.107.13` or higher to be installed. This significantly improves the start up time because `adguardhome` resolves the domain names and adds them to appropriate `ipset` in background. Another benefit of using `adguardhome`'s `ipset` support is that it also automatically adds third-level domains to the `ipset`: if `domain.com` is added to the policy, this policy will affect all `*.domain.com` subdomains. This also works for top-level domains as well, a policy targeting the `at` for example, will affect all the `*.at` domains.
-- Please review the [Footnotes/Known Issues](#footnotesknown-issues) section, specifically [<sup>#5</sup>](#footnote5) and [<sup>#7</sup>](#footnote7) and any other information in that section relevant to domain-based routing/DNS.
+- Please review the [Footnotes/Known Issues](#FootnotesKnownIssues) section, specifically [<sup>#5</sup>](#footnote5) and [<sup>#7</sup>](#footnote7) and any other information in that section relevant to domain-based routing/DNS.
 
-#### Use DNSMASQ ipset Support
+#### 4.8.2. <a name='UseDNSMASQipsetSupport'></a>Use DNSMASQ ipset Support
 
-- Either version of the service package can be configured to utilize `dnsmasq`'s `ipset` support, which requires the `dnsmasq-full` package with `ipset` support to be installed (see [How to install dnsmasq-full](#how-to-install-dnsmasq-full)). This significantly improves the start up time because `dnsmasq` resolves the domain names and adds them to appropriate `ipset` in background. Another benefit of using `dnsmasq`'s `ipset` support is that it also automatically adds third-level domains to the `ipset`: if `domain.com` is added to the policy, this policy will affect all `*.domain.com` subdomains. This also works for top-level domains as well, a policy targeting the `at` for example, will affect all the `*.at` domains.
-- Please review the [Footnotes/Known Issues](#footnotesknown-issues) section, specifically [<sup>#5</sup>](#footnote5) and [<sup>#7</sup>](#footnote7) and any other information in that section relevant to domain-based routing/DNS.
+- Either version of the service package can be configured to utilize `dnsmasq`'s `ipset` support, which requires the `dnsmasq-full` package with `ipset` support to be installed (see [How to install dnsmasq-full](#Howtoinstalldnsmasq-full)). This significantly improves the start up time because `dnsmasq` resolves the domain names and adds them to appropriate `ipset` in background. Another benefit of using `dnsmasq`'s `ipset` support is that it also automatically adds third-level domains to the `ipset`: if `domain.com` is added to the policy, this policy will affect all `*.domain.com` subdomains. This also works for top-level domains as well, a policy targeting the `at` for example, will affect all the `*.at` domains.
+- Please review the [Footnotes/Known Issues](#FootnotesKnownIssues) section, specifically [<sup>#5</sup>](#footnote5) and [<sup>#7</sup>](#footnote7) and any other information in that section relevant to domain-based routing/DNS.
 
-#### Use DNSMASQ nft sets Support
+#### 4.8.3. <a name='UseDNSMASQnftsetsSupport'></a>Use DNSMASQ nft sets Support
 
-- The `pbr` package can be configure to utilize `dnsmasq`'s `nft` `sets` support, which requires the `dnsmasq-full` package with `nft` `sets` support to be installed (see [How to install dnsmasq-full](#how-to-install-dnsmasq-full)). This significantly improves the start up time because `dnsmasq` resolves the domain names and adds them to appropriate `nft` `set` in background. Another benefit of using `dnsmasq`'s `nft` `set` support is that it also automatically adds third-level domains to the `set`: if `domain.com` is added to the policy, this policy will affect all `*.domain.com` subdomains. This also works for top-level domains as well, a policy targeting the `at` for example, will affect all the `*.at` domains.
-- Please review the [Footnotes/Known Issues](#footnotesknown-issues) section, specifically [<sup>#5</sup>](#footnote5) and [<sup>#7</sup>](#footnote7) and any other information in that section relevant to domain-based routing/DNS.
+- The `pbr` package can be configure to utilize `dnsmasq`'s `nft` `sets` support, which requires the `dnsmasq-full` package with `nft` `sets` support to be installed (see [How to install dnsmasq-full](#Howtoinstalldnsmasq-full)). This significantly improves the start up time because `dnsmasq` resolves the domain names and adds them to appropriate `nft` `set` in background. Another benefit of using `dnsmasq`'s `nft` `set` support is that it also automatically adds third-level domains to the `set`: if `domain.com` is added to the policy, this policy will affect all `*.domain.com` subdomains. This also works for top-level domains as well, a policy targeting the `at` for example, will affect all the `*.at` domains.
+- Please review the [Footnotes/Known Issues](#FootnotesKnownIssues) section, specifically [<sup>#5</sup>](#footnote5) and [<sup>#7</sup>](#footnote7) and any other information in that section relevant to domain-based routing/DNS.
 
-### Customization
+### 4.9. <a name='Customization'></a>Customization
 
 - Can be fully configured with `uci` commands or by editing `/etc/config/pbr` file.
 - Has a companion package (`luci-app-pbr`) so policies can be configured with Web UI.
 
-### Other Features
+### 4.10. <a name='OtherFeatures'></a>Other Features
 
 - Doesn't stay in memory, creates the routing tables and `iptables` rules/`sets` entries which are automatically updated when supported/monitored interface changes.
 - Proudly made in :maple_leaf: Canada :maple_leaf:, using locally-sourced electrons.
 
-## Screenshots (luci-app-pbr)
+## 5. <a name='Screenshotsluci-app-pbr'></a>Screenshots (luci-app-pbr)
 
 Service Status
 
@@ -146,44 +232,44 @@ Custom User File Includes
 
 ![screenshot](https://docs.openwrt.melmac.net/pbr/screenshots/07-custom-user-files.png "Custom User File Includes")
 
-## How It Works
+## 6. <a name='HowItWorks'></a>How It Works
 
-### How It Works (`nft` mode)
+### 6.1. <a name='HowItWorksnftmode'></a>How It Works (`nft` mode)
 
 On start, this service creates routing tables for each supported interface (WAN/WAN6 and VPN tunnels) which are used to route specially marked packets. Rules for the policies are created in the service-specific chains set up by the `fw4`-specific `nft` scripts installed with the package. Evaluation of packets happens in these `pbr_*` chains after which the packets are sent for marking to the `pbr_mark_*` chains. Whenever possible, the service also creates named sets for `dest_addr` and `src_addr` entries and anonymous sets for `dest_port` and `src_port`. The service then processes the user-created policies.
 
-### How It Works (`iptables`/`ipset` mode)
+### 6.2. <a name='HowItWorksiptablesipsetmode'></a>How It Works (`iptables`/`ipset` mode)
 
 On start, this service creates routing tables for each supported interface (WAN/WAN6 and VPN tunnels) which are used to route specially marked packets. For the `mangle` table's `FORWARD`, `INPUT`, `OUTPUT`, `PREROUTING` and `POSTROUTING` chains, the service creates corresponding `PBR_*` chains to which policies are assigned. Evaluation of packets happens in these `PBR_*` chains after which the packets are sent for marking to the `PBR_MARK*` chains. If enabled, the service also creates the ipsets (and the corresponding `iptables` rule for marking packets matching the `ipset`) for `dest_addr` and `src_addr` entries. The service then processes the user-created policies.
 
-### Processing Policies
+### 6.3. <a name='ProcessingPolicies'></a>Processing Policies
 
 Each policy can result in either a new `iptables` or `nft` rule and possibly an `ipset` or a named `nft` `set` to match `dest_addr` and `src_addr`. Anonymous sets may be created within `nft` rules for `dest_port` and `src_port`.
 
-#### Processing Policies (`nft` mode)
+#### 6.3.1. <a name='ProcessingPoliciesnftmode'></a>Processing Policies (`nft` mode)
 
 - Policies with the MAC-addresses, IP addresses, netmasks, local device names or domains will result in a rule targeting named `nft` `sets`.
 - Policies with non-empty `dest_port` and `src_port` will be created with anonymous `nft` `sets` within the rule.
 - The `dnsmasq` `nftset` entries will be used for domains (if supported and enabled).
 
-#### Processing Policies (`iptables`/`ipset` mode)
+#### 6.3.2. <a name='ProcessingPoliciesiptablesipsetmode'></a>Processing Policies (`iptables`/`ipset` mode)
 
 - Policies with the MAC-addresses, IP addresses or local device names in `src_addr` can be created as `iptables` rules or `ipset` entries.
 - Policies with non-empty `dest_port` and `src_port` are always created as `iptables` rules.
 - Policies with the netmasks in `dest_addr` or `src_addr` can be created as `iptables` rules or `ipset` entries.
 - Policies with empty `dest_port` and `src_port` may be created as `iptables` rules or `dnsmasq`'s `ipset` or an `ipset` (if enabled).
 
-### Policies Priorities
+### 6.4. <a name='PoliciesPriorities'></a>Policies Priorities
 
 - The policy priority is the same as its order as listed in Web UI and `/etc/config/pbr`. The higher the policy is in the Web UI and configuration file, the higher its priority is.
 - If set, the `DSCP` policies is set up first when creating the interface routing.
 - If enabled, it is highly recommended that the policies with `IGNORE` target are at the top of the policies list.
 
-### Processing Custom User Files
+### 6.5. <a name='ProcessingCustomUserFiles'></a>Processing Custom User Files
 
 If at least one custom user file is enabled, the service will create the following `nft` `sets` or `ipsets` and set up the proper routing for them.
 
-#### Processing Custom User Files (`nft` mode)
+#### 6.5.1. <a name='ProcessingCustomUserFilesnftmode'></a>Processing Custom User Files (`nft` mode)
 
 For each `interface` the service will create `nft` `sets` and routing:
 
@@ -194,7 +280,7 @@ For each `interface` the service will create `nft` `sets` and routing:
 - `pbr_interface_4_dst_mac_user`: for source/local MAC addresses
 - `pbr_interface_6_dst_mac_user`: for source/local MAC addresses
 
-#### Processing Custom User Files (`iptables`/`ipset` mode)
+#### 6.5.2. <a name='ProcessingCustomUserFilesiptablesipsetmode'></a>Processing Custom User Files (`iptables`/`ipset` mode)
 
 For each `interface` the service will create `ipsets` and routing:
 
@@ -209,33 +295,33 @@ For each `interface` the service will create `ipsets` and routing:
 - `pbr_interface_4_dst_mac_user`: for source/local MAC addresses
 - `pbr_interface_6_dst_mac_user`: for source/local MAC addresses
 
-## How To Install
+## 7. <a name='HowToInstall'></a>How To Install
 
-### How To Install - OpenWrt 22.03 and newer
+### 7.1. <a name='HowToInstall-OpenWrt22.03andnewer'></a>How To Install - OpenWrt 22.03 and newer
 
-Please make sure that the [requirements](#requirements-pbr) are satisfied and install `pbr` and `luci-app-pbr` from Web UI or connect to your router via ssh and run the following commands:
+Please make sure that the [requirements](#Requirementspbr) are satisfied and install `pbr` and `luci-app-pbr` from Web UI or connect to your router via ssh and run the following commands:
 
 ```sh
 opkg update
 opkg install pbr luci-app-pbr
 ```
 
-### How To Install - OpenWrt 21.02 and older
+### 7.2. <a name='HowToInstall-OpenWrt21.02andolder'></a>How To Install - OpenWrt 21.02 and older
 
 First, add my repo to your router following instructions at the [How to Use Section of repo documentation](https://docs.openwrt.melmac.net/#how-to-use).
 
-Then, please make sure that the [requirements](#requirements-pbr-iptables) are satisfied and install `pbr-iptables` and `luci-app-pbr` from Web UI or connect to your router via ssh and run the following commands:
+Then, please make sure that the [requirements](#Requirementspbr-iptables) are satisfied and install `pbr-iptables` and `luci-app-pbr` from Web UI or connect to your router via ssh and run the following commands:
 
 ```sh
 opkg update
 opkg install pbr-iptables luci-app-pbr
 ```
 
-### Requirements
+### 7.3. <a name='Requirements'></a>Requirements
 
 Depending on the package flavour, some packages may need to be installed on your router.
 
-#### Requirements (pbr)
+#### 7.3.1. <a name='Requirementspbr'></a>Requirements (pbr)
 
 Default builds of OpenWrt 22.03.0 and later are fully compatible with `pbr` and require no additional packages. If you're using a non-standard build, you may have to install the following packages to be installed on your router: `resolveip`, `ip-full` (or a `busybox` built with `ip` support).
 
@@ -245,7 +331,7 @@ To satisfy the requirements, connect to your router via ssh and run the followin
 opkg update; opkg install resolveip ip-full
 ```
 
-#### Requirements (pbr-iptables)
+#### 7.3.2. <a name='Requirementspbr-iptables'></a>Requirements (pbr-iptables)
 
 This service requires the following packages to be installed on your router: `ipset`, `resolveip`, `ip-full` (or a `busybox` built with `ip` support), `kmod-ipt-ipset` and `iptables`.
 
@@ -255,7 +341,7 @@ To satisfy the requirements, connect to your router via ssh and run the followin
 opkg update; opkg install ipset resolveip ip-full kmod-ipt-ipset iptables
 ```
 
-### How to install legacy iptables/ipset packages
+### 7.4. <a name='Howtoinstalllegacyiptablesipsetpackages'></a>How to install legacy iptables/ipset packages
 
 If you install `pbr` (and not the `pbr-iptables`, which brings all necessary legacy dependencies), but want to use `pbr` in `iptables` mode on OpenWrt 22.03, you will need to connect to your router via ssh and run the following commands:
 
@@ -264,9 +350,9 @@ opkg update
 opkg install ipset libnettle8 libnetfilter-conntrack3 iptables kmod-ipt-ipset iptables-mod-ipopt
 ```
 
-If you want to use `dnsmasq`'s `ipset` support, you will need to install [`dnsmasq-full` instead of the `dnsmasq`](#how-to-install-dnsmasq-full).
+If you want to use `dnsmasq`'s `ipset` support, you will need to install [`dnsmasq-full` instead of the `dnsmasq`](#Howtoinstalldnsmasq-full).
 
-### How to install dnsmasq-full
+### 7.5. <a name='Howtoinstalldnsmasq-full'></a>How to install dnsmasq-full
 
 If you want to use `dnsmasq`'s `ipset` or `nft` `sets` support, you will need to install `dnsmasq-full` instead of the `dnsmasq`. To do that, connect to your router via ssh and run the following commands:
 
@@ -279,45 +365,45 @@ opkg install dnsmasq-full --cache /tmp/
 rm -f /tmp/dnsmasq-full*.ipk
 ```
 
-### Unmet dependencies
+### 7.6. <a name='Unmetdependencies'></a>Unmet dependencies
 
-If you are running a development (trunk/snapshot) build of OpenWrt on your router and your build is outdated (meaning that packages of the same revision/commit hash are no longer available and when you try to satisfy the [requirements](#requirements) you get errors), please flash either current OpenWrt release image or current development/snapshot image.
+If you are running a development (trunk/snapshot) build of OpenWrt on your router and your build is outdated (meaning that packages of the same revision/commit hash are no longer available and when you try to satisfy the [requirements](#Requirements) you get errors), please flash either current OpenWrt release image or current development/snapshot image.
 
-## Service Configuration Settings
+## 8. <a name='ServiceConfigurationSettings'></a><a name='service-configuration-settings'></a>Service Configuration Settings
 
 As per screenshots above, in the Web UI the `pbr` configuration is split into `Basic`, `Advanced` and `WebUI` settings. The full list of configuration parameters of `pbr.config` section is:
 
-| Web UI Section      | Parameter                                                       | Type        | Default                                                  | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
-| ------------------- | --------------------------------------------------------------- | ----------- | -------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Basic               | <a name="enabled"></a>enabled                                   | boolean     | 0                                                        | Enable/disable the `pbr` service.                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
-| Basic               | <a name="verbosity"></a>verbosity                               | integer     | 2                                                        | Can be set to 0, 1 or 2 to control the console and system log output verbosity of the `pbr` service.                                                                                                                                                                                                                                                                                                                                                                                     |
-| Basic               | <a name="strict_enforcement"></a>strict_enforcement             | boolean     | 1                                                        | Enforce policies when their interface is down. See [Strict enforcement](#strict-enforcement) for more details.                                                                                                                                                                                                                                                                                                                                                                           |
-| Basic               | <a name="resolver_set"></a>resolver_set                         | string      | `pbr`: dnsmasq.nftset<br />`pbr-iptables`: dnsmasq.ipset | Configure the use of the resolver's set support for domains. For most policies targeting domains, this must be enabled to guarantee the reliable operation/routing. Enabling it also speeds up service start-up. Currently supported options are `none`, `adguardhome.ipset`, `dnsmasq.ipset` and `dnsmasq.nftset` (see [Use Resolver's Set Support](#use-resolvers-set-support) and [<sup>#7</sup>](#footnote7) for more details). Make sure the [requirements](#requirements) are met. |
-|                     | <a name="resolver_instance"></a>resolver_instance               | list        | \*                                                       | Configure the use of the resolver's set support for specific instances only by setting a list of instance numbers or names. Currently supported for the following `resolver_set` options: `dnsmasq.ipset` and `dnsmasq.nftset`.                                                                                                                                                                                                                                                          |
-| Basic               | <a name="ipv6_enabled"></a>ipv6_enabled                         | boolean     | 0                                                        | Enable/disable IPv6 support.                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
-| Advanced            | <a name="supported_interface"></a>supported_interface           | list/string |                                                          | Allows to specify the space-separated list of interface names (in lower case) to be explicitly supported by the `pbr` service. Can be useful if your OpenVPN tunnels have dev option other than tun\*.                                                                                                                                                                                                                                                                                   |
-| Advanced            | <a name="ignored_interface"></a>ignored_interface               | list/string |                                                          | Allows to specify the space-separated list of interface names (in lower case) to be ignored by the `pbr` service. Can be useful if running both VPN server and VPN client on the router.                                                                                                                                                                                                                                                                                                 |
-| Advanced            | <a name="boot_timeout"></a>boot_timeout                         | number      | 30                                                       | Allows to specify the time (in seconds) for `pbr` service to wait for WAN gateway discovery on boot. Can be useful on devices with ADSL modem built in.                                                                                                                                                                                                                                                                                                                                  |
-| Advanced            | <a name="rule_create_option"></a>rule_create_option             | add/insert  | add                                                      | Allows to specify the parameter for rules: `add` for `-A` in `iptables` and `add` in `nft` and `insert` for `-I` in `iptables` and `insert` for `nft`. Add is generally speaking more compatible with other packages/firewall rules. Recommended to change to `insert` only to enable compatibility with the `mwan3` package on OpenWrt 21.02 and earlier.                                                                                                                               |
-| Advanced            | <a name="icmp_interface"></a>icmp_interface                     | string      |                                                          | Set the default ICMP protocol interface (interface name in lower case). Use with caution.                                                                                                                                                                                                                                                                                                                                                                                                |
-| Hidden              | <a name="wan_ip_rules_priority"></a>wan_ip_rules_priority       | integer     | 30000                                                    | Starting (WAN) ip rules priority used by the `pbr` service. High starting priority is used to avoid conflict with other services, this can be changed by user.                                                                                                                                                                                                                                                                                                                           |
-| Advanced            | <a name="wan_mark"></a>wan_mark                                 | hexadecimal | 010000                                                   | Starting (WAN) fw mark for marks used by the `pbr` service. High starting mark is used to avoid conflict with SQM/QoS, this can be changed by user. Change with caution together with `fw_mask`.                                                                                                                                                                                                                                                                                         |
-| Advanced            | <a name="fw_mask"></a>fw_mask                                   | hexadecimal | ff0000                                                   | FW Mask used by the `pbr` service. High mask is used to avoid conflict with SQM/QoS, this can be changed by user. Change with caution together with `wan_mark`.                                                                                                                                                                                                                                                                                                                          |
-| Hidden/Experimental | <a name="secure_reload"></a>secure_reload                       | boolean     | 0                                                        | When enabled, kills router traffic (activates killswitch) during service start/restart/reload operations to prevent traffic leaks on unwanted interface.                                                                                                                                                                                                                                                                                                                                 |
-| Web UI              | <a name="webui_show_ignore_target"></a>webui_show_ignore_target | boolean     | 0                                                        | When enabled, show `ignore` in the list of interfaces.                                                                                                                                                                                                                                                                                                                                                                                                                                   |
-| Web UI              | <a name="webui_supported_protocol"></a>webui_supported_protocol | list        | 0                                                        | List of protocols to display in the `Protocol` column for policies.                                                                                                                                                                                                                                                                                                                                                                                                                      |
-|                     | <a name="wan_dscp"></a>wan_dscp                                 | integer     |                                                          | Allows use of [DSCP-tag based policies](#dscp-tag-based-policies) for WAN interface.                                                                                                                                                                                                                                                                                                                                                                                                     |
-|                     | <a name="interface_name_dscp"></a>{interface_name}\_dscp        | integer     |                                                          | Allows use of [DSCP-tag based policies](#dscp-tag-based-policies) for a VPN interface.                                                                                                                                                                                                                                                                                                                                                                                                   |
-|                     | <a name="procd_reload_delay"></a>procd_reload_delay             | integer     | 0                                                        | Time (in seconds) for PROCD_RELOAD_DELAY parameter.                                                                                                                                                                                                                                                                                                                                                                                                                                      |
-|                     | <a name="procd_lan_interface"></a>procd_lan_interface           |             |                                                          | Override `lan` interface name with this interface.                                                                                                                                                                                                                                                                                                                                                                                                                                       |
-|                     | <a name="procd_wan_interface"></a>procd_wan_interface           |             |                                                          | Override `wan` interface name with this interface.                                                                                                                                                                                                                                                                                                                                                                                                                                       |
-|                     | <a name="procd_wan6_interface"></a>procd_wan6_interface         |             |                                                          | Override `wan6` interface name with this interface.                                                                                                                                                                                                                                                                                                                                                                                                                                      |
+| Web UI Section      | Parameter                                                       | Type        | Default                                                  | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
+| ------------------- | --------------------------------------------------------------- | ----------- | -------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Basic               | <a name="enabled"></a>enabled                                   | boolean     | 0                                                        | Enable/disable the `pbr` service.                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
+| Basic               | <a name="verbosity"></a>verbosity                               | integer     | 2                                                        | Can be set to 0, 1 or 2 to control the console and system log output verbosity of the `pbr` service.                                                                                                                                                                                                                                                                                                                                                                                  |
+| Basic               | <a name="strict_enforcement"></a>strict_enforcement             | boolean     | 1                                                        | Enforce policies when their interface is down. See [Strict enforcement](#StrictEnforcement) for more details.                                                                                                                                                                                                                                                                                                                                                                         |
+| Basic               | <a name="resolver_set"></a>resolver_set                         | string      | `pbr`: dnsmasq.nftset<br />`pbr-iptables`: dnsmasq.ipset | Configure the use of the resolver's set support for domains. For most policies targeting domains, this must be enabled to guarantee the reliable operation/routing. Enabling it also speeds up service start-up. Currently supported options are `none`, `adguardhome.ipset`, `dnsmasq.ipset` and `dnsmasq.nftset` (see [Use Resolver's Set Support](#UseResolversSetSupport) and [<sup>#7</sup>](#footnote7) for more details). Make sure the [requirements](#Requirements) are met. |
+|                     | <a name="resolver_instance"></a>resolver_instance               | list        | \*                                                       | Configure the use of the resolver's set support for specific instances only by setting a list of instance numbers or names. Currently supported for the following `resolver_set` options: `dnsmasq.ipset` and `dnsmasq.nftset`.                                                                                                                                                                                                                                                       |
+| Basic               | <a name="ipv6_enabled"></a>ipv6_enabled                         | boolean     | 0                                                        | Enable/disable IPv6 support.                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
+| Advanced            | <a name="supported_interface"></a>supported_interface           | list/string |                                                          | Allows to specify the space-separated list of interface names (in lower case) to be explicitly supported by the `pbr` service. Can be useful if your OpenVPN tunnels have dev option other than tun\*.                                                                                                                                                                                                                                                                                |
+| Advanced            | <a name="ignored_interface"></a>ignored_interface               | list/string |                                                          | Allows to specify the space-separated list of interface names (in lower case) to be ignored by the `pbr` service. Can be useful if running both VPN server and VPN client on the router.                                                                                                                                                                                                                                                                                              |
+| Advanced            | <a name="boot_timeout"></a>boot_timeout                         | number      | 30                                                       | Allows to specify the time (in seconds) for `pbr` service to wait for WAN gateway discovery on boot. Can be useful on devices with ADSL modem built in.                                                                                                                                                                                                                                                                                                                               |
+| Advanced            | <a name="rule_create_option"></a>rule_create_option             | add/insert  | add                                                      | Allows to specify the parameter for rules: `add` for `-A` in `iptables` and `add` in `nft` and `insert` for `-I` in `iptables` and `insert` for `nft`. Add is generally speaking more compatible with other packages/firewall rules. Recommended to change to `insert` only to enable compatibility with the `mwan3` package on OpenWrt 21.02 and earlier.                                                                                                                            |
+| Advanced            | <a name="icmp_interface"></a>icmp_interface                     | string      |                                                          | Set the default ICMP protocol interface (interface name in lower case). Use with caution.                                                                                                                                                                                                                                                                                                                                                                                             |
+| Hidden              | <a name="wan_ip_rules_priority"></a>wan_ip_rules_priority       | integer     | 30000                                                    | Starting (WAN) ip rules priority used by the `pbr` service. High starting priority is used to avoid conflict with other services, this can be changed by user.                                                                                                                                                                                                                                                                                                                        |
+| Advanced            | <a name="wan_mark"></a>wan_mark                                 | hexadecimal | 010000                                                   | Starting (WAN) fw mark for marks used by the `pbr` service. High starting mark is used to avoid conflict with SQM/QoS, this can be changed by user. Change with caution together with `fw_mask`.                                                                                                                                                                                                                                                                                      |
+| Advanced            | <a name="fw_mask"></a>fw_mask                                   | hexadecimal | ff0000                                                   | FW Mask used by the `pbr` service. High mask is used to avoid conflict with SQM/QoS, this can be changed by user. Change with caution together with `wan_mark`.                                                                                                                                                                                                                                                                                                                       |
+| Hidden/Experimental | <a name="secure_reload"></a>secure_reload                       | boolean     | 0                                                        | When enabled, kills router traffic (activates killswitch) during service start/restart/reload operations to prevent traffic leaks on unwanted interface.                                                                                                                                                                                                                                                                                                                              |
+| Web UI              | <a name="webui_show_ignore_target"></a>webui_show_ignore_target | boolean     | 0                                                        | When enabled, show `ignore` in the list of interfaces.                                                                                                                                                                                                                                                                                                                                                                                                                                |
+| Web UI              | <a name="webui_supported_protocol"></a>webui_supported_protocol | list        | 0                                                        | List of protocols to display in the `Protocol` column for policies.                                                                                                                                                                                                                                                                                                                                                                                                                   |
+|                     | <a name="wan_dscp"></a>wan_dscp                                 | integer     |                                                          | Allows use of [DSCP-tag based policies](#DSCPTag-BasedPolicies) for WAN interface.                                                                                                                                                                                                                                                                                                                                                                                                    |
+|                     | <a name="interface_name_dscp"></a>{interface_name}\_dscp        | integer     |                                                          | Allows use of [DSCP-tag based policies](#DSCPTag-BasedPolicies) for a VPN interface.                                                                                                                                                                                                                                                                                                                                                                                                  |
+|                     | <a name="procd_reload_delay"></a>procd_reload_delay             | integer     | 0                                                        | Time (in seconds) for PROCD_RELOAD_DELAY parameter.                                                                                                                                                                                                                                                                                                                                                                                                                                   |
+|                     | <a name="procd_lan_interface"></a>procd_lan_interface           |             |                                                          | Override `lan` interface name with this interface.                                                                                                                                                                                                                                                                                                                                                                                                                                    |
+|                     | <a name="procd_wan_interface"></a>procd_wan_interface           |             |                                                          | Override `wan` interface name with this interface.                                                                                                                                                                                                                                                                                                                                                                                                                                    |
+|                     | <a name="procd_wan6_interface"></a>procd_wan6_interface         |             |                                                          | Override `wan6` interface name with this interface.                                                                                                                                                                                                                                                                                                                                                                                                                                   |
 
-### Default Settings
+### 8.1. <a name='DefaultSettings'></a>Default Settings
 
 Default configuration has service disabled (use Web UI to enable/start service or run `uci set pbr.config.enabled=1; uci commit pbr;`).
 
-### Policy Options
+### 8.2. <a name='PolicyOptions'></a>Policy Options
 
 Each policy may have a combination of the options below, the `name` and `interface` options are required.
 
@@ -335,16 +421,16 @@ The `src_addr`, `src_port`, `dest_addr` and `dest_port` options supports paramet
 | proto         | auto       | Policy protocol, can be any valid protocol from `/etc/protocols` for CLI/uci or can be selected from the values set in `webui_supported_protocol`.                                                                                                                                                                                                                                                                                                                            |
 | chain         | prerouting | Policy chain, can be either `forward`, `input`, `prerouting`, `postrouting` or `output`. This setting is case-sensitive.                                                                                                                                                                                                                                                                                                                                                      |
 
-### Custom User Files Include Options
+### 8.3. <a name='CustomUserFilesIncludeOptions'></a>Custom User Files Include Options
 
 | Option   | Default | Description                                                                 |
 | -------- | ------- | --------------------------------------------------------------------------- |
 | **path** |         | Path to a custom user file (in a form of shell script), it **must** be set. |
 | enabled  | 1       | Enable/disable setting.                                                     |
 
-### Example Policies
+### 8.4. <a name='ExamplePolicies'></a>Example Policies
 
-#### Single IP, IP Range, Local Machine, Local MAC Address
+#### 8.4.1. <a name='SingleIPIPRangeLocalMachineLocalMACAddress'></a>Single IP, IP Range, Local Machine, Local MAC Address
 
 The following policies route traffic from a single IP address, a range of IP addresses, a local machine (requires definition as DHCP host record in DHCP config), a MAC-address of a local device and finally all of the above via WAN.
 
@@ -376,7 +462,7 @@ config policy
 
 ```
 
-#### Logmein Hamachi
+#### 8.4.2. <a name='LogmeinHamachi'></a>Logmein Hamachi
 
 The following policy routes LogMeIn Hamachi zero-setup VPN traffic via WAN.
 
@@ -387,7 +473,7 @@ config policy
   option dest_addr '25.0.0.0/8 hamachi.cc hamachi.com logmein.com'
 ```
 
-#### SIP Port
+#### 8.4.3. <a name='SIPPort'></a>SIP Port
 
 The following policy routes standard SIP port traffic via WAN for both TCP and UDP protocols.
 
@@ -399,7 +485,7 @@ config policy
   option proto 'tcp udp'
 ```
 
-#### Plex Media Server
+#### 8.4.4. <a name='PlexMediaServer'></a>Plex Media Server
 
 The following policies route Plex Media Server traffic via WAN. Please note, you'd still need to open the port in the firewall either manually or with the UPnP.
 
@@ -415,7 +501,7 @@ config policy
   option dest_addr 'plex.tv my.plexapp.com'
 ```
 
-#### Emby Media Server
+#### 8.4.5. <a name='EmbyMediaServer'></a>Emby Media Server
 
 The following policy route Emby traffic via WAN. Please note, you'd still need to open the port in the firewall either manually or with the UPnP.
 
@@ -431,9 +517,9 @@ config policy
   option dest_addr 'emby.media app.emby.media tv.emby.media'
 ```
 
-#### Ignore Target
+#### 8.4.6. <a name='IgnoreTarget'></a><a name='ignore-target'></a>Ignore Target
 
-The service allows you to set an interface for a specific policy to `ignore` to skip futher processing of matched traffic. This option needs to be explicitly enabled for use in WebUI, check [Service Configuration Settings](#service-configuration-settings) for details. Some use cases are listed below.
+The service allows you to set an interface for a specific policy to `ignore` to skip futher processing of matched traffic. This option needs to be explicitly enabled for use in WebUI, check [Service Configuration Settings](#ServiceConfigurationSettings) for details. Some use cases are listed below.
 
 ##### Ignore Requests
 
@@ -454,7 +540,7 @@ Please note, you need to enable `Show Ignore Target` option for the WebUI to lis
 
 It's a good idea to keep the policies targeting `ignore` interface at the top of the config file/list of policies displayed in WebUI to make sure they are processed first.
 
-#### Basic OpenVPN Client Config
+#### 8.4.7. <a name='BasicOpenVPNClientConfig'></a>Basic OpenVPN Client Config
 
 There are multiple guides online on how to configure the OpenVPN client on OpenWrt "the easy way", and they usually result either in a kill-switch configuration or configuration where the OpenVPN tunnel cannot be properly (and separately from WAN) routed, either way, incompatible with the VPN Policy-Based Routing.
 
@@ -499,7 +585,7 @@ config openvpn 'vpnclient'
   ...
 ```
 
-#### Multiple OpenVPN Clients
+#### 8.4.8. <a name='MultipleOpenVPNClients'></a>Multiple OpenVPN Clients
 
 If you use multiple OpenVPN clients on your router, the order in which their devices are named (tun0, tun1, etc) is not guaranteed by OpenWrt. The following settings are recommended in this case.
 
@@ -539,7 +625,7 @@ config pbr 'config'
   ...
 ```
 
-#### Local OpenVPN Server + OpenVPN Client (Scenario 1)
+#### 8.4.9. <a name='LocalOpenVPNServerOpenVPNClientScenario1'></a>Local OpenVPN Server + OpenVPN Client (Scenario 1)
 
 If the OpenVPN client on your router is used as default routing (for the whole internet), make sure your settings are as following (three dots on the line imply other options can be listed in the section as well).
 
@@ -614,7 +700,7 @@ config openvpn 'vpnserver'
   ...
 ```
 
-#### Local OpenVPN Server + OpenVPN Client (Scenario 2)
+#### 8.4.10. <a name='LocalOpenVPNServerOpenVPNClientScenario2'></a>Local OpenVPN Server + OpenVPN Client (Scenario 2)
 
 If the OpenVPN client is **not** used as default routing and you create policies to selectively use the OpenVPN client, make sure your settings are as following (three dots on the line imply other options can be listed in the section as well). Make sure that the policy mentioned below is at the top of your policies list.
 
@@ -689,13 +775,13 @@ config openvpn 'vpnserver'
   ...
 ```
 
-#### Local Wireguard Server + Wireguard Client (Scenario 1)
+#### 8.4.11. <a name='LocalWireguardServerWireguardClientScenario1'></a>Local Wireguard Server + Wireguard Client (Scenario 1)
 
 Yes, I'm aware that technically there are no clients nor servers in Wireguard, it's all peers, but for the sake of README readability I will use the terminology similar to the OpenVPN Server + Client setups.
 
 If the Wireguard tunnel on your router is used as default routing (for the whole internet), sadly no `pbr` rule will allow it to intercept and properly route the `UDP` traffic of Wireguard server, please either use the OpenVPN server and configure it to use `TCP` protocol or use the Scenario 2 below.
 
-#### Local Wireguard Server + Wireguard Client (Scenario 2)
+#### 8.4.12. <a name='LocalWireguardServerWireguardClientScenario2'></a>Local Wireguard Server + Wireguard Client (Scenario 2)
 
 Yes, I'm aware that technically there are no clients nor servers in Wireguard, it's all peers, but for the sake of README readability I will use the terminology similar to the OpenVPN Server + Client setups.
 
@@ -764,13 +850,13 @@ config rule
   option dest_port '61820'
 ```
 
-#### Local Wireguard Server + Another VPN Client (Scenario 1)
+#### 8.4.13. <a name='LocalWireguardServerAnotherVPNClientScenario1'></a>Local Wireguard Server + Another VPN Client (Scenario 1)
 
 Yes, I'm aware that technically there are no clients nor servers in Wireguard, it's all peers, but for the sake of README readability I will use the terminology similar to the OpenVPN Server + Client setups.
 
 If another VPN client is used as default routing (for the whole internet), sadly no `pbr` rule will allow it to intercept and properly route the `UDP` traffic of Wireguard server, please either use the OpenVPN server and configure it to use `TCP` protocol or use the Scenario 2 below.
 
-#### Local Wireguard Server + Another VPN Client (Scenario 2)
+#### 8.4.14. <a name='LocalWireguardServerAnotherVPNClientScenario2'></a>Local Wireguard Server + Another VPN Client (Scenario 2)
 
 Yes, I'm aware that technically there are no clients nor servers in Wireguard, it's all peers, but for the sake of README readability I will use the terminology similar to the OpenVPN Server + Client setups.
 
@@ -789,9 +875,9 @@ config policy
   ...
 ```
 
-#### Netflix Domains
+#### 8.4.15. <a name='NetflixDomains'></a>Netflix Domains
 
-The following policy should route US Netflix traffic via WAN. For capturing international Netflix domain names, you can refer to the getdomainnames.sh-specific instructions on [GitHub](https://github.com/Xentrk/netflix-vpn-bypass/blob/master/README.md#ipset_netflix_domainssh)/[jsDelivr](https://cdn.jsdelivr.net/gh/Xentrk/netflix-vpn-bypass/README.md#ipset_netflix_domainssh) and don't forget to adjust them for OpenWrt. This may not work if Netflix changes things. For more reliable US Netflix routing you may want to consider also using [custom user files](#custom-user-files).
+The following policy should route US Netflix traffic via WAN. For capturing international Netflix domain names, you can refer to the getdomainnames.sh-specific instructions on [GitHub](https://github.com/Xentrk/netflix-vpn-bypass/blob/master/README.md#ipset_netflix_domainssh)/[jsDelivr](https://cdn.jsdelivr.net/gh/Xentrk/netflix-vpn-bypass/README.md#ipset_netflix_domainssh) and don't forget to adjust them for OpenWrt. This may not work if Netflix changes things. For more reliable US Netflix routing you may want to consider also using [custom user files](#CustomUserFiles).
 
 ```text
 config policy
@@ -800,7 +886,7 @@ config policy
   option dest_addr 'amazonaws.com netflix.com nflxext.com nflximg.net nflxso.net nflxvideo.net dvd.netflix.com'
 ```
 
-#### Example Custom User Files Includes
+#### 8.4.16. <a name='ExampleCustomUserFilesIncludes'></a>Example Custom User Files Includes
 
 ```text
 config include
@@ -810,9 +896,9 @@ config include
   option path '/usr/share/pbr/pbr.user.aws'
 ```
 
-## Footnotes/Known Issues
+## 9. <a name='FootnotesKnownIssues'></a>Footnotes/Known Issues
 
-1.  <a name="footnote1"> </a> See [note about multiple OpenVPN clients](#multiple-openvpn-clients).
+1.  <a name="footnote1"> </a> See [note about multiple OpenVPN clients](#MultipleOpenVPNClients).
 
 2.  <a name="footnote2"> </a> If your `OpenVPN` interface has the device name different from tun\*, is not up and is not explicitly listed in `supported_interface` option, it may not be available in the policies `Interface` drop-down within WebUI.
 
@@ -826,17 +912,17 @@ config include
 
 7.  <a name="footnote7"> </a> If you're using domain names in the `dest_addr` option of the policy, it is recommended to use `adguardhome.ipset`, `dnsmasq.ipset` or `dnsmasq.nftset` options for `resolver_set`. Otherwise, the domain name will be resolved when the service starts up and the resolved IP address(es) will be added to an apropriate set or an `iptables` or `nft` rule. Resolving a number of domains on start is a time consuming operation, while using the `adguardhome.ipset`, `dnsmasq.ipset` or `dnsmasq.nftset` options allows transparent and fast addition of the correct domain IP addresses to the apropriate set on DNS request or when resolver is idle.
 
-8.  <a name="footnote8"> </a> When service is started, it subscribes to the supported interfaces updates thru the PROCD. While I was never able to reproduce the issue, some customers report that this method doesn't always work in which case you may want to [set up iface hotplug script](#a-word-about-interface-hotplug-script) to reload service when relevant interface(s) are updated.
+8.  <a name="footnote8"> </a> When service is started, it subscribes to the supported interfaces updates thru the PROCD. While I was never able to reproduce the issue, some customers report that this method doesn't always work in which case you may want to [set up iface hotplug script](#AWordAboutInterfaceHotplugScript) to reload service when relevant interface(s) are updated.
 
-## FAQ
+## 10. <a name='FAQ'></a>FAQ
 
 You may find some useful information in sections below.
 
-### A Word About Default Routing
+### 10.1. <a name='AWordAboutDefaultRouting'></a><a name='a-word-about-default-routing'></a>A Word About Default Routing
 
 Service does not alter the default routing. Depending on your VPN tunnel settings (and settings of the VPN server you are connecting to), the default routing might be set to go via WAN or via VPN tunnel. This service affects only routing of the traffic matching the policies. If you want to override default routing, follow the instructions below.
 
-#### OpenVPN tunnel configured via uci (/etc/config/openvpn)
+#### 10.1.1. <a name='OpenVPNtunnelconfiguredviaucietcconfigopenvpn'></a>OpenVPN tunnel configured via uci (/etc/config/openvpn)
 
 To unset an OpenVPN tunnel as default route, set the following to the appropriate section of your `/etc/config/openvpn`:
 
@@ -858,7 +944,7 @@ To unset an OpenVPN tunnel as default route, set the following to the appropriat
   option route_allowed_ips '0'
   ```
 
-#### OpenVPN tunnel configured with .ovpn file
+#### 10.1.2. <a name='OpenVPNtunnelconfiguredwith.ovpnfile'></a>OpenVPN tunnel configured with .ovpn file
 
 To unset an OpenVPN tunnel as default route, set the following to the appropriate section of your `.ovpn` file:
 
@@ -874,7 +960,7 @@ To unset an OpenVPN tunnel as default route, set the following to the appropriat
   route-nopull "1"
   ```
 
-#### Wireguard tunnel
+#### 10.1.3. <a name='Wireguardtunnel'></a>Wireguard tunnel
 
 To unset a Wireguard tunnel as default route, set the following to the appropriate section of your `/etc/config/network`:
 
@@ -886,39 +972,39 @@ To unset a Wireguard tunnel as default route, set the following to the appropria
 
 - Routing Wireguard traffic may require setting `net.ipv4.conf.wg0.rp_filter = 2` in `/etc/sysctl.conf`. Please refer to [issue #41](https://github.com/stangri/source.openwrt.melmac.net/issues/41) for more details.
 
-### A Word About Cloudflare's 1.1.1.1 App
+### 10.2. <a name='AWordAboutCloudflares1.1.1.1App'></a>A Word About Cloudflare's 1.1.1.1 App
 
 Cloudflare has released an app for [iOS](https://itunes.apple.com/us/app/1-1-1-1-faster-internet/id1423538627) and [Android](https://play.google.com/store/apps/details?id=com.cloudflare.onedotonedotonedotone), which can also be configured to route traffic thru their own VPN tunnel (WARP+).
 
 If you use Cloudlfare's VPN tunnel (WARP+), none of the policies you set up with the VPN Policy Routing will take effect on your mobile device. Disable WARP+ for your home WiFi to keep VPN Policy Routing affecting your mobile device.
 
-If you just use the private DNS queries (WARP), [A Word About DNS-over-HTTPS](#a-word-about-dns-over-https) applies. You can also disable WARP for your home WiFi to keep VPN Policy Routing affecting your mobile device.
+If you just use the private DNS queries (WARP), [A Word About DNS-over-HTTPS](#AWordAboutDNS-over-HTTPS) applies. You can also disable WARP for your home WiFi to keep VPN Policy Routing affecting your mobile device.
 
-### A Word About DNS-over-HTTPS
+### 10.3. <a name='AWordAboutDNS-over-HTTPS'></a>A Word About DNS-over-HTTPS
 
 Some browsers, like [Mozilla Firefox](https://support.mozilla.org/en-US/kb/firefox-dns-over-https#w_about-dns-over-https) or [Google Chrome/Chromium](https://blog.chromium.org/2019/09/experimenting-with-same-provider-dns.html) have [DNS-over-HTTPS proxy](https://en.wikipedia.org/wiki/DNS_over_HTTPS) built-in. Their requests to web-sites listed in policies cannot be properly routed if the `resolver_set` is set to either `dnsmasq.ipset` or `dnsmasq.nftset`. To fix this, you can try either of the following:
 
 1.  Disable the DNS-over-HTTPS support in your browser and use the OpenWrt's `net/https-dns-proxy` (README on [GitHub](https://docs.openwrt.melmac.net/https-dns-proxy)/[jsDelivr](https://cdn.jsdelivr.net/gh/stangri/docs.openwrt.melmac.net/https-dns-proxy/)) package with optional `https-dns-proxy` WebUI/luci app. You can then continue to use either `dnsmasq.ipset` or `dnsmasq.nftset` setting for the `resolver_set` in Policy-Based Routing.
 
-2.  Continue using DNS-over-HTTPS in your browser (which, by the way, also limits your options for router-level AdBlocking as described in `net/simple-adblock` README on [GitHub](https://docs.openwrt.melmac.net/simple-adblock/#dns-resolution-option)/[jsDelivr](https://cdn.jsdelivr.net/gh/stangri/docs.openwrt.melmac.net/simple-adblock/README.md#dns-resolution-option)), you than would either have to switch the `resolver_set` to `none`. Please note, you will lose all the benefits of [`dnsmasq.ipset`](#use-dnsmasq-ipset-support) option.
+2.  Continue using DNS-over-HTTPS in your browser (which, by the way, also limits your options for router-level AdBlocking as described in `net/simple-adblock` README on [GitHub](https://docs.openwrt.melmac.net/simple-adblock/#dns-resolution-option)/[jsDelivr](https://cdn.jsdelivr.net/gh/stangri/docs.openwrt.melmac.net/simple-adblock/README.md#dns-resolution-option)), you than would either have to switch the `resolver_set` to `none`. Please note, you will lose all the benefits of [`dnsmasq.ipset`](#UseDNSMASQipsetSupport) option.
 
-### A Word About HTTP/3 (QUICK)
+### 10.4. <a name='AWordAboutHTTP3QUICK'></a>A Word About HTTP/3 (QUICK)
 
 If you want to target traffic using HTTP/3 protocol, you can use the `AUTO` as the protocol (the policy will be either protocol-agnostic or `TCP/UDP`) or explicitly use `UDP` as a protocol.
 
-### A Word About IPv6 Routing
+### 10.5. <a name='AWordAboutIPv6Routing'></a>A Word About IPv6 Routing
 
 Due to the nature of IPv6, it's not supposed to be routed same way as IPv4 with this package, but a fellow user has graciously contributed a [gist detailing their experience to get IPv6 routing working](https://gist.github.com/Llama-Alarm/3bd8413029b1f728c1f00bc1ac0e98b4).
 
-### A Word About Routing Netflix/Amazon Prime/Hulu Traffic
+### 10.6. <a name='AWordAboutRoutingNetflixAmazonPrimeHuluTraffic'></a>A Word About Routing Netflix/Amazon Prime/Hulu Traffic
 
 There are two following scenarios with VPN connections and Netflix/Amazon Prime/Hulu traffic.
 
-#### Routing Netflix/Amazon Prime/Hulu Traffic via VPN Tunnel
+#### 10.6.1. <a name='RoutingNetflixAmazonPrimeHuluTrafficviaVPNTunnel'></a>Routing Netflix/Amazon Prime/Hulu Traffic via VPN Tunnel
 
 If you live in a country where Netflix/Amazon Prime/Hulu are not available and want to circumvent geo-fencing, this package can't help you. The Netflix/Amazon Prime/Hulu do a great job detecing VPN usage when accessing their services and circumventing geographical restrictions is not only dubiously legal, it's also technically very challenging.
 
-#### Routing Netflix/Amazon Prime/Hulu Traffic via WAN
+#### 10.6.2. <a name='RoutingNetflixAmazonPrimeHuluTrafficviaWAN'></a>Routing Netflix/Amazon Prime/Hulu Traffic via WAN
 
 If you live in a country where Netflix/Amazon Prime/Hulu are available, you obviously do NOT want to use VPN tunnel for their traffic.
 
@@ -931,7 +1017,7 @@ If the VPN tunnel is used as a default gateway, either:
 
 Either way make sure that your DNS requests are not routed via VPN Tunnel!
 
-### A Word About Interface Hotplug Script
+### 10.7. <a name='AWordAboutInterfaceHotplugScript'></a>A Word About Interface Hotplug Script
 
 Sometimes[<sup>#8</sup>](#footnote8) the service doesn't get reloaded when supported interfaces go up or down. This can be an annoying experience since the service may start before all supported VPN connections are up and then not get updated when the VPN connections get established. In that case, run the following command from CLI to create the interface hotplug script to cause the service to be reloaded in interface updates:
 
@@ -944,7 +1030,7 @@ logger -t pbr "Reloading $INTERFACE due to $ACTION of $INTERFACE ($DEVICE)"
 EOF
 ```
 
-### A Word About Differences from `vpn-policy-routing`
+### 10.8. <a name='AWordAboutDifferencesfromvpn-policy-routing'></a>A Word About Differences from `vpn-policy-routing`
 
 Unlike the `vpn-policy-routing`, the `pbr` package:
 
@@ -956,7 +1042,7 @@ Unlike the `vpn-policy-routing`, the `pbr` package:
 - supports fw4 and nft/nft sets (and dnsmasq nft set support) on OpenWrt 22.03
 - chain names in config file should be in lower case, not upper case
 
-### A Word About Migrating from `vpn-policy-routing`
+### 10.9. <a name='AWordAboutMigratingfromvpn-policy-routing'></a>A Word About Migrating from `vpn-policy-routing`
 
 The new `pbr` package is largely config-compatible with the `vpn-policy-routing` package, if you install `pbr` version 1.0.0 and newer on a system where `vpn-policy-routing` was previously installed and `pbr` was not, the `vpn-policy-routing` config will be migrated to `pbr` config (and the `vpn-policy-routing` disabled) automatically upon install.
 
@@ -984,7 +1070,7 @@ fi
 
 Please note that the ipset/nft set names which service creates for use in the custom user files have changed. Refer to the new custom user files supplied with the package for reference.
 
-## Getting Help
+## 11. <a name='GettingHelp'></a>Getting Help
 
 If things are not working as intended, please first set verbosity to 2 by running these commands
 
@@ -1005,11 +1091,11 @@ uci export pbr
 /etc/init.d/pbr status
 ```
 
-### First Troubleshooting Step
+### 11.1. <a name='FirstTroubleshootingStep'></a>First Troubleshooting Step
 
-If your router is set to use [default routing via VPN tunnel](#a-word-about-default-routing) and the WAN-targeting policies do not work, you need to stop your VPN tunnel first and ensure that you still have internet connection. If your router is set up to use the default routing via VPN tunnel and when you stop the VPN tunnel you have no internet connection, this package can't help you. You first need to make sure that you do have internet connection when the VPN tunnel is stopped.
+If your router is set to use [default routing via VPN tunnel](#AWordAboutDefaultRouting) and the WAN-targeting policies do not work, you need to stop your VPN tunnel first and ensure that you still have internet connection. If your router is set up to use the default routing via VPN tunnel and when you stop the VPN tunnel you have no internet connection, this package can't help you. You first need to make sure that you do have internet connection when the VPN tunnel is stopped.
 
-## Thanks
+## 12. <a name='Thanks'></a>Thanks
 
 I'd like to thank everyone who helped create, test and troubleshoot this service. Without contributions from [@hnyman](https://github.com/hnyman), [@dibdot](https://github.com/dibdot), [@danrl](https://github.com/danrl), [@tohojo](https://github.com/tohojo), [@cybrnook](https://github.com/cybrnook), [@nidstigator](https://github.com/nidstigator), [@AndreBL](https://github.com/AndreBL), [@dz0ny](https://github.com/dz0ny), [@tew42](https://github.com/tew42), [bogorad](https://forum.openwrt.org/u/bogorad), rigorous testing/bugreporting by [@dziny](https://github.com/dziny), [@bluenote73](https://github.com/bluenote73), [@buckaroo](https://github.com/pgera), [@Alexander-r](https://github.com/Alexander-r), [@n8v8R](https://github.com/n8v8R), [psherman](https://forum.openwrt.org/u/psherman), [@Vale-max](https://github.com/Vale-max), [@Llama-Alarm](https://github.com/Llama-Alarm), [dscpl](https://forum.openwrt.org/u/dscpl), [egc112](https://github.com/egc112) and multiple contributions from [@dl12345](https://github.com/dl12345) and [trendy](https://forum.openwrt.org/u/trendy) and feedback from other OpenWrt users it wouldn't have been possible. Wireguard/IPv6 support is courtesy of [IVPN](https://www.ivpn.net/).
 
