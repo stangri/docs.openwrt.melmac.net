@@ -43,27 +43,29 @@
   - 7.4. [How to install legacy iptables/ipset packages](#Howtoinstalllegacyiptablesipsetpackages)
   - 7.5. [How to install dnsmasq-full](#Howtoinstalldnsmasq-full)
   - 7.6. [Unmet dependencies](#Unmetdependencies)
-- 8. [Service Configuration Settings](#ServiceConfigurationSettings)
-  - 8.1. [Default Settings](#DefaultSettings)
-  - 8.2. [Policy Options](#PolicyOptions)
-  - 8.3. [Custom User Files Include Options](#CustomUserFilesIncludeOptions)
-  - 8.4. [Example Policies](#ExamplePolicies)
-    - 8.4.1. [Single IP, IP Range, Local Machine, Local MAC Address](#SingleIPIPRangeLocalMachineLocalMACAddress)
-    - 8.4.2. [Logmein Hamachi](#LogmeinHamachi)
-    - 8.4.3. [SIP Port](#SIPPort)
-    - 8.4.4. [Plex Media Server](#PlexMediaServer)
-    - 8.4.5. [Emby Media Server](#EmbyMediaServer)
-    - 8.4.6. [Ignore Target](#IgnoreTarget)
-    - 8.4.7. [Basic OpenVPN Client Config](#BasicOpenVPNClientConfig)
-    - 8.4.8. [Multiple OpenVPN Clients](#MultipleOpenVPNClients)
-    - 8.4.9. [Local OpenVPN Server + OpenVPN Client (Scenario 1)](#LocalOpenVPNServerOpenVPNClientScenario1)
-    - 8.4.10. [Local OpenVPN Server + OpenVPN Client (Scenario 2)](#LocalOpenVPNServerOpenVPNClientScenario2)
-    - 8.4.11. [Local Wireguard Server + Wireguard Client (Scenario 1)](#LocalWireguardServerWireguardClientScenario1)
-    - 8.4.12. [Local Wireguard Server + Wireguard Client (Scenario 2)](#LocalWireguardServerWireguardClientScenario2)
-    - 8.4.13. [Local Wireguard Server + Another VPN Client (Scenario 1)](#LocalWireguardServerAnotherVPNClientScenario1)
-    - 8.4.14. [Local Wireguard Server + Another VPN Client (Scenario 2)](#LocalWireguardServerAnotherVPNClientScenario2)
-    - 8.4.15. [Netflix Domains](#NetflixDomains)
-    - 8.4.16. [Example Custom User Files Includes](#ExampleCustomUserFilesIncludes)
+- 8. [How to use](#Howtouse)
+  - 8.1. [Helpful Instructional Videos](#HelpfulInstructionalVideos)
+  - 8.2. [Service Configuration Settings](#ServiceConfigurationSettings)
+    - 8.2.1. [Default Settings](#DefaultSettings)
+    - 8.2.2. [Policy Options](#PolicyOptions)
+    - 8.2.3. [Custom User Files Include Options](#CustomUserFilesIncludeOptions)
+  - 8.3. [Example Policies](#ExamplePolicies)
+    - 8.3.1. [Single IP, IP Range, Local Machine, Local MAC Address](#SingleIPIPRangeLocalMachineLocalMACAddress)
+    - 8.3.2. [Logmein Hamachi](#LogmeinHamachi)
+    - 8.3.3. [SIP Port](#SIPPort)
+    - 8.3.4. [Plex Media Server](#PlexMediaServer)
+    - 8.3.5. [Emby Media Server](#EmbyMediaServer)
+    - 8.3.6. [Ignore Target](#IgnoreTarget)
+    - 8.3.7. [Basic OpenVPN Client Config](#BasicOpenVPNClientConfig)
+    - 8.3.8. [Multiple OpenVPN Clients](#MultipleOpenVPNClients)
+    - 8.3.9. [Local OpenVPN Server + OpenVPN Client (Scenario 1)](#LocalOpenVPNServerOpenVPNClientScenario1)
+    - 8.3.10. [Local OpenVPN Server + OpenVPN Client (Scenario 2)](#LocalOpenVPNServerOpenVPNClientScenario2)
+    - 8.3.11. [Local Wireguard Server + Wireguard Client (Scenario 1)](#LocalWireguardServerWireguardClientScenario1)
+    - 8.3.12. [Local Wireguard Server + Wireguard Client (Scenario 2)](#LocalWireguardServerWireguardClientScenario2)
+    - 8.3.13. [Local Wireguard Server + Another VPN Client (Scenario 1)](#LocalWireguardServerAnotherVPNClientScenario1)
+    - 8.3.14. [Local Wireguard Server + Another VPN Client (Scenario 2)](#LocalWireguardServerAnotherVPNClientScenario2)
+    - 8.3.15. [Netflix Domains](#NetflixDomains)
+    - 8.3.16. [Example Custom User Files Includes](#ExampleCustomUserFilesIncludes)
 - 9. [Footnotes/Known Issues](#FootnotesKnownIssues)
 - 10. [FAQ](#FAQ)
   - 10.1. [A Word About Default Routing](#AWordAboutDefaultRouting)
@@ -369,7 +371,15 @@ rm -f /tmp/dnsmasq-full*.ipk
 
 If you are running a development (trunk/snapshot) build of OpenWrt on your router and your build is outdated (meaning that packages of the same revision/commit hash are no longer available and when you try to satisfy the [requirements](#Requirements) you get errors), please flash either current OpenWrt release image or current development/snapshot image.
 
-## 8. <a name='ServiceConfigurationSettings'></a><a name='service-configuration-settings'></a>Service Configuration Settings
+## 8. <a name='Howtouse'></a>How to use
+
+### 8.1. <a name='HelpfulInstructionalVideos'></a>Helpful Instructional Videos
+
+If you want to use WebUI to configure `pbr` you may want to review the following YouTube videos:
+
+- [DevOdyssey](https://www.youtube.com/watch?v=FN2qfxNIs2g)
+
+### 8.2. <a name='ServiceConfigurationSettings'></a><a name='service-configuration-settings'></a>Service Configuration Settings
 
 As per screenshots above, in the Web UI the `pbr` configuration is split into `Basic`, `Advanced` and `WebUI` settings. The full list of configuration parameters of `pbr.config` section is:
 
@@ -399,11 +409,11 @@ As per screenshots above, in the Web UI the `pbr` configuration is split into `B
 |                     | <a name="procd_wan_interface"></a>procd_wan_interface           |             |                                                          | Override `wan` interface name with this interface.                                                                                                                                                                                                                                                                                                                                                                                                                                    |
 |                     | <a name="procd_wan6_interface"></a>procd_wan6_interface         |             |                                                          | Override `wan6` interface name with this interface.                                                                                                                                                                                                                                                                                                                                                                                                                                   |
 
-### 8.1. <a name='DefaultSettings'></a>Default Settings
+#### 8.2.1. <a name='DefaultSettings'></a>Default Settings
 
 Default configuration has service disabled (use Web UI to enable/start service or run `uci set pbr.config.enabled=1; uci commit pbr;`).
 
-### 8.2. <a name='PolicyOptions'></a>Policy Options
+#### 8.2.2. <a name='PolicyOptions'></a>Policy Options
 
 Each policy may have a combination of the options below, the `name` and `interface` options are required.
 
@@ -421,16 +431,16 @@ The `src_addr`, `src_port`, `dest_addr` and `dest_port` options supports paramet
 | proto         | auto       | Policy protocol, can be any valid protocol from `/etc/protocols` for CLI/uci or can be selected from the values set in `webui_supported_protocol`.                                                                                                                                                                                                                                                                                                                            |
 | chain         | prerouting | Policy chain, can be either `forward`, `input`, `prerouting`, `postrouting` or `output`. This setting is case-sensitive.                                                                                                                                                                                                                                                                                                                                                      |
 
-### 8.3. <a name='CustomUserFilesIncludeOptions'></a>Custom User Files Include Options
+#### 8.2.3. <a name='CustomUserFilesIncludeOptions'></a>Custom User Files Include Options
 
 | Option   | Default | Description                                                                 |
 | -------- | ------- | --------------------------------------------------------------------------- |
 | **path** |         | Path to a custom user file (in a form of shell script), it **must** be set. |
 | enabled  | 1       | Enable/disable setting.                                                     |
 
-### 8.4. <a name='ExamplePolicies'></a>Example Policies
+### 8.3. <a name='ExamplePolicies'></a>Example Policies
 
-#### 8.4.1. <a name='SingleIPIPRangeLocalMachineLocalMACAddress'></a>Single IP, IP Range, Local Machine, Local MAC Address
+#### 8.3.1. <a name='SingleIPIPRangeLocalMachineLocalMACAddress'></a>Single IP, IP Range, Local Machine, Local MAC Address
 
 The following policies route traffic from a single IP address, a range of IP addresses, a local machine (requires definition as DHCP host record in DHCP config), a MAC-address of a local device and finally all of the above via WAN.
 
@@ -462,7 +472,7 @@ config policy
 
 ```
 
-#### 8.4.2. <a name='LogmeinHamachi'></a>Logmein Hamachi
+#### 8.3.2. <a name='LogmeinHamachi'></a>Logmein Hamachi
 
 The following policy routes LogMeIn Hamachi zero-setup VPN traffic via WAN.
 
@@ -473,7 +483,7 @@ config policy
   option dest_addr '25.0.0.0/8 hamachi.cc hamachi.com logmein.com'
 ```
 
-#### 8.4.3. <a name='SIPPort'></a>SIP Port
+#### 8.3.3. <a name='SIPPort'></a>SIP Port
 
 The following policy routes standard SIP port traffic via WAN for both TCP and UDP protocols.
 
@@ -485,7 +495,7 @@ config policy
   option proto 'tcp udp'
 ```
 
-#### 8.4.4. <a name='PlexMediaServer'></a>Plex Media Server
+#### 8.3.4. <a name='PlexMediaServer'></a>Plex Media Server
 
 The following policies route Plex Media Server traffic via WAN. Please note, you'd still need to open the port in the firewall either manually or with the UPnP.
 
@@ -501,7 +511,7 @@ config policy
   option dest_addr 'plex.tv my.plexapp.com'
 ```
 
-#### 8.4.5. <a name='EmbyMediaServer'></a>Emby Media Server
+#### 8.3.5. <a name='EmbyMediaServer'></a>Emby Media Server
 
 The following policy route Emby traffic via WAN. Please note, you'd still need to open the port in the firewall either manually or with the UPnP.
 
@@ -517,7 +527,7 @@ config policy
   option dest_addr 'emby.media app.emby.media tv.emby.media'
 ```
 
-#### 8.4.6. <a name='IgnoreTarget'></a><a name='ignore-target'></a>Ignore Target
+#### 8.3.6. <a name='IgnoreTarget'></a><a name='ignore-target'></a>Ignore Target
 
 The service allows you to set an interface for a specific policy to `ignore` to skip futher processing of matched traffic. This option needs to be explicitly enabled for use in WebUI, check [Service Configuration Settings](#ServiceConfigurationSettings) for details. Some use cases are listed below.
 
@@ -540,7 +550,7 @@ Please note, you need to enable `Show Ignore Target` option for the WebUI to lis
 
 It's a good idea to keep the policies targeting `ignore` interface at the top of the config file/list of policies displayed in WebUI to make sure they are processed first.
 
-#### 8.4.7. <a name='BasicOpenVPNClientConfig'></a>Basic OpenVPN Client Config
+#### 8.3.7. <a name='BasicOpenVPNClientConfig'></a>Basic OpenVPN Client Config
 
 There are multiple guides online on how to configure the OpenVPN client on OpenWrt "the easy way", and they usually result either in a kill-switch configuration or configuration where the OpenVPN tunnel cannot be properly (and separately from WAN) routed, either way, incompatible with the VPN Policy-Based Routing.
 
@@ -585,7 +595,7 @@ config openvpn 'vpnclient'
   ...
 ```
 
-#### 8.4.8. <a name='MultipleOpenVPNClients'></a>Multiple OpenVPN Clients
+#### 8.3.8. <a name='MultipleOpenVPNClients'></a>Multiple OpenVPN Clients
 
 If you use multiple OpenVPN clients on your router, the order in which their devices are named (tun0, tun1, etc) is not guaranteed by OpenWrt. The following settings are recommended in this case.
 
@@ -625,7 +635,7 @@ config pbr 'config'
   ...
 ```
 
-#### 8.4.9. <a name='LocalOpenVPNServerOpenVPNClientScenario1'></a>Local OpenVPN Server + OpenVPN Client (Scenario 1)
+#### 8.3.9. <a name='LocalOpenVPNServerOpenVPNClientScenario1'></a>Local OpenVPN Server + OpenVPN Client (Scenario 1)
 
 If the OpenVPN client on your router is used as default routing (for the whole internet), make sure your settings are as following (three dots on the line imply other options can be listed in the section as well).
 
@@ -700,7 +710,7 @@ config openvpn 'vpnserver'
   ...
 ```
 
-#### 8.4.10. <a name='LocalOpenVPNServerOpenVPNClientScenario2'></a>Local OpenVPN Server + OpenVPN Client (Scenario 2)
+#### 8.3.10. <a name='LocalOpenVPNServerOpenVPNClientScenario2'></a>Local OpenVPN Server + OpenVPN Client (Scenario 2)
 
 If the OpenVPN client is **not** used as default routing and you create policies to selectively use the OpenVPN client, make sure your settings are as following (three dots on the line imply other options can be listed in the section as well). Make sure that the policy mentioned below is at the top of your policies list.
 
@@ -775,13 +785,13 @@ config openvpn 'vpnserver'
   ...
 ```
 
-#### 8.4.11. <a name='LocalWireguardServerWireguardClientScenario1'></a>Local Wireguard Server + Wireguard Client (Scenario 1)
+#### 8.3.11. <a name='LocalWireguardServerWireguardClientScenario1'></a>Local Wireguard Server + Wireguard Client (Scenario 1)
 
 Yes, I'm aware that technically there are no clients nor servers in Wireguard, it's all peers, but for the sake of README readability I will use the terminology similar to the OpenVPN Server + Client setups.
 
 If the Wireguard tunnel on your router is used as default routing (for the whole internet), sadly no `pbr` rule will allow it to intercept and properly route the `UDP` traffic of Wireguard server, please either use the OpenVPN server and configure it to use `TCP` protocol or use the Scenario 2 below.
 
-#### 8.4.12. <a name='LocalWireguardServerWireguardClientScenario2'></a>Local Wireguard Server + Wireguard Client (Scenario 2)
+#### 8.3.12. <a name='LocalWireguardServerWireguardClientScenario2'></a>Local Wireguard Server + Wireguard Client (Scenario 2)
 
 Yes, I'm aware that technically there are no clients nor servers in Wireguard, it's all peers, but for the sake of README readability I will use the terminology similar to the OpenVPN Server + Client setups.
 
@@ -850,13 +860,13 @@ config rule
   option dest_port '61820'
 ```
 
-#### 8.4.13. <a name='LocalWireguardServerAnotherVPNClientScenario1'></a>Local Wireguard Server + Another VPN Client (Scenario 1)
+#### 8.3.13. <a name='LocalWireguardServerAnotherVPNClientScenario1'></a>Local Wireguard Server + Another VPN Client (Scenario 1)
 
 Yes, I'm aware that technically there are no clients nor servers in Wireguard, it's all peers, but for the sake of README readability I will use the terminology similar to the OpenVPN Server + Client setups.
 
 If another VPN client is used as default routing (for the whole internet), sadly no `pbr` rule will allow it to intercept and properly route the `UDP` traffic of Wireguard server, please either use the OpenVPN server and configure it to use `TCP` protocol or use the Scenario 2 below.
 
-#### 8.4.14. <a name='LocalWireguardServerAnotherVPNClientScenario2'></a>Local Wireguard Server + Another VPN Client (Scenario 2)
+#### 8.3.14. <a name='LocalWireguardServerAnotherVPNClientScenario2'></a>Local Wireguard Server + Another VPN Client (Scenario 2)
 
 Yes, I'm aware that technically there are no clients nor servers in Wireguard, it's all peers, but for the sake of README readability I will use the terminology similar to the OpenVPN Server + Client setups.
 
@@ -875,7 +885,7 @@ config policy
   ...
 ```
 
-#### 8.4.15. <a name='NetflixDomains'></a>Netflix Domains
+#### 8.3.15. <a name='NetflixDomains'></a>Netflix Domains
 
 The following policy should route US Netflix traffic via WAN. For capturing international Netflix domain names, you can refer to the getdomainnames.sh-specific instructions on [GitHub](https://github.com/Xentrk/netflix-vpn-bypass/blob/master/README.md#ipset_netflix_domainssh)/[jsDelivr](https://cdn.jsdelivr.net/gh/Xentrk/netflix-vpn-bypass/README.md#ipset_netflix_domainssh) and don't forget to adjust them for OpenWrt. This may not work if Netflix changes things. For more reliable US Netflix routing you may want to consider also using [custom user files](#CustomUserFiles).
 
@@ -886,7 +896,7 @@ config policy
   option dest_addr 'amazonaws.com netflix.com nflxext.com nflximg.net nflxso.net nflxvideo.net dvd.netflix.com'
 ```
 
-#### 8.4.16. <a name='ExampleCustomUserFilesIncludes'></a>Example Custom User Files Includes
+#### 8.3.16. <a name='ExampleCustomUserFilesIncludes'></a>Example Custom User Files Includes
 
 ```text
 config include
