@@ -4,26 +4,30 @@
 
 # Simple AdBlock
 
+## Important news
+
+This package is now obsolete and OpenWrt version 23.05.0 and newer will include the [`adblock-fast`](https://docs.openwrt.melmac.net/adblock-fast/) package instead. If you're using an older release of OpenWrt you can upgrade to [`adblock-fast`](https://docs.openwrt.melmac.net/adblock-fast/) by adding a custom repo to your router following instructions on [GitHub](https://docs.openwrt.melmac.net/#on-your-router)/[jsDelivr](https://cdn.jsdelivr.net/gh/stangri/docs.openwrt.melmac.net/README.md#on-your-router) first.
+
 ## Description
 
 A simple DNSMASQ/Unbound-based AdBlocking service for OpenWrt.
 
 ## Features
 
--   Super-fast due to the nature of supported block-lists and parallel downloading/processing of the block-lists.
--   Supports hosts files and domains lists for blocking.
--   Everything is configurable from Web UI.
--   Allows you to easily add your own domains to allow-list or block-list.
--   Allows you to easily add URLs to your own blocked hosts or domains lists to allow/block-list (just put allowed domains one per line in the file you're linking).
--   Supports multiple modes of AdBlocking implementations with DNSMASQ and Unbound.
--   Doesn't stay in memory -- creates the list of blocked domains and then uses DNSMASQ/Unbound and firewall rules to serve NXDOMAIN or 127.0.0.1 reply or to reject access (depending on settings) for blocked domains.
--   As some of the default lists are using https, reliably works with either wget/libopenssl,  uclient-fetch/libustream-mbedtls or curl.
--   Very lightweight and easily hackable, the whole script is just one `/etc/init.d/simple-adblock` file.
--   Retains the downloaded/sorted AdBlocking list on service stop and reuses it on service start (use `dl` command if you want to force re-download of the list).
--   Has an option to store a compressed copy of the AdBlocking list in persistent memory which survives reboots.
--   Blocks ads served over https (unlike PixelServ-derived solutions).
--   Blocks ads inside browsers with [DNS-over-HTTPS proxy](https://en.wikipedia.org/wiki/DNS_over_HTTPS) built-in, like [Mozilla Firefox](https://support.mozilla.org/en-US/kb/firefox-dns-over-https#w_about-dns-over-https) or [Google Chrome/Chromium](https://blog.chromium.org/2019/09/experimenting-with-same-provider-dns.html) -- with the `dnsmasq.ipset` option.
--   Proudly made in Canada, using locally-sourced electrons.
+- Super-fast due to the nature of supported block-lists and parallel downloading/processing of the block-lists.
+- Supports hosts files and domains lists for blocking.
+- Everything is configurable from Web UI.
+- Allows you to easily add your own domains to allow-list or block-list.
+- Allows you to easily add URLs to your own blocked hosts or domains lists to allow/block-list (just put allowed domains one per line in the file you're linking).
+- Supports multiple modes of AdBlocking implementations with DNSMASQ and Unbound.
+- Doesn't stay in memory -- creates the list of blocked domains and then uses DNSMASQ/Unbound and firewall rules to serve NXDOMAIN or 127.0.0.1 reply or to reject access (depending on settings) for blocked domains.
+- As some of the default lists are using https, reliably works with either wget/libopenssl, uclient-fetch/libustream-mbedtls or curl.
+- Very lightweight and easily hackable, the whole script is just one `/etc/init.d/simple-adblock` file.
+- Retains the downloaded/sorted AdBlocking list on service stop and reuses it on service start (use `dl` command if you want to force re-download of the list).
+- Has an option to store a compressed copy of the AdBlocking list in persistent memory which survives reboots.
+- Blocks ads served over https (unlike PixelServ-derived solutions).
+- Blocks ads inside browsers with [DNS-over-HTTPS proxy](https://en.wikipedia.org/wiki/DNS_over_HTTPS) built-in, like [Mozilla Firefox](https://support.mozilla.org/en-US/kb/firefox-dns-over-https#w_about-dns-over-https) or [Google Chrome/Chromium](https://blog.chromium.org/2019/09/experimenting-with-same-provider-dns.html) -- with the `dnsmasq.ipset` option.
+- Proudly made in Canada, using locally-sourced electrons.
 
 If you want a more robust AdBlocking, supporting free memory detection and complex block-lists, supporting IDN, check out `net/adblock` on [GitHub](https://github.com/openwrt/packages/tree/master/net/adblock/files)/[jsDelivr](https://cdn.jsdelivr.net/gh/openwrt/packages/net/adblock/files/README.md).
 
@@ -61,7 +65,7 @@ opkg update; opkg install curl;
 
 In order to actually block the ads, this service requires one of the following DNS resolvers to be installed on your router: `dnsmasq` or `dnsmasq-full` or `unbound`. The `dnsmasq` package is usually included in the default OpenWrt installation.
 
-If you want to use the [`dnsmasq.ipset` option](#dns-resolution-option) you need to install `ipset` and  `dnsmasq-full` instead of the `dnsmasq`. To do that, connect to your router via ssh and run the following command:
+If you want to use the [`dnsmasq.ipset` option](#dns-resolution-option) you need to install `ipset` and `dnsmasq-full` instead of the `dnsmasq`. To do that, connect to your router via ssh and run the following command:
 
 ```sh
 opkg update; cd /tmp/ && opkg download dnsmasq-full; opkg install ipset libnettle8 libnetfilter-conntrack3;
@@ -108,9 +112,9 @@ If your router has less then 64Mb RAM, edit the configuration file, located at `
 
 You can use Web UI (found in Services/Simple AdBlock) to add/remove/edit links to:
 
--   [hosts files](https://en.wikipedia.org/wiki/Hosts_(file)) (127.0.0.1 or 0.0.0.0 followed by space and domain name per line) to be blocked.
--   domains lists (one domain name per line) to be blocked.
--   domains lists (one domain name per line) to be allowed. It is useful if you want to run `simple-adblock` on multiple routers and maintain one centralized allow-list which you can publish on a web-server.
+- [hosts files](<https://en.wikipedia.org/wiki/Hosts_(file)>) (127.0.0.1 or 0.0.0.0 followed by space and domain name per line) to be blocked.
+- domains lists (one domain name per line) to be blocked.
+- domains lists (one domain name per line) to be allowed. It is useful if you want to run `simple-adblock` on multiple routers and maintain one centralized allow-list which you can publish on a web-server.
 
 Please note that these lists **must** include either `http://` or `https://` (or, if `curl` is installed the `file://`) prefix. Some of the top block-lists (both hosts files and domains lists) suitable for routers with at least 8MB RAM are used in the default `simple-adblock` installation.
 
@@ -160,7 +164,7 @@ In the Web UI the `simple-adblock` settings are split into `basic` and `advanced
 |                | <a name="blocked_adblockplus_url"></a>blocked_adblockplus_url | list/string |                                                                                                          | List of URL(s) to AdBlockPlus-formatted files containing blocked domains. **Must** include either `http://` or `https://` (or, if `curl` is installed the `file://`) prefix.                                                                                                                                                                                                                                       |
 |                | <a name="blocked_domain"></a>blocked_domain                   | list/string |                                                                                                          | List of blocked domains.                                                                                                                                                                                                                                                                                                                                                                                           |
 |                | <a name="blocked_domains_url"></a>blocked_domains_url         | list/string |                                                                                                          | List of URL(s) to text files containing blocked domains. **Must** include either `http://` or `https://` (or, if `curl` is installed the `file://`) prefix.                                                                                                                                                                                                                                                        |
-|                | <a name="blocked_hosts_url"></a>blocked_hosts_url             | list/string |                                                                                                          | List of URL(s) to [hosts files](https://en.wikipedia.org/wiki/Hosts_(file)) containing block-listed domains. **Must** include either `http://` or `https://` (or, if `curl` is installed the `file://`) prefix.                                                                                                                                                                                                    |
+|                | <a name="blocked_hosts_url"></a>blocked_hosts_url             | list/string |                                                                                                          | List of URL(s) to [hosts files](<https://en.wikipedia.org/wiki/Hosts_(file)>) containing block-listed domains. **Must** include either `http://` or `https://` (or, if `curl` is installed the `file://`) prefix.                                                                                                                                                                                                  |
 
 ### DNS Resolution Option
 
@@ -192,16 +196,16 @@ In general, whatever domain is specified to be allowed; it, along with with its 
 For most of the [DNS Resolution Options](#dns-resolution-option) to work, your local LAN clients need to be set to use your router's DNS (by default `192.168.1.1`). The `dnsmasq.addnhosts` is the only option which can help you block ads if your local LAN clients are NOT using your router's DNS. There are multiple ways your local LAN clients can be set to NOT use your router's DNS:
 
 1.  Hardcoded on the device. Some Android Lollipop 5.0 phones, some media-centric tablets and some streaming devices for example are known to have hardcoded DNS servers and they ignore your router's DNS settings. You can fix this by either:
-    -   Rooting your device and changing it from hardcoded DNS servers to obtaining DNS servers from DHCP.
-    -   Enabling `simple-adblock`'s `force_dns` setting to override the hardcoded DNS on your device.
+    - Rooting your device and changing it from hardcoded DNS servers to obtaining DNS servers from DHCP.
+    - Enabling `simple-adblock`'s `force_dns` setting to override the hardcoded DNS on your device.
 2.  Manually set on the device. Instead of setting your device to obtain the DNS settings via DHCP, you can set the DNS servers manually. There are some guides online which recommend manually changing the DNS servers on your computer to Google's (8.8.8.8) or Cloudflare's (1.1.1.1) or OpenDNS (208.67.222.222). You can fix this by either:
-    -   Changing the on-device DNS settings from manual to obtaining DNS servers from DHCP and changing your [router's DNS settings](https://openwrt.org/docs/guide-user/base-system/dhcp#all_options) to use the DNS from Google, Cloudflare or OpenDNS respectively.
-    -   Enabling `simple-adblock`'s `force_dns` setting to override the hardcoded DNS on your device.
+    - Changing the on-device DNS settings from manual to obtaining DNS servers from DHCP and changing your [router's DNS settings](https://openwrt.org/docs/guide-user/base-system/dhcp#all_options) to use the DNS from Google, Cloudflare or OpenDNS respectively.
+    - Enabling `simple-adblock`'s `force_dns` setting to override the hardcoded DNS on your device.
 3.  Sent to your device from router via [DHCP Options](https://openwrt.org/docs/guide-user/base-system/dhcp_configuration#dhcp_options). You can fix this by either:
-    -   Removing [DHCP Options](https://openwrt.org/docs/guide-user/base-system/dhcp_configuration#dhcp_options) 5 and 6 from your router's `/etc/config/dhcp` file.
-    -   Enabling `simple-adblock`'s `force_dns` setting to override the hardcoded DNS on your device.
+    - Removing [DHCP Options](https://openwrt.org/docs/guide-user/base-system/dhcp_configuration#dhcp_options) 5 and 6 from your router's `/etc/config/dhcp` file.
+    - Enabling `simple-adblock`'s `force_dns` setting to override the hardcoded DNS on your device.
 4.  By using the DNS-over-TLS, DNS-over-HTTPS or DNSCrypt on your local device or (if supported) by browser on your local device. You can fix this only by:
-    -   Stopping/removing/disabling DNS-over-TLS, DNS-over-HTTPS or DNSCrypt on your local device and using the secure DNS on your router instead. There are merits to all three of the options above, I can recommend the `https-dns-proxy` and `luci-app-https-dns-proxy` packages for enabling DNS-over-HTTPS on your router.
+    - Stopping/removing/disabling DNS-over-TLS, DNS-over-HTTPS or DNSCrypt on your local device and using the secure DNS on your router instead. There are merits to all three of the options above, I can recommend the `https-dns-proxy` and `luci-app-https-dns-proxy` packages for enabling DNS-over-HTTPS on your router.
 5.  If you are running a wireguard "server" on your router and remote clients connect to it, the AdBlocking may not work properly for your remote clients until you add the following to `/etc/network` (credit to [dibdot](https://forum.openwrt.org/t/wireguard-and-adblock/49351/6)):
 
     ```sh
