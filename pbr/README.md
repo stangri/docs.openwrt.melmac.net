@@ -967,7 +967,7 @@ To unset an OpenVPN tunnel as default route, set the following to the appropriat
 - For OpenVPN 2.3 and older client `.ovpn` file:
 
   ```text
-  route-nopull "1"
+  route-nopull
   ```
 
 #### 10.1.3. <a name='Wireguardtunnel'></a>Wireguard tunnel
