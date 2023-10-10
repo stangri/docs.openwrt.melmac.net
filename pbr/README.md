@@ -165,9 +165,9 @@ If the custom user file includes are set, the service will load and execute them
 
 The following custom user files are provided:
 
-- `/usr/share/pbr/pbr.user.aws`: provided to pull the Continental US AWS IPv4 addresses into the WAN IPv4 sets the service sets up.
-- `/usr/share/pbr/pbr.user.netflix`: provided to pull the Continental US Netflix IPv4 addresses into the WAN IPv4 sets the service sets up.
-- `/usr/share/pbr/pbr.user.wg_server_and_client`: provided to overcome the protocol limitations (see [Local Wireguard Server + Wireguard Client (Scenario 1)](#LocalWireguardServerWireguardClientScenario1)), to allow running a wireguard "server" on your router when a wireguard "client" is set up as default routing.
+- `/etc/pbr/pbr.user.aws`: provided to pull the Continental US AWS IPv4 addresses into the WAN IPv4 sets the service sets up.
+- `/etc/pbr/pbr.user.netflix`: provided to pull the Continental US Netflix IPv4 addresses into the WAN IPv4 sets the service sets up.
+- `/etc/pbr/pbr.user.wg_server_and_client`: provided to overcome the protocol limitations (see [Local Wireguard Server + Wireguard Client (Scenario 1)](#LocalWireguardServerWireguardClientScenario1)), to allow running a wireguard "server" on your router when a wireguard "client" is set up as default routing.
 
 If you want to create your own custom user files, pease refer to [Processing Custom User Files](#ProcessingCustomUserFiles).
 
@@ -900,10 +900,16 @@ config policy
 
 ```text
 config include
-  option path '/usr/share/pbr/pbr.user.netflix'
+  option path '/etc/pbr/pbr.user.aws'
+  option enabled '0'
 
 config include
-  option path '/usr/share/pbr/pbr.user.aws'
+  option path '/etc/pbr/pbr.user.netflix'
+  option enabled '0'
+
+config include
+  option path '/etc/pbr/pbr.user.wg_server_and_client'
+  option enabled '0'
 ```
 
 ## 9. <a name='FootnotesKnownIssues'></a>Footnotes/Known Issues
