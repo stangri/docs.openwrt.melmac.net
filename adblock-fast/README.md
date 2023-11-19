@@ -120,7 +120,7 @@ Please note that these lists **must** include either `http://` or `https://` (or
 
 You can also use Web UI to add individual domains to be blocked or allowed.
 
-If you want to use CLI to customize `adblock-fast` config, refer to the [Configuration Settings](#configuration-settings) section.
+If you want to use CLI to customize `adblock-fast` config, refer to the [Configuration](#configuration) section.
 
 ## How To Use
 
@@ -131,6 +131,14 @@ If you want to remove the domain(s) from the current block-list and add domain(s
 If you want to check if the specific domain (or part of the domain name) is being blocked, run `/etc/init.d/adblock-fast check test-domain.com`.
 
 If you want to force adblock-fast to re-download the lists, run `/etc/init.d/adblock-fast dl`.
+
+### How to Schedule Redownloads
+
+The command to force-redownload the lists is `/etc/init.d/adblock-fast dl` and this is what I use:
+
+```sh
+  echo '21 4 */3 * * /etc/init.d/adblock-fast dl' >> /etc/crontabs/root
+```
 
 ## Adblock-fast Configuration
 
