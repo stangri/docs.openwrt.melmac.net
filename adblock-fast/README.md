@@ -25,7 +25,7 @@ Fast and lean DNSMASQ/Unbound-based AdBlocking service for OpenWrt.
 - Blocks ads inside browsers with [DNS-over-HTTPS proxy](https://en.wikipedia.org/wiki/DNS_over_HTTPS) built-in, like [Mozilla Firefox](https://support.mozilla.org/en-US/kb/firefox-dns-over-https#w_about-dns-over-https) or [Google Chrome/Chromium](https://blog.chromium.org/2019/09/experimenting-with-same-provider-dns.html) -- with the `dnsmasq.ipset` or `dnsmasq.nftset` options (where supported by installed DNSMASQ).
 - Proudly made in Canada, using locally-sourced electrons.
 
-If you want a more robust AdBlocking, supporting free memory detection and complex block-lists, supporting IDN, check out `net/adblock` on [GitHub](https://github.com/openwrt/packages/tree/master/net/adblock/files)/[jsDelivr](https://cdn.jsdelivr.net/gh/openwrt/packages/net/adblock/files/README.md).
+If you want a more robust AdBlocking, supporting free memory detection and complex block-lists, supporting Internationalized Domain Names, check out `net/adblock` on [GitHub](https://github.com/openwrt/packages/tree/master/net/adblock/files)/[jsDelivr](https://cdn.jsdelivr.net/gh/openwrt/packages/net/adblock/files/README.md).
 
 ## Screenshots (luci-app-adblock-fast)
 
