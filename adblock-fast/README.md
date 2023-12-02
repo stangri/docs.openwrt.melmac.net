@@ -57,17 +57,16 @@ The required packages should be automatically installed when you install `adbloc
 
 In order to actually block the ads, this service requires one of the following DNS resolvers to be installed on your router: `dnsmasq` or `dnsmasq-full` or `unbound`. The `dnsmasq` package is usually included in the default OpenWrt installation.
 
-If you want to use the [`dnsmasq.ipset` option](#dns-resolver-option) you need to install `ipset` and `dnsmasq-full` instead of the `dnsmasq`. To do that, connect to your router via ssh and run the following command:
+If you want to use the [`dnsmasq.ipset` option](#dns-resolver-option) you need to install `ipset` and `dnsmasq-full` with `ipset` support instead of the `dnsmasq`.
+
+If you want to use the [`dnsmasq.nftset` option](#dns-resolver-option) you need to install `dnsmasq-full` with `nftset` support instead of the `dnsmasq`.
+
+By default, `dnsmasq-full` in OpenWrt 22.03 and earlier supports only `ipset`, the `dnsmasq-full` in OpenWrt 23.05 and later supports only `nftset`.
+
+To upgrade from `dnsmasq` to `dnsmasq-full`, connect to your router via ssh and run the following command:
 
 ```sh
 opkg update; cd /tmp/ && opkg download dnsmasq-full; opkg install ipset libnettle8 libnetfilter-conntrack3;
-opkg remove dnsmasq; opkg install dnsmasq-full --cache /tmp/; rm -f /tmp/dnsmasq-full*.ipk;
-```
-
-If you want to use the [`dnsmasq.nftset` option](#dns-resolver-option) you need to install `dnsmasq-full` instead of the `dnsmasq`. To do that, connect to your router via ssh and run the following command:
-
-```sh
-opkg update; cd /tmp/ && opkg download dnsmasq-full; opkg install libnettle8 libnetfilter-conntrack3;
 opkg remove dnsmasq; opkg install dnsmasq-full --cache /tmp/; rm -f /tmp/dnsmasq-full*.ipk;
 ```
 
