@@ -6,18 +6,18 @@
 
 ## Description
 
-Fast and lean DNSMASQ/Unbound-based AdBlocking service for OpenWrt.
+Fast and lean DNSMASQ/Unbound-based AdBlocking service for OpenWrt. Featuring simultaneous remote allow/block-list downloading/processing, faster parsing code and simple WebUI allowing to easily add custom/user-specific remote lists.
 
 ## Features
 
-- Super-fast due to the nature of supported block-lists and parallel downloading/processing of the block-lists.
-- Supports hosts files and domains lists for blocking.
+- Super-fast due to the nature of supported allow/block-lists and parallel downloading/processing of the block-lists.
+- Supports [multiple remote allow/block-lists formats](#recognized-remote-allowblock-list-file-formats).
 - Everything is configurable from Web UI.
 - Allows you to easily add your own domains to allow-list or block-list.
 - Allows you to easily add URLs to your own blocked hosts or domains lists to allow/block-list (just put allowed domains one per line in the file you're linking).
 - Supports multiple modes of AdBlocking implementations with DNSMASQ and Unbound.
 - Doesn't stay in memory -- creates the list of blocked domains and then uses DNSMASQ/Unbound and firewall rules to serve NXDOMAIN or 127.0.0.1 reply or to reject access (depending on settings) for blocked domains.
-- As some of the default lists are using https, reliably works with either wget/libopenssl, uclient-fetch/libustream-mbedtls or curl.
+- As some of the default lists are using https, reliably works with either wget/libopenssl, uclient-fetch/libustream-mbedtls or curl (recommended).
 - Very lightweight and easily hackable, the whole script is just one `/etc/init.d/adblock-fast` file.
 - Retains the downloaded/sorted AdBlocking list on service stop and reuses it on service start (use `dl` command if you want to force re-download of the list).
 - Has an option to store a compressed copy of the AdBlocking list in persistent memory which survives reboots.
@@ -181,12 +181,12 @@ In the Web UI settings for the `adblock-fast` are split into `basic` and `advanc
 
 The lists of allowed and blocked domains are controlled by the unnamed `file_url` sections, the available options for each section are:
 
-| Option  | Type    | Default | Description                                                                                                                                                 |
-| ------- | ------- | ------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| action  | String  | `block` | Either `allow` or `block`.                                                                                                                                  |
-| enabled | Boolean | `1`     | Set to `0` to disable processing of this list.                                                                                                              |
-| size    | Integer |         | Sizes for lists are automatically adjust upon download or migration from `simple-adblock`.                                                                  |
-| url     | String  |         | List of URL(s) to text files containing allowed domains. **Must** include either `http://` or `https://` (or, if `curl` is installed the `file://`) prefix. |
+| Option  | Type    | Default | Description                                                                                                                                                                                                                        |
+| ------- | ------- | ------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| action  | String  | `block` | Either `allow` or `block`.                                                                                                                                                                                                         |
+| enabled | Boolean | `1`     | Set to `0` to disable processing of this list.                                                                                                                                                                                     |
+| size    | Integer |         | Sizes for lists are automatically adjust upon download or migration from `simple-adblock`.                                                                                                                                         |
+| url     | String  |         | URL to the remote allow/block-lists. **Must** include either `http://` or `https://` (with `curl` installed may use the `file://`) prefix. Recognized formats are listed [below](#recognized-remote-allowblock-list-file-formats). |
 
 ### DNS Resolver Option
 
@@ -212,6 +212,17 @@ This service downloads (and processes in the background, removing comments and o
 If you specify `google.com` as a domain to be allowed, you will have access to `google.com`, `www.google.com`, `analytics.google.com`, but not fake domains like `email-google.com` or `drive.google.com.verify.signin.normandeassociation.com` for example. If you only want to allow `www.google.com` while blocking all other `google.com` subdomains, just specify `www.google.com` as domain to be allowed.
 
 In general, whatever domain is specified to be allowed; it, along with with its subdomains will be allowed, but not any fake domains containing it.
+
+### Recognized remote allow/block-list file formats
+
+The service can parse the remote allow/block-lists in the following formats:
+
+- AdBlockPlus format
+- DNSMASQ format with `address=` assignments
+- DNSMASQ format with `local=` assignments
+- DNSMASQ format with `server=` assignments
+- Hosts file
+- Domains list (plain text with one domain per line)
 
 ## How It Does Not Work
 
