@@ -6,12 +6,12 @@
 
 ## Description
 
-Fast and lean DNSMASQ/Unbound-based AdBlocking service for OpenWrt. Featuring simultaneous remote allow/block-list downloading/processing, faster parsing code and simple WebUI allowing to easily add custom/user-specific remote lists.
+Fast and lean DNSMASQ/Unbound-based AdBlocking service for OpenWrt. Featuring simultaneous remote allow/block-list downloading/processing, fast parsing code and simple WebUI allowing to easily add custom/user-specific remote lists.
 
 ## Features
 
-- Super-fast due to the nature of supported allow/block-lists and parallel downloading/processing of the block-lists.
-- Supports [multiple remote allow/block-lists formats](#recognized-remote-allowblock-list-file-formats).
+- Super-fast due to the nature of supported allow/block-lists, parallel downloading/processing of the block-lists and fast block-list parsing code.
+- Supports [multiple remote allow/block-lists formats](#recognized-remote-allowblock-list-file-formats), as well as using a [remote dnsmasq config file](#dnsmasq_config_file_url) with no parsing.
 - Everything is configurable from Web UI.
 - Allows you to easily add your own domains to allow-list or block-list.
 - Allows you to easily add URLs to your own blocked hosts or domains lists to allow/block-list (just put allowed domains one per line in the file you're linking).
