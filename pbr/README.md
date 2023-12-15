@@ -789,13 +789,13 @@ config openvpn 'vpnserver'
 
 #### 8.3.11. <a name='LocalWireguardServerWireguardClientScenario1'></a>Local Wireguard Server + Wireguard Client (Scenario 1)
 
-Yes, I'm aware that technically there are no clients nor servers in Wireguard, it's all peers, but for the sake of README readability I will use the terminology similar to the OpenVPN Server + Client setups.
+Yes, I'm aware that technically there are no clients nor servers in Wireguard, it's all peers in terms of topology, however when you configure Wireguard, one of the instances will have the `listen_port`, so we'd call that one a server and if it doesn't have the `listen_port`, then it's a client. This terminology is similar to the OpenVPN Server + Client setups.
 
 If the Wireguard tunnel on your router is used as default routing (for the whole internet), sadly no `pbr` rule will allow it to intercept and properly route the `UDP` traffic of Wireguard server, please either use the OpenVPN server and configure it to use `TCP` protocol or use the Scenario 2 below.
 
 #### 8.3.12. <a name='LocalWireguardServerWireguardClientScenario2'></a>Local Wireguard Server + Wireguard Client (Scenario 2)
 
-Yes, I'm aware that technically there are no clients nor servers in Wireguard, it's all peers, but for the sake of README readability I will use the terminology similar to the OpenVPN Server + Client setups.
+Yes, I'm aware that technically there are no clients nor servers in Wireguard, it's all peers in terms of topology, however when you configure Wireguard, one of the instances will have the `listen_port`, so we'd call that one a server and if it doesn't have the `listen_port`, then it's a client. This terminology is similar to the OpenVPN Server + Client setups.
 
 If the Wireguard client is **not** used as default routing and you create policies to selectively use the Wireguard client, make sure your settings are as following (three dots on the line imply other options can be listed in the section as well). Make sure that the policy mentioned below is at the top of your policies list.
 
@@ -864,13 +864,13 @@ config rule
 
 #### 8.3.13. <a name='LocalWireguardServerAnotherVPNClientScenario1'></a>Local Wireguard Server + Another VPN Client (Scenario 1)
 
-Yes, I'm aware that technically there are no clients nor servers in Wireguard, it's all peers, but for the sake of README readability I will use the terminology similar to the OpenVPN Server + Client setups.
+Yes, I'm aware that technically there are no clients nor servers in Wireguard, it's all peers in terms of topology, however when you configure Wireguard, one of the instances will have the `listen_port`, so we'd call that one a server and if it doesn't have the `listen_port`, then it's a client. This terminology is similar to the OpenVPN Server + Client setups.
 
 If another VPN client is used as default routing (for the whole internet), sadly no `pbr` rule will allow it to intercept and properly route the `UDP` traffic of Wireguard server, please either use the OpenVPN server and configure it to use `TCP` protocol or use the Scenario 2 below.
 
 #### 8.3.14. <a name='LocalWireguardServerAnotherVPNClientScenario2'></a>Local Wireguard Server + Another VPN Client (Scenario 2)
 
-Yes, I'm aware that technically there are no clients nor servers in Wireguard, it's all peers, but for the sake of README readability I will use the terminology similar to the OpenVPN Server + Client setups.
+Yes, I'm aware that technically there are no clients nor servers in Wireguard, it's all peers in terms of topology, however when you configure Wireguard, one of the instances will have the `listen_port`, so we'd call that one a server and if it doesn't have the `listen_port`, then it's a client. This terminology is similar to the OpenVPN Server + Client setups.
 
 If another VPN client is **not** used as default routing and you create policies to selectively use the VPN client, make sure your settings are as following (three dots on the line imply other options can be listed in the section as well). Make sure that the policy mentioned below is at the top of your policies list.
 
