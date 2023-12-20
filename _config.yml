@@ -3,15 +3,17 @@ description: "stangri's OpenWrt Packages Documentation."
 url: "https://docs.openwrt.melmac.net"
 header_pages:
   - https-dns-proxy/
-  - nebula/
-  - pbr/
-  - simple-adblock/
+  - pbr.md
+  - adblock-fast/
 theme: minima
 minima:
   skin: auto
   social_links:
-    - { platform: github,  user_url: "https://github.com/stangri" }
-    - { platform: facebook, user_url: "https://www.facebook.com/stangri.openwrt/" }
+    - { platform: github, user_url: "https://github.com/stangri" }
+    - {
+        platform: facebook,
+        user_url: "https://www.facebook.com/stangri.openwrt/",
+      }
     - { platform: twitter, user_url: "https://twitter.com/stangri" }
 plugins:
   - jemoji
