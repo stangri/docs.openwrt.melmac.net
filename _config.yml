@@ -2,9 +2,9 @@ title: "Welcome to docs.openwrt.melmac.net!"
 description: "stangri's OpenWrt Packages Documentation."
 url: "https://docs.openwrt.melmac.net"
 header_pages:
-  - https-dns-proxy/
-  - pbr.md
   - adblock-fast/
+  - https-dns-proxy/
+  - pbr/
 theme: minima
 minima:
   skin: auto
