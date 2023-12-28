@@ -97,6 +97,10 @@ Can be used on routers with no internet access to suppress warnings on local dev
 
 This is a lean RFC8484-compatible DNS-over-HTTPS (DoH) proxy service which supports DoH servers ran by AdGuard, CleanBrowsing, Cloudflare, Google, ODVR (nic.cz) and Quad9. Please see the README at [GitHub](https://docs.openwrt.melmac.net/https-dns-proxy/)/[jsDelivr](https://cdn.jsdelivr.net/gh/stangri/docs.openwrt.melmac.net/https-dns-proxy/README.md) for further information.
 
+### libcurl with HTTP/3 and QUIC support
+
+Instructions for building `libcurl` with HTTP/3 and QUIC support using out of the tree OpenSSL-QuicTLS can be found on [GitHub](https://docs.openwrt.melmac.net/curl/)/[jsDelivr](https://cdn.jsdelivr.net/gh/stangri/docs.openwrt.melmac.net/curl/README.md)
+
 ### luci-app-advanced-reboot
 
 This package enables Web UI for reboot to another partition functionality on supported (dual-partition) routers and to power off (power down) your router. Please see the README at [GitHub](https://docs.openwrt.melmac.net/luci-app-advanced-reboot/)/[jsDelivr](https://cdn.jsdelivr.net/gh/stangri/docs.openwrt.melmac.net/luci-app-advanced-reboot/README.md) and [OpenWrt Forum Thread](https://forum.openwrt.org/t/web-ui-to-reboot-to-another-partition-for-dual-partition-routers/3423) for further information.
