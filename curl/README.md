@@ -1,4 +1,4 @@
-# curl
+# OpenWrt `curl` package
 
 Some OpenWrt-specific information for the `curl` package can be found below.
 
