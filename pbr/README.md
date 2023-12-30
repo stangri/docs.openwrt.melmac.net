@@ -1012,7 +1012,7 @@ If you want to target traffic using HTTP/3 protocol, you can use the `AUTO` as t
 
 ### 10.5. <a name='AWordAboutIPv6Routing'></a>A Word About IPv6 Routing
 
-Due to the nature of IPv6, it's not supposed to be routed same way as IPv4 with this package, but a fellow user has graciously contributed a [gist detailing their experience to get IPv6 routing working](https://gist.github.com/Llama-Alarm/3bd8413029b1f728c1f00bc1ac0e98b4).
+Due to the nature of IPv6, it's not supposed to be routed same way as IPv4 with this package, but a fellow user has graciously contributed a [gist detailing their experience to get IPv6 routing working](https://gist.github.com/aliicex/3bd8413029b1f728c1f00bc1ac0e98b4).
 
 ### 10.6. <a name='AWordAboutRoutingNetflixAmazonPrimeHuluTraffic'></a>A Word About Routing Netflix/Amazon Prime/Hulu Traffic
 
@@ -1115,7 +1115,7 @@ If your router is set to use [default routing via VPN tunnel](#AWordAboutDefault
 
 ## 12. <a name='Thanks'></a>Thanks
 
-I'd like to thank everyone who helped create, test and troubleshoot this service. Without contributions from [@hnyman](https://github.com/hnyman), [@dibdot](https://github.com/dibdot), [@danrl](https://github.com/danrl), [@tohojo](https://github.com/tohojo), [@cybrnook](https://github.com/cybrnook), [@nidstigator](https://github.com/nidstigator), [@AndreBL](https://github.com/AndreBL), [@dz0ny](https://github.com/dz0ny), [@tew42](https://github.com/tew42), [bogorad](https://forum.openwrt.org/u/bogorad), rigorous testing/bugreporting by [@dziny](https://github.com/dziny), [@bluenote73](https://github.com/bluenote73), [@buckaroo](https://github.com/pgera), [@Alexander-r](https://github.com/Alexander-r), [@n8v8R](https://github.com/n8v8R), [psherman](https://forum.openwrt.org/u/psherman), [@Vale-max](https://github.com/Vale-max), [@Llama-Alarm](https://github.com/Llama-Alarm), [dscpl](https://forum.openwrt.org/u/dscpl), [egc112](https://github.com/egc112) and multiple contributions from [@dl12345](https://github.com/dl12345) and [trendy](https://forum.openwrt.org/u/trendy) and feedback from other OpenWrt users it wouldn't have been possible. Wireguard/IPv6 support is courtesy of [IVPN](https://www.ivpn.net/).
+I'd like to thank everyone who helped create, test and troubleshoot this service. Without contributions from [@hnyman](https://github.com/hnyman), [@dibdot](https://github.com/dibdot), [@danrl](https://github.com/danrl), [@tohojo](https://github.com/tohojo), [@cybrnook](https://github.com/cybrnook), [@nidstigator](https://github.com/nidstigator), [@AndreBL](https://github.com/AndreBL), [@dz0ny](https://github.com/dz0ny), [@tew42](https://github.com/tew42), [bogorad](https://forum.openwrt.org/u/bogorad), rigorous testing/bugreporting by [@dziny](https://github.com/dziny), [@bluenote73](https://github.com/bluenote73), [@buckaroo](https://github.com/pgera), [@Alexander-r](https://github.com/Alexander-r), [@n8v8R](https://github.com/n8v8R), [psherman](https://forum.openwrt.org/u/psherman), [@Vale-max](https://github.com/Vale-max), [@aliicex](https://github.com/aliicex), [dscpl](https://forum.openwrt.org/u/dscpl), [egc112](https://github.com/egc112) and multiple contributions from [@dl12345](https://github.com/dl12345) and [trendy](https://forum.openwrt.org/u/trendy) and feedback from other OpenWrt users it wouldn't have been possible. Wireguard/IPv6 support is courtesy of [IVPN](https://www.ivpn.net/).
 
 <!-- markdownlint-disable MD033 -->
 
