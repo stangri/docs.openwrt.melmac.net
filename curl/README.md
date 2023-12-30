@@ -23,7 +23,7 @@ After that log out of SSH session and log back int and run the following command
 
 ```sh
 rm -rf source.openwrt.melmac.net
-git clone --depth 1 https://github.com/stangri/source.openwrt.melmac.net.git
+git clone --depth 1 --branch v23.05.2 https://github.com/stangri/source.openwrt.melmac.net.git
 rm -rf openwrt
 git clone --depth 1 --branch v23.05.2 https://git.openwrt.org/openwrt/openwrt.git
 cd openwrt
@@ -45,6 +45,7 @@ In menuconfig set up the `Target System` (and `Subtarget` if applicable) to buil
 When you're back in the command line, paste:
 
 ```sh
+make -j1 defconfig download clean world
 make package/feeds/packages/curl/compile -j1
 ```
 
