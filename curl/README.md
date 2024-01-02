@@ -42,7 +42,7 @@ When you're back in the command line, run the following:
 make -j1 defconfig download clean world
 ```
 
-Depending on the size/CPU of your VM it make take quite some time (or none at all) to complete the initial build.
+Depending on the size/CPU of your VM it make take quite some time (or none at all) to complete the initial build. Then run the following commands:
 
 ```sh
 rm -rf ~/openwrt/feeds/packages/net/curl
