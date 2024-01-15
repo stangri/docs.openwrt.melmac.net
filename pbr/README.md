@@ -1096,7 +1096,7 @@ If things are not working as intended, please first set verbosity to 2 by runnin
 uci set pbr.config.verbosity='2'; uci commit pbr;
 ```
 
-and then run the following commands and include their output in your post:
+and then run the following commands and include their output (you can and should mask sensitive information) in your post:
 
 ```sh
 ubus call system board
