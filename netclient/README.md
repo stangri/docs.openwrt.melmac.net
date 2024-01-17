@@ -18,7 +18,7 @@ opkg update; opkg install netclient;
 
 ## Documentation / Discussion
 
-Please head to [OpenWrt Forum](https://forum.openwrt.org/t/slacks-netclient-on-openwrt-discussion-thread/85431) for discussions of these packages.
+Please head to [OpenWrt Forum](https://forum.openwrt.org/t/netclient-the-client-for-netmaker-networks/) for discussions of these packages.
 
 <!-- markdownlint-disable MD033 -->
 
