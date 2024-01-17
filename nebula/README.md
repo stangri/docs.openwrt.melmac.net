@@ -12,17 +12,17 @@ Nebula is a scalable overlay networking tool with a focus on performance, simpli
 
 OpenWrt repositories contain following packages:
 
--   `nebula`: This is the principal binary package. This package is required for nebula peer or lighthouse operations. Unless you want to start nebula manually, you may want to also install _either_ `nebula-service` _or_ `nebula-proto` package.
--   `nebula-cert`: This package contains only `nebula-cert` binary required to generate certificates not _not_ necessary for the nebula peer or lighthouse operations.
--   `nebula-proto`: This package contains only OpenWrt protocol/interface support for nebula. You will need to create a new interface for nebula node/lighthouse if you want to use this package. Also router's reboot is necessary for OpenWrt to recognize the new protocol.
--   `nebula-service`: This package contains only OpenWrt-specific init.d script for nebula. This package starts a node/lighthouse for each `.yml` config file it finds in `/etc/nebula/` directory.
+- `nebula`: This is the principal binary package. This package is required for nebula peer or lighthouse operations. Unless you want to start nebula manually, you may want to also install _either_ `nebula-service` _or_ `nebula-proto` package.
+- `nebula-cert`: This package contains only `nebula-cert` binary required to generate certificates not _not_ necessary for the nebula peer or lighthouse operations.
+- `nebula-proto`: This package contains only OpenWrt protocol/interface support for nebula. You will need to create a new interface for nebula node/lighthouse if you want to use this package. Also router's reboot is necessary for OpenWrt to recognize the new protocol.
+- `nebula-service`: This package contains only OpenWrt-specific init.d script for nebula. This package starts a node/lighthouse for each `.yml` config file it finds in `/etc/nebula/` directory.
 
 ## Requirements
 
--   `nebula`: The principal package requires (auto-installs) the following package: `kmod-tun` and its dependencies.
--   `nebula-cert`: This package has no dependencies/requirements and can be installed stand-alone.
--   `nebula-proto`: This package requires the following package: `nebula` and its dependencies. Reboot is necessary after installation for OpenWrt to recognize the new protocol.
--   `nebula-service`: This package requires the following package: `nebula` and its dependencies.
+- `nebula`: The principal package requires (auto-installs) the following package: `kmod-tun` and its dependencies.
+- `nebula-cert`: This package has no dependencies/requirements and can be installed stand-alone.
+- `nebula-proto`: This package requires the following package: `nebula` and its dependencies. Reboot is necessary after installation for OpenWrt to recognize the new protocol.
+- `nebula-service`: This package requires the following package: `nebula` and its dependencies.
 
 ### Unmet dependencies
 
@@ -62,9 +62,9 @@ opkg update; opkg install nebula-service;
 
 ## Default Settings
 
--   `nebula`: This package installs just the principal binary and doesn't have any settings/actions.
--   `nebula-cert`: This package installs just the nebula certification binary and doesn't have any settings/actions.
--   `nebula-proto`: This package allows you to create a new interface with the nebula protocol pointing to the `.yml` config file. Here's an example of the `/etc/config/network` section:
+- `nebula`: This package installs just the principal binary and doesn't have any settings/actions.
+- `nebula-cert`: This package installs just the nebula certification binary and doesn't have any settings/actions.
+- `nebula-proto`: This package allows you to create a new interface with the nebula protocol pointing to the `.yml` config file. Here's an example of the `/etc/config/network` section:
 
 ```text
 config interface 'nebula1'
@@ -72,9 +72,9 @@ config interface 'nebula1'
         option config '/etc/nebula/config1.yml'
 ```
 
-   When the nebula interface is brough up, it will automatically open the UDP port referenced in the `.yml` config file in the router's firewall.
+When the nebula interface is brough up, it will automatically open the UDP port referenced in the `.yml` config file in the router's firewall.
 
--   `nebula-service`: This package contains and `init.d`/service script which scans the `/etc/nebula/` directory for `.yml` config files and creates a nebula node/lighthouse for each located `.yml` config file. When each node/lighthouse is started, it will automatically open the UDP port referenced in the `.yml` config file in the router's firewall.
+- `nebula-service`: This package contains and `init.d`/service script which scans the `/etc/nebula/` directory for `.yml` config files and creates a nebula node/lighthouse for each located `.yml` config file. When each node/lighthouse is started, it will automatically open the UDP port referenced in the `.yml` config file in the router's firewall.
 
 ## Documentation / Discussion
 
