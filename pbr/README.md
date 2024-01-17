@@ -1109,6 +1109,20 @@ uci export pbr
 /etc/init.d/pbr status
 ```
 
+If you want to encrypt the files before sharing them, you can do so with the commands below (you'll need to have OpenSSL installed on your router):
+
+```ssh
+openssl rand 214 > /tmp/keyfile.key
+wget -O /tmp/dev.melmac.net.pem https://dev.melmac.net/repo/dev.melmac.net.pem
+openssl pkeyutl -encrypt -inkey /tmp/dev.melmac.net.pem -pubin -in /tmp/keyfile.key -out /tmp/keyfile.enc
+openssl enc -in /etc/config/dhcp -out /tmp/dhcp.enc -e -aes256 -pbkdf2 -kfile /tmp/keyfile.key
+openssl enc -in /etc/config/firewall -out /tmp/firewall.enc -e -aes256 -pbkdf2 -kfile /tmp/keyfile.key
+openssl enc -in /etc/config/network -out /tmp/network.enc -e -aes256 -pbkdf2 -kfile /tmp/keyfile.key
+openssl enc -in /etc/config/pbr -out /tmp/pbr.enc -e -aes256 -pbkdf2 -kfile /tmp/keyfile.key
+```
+
+Then share the following files: `/tmp/keyfile.enc`, `/tmp/dhcp.enc`, `/tmp/firewall.enc`, `/tmp/network.enc`, `/tmp/pbr.enc`.
+
 ### 11.1. <a name='FirstTroubleshootingStep'></a>First Troubleshooting Step
 
 If your router is set to use [default routing via VPN tunnel](#AWordAboutDefaultRouting) and the WAN-targeting policies do not work, you need to stop your VPN tunnel first and ensure that you still have internet connection. If your router is set up to use the default routing via VPN tunnel and when you stop the VPN tunnel you have no internet connection, this package can't help you. You first need to make sure that you do have internet connection when the VPN tunnel is stopped.
