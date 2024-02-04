@@ -1,6 +1,6 @@
 <!-- markdownlint-disable MD013 -->
 
-<!-- markdownlint-disable MD030 -->
+<!-- markdownlint-disable MD033 -->
 
 # DNS Over HTTPS Proxy (https-dns-proxy)
 
@@ -12,7 +12,7 @@ A lean RFC8484-compatible (no JSON API support) DNS-over-HTTPS (DoH) proxy servi
 
 - [RFC8484](https://tools.ietf.org/html/rfc8484)-compatible DoH Proxy.
 - Compact size (about 40Kb installed).
-- (By default) automatically updates DNSMASQ settings to use DoH proxy when it's started and reverts to old DNSMASQ resolvers when DoH proxy is stopped.
+- (By default) automatically updates `dnsmasq` settings to use DoH proxy when it's started and reverts to old `dnsmasq` resolvers when DoH proxy is stopped.
 - (By default) automatically adds records for canary domains[<sup>1</sup>](https://support.mozilla.org/en-US/kb/canary-domain-use-application-dnsnet)<sup>,</sup>[<sup>2</sup>](https://developer.apple.com/support/prepare-your-network-for-icloud-private-relay) upon start and removes them upon service stop.
 - Web UI (`luci-app-https-dns-proxy`) available. [More than 40 public resolvers](https://github.com/stangri/source.openwrt.melmac.net/tree/master/luci-app-https-dns-proxy/root/usr/share/https-dns-proxy/providers) are supported within the WebUI for easy configuration.
 
@@ -36,11 +36,11 @@ This proxy requires the following packages to be installed on your router: `libc
 
 ### HTTP/2 Support
 
-Some resolvers may require `HTTP/2`. By default, `HTTP/2` is supported by `curl` in OpenWrt 22.03 and later, if you run an older version of OpenWrt I'd recommend you upgrade to a most recent released version and make sure the following packages are installed: `curl`, `libcurl4`, `libnghttp2`. Otherwise you'd have to compile a `curl` package for your obsolete version of OpenWrt and enable `HTTP2 protocol` (Config.in file variable `LIBCURL_NGHTTP2`).
+Some resolvers may require `HTTP/2`. By default, `HTTP/2` is supported by `curl` in OpenWrt 22.03 and later, if you run an older version of OpenWrt I'd recommend you upgrade to a most recent released version and make sure the following packages are installed: `curl`, `libcurl4`, `libnghttp2`.
 
 ### HTTP/3 (QUIC) Support
 
-Some resolvers may require `HTTP/3` (`QUIC`). As of summer of 2023, there's no support for `HTTP/3` in OpenWrt. Once the support for `HTTP/3` is included in OpenWrt, make sure you install the `HTTP/3`-supporting `curl` package and additionally install: `libcurl4`, `libnghttp3`, `libngtcp2`.
+As of OpenWrt version 23.05.2, the OpenWrt installation/repositories do not contain packages required for HTTP/3 support. However the `luci-app-https-dns-proxy` has facilities for marking some pre-configured providers as `HTTP/3` only and can detect the `HTTP/3` support on the OpenWrt device. You can compile `curl` with `HTTP/3` support using the out-of-tree fork of `OpenSSL`, additional information is available in [curl README](https://docs.openwrt.melmac.net/curl/).
 
 ## Unmet Dependencies
 
@@ -56,13 +56,13 @@ opkg update; opkg install https-dns-proxy luci-app-https-dns-proxy;
 
 ## Default Settings
 
-Default configuration has service enabled and starts the service with Google and Cloudflare DoH servers. In most configurations, you will keep the default `DNSMASQ` service installed to handle requests from devices in your local network and point `DNSMASQ` to use `https-dns-proxy` for name resolution.
+Default configuration has service enabled and starts the service with Google and Cloudflare DoH servers. In most configurations, you will keep the default `dnsmasq` service installed to handle requests from devices in your local network and point `dnsmasq` to use `https-dns-proxy` for name resolution.
 
-By default, the service will intelligently override existing `DNSMASQ` servers settings on start to use the DoH servers and restores original `DNSMASQ` servers on stop. See the [Configuration Settings](#configuration-settings) section below for more information and how to disable this behavior.
+By default, the service will intelligently override existing `dnsmasq` servers settings on start to use the DoH servers and restores original `dnsmasq` servers on stop. See the [Configuration Settings](#configuration-settings) section below for more information and how to disable this behavior.
 
 ## Configuration Settings
 
-Configuration contains the general (named) "main" config section where you can configure which `DNSMASQ` settings the service will automatically affect and the typed (unnamed) https-dns-proxy instance settings. The original config file is included below:
+Configuration contains the general (named) "main" config section where you can configure which `dnsmasq` settings the service will automatically affect and the typed (unnamed) https-dns-proxy instance settings. The original config file is included below:
 
 ```text
 config main 'config'
@@ -102,7 +102,7 @@ This setting enables router to block requests to Mozilla canary domains, indicat
 
 #### dnsmasq_config_update
 
-The `dnsmasq_config_update` option can be set to dash (set to `'-'` to not change `DNSMASQ` server settings on start/stop), can be set to `'*'` to affect all `DNSMASQ` instance server settings or have a space-separated list of `DNSMASQ` instances or named sections to affect (like `'0 4 5'` or `'0 backup_dns 5'`). If this option is omitted, the default setting is `'*'`. When the service is set to update the DNSMASQ servers setting on start/stop, it does not override entries which contain either `#` or `/`, so the entries like listed below will be kept in use:
+The `dnsmasq_config_update` option can be set to dash (set to `'-'` to not change `dnsmasq` server settings on start/stop), can be set to `'*'` to affect all `dnsmasq` instance server settings or have a space-separated list of `dnsmasq` instances or named sections to affect (like `'0 4 5'` or `'0 backup_dns 5'`). If this option is omitted, the default setting is `'*'`. When the service is set to update the `dnsmasq` servers setting on start/stop, it does not override entries which contain either `#` or `/`, so the entries like listed below will be kept in use:
 
 ```test
   list server '/onion/127.0.0.1#65453'
