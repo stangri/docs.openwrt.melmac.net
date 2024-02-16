@@ -135,7 +135,7 @@ This service allows you to define rules (policies) for routing traffic via WAN o
 - OpenVPN tunnels supported (with device names tun\*).[<sup>#1</sup>](#footnote1) [<sup>#2</sup>](#footnote2)
 - PPTP tunnels supported (with protocol names pptp\*).
 - Tailscale tunnels supported (with device name tailscale\*).
-- Tor tunnels supported (interface name must match tor).
+- Tor tunnels supported in nft mode only (interface name must match tor).
 - Wireguard tunnels supported (with protocol names wireguard\*).
 
 ### 4.2. <a name='IPv4IPv6Port-BasedPolicies'></a>IPv4/IPv6/Port-Based Policies
