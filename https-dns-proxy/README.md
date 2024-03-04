@@ -148,6 +148,18 @@ The https-dns-proxy instance settings are:
 
 Please also refer to the [Usage section at upstream README](https://github.com/aarond10/https_dns_proxy/blob/master/README.md#usage) which may contain additional/more details on some parameters.
 
+## <a name='GettingHelp'></a>Getting Help
+
+If things are not working as intended, please run the following commands and include their output in your post/issue:
+
+```sh
+ubus call system board
+uci export dhcp
+uci export network
+uci export https-dns-proxy
+/etc/init.d/https-dns-proxy status
+```
+
 ## Thanks
 
 This OpenWrt package wouldn't have been possible without [@aarond10](https://github.com/aarond10)'s [https-dns-proxy](https://github.com/aarond10/https_dns_proxy) and his active participation in the OpenWrt package itself. Thanks to [@oldium](https://github.com/oldium) and [@curtdept](https://github.com/curtdept) for their contributions to this package. Special thanks to [@jow-](https://github.com/jow-) for general package/luci guidance.
