@@ -23,30 +23,14 @@ After that log out of SSH session and log back in and run the following commands
 
 ```sh
 rm -rf source.openwrt.melmac.net
-git clone --depth 1 --branch v23.05.2 https://github.com/stangri/source.openwrt.melmac.net.git
+git clone --depth 1 --branch v23.05.3 https://github.com/stangri/source.openwrt.melmac.net.git
 rm -rf openwrt
-git clone --depth 1 --branch v23.05.2 https://git.openwrt.org/openwrt/openwrt.git
+git clone --depth 1 --branch v23.05.3 https://git.openwrt.org/openwrt/openwrt.git
 cd openwrt
 ./scripts/feeds update -a
 ./scripts/feeds install -a
 rm -rf ~/openwrt/package/libs/openssl
 cp -r ~/source.openwrt.melmac.net/quictls ~/openwrt/package/libs/openssl
-make menuconfig
-```
-
-In menuconfig set up the `Target System` (and `Subtarget` if applicable) to build for your speicifc OpenWrt platform, then scroll down to `Libraries` press Enter, then scroll down to and highlight `libcurl` and press `Y` (or spacebar twice) to enable building `libcurl`, then press Enter to go to `libcurl` build settings and select OpenSSL as the dependent library. Then inn the menuconfig menu below the list select `Save` and press Enter to save the build settings. Then use `Exit` as many times as it takes to leave menuconfig.
-
-When you're back in the command line, run the following:
-
-```sh
-make -j1 defconfig download clean world
-```
-
-Depending on the size/CPU of your VM it make take quite some time (or none at all) to complete the initial build. Then run the following commands:
-
-```sh
-rm -rf ~/openwrt/feeds/packages/net/curl
-cp -r ~/source.openwrt.melmac.net/curl ~/openwrt/feeds/packages/net/
 rm -rf ~/openwrt/feeds/packages/libs/nghttp3
 cp -r ~/source.openwrt.melmac.net/nghttp3 ~/openwrt/feeds/packages/libs/
 rm -rf ~/openwrt/feeds/packages/libs/ngtcp2
@@ -54,15 +38,15 @@ cp -r ~/source.openwrt.melmac.net/ngtcp2 ~/openwrt/feeds/packages/libs/
 make menuconfig
 ```
 
-Now in menuconfig scroll down to `Libraries` press Enter, then scroll down to find `libcurl`, then press Enter to go to `libcurl` build settings and enable both `HTTP/3 protocol` and `QUIC protocol`. Then select `Save` and press Enter to save the build settings. Then use `Exit` as many times as it takes to leave menuconfig.
+In menuconfig set up the `Target System` (and `Subtarget` if applicable) to build for your speicifc OpenWrt platform, then scroll down to `Libraries` press Enter, then scroll down to and highlight `libcurl` and press `Y` (or spacebar twice) to enable building `libcurl`, then press Enter to go to `libcurl` build settings and select OpenSSL as the dependent library and select both `HTTP/3 protocol` and `QUIC protocol`. Then inn the menuconfig menu below the list select `Save` and press Enter to save the build settings. Then use `Exit` as many times as it takes to leave menuconfig.
 
 When you're back in the command line, run the following:
 
 ```sh
-make package/feeds/packages/curl/compile -j1
+make -j1 defconfig download clean world
 ```
 
-This should take minutes (tens of minutes at worst) to complete.
+Depending on the size/CPU of your VM it make take quite some time (or none at all) to complete the build.
 
 You can then find the `ipk` files you'll need to copy to your router below:
 
