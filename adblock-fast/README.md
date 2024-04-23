@@ -72,11 +72,17 @@ opkg remove dnsmasq; opkg install dnsmasq-full --cache /tmp/; rm -f /tmp/dnsmasq
 
 ### Requirements for IPv6 Support
 
-For IPv6 support additionally install `ip6tables-mod-nat` and `kmod-ipt-nat6` packages from Web UI or run the following in the command line:
+All of the supported domain-based blocking options (`resolver` set to `dnsmasq.addnhosts`, `dnsmasq.conf`, `dnsmasq.servers`, `smartdns.domainset` and `unbound.adb_list`) are IP-family agnostic and should work with both IPv4 and IPv6 networking.
+
+For IPv6 support using the IP-based blocking (`resolver` set to `dnsmasq.ipset`, `dnsmasq.nftset`, `smartdns.ipset` or `smartdns.nftset`) on OpenWrt 21.02 and earlier, additionally install `ip6tables-mod-nat` and `kmod-ipt-nat6` packages from Web UI or run the following in the command line:
 
 ```sh
 opkg update; opkg install ip6tables-mod-nat kmod-ipt-nat6;
 ```
+
+The IP-based blocking (`resolver` set to `dnsmasq.ipset`, `dnsmasq.nftset`, `smartdns.ipset` or `smartdns.nftset`) is not guaranteed to work on OpenWrt 22.03 due to the fact that the `dnsmasq-full` available in 22.03 repository only has support for `ipset`, not the `nftset`, however the default netfilter is `nft`, not `iptables`, I'd advise you to upgrade to OpenWrt 23.05 or newer if you need to switch to the IP-based blocking.
+
+The IPv6 support is included by default in OpenWrt 23.05 and later images, so no additional steps are needed to enable IPv6 with IP-based blocking (`resolver` set to `dnsmasq.ipset`, `dnsmasq.nftset`, `smartdns.ipset` or `smartdns.nftset`) on OpenWrt 23.05 and later.
 
 ### Requirements for Faster Block-list Processing
 
