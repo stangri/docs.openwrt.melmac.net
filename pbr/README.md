@@ -94,7 +94,7 @@
 
 ## 1. <a name='OpenWrt23.05.0releaseandthispackage'></a>OpenWrt 23.05.0 release and this package
 
-Unlike the previous release, the OpenWrt 23.05 includes `dnsmasq-full` which supports nft sets, so just [install dnsmasq-full](#Howtoinstalldnsmasq-full), install the `pbr` package and and it be automatically configured to use `dnsmasq.nftset` option for resolver.
+Unlike the previous release, the OpenWrt 23.05 includes `dnsmasq-full` which supports nft sets, so just [install dnsmasq-full](#Howtoinstalldnsmasq-full), install the `pbr` package and configure `pbr` to use `dnsmasq.nftset` option for resolver.
 
 ## 2. <a name='OpenWrt22.03.0releaseandthispackage'></a>OpenWrt 22.03.0 release and this package
 
