@@ -60,10 +60,10 @@
     - 8.3.8. [Multiple OpenVPN Clients](#MultipleOpenVPNClients)
     - 8.3.9. [Local OpenVPN Server + OpenVPN Client (Scenario 1)](#LocalOpenVPNServerOpenVPNClientScenario1)
     - 8.3.10. [Local OpenVPN Server + OpenVPN Client (Scenario 2)](#LocalOpenVPNServerOpenVPNClientScenario2)
-    - 8.3.11. [Local Wireguard Server + Wireguard Client (Scenario 1)](#LocalWireguardServerWireguardClientScenario1)
-    - 8.3.12. [Local Wireguard Server + Wireguard Client (Scenario 2)](#LocalWireguardServerWireguardClientScenario2)
-    - 8.3.13. [Local Wireguard Server + Another VPN Client (Scenario 1)](#LocalWireguardServerAnotherVPNClientScenario1)
-    - 8.3.14. [Local Wireguard Server + Another VPN Client (Scenario 2)](#LocalWireguardServerAnotherVPNClientScenario2)
+    - 8.3.11. [Local WireGuard Server + WireGuard Client (Scenario 1)](#LocalWireGuardServerWireGuardClientScenario1)
+    - 8.3.12. [Local WireGuard Server + WireGuard Client (Scenario 2)](#LocalWireGuardServerWireGuardClientScenario2)
+    - 8.3.13. [Local WireGuard Server + Another VPN Client (Scenario 1)](#LocalWireGuardServerAnotherVPNClientScenario1)
+    - 8.3.14. [Local WireGuard Server + Another VPN Client (Scenario 2)](#LocalWireGuardServerAnotherVPNClientScenario2)
     - 8.3.15. [Netflix Domains](#NetflixDomains)
     - 8.3.16. [Example Custom User Files Includes](#ExampleCustomUserFilesIncludes)
 - 9. [Footnotes/Known Issues](#FootnotesKnownIssues)
@@ -71,10 +71,10 @@
   - 10.1. [A Word About Default Routing](#AWordAboutDefaultRouting)
     - 10.1.1. [OpenVPN tunnel configured via uci (/etc/config/openvpn)](#OpenVPNtunnelconfiguredviaucietcconfigopenvpn)
     - 10.1.2. [OpenVPN tunnel configured with .ovpn file](#OpenVPNtunnelconfiguredwith.ovpnfile)
-    - 10.1.3. [Wireguard tunnel](#Wireguardtunnel)
+    - 10.1.3. [WireGuard tunnel](#WireGuardtunnel)
   - 10.2. [A Word About Cloudflare's 1.1.1.1 App](#AWordAboutCloudflares1.1.1.1App)
   - 10.3. [A Word About DNS-over-HTTPS](#AWordAboutDNS-over-HTTPS)
-  - 10.4. [A Word About HTTP/3 (QUICK)](#AWordAboutHTTP3QUICK)
+  - 10.4. [A Word About HTTP/3 (QUIC)](#AWordAboutHTTP3QUIC)
   - 10.5. [A Word About IPv6 Routing](#AWordAboutIPv6Routing)
   - 10.6. [A Word About Routing Netflix/Amazon Prime/Hulu Traffic](#AWordAboutRoutingNetflixAmazonPrimeHuluTraffic)
     - 10.6.1. [Routing Netflix/Amazon Prime/Hulu Traffic via VPN Tunnel](#RoutingNetflixAmazonPrimeHuluTrafficviaVPNTunnel)
@@ -115,7 +115,7 @@ The package-specific files that `pbr-iptables` installs are:
 - the `/etc/config/pbr` file with the `resolver_set` set to `dnsmasq.ipset`
 - legacy iptables/ipset packages
 
-The `pbr` decides wherver to use `iptables`/`ipset` mode or `nft` mode on run time. If the `nft` binary is available, the `resolver_set` is not set to `dnsmasq.ipset` and a main `pbr_prerouting` chain has been created by the `fw4`-specific `nft` script, it runs in the `nft` mode, otherwise it runs in the `iptables`/`ipset` mode.
+The `pbr` decides when to use `iptables`/`ipset` mode or `nft` mode at run time. If the `nft` binary is available, the `resolver_set` is not set to `dnsmasq.ipset` and a main `pbr_prerouting` chain has been created by the `fw4`-specific `nft` script, it runs in the `nft` mode, otherwise it runs in the `iptables`/`ipset` mode.
 
 Each package of the service has its own dependencies, so only `pbr-iptables` can be installed on OpenWrt 21.02 and earlier, but either `pbr` or `pbr-iptables` can be installed on OpenWrt 22.03. It is recommended to install `pbr` on OpenWrt 22.03 and if you want to use [use dnsmasq ipset support](#UseDNSMASQipsetSupport), [install dnsmasq-full](#Howtoinstalldnsmasq-full), also [install legacy iptables/ipset packages](#Howtoinstalllegacyiptablesipsetpackages) and then change `resolver_set` option to `dnsmasq.ipset` to force `iptables`/`ipset` mode.
 
@@ -123,7 +123,7 @@ Both `pbr-iptables` and `pbr` in `iptables`/`ipset` mode work just fine on OpenW
 
 ## 3. <a name='Description'></a>Description
 
-This service allows you to define rules (policies) for routing traffic via WAN or your L2TP, Openconnect, OpenVPN, PPTP, Softether or Wireguard tunnels. Policies can be set based on any combination of local/remote ports, local/remote IPv4 or IPv6 addresses/subnets or domains. This service supersedes and obsoletes the `VPN Bypass` ([README at GitHub](https://docs.openwrt.melmac.net/vpnbypass/)/[README at jsDelivr](https://cdn.jsdelivr.net/gh/stangri/docs.openwrt.melmac.net/vpnbypass/README.md)) and `VPN Policy Routing` ([README at GitHub](https://docs.openwrt.melmac.net/vpn-policy-routing/)/[README at jsDelivr](https://cdn.jsdelivr.net/gh/stangri/docs.openwrt.melmac.net/vpn-policy-routing/README.md)) services. For information on transition from `vpn-policy-routing` package please read about [differences](#AWordAboutDifferencesfromvpn-policy-routing) and [migration](#AWordAboutMigratingfromvpn-policy-routing).
+This service allows you to define rules (policies) for routing traffic via WAN or your L2TP, OpenConnect, OpenVPN, PPTP, Softether or WireGuard tunnels. Policies can be set based on any combination of local/remote ports, local/remote IPv4 or IPv6 addresses/subnets or domains. This service supersedes and obsoletes the `VPN Bypass` ([README at GitHub](https://docs.openwrt.melmac.net/vpnbypass/)/[README at jsDelivr](https://cdn.jsdelivr.net/gh/stangri/docs.openwrt.melmac.net/vpnbypass/README.md)) and `VPN Policy Routing` ([README at GitHub](https://docs.openwrt.melmac.net/vpn-policy-routing/)/[README at jsDelivr](https://cdn.jsdelivr.net/gh/stangri/docs.openwrt.melmac.net/vpn-policy-routing/README.md)) services. For information on transition from `vpn-policy-routing` package please read about [differences](#AWordAboutDifferencesfromvpn-policy-routing) and [migration](#AWordAboutMigratingfromvpn-policy-routing).
 
 ## 4. <a name='Features'></a>Features
 
@@ -131,12 +131,12 @@ This service allows you to define rules (policies) for routing traffic via WAN o
 
 - Any policy can target either WAN or a VPN tunnel interface.
 - L2TP tunnels supported (with protocol names l2tp\*).
-- Openconnect tunnels supported (with protocol names openconnect\*).
+- OpenConnect tunnels supported (with protocol names openconnect\*).
 - OpenVPN tunnels supported (with device names tun\*).[<sup>#1</sup>](#footnote1) [<sup>#2</sup>](#footnote2)
 - PPTP tunnels supported (with protocol names pptp\*).
 - Tailscale tunnels supported (with device name tailscale\*).
 - Tor tunnels supported in nft mode only (interface name must match tor).
-- Wireguard tunnels supported (with protocol names wireguard\*).
+- WireGuard tunnels supported (with protocol names wireguard\*).
 
 ### 4.2. <a name='IPv4IPv6Port-BasedPolicies'></a>IPv4/IPv6/Port-Based Policies
 
@@ -144,20 +144,20 @@ This service allows you to define rules (policies) for routing traffic via WAN o
 - Policies based on local ports numbers. Can be set as an individual port number (`32400`), a range (`5060-5061`), a space-separated list (`80 8080`) or a combination of the above (`80 8080 5060-5061`). Limited to 15 space-separated entries per policy.
 - Policies based on remote IPs/subnets or domain names. Same format/syntax as local IPs/subnets.
 - Policies based on remote ports numbers. Same format/syntax and restrictions as local ports.
-- You can mix the IP addresses/subnets and device (or domain) names in one field separating them by space (like this: `66.220.2.74 he.net tunnelbroker.net`).
+- You can mix the IP addresses/subnets and device (or domain) names in one field separating them by a space (like this: `66.220.2.74 he.net tunnelbroker.net`).
 - See [Policy Options](#PolicyOptions) section for more information.
 
 ### 4.3. <a name='Domain-BasedPolicies'></a>Domain-Based Policies
 
-- Policies based on (remote) domain names can be processed in different ways, please review the [Policy Options](#PolicyOptions) section and [Footnotes/Known Issues](#FootnotesKnownIssues) section, specifically [<sup>#5</sup>](#footnote5) and any other information in that section relevant to domain-based routing/DNS.
+- Policies based on (remote) domain names can be processed in different ways. Please review the [Policy Options](#PolicyOptions) section and [Footnotes/Known Issues](#FootnotesKnownIssues) section, specifically [<sup>#5</sup>](#footnote5) and any other information in that section relevant to domain-based routing/DNS.
 
 ### 4.4. <a name='PhysicalDevicePolicies'></a>Physical Device Policies
 
-- Policies based on a local physical device (like a specially created wlan), please review the [Policy Options](#PolicyOptions) section and [Footnotes/Known Issues](#FootnotesKnownIssues) section, specifically [<sup>#6</sup>](#footnote6) and any other information in that section relevant to handling physical device.
+- Policies based on a local physical device (like a specially created wlan). Please review the [Policy Options](#PolicyOptions) section and [Footnotes/Known Issues](#FootnotesKnownIssues) section, specifically [<sup>#6</sup>](#footnote6) and any other information in that section relevant to handling physical device.
 
 ### 4.5. <a name='DSCPTag-BasedPolicies'></a><a name='dscp-tag-based-policies'></a>DSCP Tag-Based Policies
 
-You can also set policies for traffic with specific DSCP tag. On Windows 10, for example, you can mark traffic from specific apps with DSCP tags (instructions for tagging specific app traffic in Windows 10 can be found [here](http://serverfault.com/questions/769843/cannot-set-dscp-on-windows-10-pro-via-group-policy)).
+You can also set policies for traffic with a specific DSCP tag. On Windows 10, for example, you can mark traffic from specific apps with DSCP tags (instructions for tagging specific app traffic in Windows 10 can be found [here](http://serverfault.com/questions/769843/cannot-set-dscp-on-windows-10-pro-via-group-policy)).
 
 ### 4.6. <a name='CustomUserFiles'></a><a name='custom-user-files'></a>Custom User Files
 
@@ -165,11 +165,11 @@ If the custom user file includes are set, the service will load and execute them
 
 The following custom user files are provided:
 
-- `/etc/pbr/pbr.user.aws`: provided to pull the Continental US AWS IPv4 addresses into the WAN IPv4 sets the service sets up.
-- `/etc/pbr/pbr.user.netflix`: provided to pull the Continental US Netflix IPv4 addresses into the WAN IPv4 sets the service sets up.
-- `/etc/pbr/pbr.user.wg_server_and_client`: provided to overcome the protocol limitations (see [Local Wireguard Server + Wireguard Client (Scenario 1)](#LocalWireguardServerWireguardClientScenario1)), to allow running a wireguard "server" on your router when a wireguard "client" is set up as default routing.
+- `/etc/pbr/pbr.user.aws`: provided to pull the Continental US AWS IPv4 addresses into the WAN IPv4 sets that the service sets up.
+- `/etc/pbr/pbr.user.netflix`: provided to pull the Continental US Netflix IPv4 addresses into the WAN IPv4 sets that the service sets up.
+- `/etc/pbr/pbr.user.wg_server_and_client`: provided to overcome the protocol limitations (see [Local WireGuard Server + WireGuard Client (Scenario 1)](#LocalWireGuardServerWireGuardClientScenario1)), to allow running a WireGuard "server" on your router when a WireGuard "client" is set up as default routing.
 
-If you want to create your own custom user files, pease refer to [Processing Custom User Files](#ProcessingCustomUserFiles).
+If you want to create your own custom user files, please refer to [Processing Custom User Files](#ProcessingCustomUserFiles).
 
 ### 4.7. <a name='StrictEnforcement'></a><a name='strict-enforcement'></a>Strict Enforcement
 
@@ -181,17 +181,17 @@ If you want to create your own custom user files, pease refer to [Processing Cus
 
 #### 4.8.1. <a name='UseAdGuardHomeipsetSupport'></a>Use AdGuardHome ipset Support
 
-- Either version of the service package can be configured to utilize `adguardhome`'s `ipset` support, which requires the `AdGuardHome` package version `0.107.13` or higher to be installed. This significantly improves the start up time because `adguardhome` resolves the domain names and adds them to appropriate `ipset` in background. Another benefit of using `adguardhome`'s `ipset` support is that it also automatically adds third-level domains to the `ipset`: if `domain.com` is added to the policy, this policy will affect all `*.domain.com` subdomains. This also works for top-level domains as well, a policy targeting the `at` for example, will affect all the `*.at` domains.
+- Either version of the service package can be configured to utilize `adguardhome`'s `ipset` support, which requires the `AdGuardHome` package version `0.107.13` or higher to be installed. This significantly improves the start up time because `adguardhome` resolves the domain names and adds them to the appropriate `ipset` in background. `adguardhome`'s `ipset` also automatically adds third-level domains to the `ipset`: if `domain.com` is added to the policy, this policy will affect all `*.domain.com` subdomains. This also works for top-level domains (TLDs) as well, a policy targeting the `at` TLD for example, will affect all the `*.at` domains.
 - Please review the [Footnotes/Known Issues](#FootnotesKnownIssues) section, specifically [<sup>#5</sup>](#footnote5) and [<sup>#7</sup>](#footnote7) and any other information in that section relevant to domain-based routing/DNS.
 
 #### 4.8.2. <a name='UseDNSMASQipsetSupport'></a>Use DNSMASQ ipset Support
 
-- Either version of the service package can be configured to utilize `dnsmasq`'s `ipset` support, which requires the `dnsmasq-full` package with `ipset` support to be installed (see [How to install dnsmasq-full](#Howtoinstalldnsmasq-full)). This significantly improves the start up time because `dnsmasq` resolves the domain names and adds them to appropriate `ipset` in background. Another benefit of using `dnsmasq`'s `ipset` support is that it also automatically adds third-level domains to the `ipset`: if `domain.com` is added to the policy, this policy will affect all `*.domain.com` subdomains. This also works for top-level domains as well, a policy targeting the `at` for example, will affect all the `*.at` domains.
+- Either version of the service package can be configured to utilize `dnsmasq`'s `ipset` support, which requires the `dnsmasq-full` package with `ipset` support to be installed (see [How to install dnsmasq-full](#Howtoinstalldnsmasq-full)). This significantly improves the start up time because `dnsmasq` resolves the domain names and adds them to the appropriate `ipset` in background. `dnsmasq`'s `ipset` also automatically adds third-level domains to the `ipset`: if `domain.com` is added to the policy, this policy will affect all `*.domain.com` subdomains. This also works for top-level domains (TLDs) as well, a policy targeting the `at` TLD for example, will affect all the `*.at` domains.
 - Please review the [Footnotes/Known Issues](#FootnotesKnownIssues) section, specifically [<sup>#5</sup>](#footnote5) and [<sup>#7</sup>](#footnote7) and any other information in that section relevant to domain-based routing/DNS.
 
 #### 4.8.3. <a name='UseDNSMASQnftsetsSupport'></a>Use DNSMASQ nft sets Support
 
-- The `pbr` package can be configure to utilize `dnsmasq`'s `nft` `sets` support, which requires the `dnsmasq-full` package with `nft` `sets` support to be installed (see [How to install dnsmasq-full](#Howtoinstalldnsmasq-full)). This significantly improves the start up time because `dnsmasq` resolves the domain names and adds them to appropriate `nft` `set` in background. Another benefit of using `dnsmasq`'s `nft` `set` support is that it also automatically adds third-level domains to the `set`: if `domain.com` is added to the policy, this policy will affect all `*.domain.com` subdomains. This also works for top-level domains as well, a policy targeting the `at` for example, will affect all the `*.at` domains.
+- The `pbr` package can be configured to utilize `dnsmasq`'s `nft` `sets` support, which requires the `dnsmasq-full` package with `nft` `sets` support to be installed (see [How to install dnsmasq-full](#Howtoinstalldnsmasq-full)). This significantly improves the start up time because `dnsmasq` resolves the domain names and adds them to the appropriate `nft` `set` in background. `dnsmasq`'s `nft` `set` also automatically adds third-level domains to the `set`: if `domain.com` is added to the policy, this policy will affect all `*.domain.com` subdomains. This also works for top-level domains (TLDs) as well, a policy targeting the `at` TLD for example, will affect all the `*.at` domains.
 - Please review the [Footnotes/Known Issues](#FootnotesKnownIssues) section, specifically [<sup>#5</sup>](#footnote5) and [<sup>#7</sup>](#footnote7) and any other information in that section relevant to domain-based routing/DNS.
 
 ### 4.9. <a name='Customization'></a>Customization
@@ -539,11 +539,11 @@ config policy
 
 #### 8.3.6. <a name='IgnoreTarget'></a><a name='ignore-target'></a>Ignore Target
 
-The service allows you to set an interface for a specific policy to `ignore` to skip futher processing of matched traffic. This option needs to be explicitly enabled for use in WebUI, check [Service Configuration Settings](#ServiceConfigurationSettings) for details. Some use cases are listed below.
+The service allows you to set an interface for a specific policy to `ignore` to skip further processing of matched traffic. This option needs to be explicitly enabled for use in WebUI, check [Service Configuration Settings](#ServiceConfigurationSettings) for details. Some use cases are listed below.
 
 ##### Ignore Requests
 
-The following policy allows you to skip processing some requests (like traffic to an OpenVPN or Wireguard server running on the router):
+The following policy allows you to skip processing some requests (like traffic to an OpenVPN or WireGuard server running on the router):
 
 ```text
 config pbr 'config'
@@ -576,7 +576,7 @@ config pbr 'config'
 
 The recommended network/firewall settings are below.
 
-Relevant part of `/etc/config/network` (**DO NOT** modify default OpenWrt network settings for neither `wan` nor `lan`):
+Relevant part of `/etc/config/network` (**DO NOT** modify default OpenWrt network settings for either `wan` or `lan`):
 
 ```text
 config interface 'vpnclient'
@@ -647,7 +647,7 @@ config pbr 'config'
 
 #### 8.3.9. <a name='LocalOpenVPNServerOpenVPNClientScenario1'></a>Local OpenVPN Server + OpenVPN Client (Scenario 1)
 
-If the OpenVPN client on your router is used as default routing (for the whole internet), make sure your settings are as following (three dots on the line imply other options can be listed in the section as well).
+If the OpenVPN client on your router is used as default routing (for the whole Internet), make sure your settings are as following (three dots on the line imply other options can be listed in the section as well).
 
 Relevant part of `/etc/config/pbr`:
 
@@ -666,7 +666,7 @@ config policy
 
 The network/firewall/openvpn settings are below.
 
-Relevant part of `/etc/config/network` (**DO NOT** modify default OpenWrt network settings for neither `wan` nor `lan`):
+Relevant part of `/etc/config/network` (**DO NOT** modify default OpenWrt network settings for either `wan` or `lan`):
 
 ```text
 config interface 'vpnclient'
@@ -739,7 +739,7 @@ config policy
 
 The network/firewall/openvpn settings are below.
 
-Relevant part of `/etc/config/network` (**DO NOT** modify default OpenWrt network settings for neither `wan` nor `lan`):
+Relevant part of `/etc/config/network` (**DO NOT** modify default OpenWrt network settings for either `wan` or `lan`):
 
 ```text
 config interface 'vpnclient'
@@ -795,17 +795,17 @@ config openvpn 'vpnserver'
   ...
 ```
 
-#### 8.3.11. <a name='LocalWireguardServerWireguardClientScenario1'></a>Local Wireguard Server + Wireguard Client (Scenario 1)
+#### 8.3.11. <a name='LocalWireGuardServerWireGuardClientScenario1'></a>Local WireGuard Server + WireGuard Client (Scenario 1)
 
-Yes, I'm aware that technically there are no clients nor servers in Wireguard, it's all peers in terms of topology, however when you configure Wireguard, one of the instances will have the `listen_port`, so we'd call that one a server and if it doesn't have the `listen_port`, then it's a client. This terminology is similar to the OpenVPN Server + Client setups.
+Yes, I'm aware that technically there are no clients nor servers in WireGuard, only peers in terms of topology. When you configure WireGuard, however, one of the instances will have the `listen_port`, so we'd call that one a server and if it doesn't have the `listen_port`, then it's a client. This terminology is similar to the OpenVPN Server + Client setups.
 
-If the Wireguard tunnel on your router is used as default routing (for the whole internet), sadly no `pbr` rule will allow it to intercept and properly route the `UDP` traffic of Wireguard server, please either use the OpenVPN server and configure it to use `TCP` protocol or use the Scenario 2 below.
+If the WireGuard tunnel on your router is used as default routing (for the whole Internet), sadly no `pbr` rule will allow it to intercept and properly route the `UDP` traffic of the WireGuard server, please either use the OpenVPN server and configure it to use `TCP` protocol or use Scenario 2 below.
 
-#### 8.3.12. <a name='LocalWireguardServerWireguardClientScenario2'></a>Local Wireguard Server + Wireguard Client (Scenario 2)
+#### 8.3.12. <a name='LocalWireGuardServerWireGuardClientScenario2'></a>Local WireGuard Server + WireGuard Client (Scenario 2)
 
-Yes, I'm aware that technically there are no clients nor servers in Wireguard, it's all peers in terms of topology, however when you configure Wireguard, one of the instances will have the `listen_port`, so we'd call that one a server and if it doesn't have the `listen_port`, then it's a client. This terminology is similar to the OpenVPN Server + Client setups.
+Yes, I'm aware that technically there are no clients nor servers in WireGuard, only peers in terms of topology, When you configure WireGuard, however, one of the instances will have the `listen_port`, so we'd call that one a server and if it doesn't have the `listen_port`, then it's a client. This terminology is similar to the OpenVPN Server + Client setups.
 
-If the Wireguard client is **not** used as default routing and you create policies to selectively use the Wireguard client, make sure your settings are as following (three dots on the line imply other options can be listed in the section as well). Make sure that the policy mentioned below is at the top of your policies list.
+If the WireGuard client is **not** used as default routing and you create policies to selectively use the WireGuard client, make sure your settings are as following (three dots on the line imply other options can be listed in the section as well). Make sure that the policy mentioned below is at the top of your policies list.
 
 Relevant part of `/etc/config/pbr`:
 
@@ -822,7 +822,7 @@ config policy
 
 The recommended network/firewall settings are below.
 
-Relevant part of `/etc/config/network` (**DO NOT** modify default OpenWrt network settings for neither `wan` nor `lan`):
+Relevant part of `/etc/config/network` (**DO NOT** modify default OpenWrt network settings for either `wan` or `lan`):
 
 ```text
 config interface 'wgclient'
@@ -870,15 +870,15 @@ config rule
   option dest_port '61820'
 ```
 
-#### 8.3.13. <a name='LocalWireguardServerAnotherVPNClientScenario1'></a>Local Wireguard Server + Another VPN Client (Scenario 1)
+#### 8.3.13. <a name='LocalWireGuardServerAnotherVPNClientScenario1'></a>Local WireGuard Server + Another VPN Client (Scenario 1)
 
-Yes, I'm aware that technically there are no clients nor servers in Wireguard, it's all peers in terms of topology, however when you configure Wireguard, one of the instances will have the `listen_port`, so we'd call that one a server and if it doesn't have the `listen_port`, then it's a client. This terminology is similar to the OpenVPN Server + Client setups.
+Yes, I'm aware that technically there are no clients nor servers in WireGuard, only peers in terms of topology, When you configure WireGuard, however, one of the instances will have the `listen_port`, so we'd call that one a server and if it doesn't have the `listen_port`, then it's a client. This terminology is similar to the OpenVPN Server + Client setups.
 
-If another VPN client is used as default routing (for the whole internet), sadly no `pbr` rule will allow it to intercept and properly route the `UDP` traffic of Wireguard server, please either use the OpenVPN server and configure it to use `TCP` protocol or use the Scenario 2 below.
+If another VPN client is used as default routing (for the whole Internet), sadly no `pbr` rule will allow it to intercept and properly route the `UDP` traffic of WireGuard server, please either use the OpenVPN server and configure it to use `TCP` protocol or use the Scenario 2 below.
 
-#### 8.3.14. <a name='LocalWireguardServerAnotherVPNClientScenario2'></a>Local Wireguard Server + Another VPN Client (Scenario 2)
+#### 8.3.14. <a name='LocalWireGuardServerAnotherVPNClientScenario2'></a>Local WireGuard Server + Another VPN Client (Scenario 2)
 
-Yes, I'm aware that technically there are no clients nor servers in Wireguard, it's all peers in terms of topology, however when you configure Wireguard, one of the instances will have the `listen_port`, so we'd call that one a server and if it doesn't have the `listen_port`, then it's a client. This terminology is similar to the OpenVPN Server + Client setups.
+Yes, I'm aware that technically there are no clients nor servers in WireGuard, only peers in terms of topology, When you configure WireGuard, however, one of the instances will have the `listen_port`, so we'd call that one a server and if it doesn't have the `listen_port`, then it's a client. This terminology is similar to the OpenVPN Server + Client setups.
 
 If another VPN client is **not** used as default routing and you create policies to selectively use the VPN client, make sure your settings are as following (three dots on the line imply other options can be listed in the section as well). Make sure that the policy mentioned below is at the top of your policies list.
 
@@ -930,7 +930,7 @@ config include
 
 3.  <a name="footnote3"> </a> If your default routing is set to the VPN tunnel, then the true WAN interface cannot be discovered using OpenWrt built-in functions, so service will assume your network interface ending with or starting with `wan` is the true WAN interface.
 
-4.  <a name="footnote4"> </a> The service does **NOT** support the "killswitch" router mode (where is no firewall forwarding from `lan` interface to `wan` interface, so if you stop the VPN tunnel, you have no internet connection). For proper operation, leave all the default OpenWrt `network` and `firewall` settings for `lan` and `wan` intact.
+4.  <a name="footnote4"> </a> The service does **NOT** support the "killswitch" router mode (where there is no firewall forwarding from `lan` interface to `wan` interface, so if you stop the VPN tunnel, you have no Internet connection). For proper operation, leave all the default OpenWrt `network` and `firewall` settings for `lan` and `wan` intact.
 
 5.  <a name="footnote5"> </a> When using the `adguardhome.ipset`, `dnsmasq.ipset` or `dnsmasq.nftset` option, please make sure to flush the DNS cache of the local devices, otherwise domain policies may not work until you do. If you're not sure how to flush the DNS cache (or if the device/OS doesn't offer an option to flush its DNS cache), reboot your local devices when starting to use the service and/or when connecting data-capable device to your WiFi.
 
@@ -938,11 +938,11 @@ config include
 
 7.  <a name="footnote7"> </a> If you're using domain names in the `dest_addr` option of the policy, it is recommended to use `adguardhome.ipset`, `dnsmasq.ipset` or `dnsmasq.nftset` options for `resolver_set`. Otherwise, the domain name will be resolved when the service starts up and the resolved IP address(es) will be added to an apropriate set or an `iptables` or `nft` rule. Resolving a number of domains on start is a time consuming operation, while using the `adguardhome.ipset`, `dnsmasq.ipset` or `dnsmasq.nftset` options allows transparent and fast addition of the correct domain IP addresses to the apropriate set on DNS request or when resolver is idle.
 
-8.  <a name="footnote8"> </a> When service is started, it subscribes to the supported interfaces updates thru the PROCD. While I was never able to reproduce the issue, some customers report that this method doesn't always work in which case you may want to [set up iface hotplug script](#AWordAboutInterfaceHotplugScript) to reload service when relevant interface(s) are updated.
+8.  <a name="footnote8"> </a> When service is started, it subscribes to the supported interfaces updates thru the PROCD. While I was never able to reproduce the issue, some customers report that this method doesn't always work in which case you may want to [set up iface hotplug script](#AWordAboutInterfaceHotplugScript) to reload service when the relevant interface(s) are updated.
 
 ## 10. <a name='FAQ'></a>FAQ
 
-You may find some useful information in sections below.
+You may find some useful information below.
 
 ### 10.1. <a name='AWordAboutDefaultRouting'></a><a name='a-word-about-default-routing'></a>A Word About Default Routing
 
@@ -964,7 +964,7 @@ To unset an OpenVPN tunnel as default route, set the following to the appropriat
   option route_nopull '1'
   ```
 
-- For your Wireguard (client) config:
+- For your WireGuard (client) config:
 
   ```text
   option route_allowed_ips '0'
@@ -986,23 +986,23 @@ To unset an OpenVPN tunnel as default route, set the following to the appropriat
   route-nopull
   ```
 
-#### 10.1.3. <a name='Wireguardtunnel'></a>Wireguard tunnel
+#### 10.1.3. <a name='WireGuardtunnel'></a>WireGuard tunnel
 
-To unset a Wireguard tunnel as default route, set the following to the appropriate section of your `/etc/config/network`:
+To unset a WireGuard tunnel as default route, set the following to the appropriate section of your `/etc/config/network`:
 
-- For your Wireguard (client) config:
+- For your WireGuard (client) config:
 
   ```text
   option route_allowed_ips '0'
   ```
 
-- Routing Wireguard traffic may require setting `net.ipv4.conf.wg0.rp_filter = 2` in `/etc/sysctl.conf`. Please refer to [issue #41](https://github.com/stangri/source.openwrt.melmac.net/issues/41) for more details.
+- Routing WireGuard traffic may require setting `net.ipv4.conf.wg0.rp_filter = 2` in `/etc/sysctl.conf`. Please refer to [issue #41](https://github.com/stangri/source.openwrt.melmac.net/issues/41) for more details.
 
 ### 10.2. <a name='AWordAboutCloudflares1.1.1.1App'></a>A Word About Cloudflare's 1.1.1.1 App
 
 Cloudflare has released an app for [iOS](https://itunes.apple.com/us/app/1-1-1-1-faster-internet/id1423538627) and [Android](https://play.google.com/store/apps/details?id=com.cloudflare.onedotonedotonedotone), which can also be configured to route traffic thru their own VPN tunnel (WARP+).
 
-If you use Cloudlfare's VPN tunnel (WARP+), none of the policies you set up with the VPN Policy Routing will take effect on your mobile device. Disable WARP+ for your home WiFi to keep VPN Policy Routing affecting your mobile device.
+If you use Cloudflare's VPN tunnel (WARP+), none of the policies you set up with the VPN Policy Routing will take effect on your mobile device. Disable WARP+ for your home WiFi to keep VPN Policy Routing affecting your mobile device.
 
 If you just use the private DNS queries (WARP), [A Word About DNS-over-HTTPS](#AWordAboutDNS-over-HTTPS) applies. You can also disable WARP for your home WiFi to keep VPN Policy Routing affecting your mobile device.
 
@@ -1014,13 +1014,13 @@ Some browsers, like [Mozilla Firefox](https://support.mozilla.org/en-US/kb/firef
 
 2.  Continue using DNS-over-HTTPS in your browser (which, by the way, also limits your options for router-level AdBlocking as described in `net/simple-adblock` README on [GitHub](https://docs.openwrt.melmac.net/simple-adblock/#dns-resolution-option)/[jsDelivr](https://cdn.jsdelivr.net/gh/stangri/docs.openwrt.melmac.net/simple-adblock/README.md#dns-resolution-option)), you than would either have to switch the `resolver_set` to `none`. Please note, you will lose all the benefits of [`dnsmasq.ipset`](#UseDNSMASQipsetSupport) option.
 
-### 10.4. <a name='AWordAboutHTTP3QUICK'></a>A Word About HTTP/3 (QUICK)
+### 10.4. <a name='AWordAboutHTTP3QUIC'></a>A Word About HTTP/3 (QUIC)
 
 If you want to target traffic using HTTP/3 protocol, you can use the `AUTO` as the protocol (the policy will be either protocol-agnostic or `TCP/UDP`) or explicitly use `UDP` as a protocol.
 
 ### 10.5. <a name='AWordAboutIPv6Routing'></a>A Word About IPv6 Routing
 
-Due to the nature of IPv6, it's not supposed to be routed same way as IPv4 with this package, but a fellow user has graciously contributed a [gist detailing their experience to get IPv6 routing working](https://gist.github.com/aliicex/3bd8413029b1f728c1f00bc1ac0e98b4).
+Due to the nature of IPv6, it's not supposed to be routed as IPv4 is with this package. A fellow user has graciously contributed a [gist detailing their experience to get IPv6 routing working](https://gist.github.com/aliicex/3bd8413029b1f728c1f00bc1ac0e98b4).
 
 ### 10.6. <a name='AWordAboutRoutingNetflixAmazonPrimeHuluTraffic'></a>A Word About Routing Netflix/Amazon Prime/Hulu Traffic
 
@@ -1028,7 +1028,7 @@ There are two following scenarios with VPN connections and Netflix/Amazon Prime/
 
 #### 10.6.1. <a name='RoutingNetflixAmazonPrimeHuluTrafficviaVPNTunnel'></a>Routing Netflix/Amazon Prime/Hulu Traffic via VPN Tunnel
 
-If you live in a country where Netflix/Amazon Prime/Hulu are not available and want to circumvent geo-fencing, this package can't help you. The Netflix/Amazon Prime/Hulu do a great job detecing VPN usage when accessing their services and circumventing geographical restrictions is not only dubiously legal, it's also technically very challenging.
+If you live in a country where Netflix/Amazon Prime/Hulu are not available and want to circumvent geo-fencing, this package can't help you. The Netflix/Amazon Prime/Hulu do a great job detecting VPN usage when accessing their services and circumventing geographical restrictions is not only dubiously legal, it's also technically very challenging.
 
 #### 10.6.2. <a name='RoutingNetflixAmazonPrimeHuluTrafficviaWAN'></a>Routing Netflix/Amazon Prime/Hulu Traffic via WAN
 
@@ -1133,11 +1133,11 @@ Then share the following files: `/tmp/keyfile.enc`, `/tmp/dhcp.enc`, `/tmp/firew
 
 ### 11.1. <a name='FirstTroubleshootingStep'></a>First Troubleshooting Step
 
-If your router is set to use [default routing via VPN tunnel](#AWordAboutDefaultRouting) and the WAN-targeting policies do not work, you need to stop your VPN tunnel first and ensure that you still have internet connection. If your router is set up to use the default routing via VPN tunnel and when you stop the VPN tunnel you have no internet connection, this package can't help you. You first need to make sure that you do have internet connection when the VPN tunnel is stopped.
+If your router is set to use [default routing via VPN tunnel](#AWordAboutDefaultRouting) and the WAN-targeting policies do not work, you need to stop your VPN tunnel first and ensure that you still have an Internet connection. If your router is set up to use default routing via a VPN tunnel and when you stop the VPN tunnel you have no Internet connection, this package can't help you. You first need to make sure that you do have an Internet connection when the VPN tunnel is stopped.
 
 ## 12. <a name='Thanks'></a>Thanks
 
-I'd like to thank everyone who helped create, test and troubleshoot this service. Without contributions from [@hnyman](https://github.com/hnyman), [@dibdot](https://github.com/dibdot), [@danrl](https://github.com/danrl), [@tohojo](https://github.com/tohojo), [@cybrnook](https://github.com/cybrnook), [@nidstigator](https://github.com/nidstigator), [@AndreBL](https://github.com/AndreBL), [@dz0ny](https://github.com/dz0ny), [@tew42](https://github.com/tew42), [bogorad](https://forum.openwrt.org/u/bogorad), rigorous testing/bugreporting by [@dziny](https://github.com/dziny), [@bluenote73](https://github.com/bluenote73), [@buckaroo](https://github.com/pgera), [@Alexander-r](https://github.com/Alexander-r), [@n8v8R](https://github.com/n8v8R), [psherman](https://forum.openwrt.org/u/psherman), [@Vale-max](https://github.com/Vale-max), [@aliicex](https://github.com/aliicex), [dscpl](https://forum.openwrt.org/u/dscpl), [@egc112](https://github.com/egc112) and multiple contributions from [@dl12345](https://github.com/dl12345) and [trendy](https://forum.openwrt.org/u/trendy) and feedback from other OpenWrt users it wouldn't have been possible. Wireguard/IPv6 support is courtesy of [IVPN](https://www.ivpn.net/).
+I'd like to thank everyone who helped create, test and troubleshoot this service. Without contributions from [@hnyman](https://github.com/hnyman), [@dibdot](https://github.com/dibdot), [@danrl](https://github.com/danrl), [@tohojo](https://github.com/tohojo), [@cybrnook](https://github.com/cybrnook), [@nidstigator](https://github.com/nidstigator), [@AndreBL](https://github.com/AndreBL), [@dz0ny](https://github.com/dz0ny), [@tew42](https://github.com/tew42), [bogorad](https://forum.openwrt.org/u/bogorad), rigorous testing/bugreporting by [@dziny](https://github.com/dziny), [@bluenote73](https://github.com/bluenote73), [@buckaroo](https://github.com/pgera), [@Alexander-r](https://github.com/Alexander-r), [@n8v8R](https://github.com/n8v8R), [psherman](https://forum.openwrt.org/u/psherman), [@Vale-max](https://github.com/Vale-max), [@aliicex](https://github.com/aliicex), [dscpl](https://forum.openwrt.org/u/dscpl), [@egc112](https://github.com/egc112) and multiple contributions from [@dl12345](https://github.com/dl12345) and [trendy](https://forum.openwrt.org/u/trendy) and feedback from other OpenWrt users it wouldn't have been possible. WireGuard/IPv6 support is courtesy of [IVPN](https://www.ivpn.net/).
 
 <!-- markdownlint-disable MD033 -->
 
