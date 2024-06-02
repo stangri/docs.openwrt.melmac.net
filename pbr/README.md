@@ -30,10 +30,13 @@
   - 6.3. [Processing Policies](#ProcessingPolicies)
     - 6.3.1. [Processing Policies (`nft` mode)](#ProcessingPoliciesnftmode)
     - 6.3.2. [Processing Policies (`iptables`/`ipset` mode)](#ProcessingPoliciesiptablesipsetmode)
-  - 6.4. [Policies Priorities](#PoliciesPriorities)
-  - 6.5. [Processing Custom User Files](#ProcessingCustomUserFiles)
-    - 6.5.1. [Processing Custom User Files (`nft` mode)](#ProcessingCustomUserFilesnftmode)
-    - 6.5.2. [Processing Custom User Files (`iptables`/`ipset` mode)](#ProcessingCustomUserFilesiptablesipsetmode)
+  - 6.4. [Processing DNS Policies](#ProcessingDNSPolicies)
+    - 6.4.1. [Processing DNS Policies (`nft` mode)](#ProcessingDNSPoliciesnftmode)
+    - 6.4.2. [Processing DNS Policies (`iptables`/`ipset` mode)](#ProcessingDNSPoliciesiptablesipsetmode)
+  - 6.5. [Policies Priorities](#PoliciesPriorities)
+  - 6.6. [Processing Custom User Files](#ProcessingCustomUserFiles)
+    - 6.6.1. [Processing Custom User Files (`nft` mode)](#ProcessingCustomUserFilesnftmode)
+    - 6.6.2. [Processing Custom User Files (`iptables`/`ipset` mode)](#ProcessingCustomUserFilesiptablesipsetmode)
 - 7. [How To Install](#HowToInstall)
   - 7.1. [How To Install - OpenWrt 22.03 and newer](#HowToInstall-OpenWrt22.03andnewer)
   - 7.2. [How To Install - OpenWrt 21.02 and older](#HowToInstall-OpenWrt21.02andolder)
@@ -48,7 +51,8 @@
   - 8.2. [Service Configuration Settings](#ServiceConfigurationSettings)
     - 8.2.1. [Default Settings](#DefaultSettings)
     - 8.2.2. [Policy Options](#PolicyOptions)
-    - 8.2.3. [Custom User Files Include Options](#CustomUserFilesIncludeOptions)
+    - 8.2.3. [DNS Policy Options](#DNSPolicyOptions)
+    - 8.2.4. [Custom User Files Include Options](#CustomUserFilesIncludeOptions)
   - 8.3. [Example Policies](#ExamplePolicies)
     - 8.3.1. [Single IP, IP Range, Local Machine, Local MAC Address](#SingleIPIPRangeLocalMachineLocalMACAddress)
     - 8.3.2. [Logmein Hamachi](#LogmeinHamachi)
@@ -155,11 +159,11 @@ This service allows you to define rules (policies) for routing traffic via WAN o
 
 - Policies based on a local physical device (like a specially created wlan). Please review the [Policy Options](#PolicyOptions) section and [Footnotes/Known Issues](#FootnotesKnownIssues) section, specifically [<sup>#6</sup>](#footnote6) and any other information in that section relevant to handling physical device.
 
-### 4.5. <a name='DSCPTag-BasedPolicies'></a><a name='dscp-tag-based-policies'></a>DSCP Tag-Based Policies
+### 4.5. <a name='DSCPTag-BasedPolicies'></a>DSCP Tag-Based Policies
 
 You can also set policies for traffic with a specific DSCP tag. On Windows 10, for example, you can mark traffic from specific apps with DSCP tags (instructions for tagging specific app traffic in Windows 10 can be found [here](http://serverfault.com/questions/769843/cannot-set-dscp-on-windows-10-pro-via-group-policy)).
 
-### 4.6. <a name='CustomUserFiles'></a><a name='custom-user-files'></a>Custom User Files
+### 4.6. <a name='CustomUserFiles'></a>Custom User Files
 
 If the custom user file includes are set, the service will load and execute them after setting up routing and the sets and processing policies. This allows, for example, to add large numbers of domains/IP addresses to ipsets or nft sets without manually adding all of them to the config file.
 
@@ -171,11 +175,11 @@ The following custom user files are provided:
 
 If you want to create your own custom user files, please refer to [Processing Custom User Files](#ProcessingCustomUserFiles).
 
-### 4.7. <a name='StrictEnforcement'></a><a name='strict-enforcement'></a>Strict Enforcement
+### 4.7. <a name='StrictEnforcement'></a>Strict Enforcement
 
 - Supports strict policy enforcement, even if the policy interface is down -- resulting in network being unreachable for specific policy (enabled by default).
 
-### 4.8. <a name='UseResolversSetSupport'></a><a name='use-resolvers-set-support'></a>Use Resolver's Set Support
+### 4.8. <a name='UseResolversSetSupport'></a>Use Resolver's Set Support
 
 - If supported on the system, service can be set to utilize resolver's set support. Currently supported resolver's set options are listed below.
 
@@ -261,17 +265,34 @@ Each policy can result in either a new `iptables` or `nft` rule and possibly an 
 - Policies with the netmasks in `dest_addr` or `src_addr` can be created as `iptables` rules or `ipset` entries.
 - Policies with empty `dest_port` and `src_port` may be created as `iptables` rules or `dnsmasq`'s `ipset` or an `ipset` (if enabled).
 
-### 6.4. <a name='PoliciesPriorities'></a>Policies Priorities
+### 6.4. <a name='ProcessingDNSPolicies'></a>Processing DNS Policies
+
+Each DNS policy can result in either a new `iptables` or `nft` rule and possibly an `ipset` or a named `nft` `set` to match `src_addr`.
+
+If the IP adresses (either legacy IPv4 or IPv6 family or both) are defined in the `dest_dns` setting for the dns policy, than those addresses will be used to explicitly set the resolver address for a specific DNS policy.
+
+If the network interface is defined in the `dest_dns` setting for the dns policy, then the first matching-family (either IPv4 or IPv6) DNS server will be used for a specific DNS policy.
+
+#### 6.4.1. <a name='ProcessingDNSPoliciesnftmode'></a>Processing DNS Policies (`nft` mode)
+
+- Policies with the MAC-addresses, IP addresses, netmasks or local device names will result in a rule targeting named `nft` `sets`.
+
+#### 6.4.2. <a name='ProcessingDNSPoliciesiptablesipsetmode'></a>Processing DNS Policies (`iptables`/`ipset` mode)
+
+- Policies with the MAC-addresses, IP addresses or local device names in `src_addr` can be created as `iptables` rules or `ipset` entries.
+- Policies with the netmasks `src_addr` can be created as `iptables` rules or `ipset` entries.
+
+### 6.5. <a name='PoliciesPriorities'></a>Policies Priorities
 
 - The policy priority is the same as its order as listed in Web UI and `/etc/config/pbr`. The higher the policy is in the Web UI and configuration file, the higher its priority is.
 - If set, the `DSCP` policies is set up first when creating the interface routing.
 - If enabled, it is highly recommended that the policies with `IGNORE` target are at the top of the policies list.
 
-### 6.5. <a name='ProcessingCustomUserFiles'></a>Processing Custom User Files
+### 6.6. <a name='ProcessingCustomUserFiles'></a>Processing Custom User Files
 
 If at least one custom user file is enabled, the service will create the following `nft` `sets` or `ipsets` and set up the proper routing for them.
 
-#### 6.5.1. <a name='ProcessingCustomUserFilesnftmode'></a>Processing Custom User Files (`nft` mode)
+#### 6.6.1. <a name='ProcessingCustomUserFilesnftmode'></a>Processing Custom User Files (`nft` mode)
 
 For each `interface` the service will create `nft` `sets` and routing:
 
@@ -282,7 +303,7 @@ For each `interface` the service will create `nft` `sets` and routing:
 - `pbr_interface_4_dst_mac_user`: for source/local MAC addresses
 - `pbr_interface_6_dst_mac_user`: for source/local MAC addresses
 
-#### 6.5.2. <a name='ProcessingCustomUserFilesiptablesipsetmode'></a>Processing Custom User Files (`iptables`/`ipset` mode)
+#### 6.6.2. <a name='ProcessingCustomUserFilesiptablesipsetmode'></a>Processing Custom User Files (`iptables`/`ipset` mode)
 
 For each `interface` the service will create `ipsets` and routing:
 
@@ -379,7 +400,7 @@ If you want to use WebUI to configure `pbr` you may want to review the following
 
 - [DevOdyssey](https://www.youtube.com/watch?v=FN2qfxNIs2g)
 
-### 8.2. <a name='ServiceConfigurationSettings'></a><a name='service-configuration-settings'></a>Service Configuration Settings
+### 8.2. <a name='ServiceConfigurationSettings'></a>Service Configuration Settings
 
 As per screenshots above, in the Web UI the `pbr` configuration is split into `Basic`, `Advanced` and `WebUI` settings. The full list of configuration parameters of `pbr.config` section is:
 
@@ -429,19 +450,30 @@ Each policy may have a combination of the options below, the `name` and `interfa
 
 The `src_addr`, `src_port`, `dest_addr` and `dest_port` options supports parameter negation, for example if you want to **exclude** remote port 80 from the policy, set `dest_port` to `"!80"` (notice lack of space between `!` and parameter).
 
-| Option        | Default    | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
-| ------------- | ---------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **name**      |            | Policy name, it **must** be set.                                                                                                                                                                                                                                                                                                                                                                                                                                              |
-| enabled       | 1          | Enable/disable policy. To display the `Enable` checkbox column for policies in the WebUI, make sure to select `Enabled` for `Show Enable Column` in the `Web UI` tab.                                                                                                                                                                                                                                                                                                         |
-| **interface** |            | Policy interface, it **must** be set.                                                                                                                                                                                                                                                                                                                                                                                                                                         |
-| src_addr      |            | List of space-separated local/source IP addresses, CIDRs, hostnames or mac addresses (colon-separated). You can also specify a local physical device (like a specially created wlan) prepended by an `@` symbol. Versions 1.1.2 and later allow using URLs to list of addresses. If `curl` is installed you can use the `file://` schema, otherwise you can use `ftp://`, `http://` and `https://` schemas. This is obviously not compatible with the `secure_reload` option. |
-| src_port      |            | List of space-separated local/source ports or port-ranges.                                                                                                                                                                                                                                                                                                                                                                                                                    |
-| dest_addr     |            | List of space-separated remote/target IP addresses, CIDRs or hostnames/domain names. Versions 1.1.2 and later allow using URLs to list of addresses. If `curl` is installed you can use the `file://` schema, otherwise you can use `ftp://`, `http://` and `https://` schemas. This is obviously not compatible with the `secure_reload` option.                                                                                                                             |
-| dest_port     |            | List of space-separated remote/target ports or port-ranges.                                                                                                                                                                                                                                                                                                                                                                                                                   |
-| proto         | auto       | Policy protocol, can be any valid protocol from `/etc/protocols` for CLI/uci or can be selected from the values set in `webui_supported_protocol`.                                                                                                                                                                                                                                                                                                                            |
-| chain         | prerouting | Policy chain, can be either `forward`, `input`, `prerouting`, `postrouting` or `output`. This setting is case-sensitive.                                                                                                                                                                                                                                                                                                                                                      |
+| Option        | Default    | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
+| ------------- | ---------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **name**      |            | Policy name, it **must** be set.                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
+| enabled       | 1          | Enable/disable policy. To display the `Enable` checkbox column for policies in the WebUI, make sure to select `Enabled` for `Show Enable Column` in the `Web UI` tab.                                                                                                                                                                                                                                                                                                            |
+| **interface** |            | Policy interface, it **must** be set.                                                                                                                                                                                                                                                                                                                                                                                                                                            |
+| src_addr      |            | List of space-separated local/source IP addresses, CIDRs, hostnames or mac addresses (colon-separated). You can also specify a local physical device (like a specially created wlan) prepended by an `@` symbol. Versions 1.1.2 and later allow using URLs to list of addresses. If `curl` is installed you can use the `file://` schema, otherwise you can use `ftp://`, `http://` and `https://` schemas (which are obviously not compatible with the `secure_reload` option). |
+| src_port      |            | List of space-separated local/source ports or port-ranges.                                                                                                                                                                                                                                                                                                                                                                                                                       |
+| dest_addr     |            | List of space-separated remote/target IP addresses, CIDRs or hostnames/domain names. Versions 1.1.2 and later allow using URLs to list of addresses. If `curl` is installed you can use the `file://` schema, otherwise you can use `ftp://`, `http://` and `https://` schemas. This is obviously not compatible with the `secure_reload` option.                                                                                                                                |
+| dest_port     |            | List of space-separated remote/target ports or port-ranges.                                                                                                                                                                                                                                                                                                                                                                                                                      |
+| proto         | auto       | Policy protocol, can be any valid protocol from `/etc/protocols` for CLI/uci or can be selected from the values set in `webui_supported_protocol`.                                                                                                                                                                                                                                                                                                                               |
+| chain         | prerouting | Policy chain, can be either `forward`, `input`, `prerouting`, `postrouting` or `output`. This setting is case-sensitive.                                                                                                                                                                                                                                                                                                                                                         |
 
-#### 8.2.3. <a name='CustomUserFilesIncludeOptions'></a>Custom User Files Include Options
+#### 8.2.3. <a name='DNSPolicyOptions'></a>DNS Policy Options
+
+Each policy may have a combination of the options below, the `name`, the `src_addr` and `dest_dns` options are required.
+
+| Option       | Default | Description                                                                                                                                                                                                                                                                                                                                                                                                                                             |
+| ------------ | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **name**     |         | DNS Policy name, it **must** be set.                                                                                                                                                                                                                                                                                                                                                                                                                    |
+| enabled      | 1       | Enable/disable DNS policy. To display the `Enable` checkbox column for policies in the WebUI, make sure to select `Enabled` for `Show Enable Column` in the `Web UI` tab.                                                                                                                                                                                                                                                                               |
+| **src_addr** |         | List of space-separated local/source IP addresses, CIDRs, hostnames or mac addresses (colon-separated). You can also specify a local physical device (like a specially created wlan) prepended by an `@` symbol. You can use URLs to list of addresses. If `curl` is installed you can use the `file://` schema, otherwise you can use `ftp://`, `http://` and `https://` schemas (which are obviously not compatible with the `secure_reload` option). |
+| **dest_dns** |         | List of space-separated IPv4/IPv6 addresses for resolvers used for the DNS policy or a network interface, which DNS server(s) will be used for the DNS policy.                                                                                                                                                                                                                                                                                          |
+
+#### 8.2.4. <a name='CustomUserFilesIncludeOptions'></a>Custom User Files Include Options
 
 | Option   | Default | Description                                                                 |
 | -------- | ------- | --------------------------------------------------------------------------- |
@@ -537,7 +569,7 @@ config policy
   option dest_addr 'emby.media app.emby.media tv.emby.media'
 ```
 
-#### 8.3.6. <a name='IgnoreTarget'></a><a name='ignore-target'></a>Ignore Target
+#### 8.3.6. <a name='IgnoreTarget'></a>Ignore Target
 
 The service allows you to set an interface for a specific policy to `ignore` to skip further processing of matched traffic. This option needs to be explicitly enabled for use in WebUI, check [Service Configuration Settings](#ServiceConfigurationSettings) for details. Some use cases are listed below.
 
@@ -944,7 +976,7 @@ config include
 
 You may find some useful information below.
 
-### 10.1. <a name='AWordAboutDefaultRouting'></a><a name='a-word-about-default-routing'></a>A Word About Default Routing
+### 10.1. <a name='AWordAboutDefaultRouting'></a>A Word About Default Routing
 
 Service does not alter the default routing. Depending on your VPN tunnel settings (and settings of the VPN server you are connecting to), the default routing might be set to go via WAN or via VPN tunnel. This service affects only routing of the traffic matching the policies. If you want to override default routing, follow the instructions below.
 
