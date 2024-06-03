@@ -1130,6 +1130,8 @@ Please note that the ipset/nft set names which service creates for use in the cu
 
 ## 11. <a name='GettingHelp'></a>Getting Help
 
+General discussion of this package is happening at the [OpenWrt forum thread](https://forum.openwrt.org/t/policy-based-routing-pbr-package-discussion/140639).
+
 If things are not working as intended, please first set verbosity to 2 by running these commands
 
 ```sh
