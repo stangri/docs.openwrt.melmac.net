@@ -154,10 +154,15 @@ If things are not working as intended, please run the following commands and inc
 
 ```sh
 ubus call system board
+curl -V
+dnsmasq --version
+https-dns-proxy -V
 uci export dhcp
 uci export network
 uci export https-dns-proxy
-/etc/init.d/https-dns-proxy status
+service https-dns-proxy status
+service https-dns-proxy info
+nslookup google.com 127.0.0.1:5053
 ```
 
 ## Thanks
