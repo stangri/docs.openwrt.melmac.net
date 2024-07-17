@@ -6,8 +6,9 @@
 
 <!-- vscode-markdown-toc -->
 
-- [OpenWrt 23.05.0 release and this package](#OpenWrt23.05.0releaseandthispackage)
-- [OpenWrt 22.03.0 release and this package](#OpenWrt22.03.0releaseandthispackage)
+- [The `pbr` version `1.1.6` announcement](#Thepbrversion1.1.6announcement)
+- [OpenWrt 23.05 release and this package](#OpenWrt23.05releaseandthispackage)
+- [OpenWrt 22.03 release and this package](#OpenWrt22.03releaseandthispackage)
 - [Description](#Description)
 - [Features](#Features)
   - [Gateways/Tunnels](#GatewaysTunnels)
@@ -89,6 +90,7 @@
 - [Getting Help](#GettingHelp)
   - [First Troubleshooting Step](#FirstTroubleshootingStep)
 - [Thanks](#Thanks)
+- [Donate](#Donate)
 
 <!-- vscode-markdown-toc-config
 	numbering=false
@@ -96,34 +98,31 @@
 	/vscode-markdown-toc-config -->
 <!-- /vscode-markdown-toc -->
 
-## <a name='OpenWrt23.05.0releaseandthispackage'></a>OpenWrt 23.05.0 release and this package
+## <a name='Thepbrversion1.1.6announcement'></a>The `pbr` version `1.1.6` announcement
 
-Unlike the previous release, the OpenWrt 23.05 includes `dnsmasq-full` which supports nft sets, so just [install dnsmasq-full](#Howtoinstalldnsmasq-full), install the `pbr` package and configure `pbr` to use `dnsmasq.nftset` option for resolver.
+The `pbr` version `1.1.6` is the last `pbr` version supporting the iptables variant. Going forward (from versions newer than `1.1.6`) there will be no `pbr-iptables` package available and the `pbr` package will only support firewall4/nft.
 
-## <a name='OpenWrt22.03.0releaseandthispackage'></a>OpenWrt 22.03.0 release and this package
+If you're using the newest `pbr-iptables` builds from my repository, you may want to save a local copy of both `pbr-iptables` and `luci-app-pbr` version `1.1.6` IPK files.
 
-There are now two packages of this service available:
+## <a name='OpenWrt23.05releaseandthispackage'></a>OpenWrt 23.05 release and this package
 
-- `pbr` which supports fw4, nft, nft sets and `dnsmasq.nftset` option (but because OpenWrt's `dnsmasq` doesn't support nft sets yet, you can't use `dnsmasq` to resolve domain names from policies) as well as fw3, iptables, ipset and `dnsmasq.ipset` option.
-- `pbr-iptables` which supports fw3, iptables, ipset and `dnsmasq.ipset` option.
-
-Both packages install the same init script (what you actually run when you invoke `service pbr ...` or `/etc/init.d/pbr ...`), however both packages install some specific files and `pbr` can run in either `nft` or `iptables`/`ipset` mode, whereas `pbr-iptables` can only run in `iptables`/`ipset` mode.
+The OpenWrt 23.05 release finally includes `dnsmasq-full` package which supports nft sets, so if you want to use domain-based policies, you would need to [use dnsmasq nftsets support](#UseDNSMASQnftsetsSupport), so [install dnsmasq-full](#Howtoinstalldnsmasq-full) package and make sure to set the `resolver_set` option to `dnsmasq.nftset`.
 
 The package-specific files that `pbr` installs are:
 
-- the `/etc/config/pbr` file with the `resolver_set` set to `none` (will be switched to `dnsmasq.nftset` when OpenWrt's `dnsmasq` supports it)
+- the `/etc/config/pbr` file with the `resolver_set` set to `dnsmasq.nftset`
 - the `fw4`-specific `nft` scripts (installed into `/usr/share/nftables.d/`) to set up default service chains as part of the fw4 start/restart/reload processes
+
+## <a name='OpenWrt22.03releaseandthispackage'></a>OpenWrt 22.03 release and this package
+
+The OpenWrt 22.03 was somewhat a transitional release, as it used nft (instead of iptables) and firewall4 (instead of firewall3), however the `dnsmasq-full` package included in OpenWrt 22.03 repository only supported ipsets (and not nft sets).
+
+If you want to use the domain-based policies on OpenWrt 22.03, you would need to use [use dnsmasq ipset support](#UseDNSMASQipsetSupport), so [install dnsmasq-full](#Howtoinstalldnsmasq-full), also [install legacy iptables/ipset packages](#Howtoinstalllegacyiptablesipsetpackages) and make sure to set the `resolver_set` option to `dnsmasq.ipset` to force `iptables`/`ipset` mode. You can safely ignore the warning on the Status -> Firewall page about legacy iptables rules created by either package.
 
 The package-specific files that `pbr-iptables` installs are:
 
 - the `/etc/config/pbr` file with the `resolver_set` set to `dnsmasq.ipset`
 - legacy iptables/ipset packages
-
-The `pbr` decides when to use `iptables`/`ipset` mode or `nft` mode at run time. If the `nft` binary is available, the `resolver_set` is not set to `dnsmasq.ipset` and a main `pbr_prerouting` chain has been created by the `fw4`-specific `nft` script, it runs in the `nft` mode, otherwise it runs in the `iptables`/`ipset` mode.
-
-Each package of the service has its own dependencies, so only `pbr-iptables` can be installed on OpenWrt 21.02 and earlier, but either `pbr` or `pbr-iptables` can be installed on OpenWrt 22.03. It is recommended to install `pbr` on OpenWrt 22.03 and if you want to use [use dnsmasq ipset support](#UseDNSMASQipsetSupport), [install dnsmasq-full](#Howtoinstalldnsmasq-full), also [install legacy iptables/ipset packages](#Howtoinstalllegacyiptablesipsetpackages) and then change `resolver_set` option to `dnsmasq.ipset` to force `iptables`/`ipset` mode.
-
-Both `pbr-iptables` and `pbr` in `iptables`/`ipset` mode work just fine on OpenWrt 22.03. You can safely ignore the warning on the Status -> Firewall page about legacy iptables rules created by either package.
 
 ## <a name='Description'></a>Description
 
@@ -1172,6 +1171,14 @@ If your router is set to use [default routing via VPN tunnel](#AWordAboutDefault
 ## <a name='Thanks'></a>Thanks
 
 I'd like to thank everyone who helped create, test and troubleshoot this service. Without contributions from [@hnyman](https://github.com/hnyman), [@dibdot](https://github.com/dibdot), [@danrl](https://github.com/danrl), [@tohojo](https://github.com/tohojo), [@cybrnook](https://github.com/cybrnook), [@nidstigator](https://github.com/nidstigator), [@AndreBL](https://github.com/AndreBL), [@dz0ny](https://github.com/dz0ny), [@tew42](https://github.com/tew42), [bogorad](https://forum.openwrt.org/u/bogorad), rigorous testing/bugreporting by [@dziny](https://github.com/dziny), [@bluenote73](https://github.com/bluenote73), [@buckaroo](https://github.com/pgera), [@Alexander-r](https://github.com/Alexander-r), [@n8v8R](https://github.com/n8v8R), [psherman](https://forum.openwrt.org/u/psherman), [@Vale-max](https://github.com/Vale-max), [@aliicex](https://github.com/aliicex), [dscpl](https://forum.openwrt.org/u/dscpl), [@egc112](https://github.com/egc112) and multiple contributions from [@dl12345](https://github.com/dl12345) and [trendy](https://forum.openwrt.org/u/trendy) and feedback from other OpenWrt users it wouldn't have been possible. WireGuard/IPv6 support is courtesy of [IVPN](https://www.ivpn.net/).
+
+## <a name='Donate'></a>Donate
+
+If you find `pbr` useful, please consider donating to support development of this project. I've been developing it in my spare time without any external funding, outside of my GitHub sponsors. You can donate by:
+
+- Sponsor me on GitHub with [monthly donation](https://github.com/sponsors/stangri?frequency=recurring&sponsor=stangri).
+- Sponsor me on GitHub with [one-time donation](https://github.com/sponsors/stangri?frequency=one-time&sponsor=stangri).
+- Send a donation [thru PayPal](https://paypal.me/stan).
 
 <!-- markdownlint-disable MD033 -->
 
