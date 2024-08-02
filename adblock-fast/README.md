@@ -189,13 +189,6 @@ In the Web UI settings for the `adblock-fast` are split into `basic` and `advanc
 | Advanced       | <a name="compressed_cache"></a>compressed_cache               | boolean   | `0`                                                                                                  | Create compressed cache of the AdBlocking file in router's persistent memory. Only recommended to be used on routers with large ROM and/or routers with metered/flaky internet connection.                                                                                                                                                                                                                                                                   |
 | Advanced       | <a name="compressed_cache_dir"></a>compressed_cache_dir       | directory | `/etc`                                                                                               | Create compressed cache of the AdBlocking file in this directory. This option is only visible in Web UI if the `compressed_cache` option is enabled.                                                                                                                                                                                                                                                                                                         |
 
-### Allowed and Blocked Domains
-
-| Web UI Section              | Option                                      | Type        | Default | Description              |
-| --------------------------- | ------------------------------------------- | ----------- | ------- | ------------------------ |
-| Allowed and Blocked Domains | <a name="allowed_domain"></a>allowed_domain | list/string |         | List of allowed domains. |
-| Allowed and Blocked Domains | <a name="blocked_domain"></a>blocked_domain | list/string |         | List of blocked domains. |
-
 ### Allowed and Blocked Lists URLs
 
 The lists of allowed and blocked domains are controlled by the unnamed `file_url` sections, the available options for each section are:
@@ -204,6 +197,7 @@ The lists of allowed and blocked domains are controlled by the unnamed `file_url
 | ------- | ------- | ------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | action  | String  | `block` | Either `allow` or `block`.                                                                                                                                                                                                         |
 | enabled | Boolean | `1`     | Set to `0` to disable processing of this list.                                                                                                                                                                                     |
+| name    | String  |         | You can add the name for the list to be displayed in the WebUI and CLI output.                                                                                                                                                     |
 | size    | Integer |         | Sizes for lists are automatically adjust upon download or migration from `simple-adblock`.                                                                                                                                         |
 | url     | String  |         | URL to the remote allow/block-lists. **Must** include either `http://` or `https://` (with `curl` installed may use the `file://`) prefix. Recognized formats are listed [below](#recognized-remote-allowblock-list-file-formats). |
 
