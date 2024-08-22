@@ -8,7 +8,9 @@
 
 - [The `pbr` version `1.1.7` announcement](#Thepbrversion1.1.7announcement)
 - [OpenWrt 23.05 release and this package](#OpenWrt23.05releaseandthispackage)
-- [OpenWrt 22.03 release and this package](#OpenWrt22.03releaseandthispackage)
+- [Notable version changes](#Notableversionchanges)
+  - [Version 1.1.7](#Version1.1.7)
+  - [Version 1.1.6](#Version1.1.6)
 - [Description](#Description)
 - [Features](#Features)
   - [Gateways/Tunnels](#GatewaysTunnels)
@@ -106,23 +108,20 @@ If you're using the newest `pbr-iptables` builds from my repository, you may wan
 
 ## <a name='OpenWrt23.05releaseandthispackage'></a>OpenWrt 23.05 release and this package
 
-The OpenWrt 23.05 release finally includes `dnsmasq-full` package which supports nft sets, so if you want to use domain-based policies, you would need to [use dnsmasq nftsets support](#UseDNSMASQnftsetsSupport), so [install dnsmasq-full](#Howtoinstalldnsmasq-full) package and make sure to set the `resolver_set` option to `dnsmasq.nftset`.
+The OpenWrt 23.05 release includes `dnsmasq-full` package which supports nft sets, so if you want to use domain-based policies, you would need to [use dnsmasq nftsets support](#UseDNSMASQnftsetsSupport), so [install dnsmasq-full](#Howtoinstalldnsmasq-full) package and make sure to set the `resolver_set` option to `dnsmasq.nftset`.
 
-The package-specific files that `pbr` installs are:
+## <a name='Notableversionchanges'></a>Notable version changes
 
-- the `/etc/config/pbr` file with the `resolver_set` set to `dnsmasq.nftset`
-- the `fw4`-specific `nft` scripts (installed into `/usr/share/nftables.d/`) to set up default service chains as part of the fw4 start/restart/reload processes
+### <a name='Version1.1.7'></a>Version 1.1.7
 
-## <a name='OpenWrt22.03releaseandthispackage'></a>OpenWrt 22.03 release and this package
+- This release completely drops the iptables/ipset (and resolvers using ipset) support.
+- The Wireguard Server & Client user script integrated into the `pbr` service, if Wireguard servers are discovered, their routing is automatically configured to go over WAN.
 
-The OpenWrt 22.03 was somewhat a transitional release, as it used nft (instead of iptables) and firewall4 (instead of firewall3), however the `dnsmasq-full` package included in OpenWrt 22.03 repository only supported ipsets (and not nft sets).
+### <a name='Version1.1.6'></a>Version 1.1.6
 
-If you want to use the domain-based policies on OpenWrt 22.03, you would need to use [use dnsmasq ipset support](#UseDNSMASQipsetSupport), so [install dnsmasq-full](#Howtoinstalldnsmasq-full), also [install legacy iptables/ipset packages](#Howtoinstalllegacyiptablesipsetpackages) and make sure to set the `resolver_set` option to `dnsmasq.ipset` to force `iptables`/`ipset` mode. You can safely ignore the warning on the Status -> Firewall page about legacy iptables rules created by either package.
-
-The package-specific files that `pbr-iptables` installs are:
-
-- the `/etc/config/pbr` file with the `resolver_set` set to `dnsmasq.ipset`
-- legacy iptables/ipset packages
+- This release has separate code for nft- and iptables-capable versions, the nft version (`pbr` package) no longer supports resolver options with ipset.
+- The WAN interface name is no longer auto-detected. If you use a non-standard name for WAN interface, you can set it in [options](#procd_wan_interface).
+- If you use a non-standard name for LAN interface you can set it in [options](#procd_lan_interface).
 
 ## <a name='Description'></a>Description
 

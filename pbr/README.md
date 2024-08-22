@@ -6,9 +6,11 @@
 
 <!-- vscode-markdown-toc -->
 
-- [The `pbr` version `1.1.6` announcement](#Thepbrversion1.1.6announcement)
+- [The `pbr` version `1.1.7` announcement](#Thepbrversion1.1.7announcement)
 - [OpenWrt 23.05 release and this package](#OpenWrt23.05releaseandthispackage)
-- [OpenWrt 22.03 release and this package](#OpenWrt22.03releaseandthispackage)
+- [Notable version changes](#Notableversionchanges)
+  - [Version 1.1.7](#Version1.1.7)
+  - [Version 1.1.6](#Version1.1.6)
 - [Description](#Description)
 - [Features](#Features)
   - [Gateways/Tunnels](#GatewaysTunnels)
@@ -98,31 +100,28 @@
 	/vscode-markdown-toc-config -->
 <!-- /vscode-markdown-toc -->
 
-## <a name='Thepbrversion1.1.6announcement'></a>The `pbr` version `1.1.6` announcement
+## <a name='Thepbrversion1.1.7announcement'></a>The `pbr` version `1.1.7` announcement
 
-The `pbr` version `1.1.6` is the last `pbr` version supporting the iptables variant. Going forward (from versions newer than `1.1.6`) there will be no `pbr-iptables` package available and the `pbr` package will only support firewall4/nft.
+The `pbr` version `1.1.7` no longer has the iptables variant.
 
 If you're using the newest `pbr-iptables` builds from my repository, you may want to save a local copy of both `pbr-iptables` and `luci-app-pbr` version `1.1.6` IPK files.
 
 ## <a name='OpenWrt23.05releaseandthispackage'></a>OpenWrt 23.05 release and this package
 
-The OpenWrt 23.05 release finally includes `dnsmasq-full` package which supports nft sets, so if you want to use domain-based policies, you would need to [use dnsmasq nftsets support](#UseDNSMASQnftsetsSupport), so [install dnsmasq-full](#Howtoinstalldnsmasq-full) package and make sure to set the `resolver_set` option to `dnsmasq.nftset`.
+The OpenWrt 23.05 release includes `dnsmasq-full` package which supports nft sets, so if you want to use domain-based policies, you would need to [use dnsmasq nftsets support](#UseDNSMASQnftsetsSupport), so [install dnsmasq-full](#Howtoinstalldnsmasq-full) package and make sure to set the `resolver_set` option to `dnsmasq.nftset`.
 
-The package-specific files that `pbr` installs are:
+## <a name='Notableversionchanges'></a>Notable version changes
 
-- the `/etc/config/pbr` file with the `resolver_set` set to `dnsmasq.nftset`
-- the `fw4`-specific `nft` scripts (installed into `/usr/share/nftables.d/`) to set up default service chains as part of the fw4 start/restart/reload processes
+### <a name='Version1.1.7'></a>Version 1.1.7
 
-## <a name='OpenWrt22.03releaseandthispackage'></a>OpenWrt 22.03 release and this package
+- This release completely drops the iptables/ipset (and resolvers using ipset) support.
+- The Wireguard Server & Client user script integrated into the `pbr` service, if Wireguard servers are discovered, their routing is automatically configured to go over WAN.
 
-The OpenWrt 22.03 was somewhat a transitional release, as it used nft (instead of iptables) and firewall4 (instead of firewall3), however the `dnsmasq-full` package included in OpenWrt 22.03 repository only supported ipsets (and not nft sets).
+### <a name='Version1.1.6'></a>Version 1.1.6
 
-If you want to use the domain-based policies on OpenWrt 22.03, you would need to use [use dnsmasq ipset support](#UseDNSMASQipsetSupport), so [install dnsmasq-full](#Howtoinstalldnsmasq-full), also [install legacy iptables/ipset packages](#Howtoinstalllegacyiptablesipsetpackages) and make sure to set the `resolver_set` option to `dnsmasq.ipset` to force `iptables`/`ipset` mode. You can safely ignore the warning on the Status -> Firewall page about legacy iptables rules created by either package.
-
-The package-specific files that `pbr-iptables` installs are:
-
-- the `/etc/config/pbr` file with the `resolver_set` set to `dnsmasq.ipset`
-- legacy iptables/ipset packages
+- This release has separate code for nft- and iptables-capable versions, the nft version (`pbr` package) no longer supports resolver options with ipset.
+- The WAN interface name is no longer auto-detected. If you use a non-standard name for WAN interface, you can set it in [options](#procd_wan_interface).
+- If you use a non-standard name for LAN interface you can set it in [options](#procd_lan_interface).
 
 ## <a name='Description'></a>Description
 
@@ -487,29 +486,29 @@ The following policies route traffic from a single IP address, a range of IP add
 
 ```text
 config policy
-  option name 'Local IP'
-  option interface 'wan'
-  option src_addr '192.168.1.70'
+	option name 'Local IP'
+	option interface 'wan'
+	option src_addr '192.168.1.70'
 
 config policy
-  option name 'Local Subnet'
-  option interface 'wan'
-  option src_addr '192.168.1.81/29'
+	option name 'Local Subnet'
+	option interface 'wan'
+	option src_addr '192.168.1.81/29'
 
 config policy
-  option name 'Local Machine'
-  option interface 'wan'
-  option src_addr 'dell-ubuntu'
+	option name 'Local Machine'
+	option interface 'wan'
+	option src_addr 'dell-ubuntu'
 
 config policy
-  option name 'Local MAC Address'
-  option interface 'wan'
-  option src_addr '00:0F:EA:91:04:08'
+	option name 'Local MAC Address'
+	option interface 'wan'
+	option src_addr '00:0F:EA:91:04:08'
 
 config policy
-  option name 'Local Devices'
-  option interface 'wan'
-  option src_addr '192.168.1.70 192.168.1.81/29 dell-ubuntu 00:0F:EA:91:04:08'
+	option name 'Local Devices'
+	option interface 'wan'
+	option src_addr '192.168.1.70 192.168.1.81/29 dell-ubuntu 00:0F:EA:91:04:08'
 
 ```
 
@@ -519,9 +518,9 @@ The following policy routes LogMeIn Hamachi zero-setup VPN traffic via WAN.
 
 ```text
 config policy
-  option name 'LogmeIn Hamachi'
-  option interface 'wan'
-  option dest_addr '25.0.0.0/8 hamachi.cc hamachi.com logmein.com'
+	option name 'LogmeIn Hamachi'
+	option interface 'wan'
+	option dest_addr '25.0.0.0/8 hamachi.cc hamachi.com logmein.com'
 ```
 
 #### <a name='SIPPort'></a>SIP Port
@@ -530,10 +529,10 @@ The following policy routes standard SIP port traffic via WAN for both TCP and U
 
 ```text
 config policy
-  option name 'SIP Ports'
-  option interface 'wan'
-  option dest_port '5060'
-  option proto 'tcp udp'
+	option name 'SIP Ports'
+	option interface 'wan'
+	option dest_port '5060'
+	option proto 'tcp udp'
 ```
 
 #### <a name='PlexMediaServer'></a>Plex Media Server
@@ -542,14 +541,14 @@ The following policies route Plex Media Server traffic via WAN. Please note, you
 
 ```text
 config policy
-  option name 'Plex Local Server'
-  option interface 'wan'
-  option src_port '32400'
+	option name 'Plex Local Server'
+	option interface 'wan'
+	option src_port '32400'
 
 config policy
-  option name 'Plex Remote Servers'
-  option interface 'wan'
-  option dest_addr 'plex.tv my.plexapp.com'
+	option name 'Plex Remote Servers'
+	option interface 'wan'
+	option dest_addr 'plex.tv my.plexapp.com'
 ```
 
 #### <a name='EmbyMediaServer'></a>Emby Media Server
@@ -558,14 +557,14 @@ The following policy route Emby traffic via WAN. Please note, you'd still need t
 
 ```text
 config policy
-  option name 'Emby Local Server'
-  option interface 'wan'
-  option src_port '8096 8920'
+	option name 'Emby Local Server'
+	option interface 'wan'
+	option src_port '8096 8920'
 
 config policy
-  option name 'Emby Remote Servers'
-  option interface 'wan'
-  option dest_addr 'emby.media app.emby.media tv.emby.media'
+	option name 'Emby Remote Servers'
+	option interface 'wan'
+	option dest_addr 'emby.media app.emby.media tv.emby.media'
 ```
 
 #### <a name='IgnoreTarget'></a>Ignore Target
@@ -578,13 +577,13 @@ The following policy allows you to skip processing some requests (like traffic t
 
 ```text
 config pbr 'config'
-  ...
-  option webui_show_ignore_target '1'
+	...
+	option webui_show_ignore_target '1'
 
 config policy
-  option name 'Ignore Local Requests by Destination'
-  option interface 'ignore'
-  option dest_addr '192.168.200.0/24'
+	option name 'Ignore Local Requests by Destination'
+	option interface 'ignore'
+	option dest_addr '192.168.200.0/24'
 ```
 
 Please note, you need to enable `Show Ignore Target` option for the WebUI to list`ignore\` in the list of gateways.
@@ -601,8 +600,8 @@ Relevant part of `/etc/config/pbr`:
 
 ```text
 config pbr 'config'
-  list supported_interface 'vpnclient'
-  ...
+	list supported_interface 'vpnclient'
+	...
 ```
 
 The recommended network/firewall settings are below.
@@ -611,29 +610,29 @@ Relevant part of `/etc/config/network` (**DO NOT** modify default OpenWrt networ
 
 ```text
 config interface 'vpnclient'
-  option proto 'none'
-  option device 'ovpnc0'
+	option proto 'none'
+	option device 'ovpnc0'
 ```
 
 Relevant part of `/etc/config/firewall`:
 
 ```text
 config zone
-  option name 'wan'
-  list network 'wan'
-  list network 'vpnclient'
-  ...
+	option name 'wan'
+	list network 'wan'
+	list network 'vpnclient'
+	...
 ```
 
 Relevant part of `/etc/config/openvpn` (configure the rest of the client connection for your specifics by either referring to an existing `.ovpn` file or thru the OpenWrt uci settings):
 
 ```text
 config openvpn 'vpnclient'
-  option enabled '1'
-  option client '1'
-  option dev_type 'tun'
-  option dev 'ovpnc0'
-  ...
+	option enabled '1'
+	option client '1'
+	option dev_type 'tun'
+	option dev 'ovpnc0'
+	...
 ```
 
 #### <a name='MultipleOpenVPNClients'></a>Multiple OpenVPN Clients
@@ -644,36 +643,36 @@ For `/etc/config/network`:
 
 ```text
 config interface 'vpnclient0'
-  option proto 'none'
-  option device 'ovpnc0'
+	option proto 'none'
+	option device 'ovpnc0'
 
 config interface 'vpnclient1'
-  option proto 'none'
-  option device 'ovpnc1'
+	option proto 'none'
+	option device 'ovpnc1'
 ```
 
 For `/etc/config/openvpn`:
 
 ```text
 config openvpn 'vpnclient0'
-  option client '1'
-  option dev_type 'tun'
-  option dev 'ovpnc0'
-  ...
+	option client '1'
+	option dev_type 'tun'
+	option dev 'ovpnc0'
+	...
 
 config openvpn 'vpnclient1'
-  option client '1'
-  option dev_type 'tun'
-  option dev 'ovpnc1'
-  ...
+	option client '1'
+	option dev_type 'tun'
+	option dev 'ovpnc1'
+	...
 ```
 
 For `/etc/config/pbr`:
 
 ```text
 config pbr 'config'
-  list supported_interface 'vpnclient0 vpnclient1'
-  ...
+	list supported_interface 'vpnclient0 vpnclient1'
+	...
 ```
 
 #### <a name='LocalOpenVPNServerOpenVPNClientScenario1'></a>Local OpenVPN Server + OpenVPN Client (Scenario 1)
@@ -684,15 +683,15 @@ Relevant part of `/etc/config/pbr`:
 
 ```text
 config pbr 'config'
-  list ignored_interface 'vpnserver'
-  ...
+	list ignored_interface 'vpnserver'
+	...
 
 config policy
-  option name 'OpenVPN Server'
-  option interface 'wan'
-  option proto 'tcp'
-  option src_port '1194'
-  option chain 'output'
+	option name 'OpenVPN Server'
+	option interface 'wan'
+	option proto 'tcp'
+	option src_port '1194'
+	option chain 'output'
 ```
 
 The network/firewall/openvpn settings are below.
@@ -701,54 +700,54 @@ Relevant part of `/etc/config/network` (**DO NOT** modify default OpenWrt networ
 
 ```text
 config interface 'vpnclient'
-  option proto 'none'
-  option device 'ovpnc0'
+	option proto 'none'
+	option device 'ovpnc0'
 
 config interface 'vpnserver'
-  option proto 'none'
-  option device 'ovpns0'
-  option auto '1'
+	option proto 'none'
+	option device 'ovpns0'
+	option auto '1'
 ```
 
 Relevant part of `/etc/config/firewall`:
 
 ```text
 config zone
-  option name 'lan'
-  list network 'lan'
-  list network 'vpnserver'
-  ...
+	option name 'lan'
+	list network 'lan'
+	list network 'vpnserver'
+	...
 
 config zone
-  option name 'wan'
-  list network 'wan'
-  list network 'vpnclient'
-  ...
+	option name 'wan'
+	list network 'wan'
+	list network 'vpnclient'
+	...
 
 config rule
-  option name 'Allow-OpenVPN-Inbound'
-  option target 'ACCEPT'
-  option src '*'
-  option proto 'tcp'
-  option dest_port '1194'
+	option name 'Allow-OpenVPN-Inbound'
+	option target 'ACCEPT'
+	option src '*'
+	option proto 'tcp'
+	option dest_port '1194'
 ```
 
 Relevant part of `/etc/config/openvpn`:
 
 ```text
 config openvpn 'vpnclient'
-  option client '1'
-  option dev_type 'tun'
-  option dev 'ovpnc0'
-  option proto 'udp'
-  option remote 'some.domain.com 1197' # DO NOT USE PORT 1194 for VPN Client
-  ...
+	option client '1'
+	option dev_type 'tun'
+	option dev 'ovpnc0'
+	option proto 'udp'
+	option remote 'some.domain.com 1197' # DO NOT USE PORT 1194 for VPN Client
+	...
 
 config openvpn 'vpnserver'
-  option port '1194'
-  option proto 'tcp'
-  option server '192.168.200.0 255.255.255.0'
-  ...
+	option port '1194'
+	option proto 'tcp'
+	option server '192.168.200.0 255.255.255.0'
+	...
 ```
 
 #### <a name='LocalOpenVPNServerOpenVPNClientScenario2'></a>Local OpenVPN Server + OpenVPN Client (Scenario 2)
@@ -759,13 +758,13 @@ Relevant part of `/etc/config/pbr`:
 
 ```text
 config pbr 'config'
-  list ignored_interface 'vpnserver'
-  ...
+	list ignored_interface 'vpnserver'
+	...
 config policy
-  option name 'Ignore Local Traffic'
-  option interface 'ignore'
-  option dest_addr '192.168.200.0/24'
-  ...
+	option name 'Ignore Local Traffic'
+	option interface 'ignore'
+	option dest_addr '192.168.200.0/24'
+	...
 ```
 
 The network/firewall/openvpn settings are below.
@@ -774,56 +773,56 @@ Relevant part of `/etc/config/network` (**DO NOT** modify default OpenWrt networ
 
 ```text
 config interface 'vpnclient'
-  option proto 'none'
-  option device 'ovpnc0'
+	option proto 'none'
+	option device 'ovpnc0'
 
 config interface 'vpnserver'
-  option proto 'none'
-  option device 'ovpns0'
-  option auto '1'
+	option proto 'none'
+	option device 'ovpns0'
+	option auto '1'
 ```
 
 Relevant part of `/etc/config/firewall`:
 
 ```text
 config zone
-  option name 'lan'
-  list network 'lan'
-  list network 'vpnserver'
-  ...
+	option name 'lan'
+	list network 'lan'
+	list network 'vpnserver'
+	...
 
 config zone
-  option name 'wan'
-  list network 'wan'
-  list network 'vpnclient'
-  ...
+	option name 'wan'
+	list network 'wan'
+	list network 'vpnclient'
+	...
 
 config rule
-  option name 'Allow-OpenVPN-Inbound'
-  option target 'ACCEPT'
-  option src '*'
-  option proto 'tcp'
-  option dest_port '1194'
+	option name 'Allow-OpenVPN-Inbound'
+	option target 'ACCEPT'
+	option src '*'
+	option proto 'tcp'
+	option dest_port '1194'
 ```
 
 Relevant part of `/etc/config/openvpn`:
 
 ```text
 config openvpn 'vpnclient'
-  option client '1'
-  option dev_type 'tun'
-  option dev 'ovpnc0'
-  option proto 'udp'
-  option remote 'some.domain.com 1197' # DO NOT USE PORT 1194 for VPN Client
-  list pull_filter 'ignore "redirect-gateway"' # for OpenVPN 2.4 and later
-  option route_nopull '1' # for OpenVPN earlier than 2.4
-  ...
+	option client '1'
+	option dev_type 'tun'
+	option dev 'ovpnc0'
+	option proto 'udp'
+	option remote 'some.domain.com 1197' # DO NOT USE PORT 1194 for VPN Client
+	list pull_filter 'ignore "redirect-gateway"' # for OpenVPN 2.4 and later
+	option route_nopull '1' # for OpenVPN earlier than 2.4
+	...
 
 config openvpn 'vpnserver'
-  option port '1194'
-  option proto 'tcp'
-  option server '192.168.200.0 255.255.255.0'
-  ...
+	option port '1194'
+	option proto 'tcp'
+	option server '192.168.200.0 255.255.255.0'
+	...
 ```
 
 #### <a name='LocalWireGuardServerWireGuardClientScenario1'></a>Local WireGuard Server + WireGuard Client (Scenario 1)
@@ -842,13 +841,13 @@ Relevant part of `/etc/config/pbr`:
 
 ```text
 config pbr 'config'
-  list ignored_interface 'wgserver'
-  ...
+	list ignored_interface 'wgserver'
+	...
 config policy
-  option name 'Ignore Local Traffic'
-  option interface 'ignore'
-  option dest_addr '192.168.200.0/24'
-  ...
+	option name 'Ignore Local Traffic'
+	option interface 'ignore'
+	option dest_addr '192.168.200.0/24'
+	...
 ```
 
 The recommended network/firewall settings are below.
@@ -857,48 +856,48 @@ Relevant part of `/etc/config/network` (**DO NOT** modify default OpenWrt networ
 
 ```text
 config interface 'wgclient'
-  option proto 'wireguard'
-  ...
+	option proto 'wireguard'
+	...
 
 config wireguard_wgclient
-  list allowed_ips '0.0.0.0/0'
-  list allowed_ips '::0/0'
-  option endpoint_port '51820'
-  ...
+	list allowed_ips '0.0.0.0/0'
+	list allowed_ips '::0/0'
+	option endpoint_port '51820'
+	...
 
 config interface 'wgserver'
-  option proto 'wireguard'
-  option listen_port '61820'
-  list addresses '192.168.200.1/24'
-  ...
+	option proto 'wireguard'
+	option listen_port '61820'
+	list addresses '192.168.200.1/24'
+	...
 
 config wireguard_wgserver
-  list allowed_ips '192.168.200.2/32'
-  option route_allowed_ips '1'
-  ...
+	list allowed_ips '192.168.200.2/32'
+	option route_allowed_ips '1'
+	...
 ```
 
 Relevant part of `/etc/config/firewall`:
 
 ```text
 config zone
-  option name 'lan'
-  list network 'lan'
-  list network 'wgserver'
-  ...
+	option name 'lan'
+	list network 'lan'
+	list network 'wgserver'
+	...
 
 config zone
-  option name 'wan'
-  list network 'wan'
-  list network 'wgclient'
-  ...
+	option name 'wan'
+	list network 'wan'
+	list network 'wgclient'
+	...
 
 config rule
-  option name 'Allow-WG-Inbound'
-  option target 'ACCEPT'
-  option src '*'
-  option proto 'udp'
-  option dest_port '61820'
+	option name 'Allow-WG-Inbound'
+	option target 'ACCEPT'
+	option src '*'
+	option proto 'udp'
+	option dest_port '61820'
 ```
 
 #### <a name='LocalWireGuardServerAnotherVPNClientScenario1'></a>Local WireGuard Server + Another VPN Client (Scenario 1)
@@ -917,13 +916,13 @@ Relevant part of `/etc/config/pbr`:
 
 ```text
 config pbr 'config'
-  list ignored_interface 'wgserver'
-  ...
+	list ignored_interface 'wgserver'
+	...
 config policy
-  option name 'Ignore Local Traffic'
-  option interface 'ignore'
-  option dest_addr '192.168.200.0/24'
-  ...
+	option name 'Ignore Local Traffic'
+	option interface 'ignore'
+	option dest_addr '192.168.200.0/24'
+	...
 ```
 
 #### <a name='NetflixDomains'></a>Netflix Domains
@@ -932,25 +931,25 @@ The following policy should route US Netflix traffic via WAN. For capturing inte
 
 ```text
 config policy
-  option name 'Netflix Domains'
-  option interface 'wan'
-  option dest_addr 'amazonaws.com netflix.com nflxext.com nflximg.net nflxso.net nflxvideo.net dvd.netflix.com'
+	option name 'Netflix Domains'
+	option interface 'wan'
+	option dest_addr 'amazonaws.com netflix.com nflxext.com nflximg.net nflxso.net nflxvideo.net dvd.netflix.com'
 ```
 
 #### <a name='ExampleCustomUserFilesIncludes'></a>Example Custom User Files Includes
 
 ```text
 config include
-  option path '/etc/pbr/pbr.user.aws'
-  option enabled '0'
+	option path '/etc/pbr/pbr.user.aws'
+	option enabled '0'
 
 config include
-  option path '/etc/pbr/pbr.user.netflix'
-  option enabled '0'
+	option path '/etc/pbr/pbr.user.netflix'
+	option enabled '0'
 
 config include
-  option path '/etc/pbr/pbr.user.wg_server_and_client'
-  option enabled '0'
+	option path '/etc/pbr/pbr.user.wg_server_and_client'
+	option enabled '0'
 ```
 
 ## <a name='FootnotesKnownIssues'></a>Footnotes/Known Issues
@@ -1107,21 +1106,21 @@ In the rare case that you need to manually migrate it can be accomplished by run
 
 ```sh
 if [ -x /etc/init.d/vpn-policy-routing ]; then
-  /etc/init.d/vpn-policy-routing stop
-  /etc/init.d/vpn-policy-routing disable
+	/etc/init.d/vpn-policy-routing stop
+	/etc/init.d/vpn-policy-routing disable
 fi
 if [ -s /etc/config/vpn-policy-routing ]; then
-  sed 's/vpn-policy-routing/pbr/g' /etc/config/vpn-policy-routing > /etc/config/pbr
-  sed -i 's/resolver_ipset/resolver_set/g' /etc/config/pbr
-  sed -i 's/iptables_rule_option/rule_create_option/g' /etc/config/pbr
-  sed -i "s/'FORWARD'/'forward'/g" /etc/config/pbr
-  sed -i "s/'INPUT'/'input'/g" /etc/config/pbr
-  sed -i "s/'OUTPUT'/'output'/g" /etc/config/pbr
-  sed -i "s/'PREROUTING'/'prerouting'/g" /etc/config/pbr
-  sed -i "s/'POSTROUTING'/'postrouting'/g" /etc/config/pbr
-  sed -i "s/option fw_mask '0x(._)'/option fw_mask '\\1'/g" /etc/config/pbr
-  sed -i "s/option wan_mark '0x(._)'/option wan_mark '\\1'/g" /etc/config/pbr
-  uci set vpn-policy-routing.config.enabled=0; uci commit;
+	sed 's/vpn-policy-routing/pbr/g' /etc/config/vpn-policy-routing > /etc/config/pbr
+	sed -i 's/resolver_ipset/resolver_set/g' /etc/config/pbr
+	sed -i 's/iptables_rule_option/rule_create_option/g' /etc/config/pbr
+	sed -i "s/'FORWARD'/'forward'/g" /etc/config/pbr
+	sed -i "s/'INPUT'/'input'/g" /etc/config/pbr
+	sed -i "s/'OUTPUT'/'output'/g" /etc/config/pbr
+	sed -i "s/'PREROUTING'/'prerouting'/g" /etc/config/pbr
+	sed -i "s/'POSTROUTING'/'postrouting'/g" /etc/config/pbr
+	sed -i "s/option fw_mask '0x(._)'/option fw_mask '\\1'/g" /etc/config/pbr
+	sed -i "s/option wan_mark '0x(._)'/option wan_mark '\\1'/g" /etc/config/pbr
+	uci set vpn-policy-routing.config.enabled=0; uci commit;
 fi
 ```
 
