@@ -1,3 +1,4 @@
+<!-- markdownlint-disable MD010 -->
 <!-- markdownlint-disable MD013 -->
 <!-- markdownlint-disable MD030 -->
 <!-- markdownlint-disable MD033 -->
@@ -47,7 +48,6 @@
     - [Custom User Files Include Options](#CustomUserFilesIncludeOptions)
   - [Example Policies](#ExamplePolicies)
     - [Single IP, IP Range, Local Machine, Local MAC Address](#SingleIPIPRangeLocalMachineLocalMACAddress)
-    - [Logmein Hamachi](#LogmeinHamachi)
     - [SIP Port](#SIPPort)
     - [Plex Media Server](#PlexMediaServer)
     - [Emby Media Server](#EmbyMediaServer)
@@ -99,10 +99,11 @@
 - This release has separate code for nft- and iptables-capable versions, the nft version (`pbr` package) no longer supports resolver options with ipset.
 - The WAN interface name is no longer auto-detected. If you use a non-standard name for WAN interface, you can set it in [options](#procd_wan_interface).
 - If you use a non-standard name for LAN interface you can set it in [options](#procd_lan_interface).
+- A new feature of [DNS Policies](ProcessingDNSPolicies) was added to help ensure name resolution is sent to a specific resolver when needed.
 
 ## <a name='Description'></a>Description
 
-This service allows you to define rules (policies) for routing traffic via WAN or your L2TP, OpenConnect, OpenVPN, PPTP, Softether or WireGuard tunnels. Policies can be set based on any combination of local/remote ports, local/remote IPv4 or IPv6 addresses/subnets or domains. This service supersedes and obsoletes the `VPN Bypass` ([README at GitHub](https://docs.openwrt.melmac.net/vpnbypass/)/[README at jsDelivr](https://cdn.jsdelivr.net/gh/stangri/docs.openwrt.melmac.net/vpnbypass/README.md)) and `VPN Policy Routing` ([README at GitHub](https://docs.openwrt.melmac.net/vpn-policy-routing/)/[README at jsDelivr](https://cdn.jsdelivr.net/gh/stangri/docs.openwrt.melmac.net/vpn-policy-routing/README.md)) services. For information on transition from `vpn-policy-routing` package please read about [differences](#AWordAboutDifferencesfromvpn-policy-routing) and [migration](#AWordAboutMigratingfromvpn-policy-routing).
+This service allows you to define rules (policies) for routing traffic via WAN or your L2TP, OpenConnect, OpenVPN, PPTP, Softether or WireGuard tunnels. Policies can be set based on any combination of local/remote ports, local/remote IPv4 or IPv6 addresses/subnets or domains. This service supersedes and obsoletes the `VPN Bypass` ([README at GitHub](https://docs.openwrt.melmac.net/vpnbypass/)/[README at jsDelivr](https://cdn.jsdelivr.net/gh/stangri/docs.openwrt.melmac.net/vpnbypass/README.md)) and `VPN Policy Routing` ([README at GitHub](https://docs.openwrt.melmac.net/vpn-policy-routing/)/[README at jsDelivr](https://cdn.jsdelivr.net/gh/stangri/docs.openwrt.melmac.net/vpn-policy-routing/README.md)) services.
 
 ## <a name='Features'></a>Features
 
@@ -414,17 +415,6 @@ config policy
 	option interface 'wan'
 	option src_addr '192.168.1.70 192.168.1.81/29 dell-ubuntu 00:0F:EA:91:04:08'
 
-```
-
-#### <a name='LogmeinHamachi'></a>Logmein Hamachi
-
-The following policy routes LogMeIn Hamachi zero-setup VPN traffic via WAN.
-
-```text
-config policy
-	option name 'LogmeIn Hamachi'
-	option interface 'wan'
-	option dest_addr '25.0.0.0/8 hamachi.cc hamachi.com logmein.com'
 ```
 
 #### <a name='SIPPort'></a>SIP Port

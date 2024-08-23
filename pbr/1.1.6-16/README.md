@@ -1,3 +1,4 @@
+<!-- markdownlint-disable MD010 -->
 <!-- markdownlint-disable MD013 -->
 <!-- markdownlint-disable MD030 -->
 <!-- markdownlint-disable MD033 -->
@@ -57,7 +58,6 @@
     - [Custom User Files Include Options](#CustomUserFilesIncludeOptions)
   - [Example Policies](#ExamplePolicies)
     - [Single IP, IP Range, Local Machine, Local MAC Address](#SingleIPIPRangeLocalMachineLocalMACAddress)
-    - [Logmein Hamachi](#LogmeinHamachi)
     - [SIP Port](#SIPPort)
     - [Plex Media Server](#PlexMediaServer)
     - [Emby Media Server](#EmbyMediaServer)
@@ -507,17 +507,6 @@ config policy
   option interface 'wan'
   option src_addr '192.168.1.70 192.168.1.81/29 dell-ubuntu 00:0F:EA:91:04:08'
 
-```
-
-#### <a name='LogmeinHamachi'></a>Logmein Hamachi
-
-The following policy routes LogMeIn Hamachi zero-setup VPN traffic via WAN.
-
-```text
-config policy
-  option name 'LogmeIn Hamachi'
-  option interface 'wan'
-  option dest_addr '25.0.0.0/8 hamachi.cc hamachi.com logmein.com'
 ```
 
 #### <a name='SIPPort'></a>SIP Port
