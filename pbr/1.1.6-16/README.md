@@ -6,7 +6,8 @@
 
 <!-- vscode-markdown-toc -->
 
-- [The `pbr` version `1.1.6` announcement](#Thepbrversion1.1.6announcement)
+- [Notable version changes](#Notableversionchanges)
+  - [Version 1.1.6](#Version1.1.6)
 - [OpenWrt 23.05 release and this package](#OpenWrt23.05releaseandthispackage)
 - [OpenWrt 22.03 release and this package](#OpenWrt22.03releaseandthispackage)
 - [Description](#Description)
@@ -98,31 +99,26 @@
 	/vscode-markdown-toc-config -->
 <!-- /vscode-markdown-toc -->
 
-## <a name='Thepbrversion1.1.6announcement'></a>The `pbr` version `1.1.6` announcement
+## <a name='Notableversionchanges'></a>Notable version changes
 
-The `pbr` version `1.1.6` is the last `pbr` version supporting the iptables variant. Going forward (from versions newer than `1.1.6`) there will be no `pbr-iptables` package available and the `pbr` package will only support firewall4/nft.
+### <a name='Version1.1.6'></a>Version 1.1.6
 
-If you're using the newest `pbr-iptables` builds from my repository, you may want to save a local copy of both `pbr-iptables` and `luci-app-pbr` version `1.1.6` IPK files.
+- This release has separate code for nft- and iptables-capable versions, the nft version (`pbr` package) no longer supports resolver options with ipset.
+- The WAN interface name is no longer auto-detected. If you use a non-standard name for WAN interface, you can set it in [options](#procd_wan_interface).
+- If you use a non-standard name for LAN interface you can set it in [options](#procd_lan_interface).
+- A new feature of [DNS Policies](ProcessingDNSPolicies) was added to help ensure name resolution is sent to a specific resolver when needed.
 
 ## <a name='OpenWrt23.05releaseandthispackage'></a>OpenWrt 23.05 release and this package
 
-The OpenWrt 23.05 release finally includes `dnsmasq-full` package which supports nft sets, so if you want to use domain-based policies, you would need to [use dnsmasq nftsets support](#UseDNSMASQnftsetsSupport), so [install dnsmasq-full](#Howtoinstalldnsmasq-full) package and make sure to set the `resolver_set` option to `dnsmasq.nftset`.
+The OpenWrt 23.05 release includes `dnsmasq-full` package which supports nft sets, so if you want to use domain-based policies with `dnsmasq`, you would need to install the `pbr` package, [use dnsmasq nftsets support](#UseDNSMASQnftsetsSupport), so [install dnsmasq-full](#Howtoinstalldnsmasq-full) package and make sure to set the `resolver_set` option to `dnsmasq.nftset`.
 
-The package-specific files that `pbr` installs are:
-
-- the `/etc/config/pbr` file with the `resolver_set` set to `dnsmasq.nftset`
-- the `fw4`-specific `nft` scripts (installed into `/usr/share/nftables.d/`) to set up default service chains as part of the fw4 start/restart/reload processes
+If you want to use the domain-based policies with ipset-supporting resolvers, make sure to install the `pbr-iptables` package instead of `pbr`, as a normal `pbr` package no longer supports ipset-based resolvers in this release.
 
 ## <a name='OpenWrt22.03releaseandthispackage'></a>OpenWrt 22.03 release and this package
 
 The OpenWrt 22.03 was somewhat a transitional release, as it used nft (instead of iptables) and firewall4 (instead of firewall3), however the `dnsmasq-full` package included in OpenWrt 22.03 repository only supported ipsets (and not nft sets).
 
-If you want to use the domain-based policies on OpenWrt 22.03, you would need to use [use dnsmasq ipset support](#UseDNSMASQipsetSupport), so [install dnsmasq-full](#Howtoinstalldnsmasq-full), also [install legacy iptables/ipset packages](#Howtoinstalllegacyiptablesipsetpackages) and make sure to set the `resolver_set` option to `dnsmasq.ipset` to force `iptables`/`ipset` mode. You can safely ignore the warning on the Status -> Firewall page about legacy iptables rules created by either package.
-
-The package-specific files that `pbr-iptables` installs are:
-
-- the `/etc/config/pbr` file with the `resolver_set` set to `dnsmasq.ipset`
-- legacy iptables/ipset packages
+If you want to use the domain-based policies on OpenWrt 22.03, you would need to use [use dnsmasq ipset support](#UseDNSMASQipsetSupport), so make sure to install the `pbr-iptables` package instead of `pbr`, [install dnsmasq-full](#Howtoinstalldnsmasq-full), also [install legacy iptables/ipset packages](#Howtoinstalllegacyiptablesipsetpackages) and make sure to set the `resolver_set` option to `dnsmasq.ipset` to force `iptables`/`ipset` mode. You can safely ignore the warning on the Status -> Firewall page about legacy iptables rules created by either package.
 
 ## <a name='Description'></a>Description
 
@@ -1043,7 +1039,7 @@ Some browsers, like [Mozilla Firefox](https://support.mozilla.org/en-US/kb/firef
 
 1.  Disable the DNS-over-HTTPS support in your browser and use the OpenWrt's `net/https-dns-proxy` (README on [GitHub](https://docs.openwrt.melmac.net/https-dns-proxy)/[jsDelivr](https://cdn.jsdelivr.net/gh/stangri/docs.openwrt.melmac.net/https-dns-proxy/)) package with optional `https-dns-proxy` WebUI/luci app. You can then continue to use either `dnsmasq.ipset` or `dnsmasq.nftset` setting for the `resolver_set` in Policy-Based Routing.
 
-2.  Continue using DNS-over-HTTPS in your browser (which, by the way, also limits your options for router-level AdBlocking as described in `net/simple-adblock` README on [GitHub](https://docs.openwrt.melmac.net/simple-adblock/#dns-resolution-option)/[jsDelivr](https://cdn.jsdelivr.net/gh/stangri/docs.openwrt.melmac.net/simple-adblock/README.md#dns-resolution-option)), you than would either have to switch the `resolver_set` to `none`. Please note, you will lose all the benefits of [`dnsmasq.ipset`](#UseDNSMASQipsetSupport) option.
+2.  Continue using DNS-over-HTTPS in your browser (which, by the way, also limits your options for router-level AdBlocking as described in `net/adblock-fast` README on [GitHub](https://docs.openwrt.melmac.net/adblock-fast/#dns-resolution-option)/[jsDelivr](https://cdn.jsdelivr.net/gh/stangri/docs.openwrt.melmac.net/adblock-fast/README.md#dns-resolution-option)), you than would either have to switch the `resolver_set` to `none`. Please note, you will lose all the benefits of [`dnsmasq.ipset`](#UseDNSMASQipsetSupport) option.
 
 ### <a name='AWordAboutHTTP3QUIC'></a>A Word About HTTP/3 (QUIC)
 
