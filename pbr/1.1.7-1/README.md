@@ -17,6 +17,8 @@
   - [Domain-Based Policies](#Domain-BasedPolicies)
   - [Physical Device Policies](#PhysicalDevicePolicies)
   - [DSCP Tag-Based Policies](#DSCPTag-BasedPolicies)
+  - [DNS Policies](#DNSPolicies)
+  - [FW4 Nft File Mode](#FW4NftFileMode)
   - [Custom User Files](#CustomUserFiles)
   - [Strict Enforcement](#StrictEnforcement)
   - [Use Resolver's Set Support](#UseResolversSetSupport)
@@ -92,6 +94,7 @@
 ### <a name='Version1.1.7'></a>Version 1.1.7
 
 - This release completely drops the iptables/ipset (and resolvers using ipset) support.
+- This release uses the [fw4 nft file mode](#FW4NftFileMode) by default.
 - The Wireguard Server & Client user script integrated into the `pbr` service, if Wireguard servers are discovered, their routing is automatically configured to go over WAN.
 
 ### <a name='Version1.1.6'></a>Version 1.1.6
@@ -99,7 +102,7 @@
 - This release has separate code for nft- and iptables-capable versions, the nft version (`pbr` package) no longer supports resolver options with ipset.
 - The WAN interface name is no longer auto-detected. If you use a non-standard name for WAN interface, you can set it in [options](#procd_wan_interface).
 - If you use a non-standard name for LAN interface you can set it in [options](#procd_lan_interface).
-- A new feature of [DNS Policies](ProcessingDNSPolicies) was added to help ensure name resolution is sent to a specific resolver when needed.
+- A new feature of [DNS Policies](#DNSPolicies) (also see [Processing DNS Policies](#ProcessingDNSPolicies)) was added to help ensure name resolution is sent to a specific resolver when needed.
 
 ## <a name='Description'></a>Description
 
@@ -116,7 +119,7 @@ This service allows you to define rules (policies) for routing traffic via WAN o
 - PPTP tunnels supported (with protocol names pptp\*).
 - Tailscale tunnels supported (with device name tailscale\*).
 - Tor tunnels supported in nft mode only (interface name must match tor).
-- WireGuard tunnels supported (with protocol names wireguard\*).
+- Wireguard tunnels supported (with protocol names wireguard\*).
 
 ### <a name='IPv4IPv6Port-BasedPolicies'></a>IPv4/IPv6/Port-Based Policies
 
@@ -138,6 +141,14 @@ This service allows you to define rules (policies) for routing traffic via WAN o
 ### <a name='DSCPTag-BasedPolicies'></a>DSCP Tag-Based Policies
 
 You can also set policies for traffic with a specific DSCP tag. On Windows 10, for example, you can mark traffic from specific apps with DSCP tags (instructions for tagging specific app traffic in Windows 10 can be found [here](http://serverfault.com/questions/769843/cannot-set-dscp-on-windows-10-pro-via-group-policy)).
+
+### <a name='DNSPolicies'></a>DNS Policies
+
+Use of dns policies allows to route dns requests from local devices/IP addresses or MAC addresses thru a specific DNS server. Can either pick first DNS server from a specified interface or use a specific DNS server indicated by its IP address.
+
+### <a name='FW4NftFileMode'></a>FW4 Nft File Mode
+
+This mode wich is the only operating mode in version 1.1.7 and up allows creation of the atomic nft file (temporary file located at `/var/run/pbr.nft` and if it contains no errors, the permanent file is installed at `/usr/share/nftables.d/ruleset-post/30-pbr.nft`), containing all the nft commands that `pbr` service needs to set up all the policies, dns policies and process custom user files. This file is then just reloaded on any OpenWrt firewall (`fw4`) reload, without the need to execute the `pbr` init script.
 
 ### <a name='CustomUserFiles'></a>Custom User Files
 
@@ -323,14 +334,14 @@ As per screenshots above, in the Web UI the `pbr` configuration is split into `B
 | Hidden              | <a name="wan_ip_rules_priority"></a>wan_ip_rules_priority       | integer     | 30000          | Starting (WAN) ip rules priority used by the `pbr` service. High starting priority is used to avoid conflict with other services, this can be changed by user.                                                                                                                                                                                                                                                                                   |
 | Advanced            | <a name="wan_mark"></a>wan_mark                                 | hexadecimal | 010000         | Starting (WAN) fw mark for marks used by the `pbr` service. High starting mark is used to avoid conflict with SQM/QoS, this can be changed by user. Change with caution together with `fw_mask`.                                                                                                                                                                                                                                                 |
 | Advanced            | <a name="fw_mask"></a>fw_mask                                   | hexadecimal | ff0000         | FW Mask used by the `pbr` service. High mask is used to avoid conflict with SQM/QoS, this can be changed by user. Change with caution together with `wan_mark`.                                                                                                                                                                                                                                                                                  |
-| Hidden/Experimental | <a name="secure_reload"></a>secure_reload                       | boolean     | 0              | When enabled, kills router traffic (activates killswitch) during service start/restart/reload operations to prevent traffic leaks on unwanted interface.                                                                                                                                                                                                                                                                                         |
+| Hidden/Experimental | <a name="secure_reload"></a>secure_reload                       | boolean     | 0              | Deprecated in 1.1.7 due to implementation of atomic nft file (fw4 nft file) mode.                                                                                                                                                                                                                                                                                                                                                                |
 | Web UI              | <a name="webui_show_ignore_target"></a>webui_show_ignore_target | boolean     | 0              | When enabled, show `ignore` in the list of interfaces.                                                                                                                                                                                                                                                                                                                                                                                           |
 | Web UI              | <a name="webui_supported_protocol"></a>webui_supported_protocol | list        | 0              | List of protocols to display in the `Protocol` column for policies.                                                                                                                                                                                                                                                                                                                                                                              |
 |                     | <a name="wan_dscp"></a>wan_dscp                                 | integer     |                | Allows use of [DSCP-tag based policies](#DSCPTag-BasedPolicies) for WAN interface.                                                                                                                                                                                                                                                                                                                                                               |
 |                     | <a name="interface_name_dscp"></a>{interface_name}\_dscp        | integer     |                | Allows use of [DSCP-tag based policies](#DSCPTag-BasedPolicies) for a VPN interface.                                                                                                                                                                                                                                                                                                                                                             |
 | Hidden              | <a name="procd_boot_delay"></a>procd_boot_delay                 | integer     | 0              | Time (in seconds) to sleep on boot before trying to start `pbr` service.                                                                                                                                                                                                                                                                                                                                                                         |
 | Hidden              | <a name="procd_reload_delay"></a>procd_reload_delay             | integer     | 0              | Time (in seconds) for PROCD_RELOAD_DELAY parameter.                                                                                                                                                                                                                                                                                                                                                                                              |
-| Hidden              | <a name="procd_lan_interface"></a>procd_lan_interface           |             |                | Override `lan` interface name with this interface.                                                                                                                                                                                                                                                                                                                                                                                               |
+| Hidden              | <a name="procd_lan_interface"></a>procd_lan_interface           |             |                | Deprecated in 1.1.7 due to removal of traffic killswitch functionality while reloading/restarting service in favour of fw4 nft file mode.                                                                                                                                                                                                                                                                                                        |
 | Hidden              | <a name="procd_wan_ignore_status"></a>procd_wan_ignore_status   | boolean     |                | Ignore `wan` interface status (do not wait for the interface to be up) when starting up.                                                                                                                                                                                                                                                                                                                                                         |
 | Hidden              | <a name="procd_wan_interface"></a>procd_wan_interface           |             |                | Override `wan` interface name with this interface. Newer versions do not attempt to auto-detect WAN interface name and setting this from CLI may be required.                                                                                                                                                                                                                                                                                    |
 | Hidden              | <a name="procd_wan6_interface"></a>procd_wan6_interface         |             |                | Override `wan6` interface name with this interface.                                                                                                                                                                                                                                                                                                                                                                                              |
