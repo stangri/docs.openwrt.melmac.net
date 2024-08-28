@@ -18,7 +18,7 @@
   - [Physical Device Policies](#PhysicalDevicePolicies)
   - [DSCP Tag-Based Policies](#DSCPTag-BasedPolicies)
   - [DNS Policies](#DNSPolicies)
-  - [FW4 Nft File Mode](#FW4NftFileMode)
+  - [Fw4 Nft File Mode](#Fw4NftFileMode)
   - [Custom User Files](#CustomUserFiles)
   - [Strict Enforcement](#StrictEnforcement)
   - [Use Resolver's Set Support](#UseResolversSetSupport)
@@ -94,7 +94,7 @@
 ### <a name='Version1.1.7'></a>Version 1.1.7
 
 - This release completely drops the iptables/ipset (and resolvers using ipset) support.
-- This release uses the [fw4 nft file mode](#FW4NftFileMode) by default.
+- This release uses the [fw4 nft file mode](#Fw4NftFileMode) by default.
 - The Wireguard Server & Client user script integrated into the `pbr` service, if Wireguard servers are discovered, their routing is automatically configured to go over WAN.
 
 ### <a name='Version1.1.6'></a>Version 1.1.6
@@ -146,9 +146,9 @@ You can also set policies for traffic with a specific DSCP tag. On Windows 10, f
 
 Use of dns policies allows to route dns requests from local devices/IP addresses or MAC addresses thru a specific DNS server. Can either pick first DNS server from a specified interface or use a specific DNS server indicated by its IP address.
 
-### <a name='FW4NftFileMode'></a>FW4 Nft File Mode
+### <a name='Fw4NftFileMode'></a>Fw4 Nft File Mode
 
-This mode wich is the only operating mode in version 1.1.7 and up allows creation of the atomic nft file (temporary file located at `/var/run/pbr.nft` and if it contains no errors, the permanent file is installed at `/usr/share/nftables.d/ruleset-post/30-pbr.nft`), containing all the nft commands that `pbr` service needs to set up all the policies, dns policies and process custom user files. This file is then just reloaded on any OpenWrt firewall (`fw4`) reload, without the need to execute the `pbr` init script.
+This mode which is the only operating mode in version 1.1.7 and up allows creation of the atomic nft file (temporary file located at `/var/run/pbr.nft` and if it contains no errors, the permanent file is installed at `/usr/share/nftables.d/ruleset-post/30-pbr.nft`), containing all the nft commands that `pbr` service needs to set up all the policies, dns policies and process custom user files. This file is then just reloaded on any OpenWrt firewall (`fw4`) reload, without the need to execute the `pbr` init script.
 
 ### <a name='CustomUserFiles'></a>Custom User Files
 
