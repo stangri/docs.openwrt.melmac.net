@@ -1,14 +1,44 @@
 <!-- markdownlint-disable MD013 -->
-
 <!-- markdownlint-disable MD033 -->
 
 # DNS Over HTTPS Proxy (https-dns-proxy)
 
-## Description
+<!-- vscode-markdown-toc -->
+
+- [Description](#Description)
+- [Features](#Features)
+- [Screenshots (luci-app-https-dns-proxy)](#Screenshotsluci-app-https-dns-proxy)
+- [Requirements](#Requirements)
+  - [HTTP/2 Support](#HTTP2Support)
+  - [HTTP/3 (QUIC) Support](#HTTP3QUICSupport)
+- [Unmet Dependencies](#UnmetDependencies)
+- [How To Install](#HowToInstall)
+- [Default Settings](#DefaultSettings)
+- [Configuration Settings](#ConfigurationSettings)
+  - [General Settings](#GeneralSettings)
+    - [canary_domains_icloud](#canary_domains_icloud)
+    - [canary_domains_mozilla](#canary_domains_mozilla)
+    - [dnsmasq_config_update](#dnsmasq_config_update)
+    - [force_dns](#force_dns)
+    - [procd_fw_src_interfaces](#procd_fw_src_interfaces)
+    - [procd_trigger_wan6](#procd_trigger_wan6)
+  - [Instance Settings](#InstanceSettings)
+- [Using https-dns-proxy for ad-blocking](#Usinghttps-dns-proxyforad-blocking)
+- [Donate](#Donate)
+- [Getting Help](#GettingHelp)
+- [Thanks](#Thanks)
+
+<!-- vscode-markdown-toc-config
+	numbering=false
+	autoSave=true
+	/vscode-markdown-toc-config -->
+<!-- /vscode-markdown-toc -->
+
+## <a name='Description'></a>Description
 
 A lean RFC8484-compatible (no JSON API support) DNS-over-HTTPS (DoH) proxy service which supports DoH servers. The accmponying WebUI (`luci-app-https-dns-proxy`) supports [more than 40 public resolvers](https://github.com/stangri/source.openwrt.melmac.net/tree/master/luci-app-https-dns-proxy/root/usr/share/https-dns-proxy/providers). Based on [@aarond10](https://github.com/aarond10)'s [https-dns-proxy](https://github.com/aarond10/https_dns_proxy).
 
-## Features
+## <a name='Features'></a>Features
 
 - [RFC8484](https://tools.ietf.org/html/rfc8484)-compatible DoH Proxy.
 - Compact size (about 40Kb installed).
@@ -16,7 +46,7 @@ A lean RFC8484-compatible (no JSON API support) DNS-over-HTTPS (DoH) proxy servi
 - (By default) automatically adds records for canary domains[<sup>1</sup>](https://support.mozilla.org/en-US/kb/canary-domain-use-application-dnsnet)<sup>,</sup>[<sup>2</sup>](https://developer.apple.com/support/prepare-your-network-for-icloud-private-relay) upon start and removes them upon service stop.
 - Web UI (`luci-app-https-dns-proxy`) available. [More than 40 public resolvers](https://github.com/stangri/source.openwrt.melmac.net/tree/master/luci-app-https-dns-proxy/root/usr/share/https-dns-proxy/providers) are supported within the WebUI for easy configuration.
 
-## Screenshots (luci-app-https-dns-proxy)
+## <a name='Screenshotsluci-app-https-dns-proxy'></a>Screenshots (luci-app-https-dns-proxy)
 
 Service Status
 
@@ -30,23 +60,23 @@ Service Instances
 
 ![screenshot](https://docs.openwrt.melmac.net/https-dns-proxy/screenshots/screenshot02-instances.png "Service Instances")
 
-## Requirements
+## <a name='Requirements'></a>Requirements
 
 This proxy requires the following packages to be installed on your router: `libc`, `libcares`, `libcurl`, `libev`, `ca-bundle`. They will be automatically installed when you're installing `https-dns-proxy`.
 
-### HTTP/2 Support
+### <a name='HTTP2Support'></a>HTTP/2 Support
 
 Some resolvers may require `HTTP/2`. By default, `HTTP/2` is supported by `curl` in OpenWrt 22.03 and later, if you run an older version of OpenWrt I'd recommend you upgrade to a most recent released version and make sure the following packages are installed: `curl`, `libcurl4`, `libnghttp2`.
 
-### HTTP/3 (QUIC) Support
+### <a name='HTTP3QUICSupport'></a>HTTP/3 (QUIC) Support
 
 As of OpenWrt version 23.05.2, the OpenWrt installation/repositories do not contain packages required for HTTP/3 support. However the `luci-app-https-dns-proxy` has facilities for marking some pre-configured providers as `HTTP/3` only and can detect the `HTTP/3` support on the OpenWrt device. You can compile `curl` with `HTTP/3` support using the out-of-tree fork of `OpenSSL`, additional information is available in [curl README](https://docs.openwrt.melmac.net/curl/).
 
-## Unmet Dependencies
+## <a name='UnmetDependencies'></a>Unmet Dependencies
 
 If you are running a development (trunk/snapshot) build of OpenWrt on your router and your build is outdated (meaning that packages of the same revision/commit hash are no longer available and when you try to satisfy the [requirements](#requirements) you get errors), please flash either current OpenWrt release image or current development/snapshot image.
 
-## How To Install
+## <a name='HowToInstall'></a>How To Install
 
 Install `https-dns-proxy` and `luci-app-https-dns-proxy` packages from Web UI or run the following in the command line:
 
@@ -54,13 +84,13 @@ Install `https-dns-proxy` and `luci-app-https-dns-proxy` packages from Web UI or
 opkg update; opkg install https-dns-proxy luci-app-https-dns-proxy;
 ```
 
-## Default Settings
+## <a name='DefaultSettings'></a>Default Settings
 
 Default configuration has service enabled and starts the service with Google and Cloudflare DoH servers. In most configurations, you will keep the default `dnsmasq` service installed to handle requests from devices in your local network and point `dnsmasq` to use `https-dns-proxy` for name resolution.
 
 By default, the service will intelligently override existing `dnsmasq` servers settings on start to use the DoH servers and restores original `dnsmasq` servers on stop. See the [Configuration Settings](#configuration-settings) section below for more information and how to disable this behavior.
 
-## Configuration Settings
+## <a name='ConfigurationSettings'></a>Configuration Settings
 
 Configuration contains the general (named) "main" config section where you can configure which `dnsmasq` settings the service will automatically affect and the typed (unnamed) https-dns-proxy instance settings. The original config file is included below:
 
@@ -90,17 +120,17 @@ config https-dns-proxy
   option group 'nogroup'
 ```
 
-### General Settings
+### <a name='GeneralSettings'></a>General Settings
 
-#### canary_domains_icloud
+#### <a name='canary_domains_icloud'></a>canary_domains_icloud
 
 This setting enables router to block requests to iCloud Private Relay canary domains, indicating that the local device should use the router's dns resolution (encrypted with `https-dns-proxy`) instead of the encrypted/proprietary iCloud Private Relay resolvers. This is set to `1` (enabled) by default. Shown in WebUI and processed only if `force_dns` is also set to 1.
 
-#### canary_domains_mozilla
+#### <a name='canary_domains_mozilla'></a>canary_domains_mozilla
 
 This setting enables router to block requests to Mozilla canary domains, indicating that the local device should use the router's dns resolution (encrypted with `https-dns-proxy`) instead of the encrypted Mozilla resolvers. This is set to `1` (enabled) by default. Shown in WebUI and processed only if `force_dns` is also set to 1.
 
-#### dnsmasq_config_update
+#### <a name='dnsmasq_config_update'></a>dnsmasq_config_update
 
 The `dnsmasq_config_update` option can be set to dash (set to `'-'` to not change `dnsmasq` server settings on start/stop), can be set to `'*'` to affect all `dnsmasq` instance server settings or have a space-separated list of `dnsmasq` instances or named sections to affect (like `'0 4 5'` or `'0 backup_dns 5'`). If this option is omitted, the default setting is `'*'`. When the service is set to update the `dnsmasq` servers setting on start/stop, it does not override entries which contain either `#` or `/`, so the entries like listed below will be kept in use:
 
@@ -113,19 +143,19 @@ The `dnsmasq_config_update` option can be set to dash (set to `'-'` to not chang
   list server '127.0.0.1#65353'
 ```
 
-#### force_dns
+#### <a name='force_dns'></a>force_dns
 
 The `force_dns` setting is used to force the router's default resolver to all connected devices even if they are set to use other DNS resolvers or if other DNS resolvers are hardcoded in connected devices' settings. You can additionally control which ports the `force_dns` setting should be actvive on, the default values are `53` (regular DNS) and `853` (DNS over TLS). If the listed port is open/active on OpenWrt router, the service will create a `redirect` to the indicated port number, otherwise the service will create a `REJECT` rule. The intention for `REJECT` is that if the encrypted DNS requests has failed for your local device, it will fall-back on an unencrypted DNS request which will be then intercepted by the router and sent to the https-dns-proxy service. This is set to `1` (enabled) by default.
 
-#### procd_fw_src_interfaces
+#### <a name='procd_fw_src_interfaces'></a>procd_fw_src_interfaces
 
 This option allows you to override the interface (`lan` by default) which is used in the PROCD firewall redirects/rules the service creates if `force_dns` is enabled. Only needed if you have renamed or deleted your `lan` interface. If you indicate more than one interface, separate them by spaces.
 
-#### procd_trigger_wan6
+#### <a name='procd_trigger_wan6'></a>procd_trigger_wan6
 
 The service is restarted on WAN interface updates. As [OpenWrt may have floods of WAN6 updates](https://github.com/openwrt/openwrt/issues/5723#issuecomment-1040233237), the workaround for having the service restarted (and cause two `dnsmasq` restarts in turn) was to implement the `procd_trigger_wan6` boolean option (set to '0' as default) to enable/disable service restarts to be triggered by the WAN6 updates.
 
-### Instance Settings
+### <a name='InstanceSettings'></a>Instance Settings
 
 The https-dns-proxy instance settings are:
 
@@ -148,6 +178,26 @@ The https-dns-proxy instance settings are:
 
 Please also refer to the [Usage section at upstream README](https://github.com/aarond10/https_dns_proxy/blob/master/README.md#usage) which may contain additional/more details on some parameters.
 
+## <a name='Usinghttps-dns-proxyforad-blocking'></a>Using https-dns-proxy for ad-blocking
+
+There are some resolvers which offer customizable ad-blocking as part of their name resolution services, returning either NXDOMAIN (domain not found) or a local IP address for the domains in their ad/malware block-lists. This is one of the best ways to implement ad-blocking on OpenWrt if you don't want the fine-grained control over your block- and allow-lists with the minimal overhead on your router. Visit the following pages to learn more what customizable ad-blocking options are available from these resolvers:
+
+- [AhaDNS Blitz](https://blitz-setup.ahadns.com/)
+- [RethinkDNS](https://www.rethinkdns.com/configure)
+- [NextDNS.io](https://my.nextdns.io)
+
+If you have any questions about setting up `https-dns-proxy` for use with any of the above customizable ad-blockering resolvers, feel free to post in the OpenWrt forum using the link in the [Getting Help](#GettingHelp) section below.
+
+If you do want full control over your block- and allow-lists with the minimal footprint package on your router, use the [adblock-fast](https://docs.openwrt.melmac.net/adblock-fast/) package and its WebUI: `luci-app-adblock-fast`.
+
+## <a name='Donate'></a>Donate
+
+If you find `https-dns-proxy` or `luci-app-https-dns-proxy` on OpenWrt useful, please consider donating to support development of this project. You can donate by:
+
+- Sponsoring me on GitHub with [monthly donation](https://github.com/sponsors/stangri?frequency=recurring&sponsor=stangri).
+- Sponsoring me on GitHub with [one-time donation](https://github.com/sponsors/stangri?frequency=one-time&sponsor=stangri).
+- Sending a donation [thru PayPal](https://paypal.me/stan).
+
 ## <a name='GettingHelp'></a>Getting Help
 
 If things are not working as intended, please run the following commands and include their output in your post/issue:
@@ -165,7 +215,9 @@ service https-dns-proxy info
 nslookup google.com 127.0.0.1:5053
 ```
 
-## Thanks
+You can post your issues/concerns in the [OpenWrt Forum Thread](https://forum.openwrt.org/t/doh-proxy-https-dns-proxy-new-rfc8484-supporting-package-and-web-ui/50832).
+
+## <a name='Thanks'></a>Thanks
 
 This OpenWrt package wouldn't have been possible without [@aarond10](https://github.com/aarond10)'s [https-dns-proxy](https://github.com/aarond10/https_dns_proxy) and his active participation in the OpenWrt package itself. Thanks to [@oldium](https://github.com/oldium) and [@curtdept](https://github.com/curtdept) for their contributions to this package. Special thanks to [@jow-](https://github.com/jow-) for general package/luci guidance.
 
