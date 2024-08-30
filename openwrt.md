@@ -55,7 +55,7 @@ One of the OpenWrt forum gurus should be able to confim if it's an official Open
 
 ## <a name='ButthevendorofmydeviceclaimsitrunsOpenWrt'></a>But the vendor of my device claims it runs OpenWrt
 
-Usually, even the most OpenWrt-friendly (like (GL-iNet[https://www.gl-inet.com/])) device vendors ship their devices with a proprietary OpenWrt-based firmware. What vendors claiming OpenWrt being installed/supported usually mean is:
+Usually, even the most OpenWrt-friendly (like [GL-iNet](https://www.gl-inet.com/)) device vendors ship their devices with a proprietary OpenWrt-based firmware. What vendors claiming OpenWrt being installed/supported usually mean is:
 
 - The included firmware is [OpenWrt-based](#HowisOpenWrtdifferentfromOpenWrt).
 - You can install an [official OpenWrt image](#WhatisOpenWrt) on the device made by vendor.
