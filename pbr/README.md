@@ -148,7 +148,7 @@ Use of dns policies allows to route dns requests from local devices/IP addresses
 
 ### <a name='Fw4NftFileMode'></a>Fw4 Nft File Mode
 
-This mode which is the only operating mode in version 1.1.7 and up allows creation of the atomic nft file (temporary file located at `/var/run/pbr.nft` and if it contains no errors, the permanent file is installed at `/usr/share/nftables.d/ruleset-post/30-pbr.nft`), containing all the nft commands that `pbr` service needs to set up all the policies, dns policies and process custom user files. This file is then just reloaded on any OpenWrt firewall (`fw4`) reload, without the need to execute the `pbr` init script.
+This mode is the only operating mode in version 1.1.7. Instead of translating each policy into one (or a few) nft commands and running them individually, in this mode, `pbr` creates a single atomic nft file (temporary file located at `/var/run/pbr.nft` and if it contains no errors, the permanent file is installed at `/usr/share/nftables.d/ruleset-post/30-pbr.nft`), containing all the nft commands that `pbr` service needs to set up all the policies, dns policies and process custom user files. This file is then just reloaded on any OpenWrt firewall (`fw4`) reload, without the need to run the `pbr` init script again.
 
 ### <a name='CustomUserFiles'></a>Custom User Files
 
