@@ -96,6 +96,8 @@
 - This release completely drops the iptables/ipset (and resolvers using ipset) support.
 - This release uses the [fw4 nft file mode](#Fw4NftFileMode) by default.
 - The Wireguard Server & Client user script integrated into the `pbr` service, if Wireguard servers are discovered, their routing is automatically configured to go over WAN.
+- To enable targeting a Wireguard server tunnel, explicitly add its interface name to [supported_interface option](#supported_interface).
+- If the directory `/etc/pbr.d/` exists, all the files in that directory are processed as [custom user files](#CustomUserFiles) without the need to add them to `pbr` config.
 
 ### <a name='Version1.1.6'></a>Version 1.1.6
 
