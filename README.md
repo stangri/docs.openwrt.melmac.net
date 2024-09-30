@@ -44,7 +44,7 @@ to the `repositories.conf` file inside your Image Builder directory. You can use
 
 ```sh
 sed -i '/stangri_repo/d' repositories.conf
-! grep -q 'stangri_repo' repositories.conf && sed -i '2 i\src/gz stangri_repo repo.openwrt.melmac.net' repositories.conf
+! grep -q 'stangri_repo' repositories.conf && sed -i '4 i\src/gz stangri_repo https://repo.openwrt.melmac.net' repositories.conf
 ```
 
 ### Image Builder (jsDelivr)
@@ -59,7 +59,7 @@ to the `repositories.conf` file inside your Image Builder directory. You can use
 
 ```sh
 sed -i '/stangri_repo/d' repositories.conf
-! grep -q 'stangri_repo' repositories.conf && sed -i '2 i\src/gz stangri_repo https://cdn.jsdelivr.net/gh/stangri/repo.openwrt.melmac.net' repositories.conf
+! grep -q 'stangri_repo' repositories.conf && sed -i '4 i\src/gz stangri_repo https://cdn.jsdelivr.net/gh/stangri/repo.openwrt.melmac.net' repositories.conf
 ```
 
 ### SDK
