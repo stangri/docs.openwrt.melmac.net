@@ -186,6 +186,11 @@ There are some resolvers which offer customizable ad-blocking as part of their n
 - [RethinkDNS](https://www.rethinkdns.com/configure)
 - [NextDNS.io](https://my.nextdns.io)
 
+If you're using both ad-blocking and non-blocking resolvers and want the ad-blocking resolver replies to have a priority over non-blocking resolver replies, it is highly recommended to:
+
+- move your ad-blocking resolvers to the top of the list of resolvers at the WebUI page or config file
+- set the `strictorder` option for your `dhcp.@dnsmasq[..]` instances to `1`
+
 If you have any questions about setting up `https-dns-proxy` for use with any of the above customizable ad-blockering resolvers, feel free to post in the OpenWrt forum using the link in the [Getting Help](#GettingHelp) section below.
 
 If you do want full control over your block- and allow-lists with the minimal footprint package on your router, use the [adblock-fast](https://docs.openwrt.melmac.net/adblock-fast/) package and its WebUI: `luci-app-adblock-fast`.
