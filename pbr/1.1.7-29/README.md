@@ -79,6 +79,7 @@
     - [Routing Netflix/Amazon Prime/Hulu Traffic via VPN Tunnel](#RoutingNetflixAmazonPrimeHuluTrafficviaVPNTunnel)
     - [Routing Netflix/Amazon Prime/Hulu Traffic via WAN](#RoutingNetflixAmazonPrimeHuluTrafficviaWAN)
   - [A Word About Interface Hotplug Script](#AWordAboutInterfaceHotplugScript)
+  - [A Word About Broken Domains Policies](#AWordAboutBrokenDomainsPolicies)
 - [Getting Help](#GettingHelp)
   - [First Troubleshooting Step](#FirstTroubleshootingStep)
 - [Donate](#Donate)
@@ -997,6 +998,27 @@ logger -t pbr "Reloading $INTERFACE due to $ACTION of $INTERFACE ($DEVICE)"
 /etc/init.d/pbr reload_interface "$INTERFACE"
 EOF
 ```
+
+### <a name='AWordAboutBrokenDomainPolicies'></a>A Word About Broken Domain Policies
+
+For the domain policies to successfully work, you need:
+
+- a `dnsmasq-full` installed on your router.
+- a `pbr` version compatible with the `dnsmasq-full`.
+- a policy containing domain name(s) defined in the `pbr` config.
+- a local (LAN/WLAN) client to make a DNS request to your router to resolve the domain(s) defined in the `pbr` policy.
+
+Some examples on when the domain(s) policies defined in `pbr` may not work:
+
+- when regular `dnsmasq` and not `dnsmasq-full` is installed.
+- installed `pbr` is not compatible with the installed `dnsmasq-full` (ie: `dnsmasq-full` supports nft sets, but you have `pbr-iptables` installed).
+- you don't have a policy containing domain name(s) defined in the `pbr` config.
+- a local (LAN/WLAN) client does not make a DNS request to your router, this is probably the most common cause and there could be a few reasons for the DNS requests to not reach router:
+  - a local client has the DNS response cached, solved by rebooting the client.
+  - a local client is set to use a DNS different from router thru option 6 defined in router `dhcp` settings, solved by editing your router's `dhcp` config.
+  - a local client is set to use a DNS different from router thru the DNS explicitly set on client, solved by removing explicit DNS set on client.
+  - a local client is set to use an ecnrypted DNS, solved by disabling use of encrypted DNS requests.
+  - a local client uses the hardcoded DNS servers which you cannot edit, solved by enabling DNS hijacking on your router.
 
 ## <a name='GettingHelp'></a>Getting Help
 
