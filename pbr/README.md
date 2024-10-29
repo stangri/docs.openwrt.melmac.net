@@ -79,7 +79,7 @@
     - [Routing Netflix/Amazon Prime/Hulu Traffic via VPN Tunnel](#RoutingNetflixAmazonPrimeHuluTrafficviaVPNTunnel)
     - [Routing Netflix/Amazon Prime/Hulu Traffic via WAN](#RoutingNetflixAmazonPrimeHuluTrafficviaWAN)
   - [A Word About Interface Hotplug Script](#AWordAboutInterfaceHotplugScript)
-  - [A Word About Broken Domains Policies](#AWordAboutBrokenDomainsPolicies)
+  - [A Word About Broken Domain Policies](#AWordAboutBrokenDomainPolicies)
 - [Getting Help](#GettingHelp)
   - [First Troubleshooting Step](#FirstTroubleshootingStep)
 - [Donate](#Donate)
