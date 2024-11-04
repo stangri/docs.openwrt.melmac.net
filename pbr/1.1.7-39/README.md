@@ -156,7 +156,7 @@ You can also set policies for traffic with a specific DSCP tag. On Windows 10, f
 
 ### <a name='DNSPolicies'></a>DNS Policies
 
-Use of dns policies allows to route dns requests from local devices/IP addresses or MAC addresses thru a specific DNS server. Can either pick first DNS server from a specified interface or use a specific DNS server indicated by its IP address.
+Use of DNS Policies allows to route the name resolution (DNS) requests from local devices/IP addresses or MAC addresses thru a specific DNS server. Either the first DNS server from a specified interface or a specific DNS server indicated by its IP address can be used. Please note that the use of DNS Policies will override local DNS Hijacking (if enabled) and also will prevent the domain-based policies from working for the local devices specified in the DNS Policy, as your `dnsmasq` will not be queried by those local devices anymore.
 
 ### <a name='Fw4NftFileMode'></a>Fw4 Nft File Mode
 
@@ -1013,6 +1013,7 @@ Some examples on when the domain(s) policies defined in `pbr` may not work:
 - when regular `dnsmasq` and not `dnsmasq-full` is installed.
 - installed `pbr` is not compatible with the installed `dnsmasq-full` (ie: `dnsmasq-full` supports nft sets, but you have `pbr-iptables` installed).
 - you don't have a policy containing domain name(s) defined in the `pbr` config.
+- you have a [DNS Policy](#DNSPolicies) set for a local device, so its DNS requests are not being sent to `dnsmasq`.
 - a local (LAN/WLAN) client does not make a DNS request to your router, this is probably the most common cause and there could be a few reasons for the DNS requests to not reach router:
   - a local client has the DNS response cached, solved by rebooting the client.
   - a local client is set to use a DNS different from router thru option 6 defined in router `dhcp` settings, solved by editing your router's `dhcp` config.
