@@ -185,7 +185,7 @@ The packages source code is available in my packages source on [GitHub](https://
 
 ### <a name='adblock-fastluci-app-adblock-fast'></a>adblock-fast & luci-app-adblock-fast
 
-This service provides lightweight and very fast dnsmasq-based ad blocking. Please see the README at [GitHub](https://docs.openwrt.melmac.net/adblock-fast/)/[jsDelivr](https://cdn.jsdelivr.net/gh/stangri/docs.openwrt.melmac.net/adblock-fast/README.md) and [OpenWrt Forum Thread](https://forum.openwrt.org/t/adblock-fast-ad-blocking-service-for-dnsmasq-and-unbound/) for further information. This package is an improved version of [simple-adblock](#simple-adblock--luci-app-simple-adblock).
+This service provides lightweight and very fast dnsmasq-based ad blocking. Please see the README at [GitHub](https://docs.openwrt.melmac.net/adblock-fast/)/[jsDelivr](https://cdn.jsdelivr.net/gh/stangri/docs.openwrt.melmac.net/adblock-fast/README.md) and [OpenWrt Forum Thread](https://forum.openwrt.org/t/adblock-fast-ad-blocking-service-for-dnsmasq-smartdns-and-unbound/) for further information. This package is an improved version of [simple-adblock](#simple-adblock--luci-app-simple-adblock).
 
 ### <a name='https-dns-proxyluci-app-https-dns-proxy'></a>https-dns-proxy & luci-app-https-dns-proxy
 

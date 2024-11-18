@@ -266,7 +266,7 @@ For most of the [DNS Resolver Options](#dns-resolver-option) to work, your local
 
 ## Documentation / Discussion
 
-Please head to [OpenWrt Forum](https://forum.openwrt.org/t/adblock-fast-fast-lean-and-fully-uci-luci-configurable-adblocking/1327/) for discussion of this package.
+Please head to [OpenWrt Forum](https://forum.openwrt.org/t/adblock-fast-ad-blocking-service-for-dnsmasq-smartdns-and-unbound/) for discussion of this package.
 
 ## Thanks
 
