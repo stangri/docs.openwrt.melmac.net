@@ -1025,10 +1025,13 @@ Some examples on when the domain(s) policies defined in `pbr` may not work:
 
 General discussion of this package is happening at the [OpenWrt forum thread](https://forum.openwrt.org/t/policy-based-routing-pbr-package-discussion/140639).
 
-If things are not working as intended, please first set verbosity to 2 by running these commands
+If things are not working as intended, please first set counters to 1 and verbosity to 2 by running these commands:
 
 ```sh
-uci set pbr.config.verbosity='2'; uci commit pbr;
+uci set pbr.config.nft_rule_counter='1'
+uci set pbr.config.nft_set_counter='1'
+uci set pbr.config.verbosity='2'
+uci commit pbr
 ```
 
 and then run the following commands and include their output (you can and should mask sensitive information) in your post:

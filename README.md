@@ -81,28 +81,16 @@ The apk binaries repository is currently hosted at [GitHub](https://github.com).
 
 ```sh
 echo 'https://apk.openwrt.melmac.net/packages.adb' > /etc/apk/repositories.d/apk.openwrt.melmac.net.list
-apk --allow-untrusted update
-```
-
-When running the `apk` command in the future, make sure to add the `--allow-untrusted` to command line, like:
-
-```sh
-apk --allow-untrusted update
-apk --allow-untrusted add pbr luci-app-pbr
+wget https://dev.melmac.net/apk/apk.openwrt.melmac.net.pem -O /etc/apk/keys/apk.openwrt.melmac.net.pem
+apk update
 ```
 
 ##### Add APK repository to your OpenWrt device (jsDelivr)
 
 ```sh
 echo 'https://cdn.jsdelivr.net/gh/stangri/apk.openwrt.melmac.net/packages.adb' > /etc/apk/repositories.d/apk.openwrt.melmac.net.list
-apk --allow-untrusted update
-```
-
-When running the `apk` command in the future, make sure to add the `--allow-untrusted` to command line, like:
-
-```sh
-apk --allow-untrusted update
-apk --allow-untrusted add pbr luci-app-pbr
+wget https://dev.melmac.net/apk/apk.openwrt.melmac.net.pem -O /etc/apk/keys/apk.openwrt.melmac.net.pem
+apk update
 ```
 
 Please note that there may be delay in [jsDelivr CDN](https://cdn.jsdelivr.net/gh/stangri/apk.openwrt.melmac.net) cache updates comparing to [my apk packages repo at GitHub](https://apk.openwrt.melmac.net) which may cause `apk` to pull older files and/or complain about wrong signature.
