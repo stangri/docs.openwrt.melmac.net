@@ -36,7 +36,7 @@
 
 ## <a name='Description'></a>Description
 
-A lean RFC8484-compatible (no JSON API support) DNS-over-HTTPS (DoH) proxy service which supports DoH servers. The accmponying WebUI (`luci-app-https-dns-proxy`) supports [more than 40 public resolvers](https://github.com/stangri/source.openwrt.melmac.net/tree/master/luci-app-https-dns-proxy/root/usr/share/https-dns-proxy/providers). Based on [@aarond10](https://github.com/aarond10)'s [https-dns-proxy](https://github.com/aarond10/https_dns_proxy).
+A lean RFC8484-compatible (no JSON API support) DNS-over-HTTPS (DoH) proxy service which supports DoH servers. The accompanying WebUI (`luci-app-https-dns-proxy`) supports [more than 40 public resolvers](https://github.com/stangri/source.openwrt.melmac.net/tree/master/luci-app-https-dns-proxy/root/usr/share/https-dns-proxy/providers). Based on [@aarond10](https://github.com/aarond10)'s [https-dns-proxy](https://github.com/aarond10/https_dns_proxy).
 
 ## <a name='Features'></a>Features
 
@@ -124,7 +124,7 @@ config https-dns-proxy
 
 #### <a name='canary_domains_icloud'></a>canary_domains_icloud
 
-This setting enables router to block requests to iCloud Private Relay canary domains, indicating that the local device should use the router's dns resolution (encrypted with `https-dns-proxy`) instead of the encrypted/proprietary iCloud Private Relay resolvers. This is set to `1` (enabled) by default. Shown in WebUI and processed only if `force_dns` is also set to 1.
+This setting enables router to block requests to iCloud Private Relay canary domains, indicating that the local device should use the router's DNS resolution (encrypted with `https-dns-proxy`) instead of the encrypted/proprietary iCloud Private Relay resolvers. This is set to `1` (enabled) by default. Shown in WebUI and processed only if `force_dns` is also set to 1.
 
 #### <a name='canary_domains_mozilla'></a>canary_domains_mozilla
 
@@ -145,7 +145,7 @@ The `dnsmasq_config_update` option can be set to dash (set to `'-'` to not chang
 
 #### <a name='force_dns'></a>force_dns
 
-The `force_dns` setting is used to force the router's default resolver to all connected devices even if they are set to use other DNS resolvers or if other DNS resolvers are hardcoded in connected devices' settings. You can additionally control which ports the `force_dns` setting should be actvive on, the default values are `53` (regular DNS) and `853` (DNS over TLS). If the listed port is open/active on OpenWrt router, the service will create a `redirect` to the indicated port number, otherwise the service will create a `REJECT` rule. The intention for `REJECT` is that if the encrypted DNS requests has failed for your local device, it will fall-back on an unencrypted DNS request which will be then intercepted by the router and sent to the https-dns-proxy service. This is set to `1` (enabled) by default.
+The `force_dns` setting is used to force the router's default resolver to all connected devices even if they are set to use other DNS resolvers or if other DNS resolvers are hardcoded in connected devices' settings. You can additionally control which ports the `force_dns` setting should be active on, the default values are `53` (regular DNS) and `853` (DNS over TLS). If the listed port is open/active on OpenWrt router, the service will create a `redirect` to the indicated port number, otherwise the service will create a `REJECT` rule. The intention for `REJECT` is that if the encrypted DNS requests has failed for your local device, it will fall-back on an unencrypted DNS request which will be then intercepted by the router and sent to the https-dns-proxy service. This is set to `1` (enabled) by default.
 
 #### <a name='procd_fw_src_interfaces'></a>procd_fw_src_interfaces
 
@@ -191,7 +191,7 @@ If you're using both ad-blocking and non-blocking resolvers and want the ad-bloc
 - move your ad-blocking resolvers to the top of the list of resolvers at the WebUI page or config file
 - set the `strictorder` option for your `dhcp.@dnsmasq[..]` instances to `1`
 
-If you have any questions about setting up `https-dns-proxy` for use with any of the above customizable ad-blockering resolvers, feel free to post in the OpenWrt forum using the link in the [Getting Help](#GettingHelp) section below.
+If you have any questions about setting up `https-dns-proxy` for use with any of the above customizable ad-blocker resolvers, feel free to post in the OpenWrt forum using the link in the [Getting Help](#GettingHelp) section below.
 
 If you do want full control over your block- and allow-lists with the minimal footprint package on your router, use the [adblock-fast](https://docs.openwrt.melmac.net/adblock-fast/) package and its WebUI: `luci-app-adblock-fast`.
 
