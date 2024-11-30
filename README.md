@@ -81,7 +81,7 @@ The apk binaries repository is currently hosted at [GitHub](https://github.com).
 
 ```sh
 echo 'https://apk.openwrt.melmac.net/packages.adb' > /etc/apk/repositories.d/apk.openwrt.melmac.net.list
-wget https://dev.melmac.net/apk/apk.openwrt.melmac.net.pem -O /etc/apk/keys/apk.openwrt.melmac.net.pem
+wget https://apk.openwrt.melmac.net/apk.openwrt.melmac.net.pem -O /etc/apk/keys/apk.openwrt.melmac.net.pem
 apk update
 ```
 
@@ -89,7 +89,7 @@ apk update
 
 ```sh
 echo 'https://cdn.jsdelivr.net/gh/stangri/apk.openwrt.melmac.net/packages.adb' > /etc/apk/repositories.d/apk.openwrt.melmac.net.list
-wget https://dev.melmac.net/apk/apk.openwrt.melmac.net.pem -O /etc/apk/keys/apk.openwrt.melmac.net.pem
+wget https://apk.openwrt.melmac.net/apk.openwrt.melmac.net.pem -O /etc/apk/keys/apk.openwrt.melmac.net.pem
 apk update
 ```
 
