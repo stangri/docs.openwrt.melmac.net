@@ -2,7 +2,7 @@
 
 # The openwrt.melmac.net packages documentation
 
-This is documentation for packages I'm maintaining for OpenWrt routers. While some of these are packages are already available from official OpenWrt release/snapshots repositories/feeds, [my ipk packages repo](https://repo.openwrt.melmac.net)/[my apk packages repo](https://apk.openwrt.melmac.net) usually contain newer versions. You can also browse/check-out the [source code](https://source.openwrt.melmac.net).
+This is documentation for packages for OpenWrt devices created/maintained under the Melmac Open Source Software Development Foundation (MOSSDeF). While some of these are packages are already available from official OpenWrt release/snapshots repositories/feeds, [the ipk packages repo](https://repo.openwrt.melmac.net)/[the apk packages repo](https://apk.openwrt.melmac.net) usually contain newer versions. You can also browse/check-out the [source code](https://source.openwrt.melmac.net).
 
 <!-- vscode-markdown-toc -->
 
@@ -34,6 +34,7 @@ This is documentation for packages I'm maintaining for OpenWrt routers. While so
   - [vpn-policy-routing & luci-app-vpn-policy-routing](#vpn-policy-routingluci-app-vpn-policy-routing)
   - [wlanblinker & luci-app-wlanblinker](#wlanblinkerluci-app-wlanblinker)
   - [wireshark-helper & luci-app-wireshark-helper](#wireshark-helperluci-app-wireshark-helper)
+- [About MOSSDeF](#AboutMOSSDeF)
 
 <!-- vscode-markdown-toc-config
 	numbering=false
@@ -185,7 +186,7 @@ This package enables Web UI for reboot to another partition functionality on sup
 
 ### <a name='netclient'></a>netclient
 
-Netclient is the client for Netmaker networks. To learn more about Netmaker, see [Netmaker README](https://github.com/gravitl/netmaker). Please see the README at [GitHub](https://docs.openwrt.melmac.net/netclient/)/[jsDelivr](https://cdn.jsdelivr.net/gh/stangri/docs.openwrt.melmac.net/netclient/README.md) and [OpenWrt Forum Thread](https://forum.openwrt.org/t/netclient-the-client-for-netmaker-networks/) for further information.
+Netclient is an automated WireGuard Management Client. Netclient is a client application for the [Netmaker](https://github.com/gravitl/netmaker) networks. [Netclient is developed by Gravitl](https://github.com/gravitl/netclient). Please see the README at [GitHub](https://docs.openwrt.melmac.net/netclient/)/[jsDelivr](https://cdn.jsdelivr.net/gh/stangri/docs.openwrt.melmac.net/netclient/README.md) and [OpenWrt Forum Thread](https://forum.openwrt.org/t/netclient-the-client-for-netmaker-networks/) for further information.
 
 ### <a name='pbrluci-app-pbr'></a>pbr & luci-app-pbr
 
@@ -247,5 +248,9 @@ This service can be used to indicate WLAN status by blinking the unused LED. Ple
 This service can be used to configure router to sniff packets to/from monitored device on the device running Wireshark app. Please see the README at [GitHub](https://docs.openwrt.melmac.net/wireshark-helper/)/[jsDelivr](https://cdn.jsdelivr.net/gh/stangri/docs.openwrt.melmac.net/wireshark-helper/README.md) for further information.
 
 <!-- markdownlint-disable MD033 -->
+
+## <a name='AboutMOSSDeF'></a>About MOSSDeF
+
+MOSSDeF, fighting global warming by creating cool software since 2004.
 
 <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "911798f2c34b45338f8f8182830a3eb6"}'></script>
