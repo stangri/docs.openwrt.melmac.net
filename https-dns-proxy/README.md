@@ -70,7 +70,7 @@ Some resolvers may require `HTTP/2`. By default, `HTTP/2` is supported by `curl`
 
 ### <a name='HTTP3QUICSupport'></a>HTTP/3 (QUIC) Support
 
-As of OpenWrt version 23.05.2, the OpenWrt installation/repositories do not contain packages required for HTTP/3 support. However the `luci-app-https-dns-proxy` has facilities for marking some pre-configured providers as `HTTP/3` only and can detect the `HTTP/3` support on the OpenWrt device. You can compile `curl` with `HTTP/3` support using the out-of-tree fork of `OpenSSL`, additional information is available in [curl README](https://docs.openwrt.melmac.net/curl/).
+As of OpenWrt version 24.10, the OpenWrt installation/repositories do not contain packages required for HTTP/3 support. However the `luci-app-https-dns-proxy` has facilities for marking some pre-configured providers as `HTTP/3` only and can detect the `HTTP/3` support on the OpenWrt device. You can compile `curl` with `HTTP/3` support using the out-of-tree fork of `OpenSSL`, additional information is available in [curl README](https://docs.openwrt.melmac.net/curl/).
 
 ## <a name='UnmetDependencies'></a>Unmet Dependencies
 
