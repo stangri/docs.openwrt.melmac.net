@@ -1013,7 +1013,8 @@ Some examples on when the domain(s) policies defined in `pbr` may not work:
 - when regular `dnsmasq` and not `dnsmasq-full` is installed.
 - installed `pbr` is not compatible with the installed `dnsmasq-full` (ie: `dnsmasq-full` supports nft sets, but you have `pbr-iptables` installed).
 - you don't have a policy containing domain name(s) defined in the `pbr` config.
-- you have a [DNS Policy](#DNSPolicies) set for a local device, so its DNS requests are not being sent to `dnsmasq`.
+- you have a [DNS Policy](#DNSPolicies) set for a local device, so its DNS requests are not being sent to `dnsmasq-full`.
+- you have a domain name(s) based policy configured for LAN device(s), but are testing from the LAN device which is not affected by the policy or testing from the router.
 - a local (LAN/WLAN) client does not make a DNS request to your router, this is probably the most common cause and there could be a few reasons for the DNS requests to not reach router:
   - a local client has the DNS response cached, solved by rebooting the client.
   - a local client is set to use a DNS different from router thru option 6 defined in router `dhcp` settings, solved by editing your router's `dhcp` config.
