@@ -11,6 +11,7 @@ This package allows you to reboot to an alternative partition on the supported (
 Currently supported dual-firmware devices include:
 
 - Linksys E4200v2
+- Linksys E7350
 - Linksys EA3500
 - Linksys EA4500
 - Linksys EA6350v3
