@@ -42,6 +42,7 @@
   - [Requirements](#Requirements)
   - [How to install dnsmasq-full](#Howtoinstalldnsmasq-full)
   - [Unmet dependencies](#Unmetdependencies)
+  - [How to upgrade to a most recent version](#Howtoupgradetoamostrecentversion)
 - [How to use](#Howtouse)
   - [Helpful Instructional Videos](#HelpfulInstructionalVideos)
   - [Service Configuration Settings](#ServiceConfigurationSettings)
@@ -293,7 +294,7 @@ Since this release only supports `nft` riles and `nft` `sets`, it is not recomme
 
 ### <a name='Requirements'></a>Requirements
 
-Default builds of OpenWrt 23.05 and later are fully compatible with `pbr` and require no additional packages. If you're using a non-standard build, you may have to install the following packages to be installed on your router: `resolveip`, `ip-full` (or a `busybox` built with `ip` support).
+Default builds of OpenWrt 23.05 and later are fully compatible with `pbr` and require no additional packages. If you're using a non-standard build, you may have to install the following packages on your router: `resolveip`, `ip-full` (or a `busybox` built with `ip` support).
 
 To satisfy the requirements, connect to your router via ssh and run the following commands:
 
@@ -317,6 +318,10 @@ rm -f /tmp/dnsmasq-full*.ipk
 ### <a name='Unmetdependencies'></a>Unmet dependencies
 
 If you are running a development (trunk/snapshot) build of OpenWrt on your router and your build is outdated (meaning that packages of the same revision/commit hash are no longer available and when you try to satisfy the [requirements](#Requirements) you get errors), please flash either current OpenWrt release image or current development/snapshot image.
+
+### <a name='Howtoupgradetoamostrecentversion'></a>How to upgrade to a most recent version
+
+If you're on OpenWrt 23.05, OpenWrt 24.10 or snapshots and have been advised to upgrade to a `pbr`/`luci-app-pbr` versions more recent than what's available in OpenWrt repositories, please [add my packages repository to your OpenWrt device](https://docs.openwrt.melmac.net/#OnyourOpenWrtdevice).
 
 ## <a name='Howtouse'></a>How to use
 
