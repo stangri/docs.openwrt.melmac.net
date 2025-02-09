@@ -25,12 +25,14 @@ Currently supported dual-firmware devices include:
 - Linksys EA8300
 - Linksys EA8500
 - Linksys MR8300
+- Linksys MX2000
 - Linksys MX4200v1
 - Linksys MX4200v2
 - Linksys MX4300
 - Linksys MX5300
-- Linksys WHW01 v1
-- Linksys WHW03 v2
+- Linksys MX5500
+- Linksys WHW01v1
+- Linksys WHW03v2
 - Linksys WRT32X
 - Linksys WRT1200AC
 - Linksys WRT1900AC
