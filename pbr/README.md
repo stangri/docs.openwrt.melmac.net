@@ -7,87 +7,75 @@
 
 <!-- vscode-markdown-toc -->
 
-- [Notable version changes](#Notableversionchanges)
-  - [Relevant `pbr` version](#Relevantpbrversion)
-  - [Version 1.1.8](#Version1.1.8)
-  - [Version 1.1.6](#Version1.1.6)
-- [Description](#Description)
-- [Features](#Features)
-  - [Gateways/Tunnels](#GatewaysTunnels)
-  - [IPv4/IPv6/Port-Based Policies](#IPv4IPv6Port-BasedPolicies)
-  - [Domain-Based Policies](#Domain-BasedPolicies)
-  - [Physical Device Policies](#PhysicalDevicePolicies)
-  - [DSCP Tag-Based Policies](#DSCPTag-BasedPolicies)
-  - [DNS Policies](#DNSPolicies)
-  - [Fw4 Nft File Mode](#Fw4NftFileMode)
-  - [Custom User Files](#CustomUserFiles)
-  - [Strict Enforcement](#StrictEnforcement)
-  - [Use Resolver's Set Support](#UseResolversSetSupport)
-    - [Use DNSMASQ nft sets Support](#UseDNSMASQnftsetsSupport)
-  - [Customization](#Customization)
-  - [Other Features](#OtherFeatures)
-- [Screenshots (luci-app-pbr)](#Screenshotsluci-app-pbr)
-- [How It Works](#HowItWorks)
-  - [How It Works (`nft` mode)](#HowItWorksnftmode)
-  - [Processing Policies](#ProcessingPolicies)
-    - [Processing Policies (`nft` mode)](#ProcessingPoliciesnftmode)
-  - [Processing DNS Policies](#ProcessingDNSPolicies)
-    - [Processing DNS Policies (`nft` mode)](#ProcessingDNSPoliciesnftmode)
-  - [Policies Priorities](#PoliciesPriorities)
-  - [Processing Custom User Files](#ProcessingCustomUserFiles)
-    - [Processing Custom User Files (`nft` mode)](#ProcessingCustomUserFilesnftmode)
-- [How To Install](#HowToInstall)
-  - [How To Install - OpenWrt 23.05 and newer](#HowToInstall-OpenWrt23.05andnewer)
-  - [How To Install - OpenWrt 22.03 and older](#HowToInstall-OpenWrt22.03andolder)
-  - [Requirements](#Requirements)
-  - [How to install dnsmasq-full](#Howtoinstalldnsmasq-full)
-  - [Unmet dependencies](#Unmetdependencies)
-  - [How to upgrade to a most recent version](#Howtoupgradetoamostrecentversion)
-- [How to use](#Howtouse)
-  - [Helpful Instructional Videos](#HelpfulInstructionalVideos)
-  - [Service Configuration Settings](#ServiceConfigurationSettings)
-    - [Default Settings](#DefaultSettings)
-    - [Policy Options](#PolicyOptions)
-    - [DNS Policy Options](#DNSPolicyOptions)
-    - [Custom User Files Include Options](#CustomUserFilesIncludeOptions)
-  - [Example Policies](#ExamplePolicies)
-    - [Single IP, IP Range, Local Machine, Local MAC Address](#SingleIPIPRangeLocalMachineLocalMACAddress)
-    - [SIP Port](#SIPPort)
-    - [Plex Media Server](#PlexMediaServer)
-    - [Emby Media Server](#EmbyMediaServer)
-    - [Ignore Target](#IgnoreTarget)
-    - [Basic OpenVPN Client Config](#BasicOpenVPNClientConfig)
-    - [Multiple OpenVPN Clients](#MultipleOpenVPNClients)
-    - [Local OpenVPN Server + OpenVPN Client (Scenario 1)](#LocalOpenVPNServerOpenVPNClientScenario1)
-    - [Local OpenVPN Server + OpenVPN Client (Scenario 2)](#LocalOpenVPNServerOpenVPNClientScenario2)
-    - [Local WireGuard Server + WireGuard Client (Scenario 1)](#LocalWireGuardServerWireGuardClientScenario1)
-    - [Local WireGuard Server + WireGuard Client (Scenario 2)](#LocalWireGuardServerWireGuardClientScenario2)
-    - [Local WireGuard Server + Another VPN Client (Scenario 1)](#LocalWireGuardServerAnotherVPNClientScenario1)
-    - [Local WireGuard Server + Another VPN Client (Scenario 2)](#LocalWireGuardServerAnotherVPNClientScenario2)
-    - [Netflix Domains](#NetflixDomains)
-    - [Example Custom User Files Includes](#ExampleCustomUserFilesIncludes)
-- [Footnotes/Known Issues](#FootnotesKnownIssues)
-- [FAQ](#FAQ)
-  - [A Word About Default Routing](#AWordAboutDefaultRouting)
-    - [OpenVPN tunnel configured via uci (/etc/config/openvpn)](#OpenVPNtunnelconfiguredviaucietcconfigopenvpn)
-    - [OpenVPN tunnel configured with .ovpn file](#OpenVPNtunnelconfiguredwith.ovpnfile)
-    - [WireGuard tunnel](#WireGuardtunnel)
-  - [A Word About Cloudflare's 1.1.1.1 App](#AWordAboutCloudflares1.1.1.1App)
-  - [A Word About DNS-over-HTTPS](#AWordAboutDNS-over-HTTPS)
-  - [A Word About HTTP/3 (QUIC)](#AWordAboutHTTP3QUIC)
-  - [A Word About IPv6 Routing](#AWordAboutIPv6Routing)
-  - [A Word About Routing Netflix/Amazon Prime/Hulu Traffic](#AWordAboutRoutingNetflixAmazonPrimeHuluTraffic)
-    - [Routing Netflix/Amazon Prime/Hulu Traffic via VPN Tunnel](#RoutingNetflixAmazonPrimeHuluTrafficviaVPNTunnel)
-    - [Routing Netflix/Amazon Prime/Hulu Traffic via WAN](#RoutingNetflixAmazonPrimeHuluTrafficviaWAN)
-  - [A Word About Interface Hotplug Script](#AWordAboutInterfaceHotplugScript)
-  - [A Word About Broken Domain Policies](#AWordAboutBrokenDomainPolicies)
-- [Getting Help](#GettingHelp)
-  - [First Troubleshooting Step](#FirstTroubleshootingStep)
-- [Donate](#Donate)
-- [Error Messages Details](#ErrorMessagesDetails)
-- [Warning Messages Details](#WarningMessagesDetails)
-  - [Warning: Please set 'dhcp.lan.force=1'](#Warning:Pleasesetdhcp.lan.force1)
-- [Thanks](#Thanks)
+- [Relevant `pbr` version](#Relevantpbrversion)
+- [Version 1.1.8](#Version1.1.8)
+- [Version 1.1.6](#Version1.1.6)
+- [Gateways/Tunnels](#GatewaysTunnels)
+- [IPv4/IPv6/Port-Based Policies](#IPv4IPv6Port-BasedPolicies)
+- [Domain-Based Policies](#Domain-BasedPolicies)
+- [Physical Device Policies](#PhysicalDevicePolicies)
+- [DSCP Tag-Based Policies](#DSCPTag-BasedPolicies)
+- [DNS Policies](#DNSPolicies)
+- [Fw4 Nft File Mode](#Fw4NftFileMode)
+- [Custom User Files](#CustomUserFiles)
+- [Strict Enforcement](#StrictEnforcement)
+- [Use Resolver's Set Support](#UseResolversSetSupport)
+  - [Use DNSMASQ nft sets Support](#UseDNSMASQnftsetsSupport)
+- [Customization](#Customization)
+- [Other Features](#OtherFeatures)
+- [How It Works (`nft` mode)](#HowItWorksnftmode)
+- [Processing Policies](#ProcessingPolicies)
+  - [Processing Policies (`nft` mode)](#ProcessingPoliciesnftmode)
+- [Processing DNS Policies](#ProcessingDNSPolicies)
+  - [Processing DNS Policies (`nft` mode)](#ProcessingDNSPoliciesnftmode)
+- [Policies Priorities](#PoliciesPriorities)
+- [Processing Custom User Files](#ProcessingCustomUserFiles)
+  - [Processing Custom User Files (`nft` mode)](#ProcessingCustomUserFilesnftmode)
+- [How To Install - OpenWrt 23.05 and newer](#HowToInstall-OpenWrt23.05andnewer)
+- [How To Install - OpenWrt 22.03 and older](#HowToInstall-OpenWrt22.03andolder)
+- [Requirements](#Requirements)
+- [How to install dnsmasq-full](#Howtoinstalldnsmasq-full)
+- [Unmet dependencies](#Unmetdependencies)
+- [How to upgrade to a most recent version](#Howtoupgradetoamostrecentversion)
+- [Helpful Instructional Videos](#HelpfulInstructionalVideos)
+- [Service Configuration Settings](#ServiceConfigurationSettings)
+  - [Default Settings](#DefaultSettings)
+  - [Policy Options](#PolicyOptions)
+  - [DNS Policy Options](#DNSPolicyOptions)
+  - [Custom User Files Include Options](#CustomUserFilesIncludeOptions)
+- [Example Policies](#ExamplePolicies)
+  - [Single IP, IP Range, Local Machine, Local MAC Address](#SingleIPIPRangeLocalMachineLocalMACAddress)
+  - [SIP Port](#SIPPort)
+  - [Plex Media Server](#PlexMediaServer)
+  - [Emby Media Server](#EmbyMediaServer)
+  - [Ignore Target](#IgnoreTarget)
+    - [Ignore Requests](#IgnoreRequests)
+  - [Netflix Domains](#NetflixDomains)
+  - [Example Custom User Files Includes](#ExampleCustomUserFilesIncludes)
+- [Example OpenWrt Configurations for More Complex Cases](#ExampleOpenWrtConfigurationsforMoreComplexCases)
+  - [WireGuard Server Use Cases](#WireGuardServerUseCases)
+    - [WireGuard Server Use Case: Targeting in Policies](#WireGuardServerUseCase:TargetinginPolicies)
+    - [WireGuard Server Use Case: Disable IP Rule for WAN](#WireGuardServerUseCase:DisableIPRuleforWAN)
+    - [WireGuard Server Use Case: Targeting in Policies and Disable IP Rule for WAN](#WireGuardServerUseCase:TargetinginPoliciesandDisableIPRuleforWAN)
+  - [Basic OpenVPN Client Config](#BasicOpenVPNClientConfig)
+  - [Multiple OpenVPN Clients](#MultipleOpenVPNClients)
+  - [Local OpenVPN Server + OpenVPN Client (Scenario 1)](#LocalOpenVPNServerOpenVPNClientScenario1)
+  - [Local OpenVPN Server + OpenVPN Client (Scenario 2)](#LocalOpenVPNServerOpenVPNClientScenario2)
+- [A Word About Default Routing](#AWordAboutDefaultRouting)
+  - [OpenVPN tunnel configured via uci (/etc/config/openvpn)](#OpenVPNtunnelconfiguredviaucietcconfigopenvpn)
+  - [OpenVPN tunnel configured with .ovpn file](#OpenVPNtunnelconfiguredwith.ovpnfile)
+  - [WireGuard tunnel](#WireGuardtunnel)
+- [A Word About Cloudflare's 1.1.1.1 App](#AWordAboutCloudflares1.1.1.1App)
+- [A Word About DNS-over-HTTPS](#AWordAboutDNS-over-HTTPS)
+- [A Word About HTTP/3 (QUIC)](#AWordAboutHTTP3QUIC)
+- [A Word About IPv6 Routing](#AWordAboutIPv6Routing)
+- [A Word About Routing Netflix/Amazon Prime/Hulu Traffic](#AWordAboutRoutingNetflixAmazonPrimeHuluTraffic)
+  - [Routing Netflix/Amazon Prime/Hulu Traffic via VPN Tunnel](#RoutingNetflixAmazonPrimeHuluTrafficviaVPNTunnel)
+  - [Routing Netflix/Amazon Prime/Hulu Traffic via WAN](#RoutingNetflixAmazonPrimeHuluTrafficviaWAN)
+- [A Word About Interface Hotplug Script](#AWordAboutInterfaceHotplugScript)
+- [A Word About Broken Domain Policies](#AWordAboutBrokenDomainPolicies)
+- [First Troubleshooting Step](#FirstTroubleshootingStep)
+- [Warning: Please set 'dhcp.lan.force=1'](#Warning:Pleasesetdhcp.lan.force1)
 
 <!-- vscode-markdown-toc-config
 	numbering=false
@@ -95,13 +83,13 @@
 	/vscode-markdown-toc-config -->
 <!-- /vscode-markdown-toc -->
 
-## <a name='Notableversionchanges'></a>Notable version changes
+# <a name='Notableversionchanges'></a>Notable version changes
 
-### <a name='Relevantpbrversion'></a>Relevant `pbr` version
+## <a name='Relevantpbrversion'></a>Relevant `pbr` version
 
 This README is relevant for the `pbr` version 1.1.8. If you're looking for the README for the newer or older version of `pbr`, please check the README links within the `luci-app-pbr`.
 
-### <a name='Version1.1.8'></a>Version 1.1.8
+## <a name='Version1.1.8'></a>Version 1.1.8
 
 - This release completely drops the iptables/ipset (and resolvers using ipset) support.
 - This release uses the [fw4 nft file mode](#Fw4NftFileMode) by default.
@@ -110,20 +98,20 @@ This README is relevant for the `pbr` version 1.1.8. If you're looking for the R
 - If the directory `/etc/pbr.d/` exists, all the files in that directory are processed as [custom user files](#CustomUserFiles) without the need to add them to `pbr` config.
 - The `procd_lan_device` config list allows you to override the default device (`br-lan`) used for LAN interface detection.
 
-### <a name='Version1.1.6'></a>Version 1.1.6
+## <a name='Version1.1.6'></a>Version 1.1.6
 
 - This release has separate code for nft- and iptables-capable versions, the nft version (`pbr` package) no longer supports resolver options with ipset.
 - The WAN interface name is no longer auto-detected. If you use a non-standard name for WAN interface, you can set it in [options](#procd_wan_interface).
 - If you use a non-standard name for LAN interface you can set it in [options](#procd_lan_device).
 - A new feature of [DNS Policies](#DNSPolicies) (also see [Processing DNS Policies](#ProcessingDNSPolicies)) was added to help ensure name resolution is sent to a specific resolver when needed.
 
-## <a name='Description'></a>Description
+# <a name='Description'></a>Description
 
 This service allows you to define rules (policies) for routing traffic via WAN or your L2TP, OpenConnect, OpenVPN, PPTP, Softether or WireGuard tunnels. Policies can be set based on any combination of local/remote ports, local/remote IPv4 or IPv6 addresses/subnets or domains. This service supersedes and obsoletes the `VPN Bypass` ([README at GitHub](https://docs.openwrt.melmac.net/vpnbypass/)/[README at jsDelivr](https://cdn.jsdelivr.net/gh/stangri/docs.openwrt.melmac.net/vpnbypass/README.md)) and `VPN Policy Routing` ([README at GitHub](https://docs.openwrt.melmac.net/vpn-policy-routing/)/[README at jsDelivr](https://cdn.jsdelivr.net/gh/stangri/docs.openwrt.melmac.net/vpn-policy-routing/README.md)) services.
 
-## <a name='Features'></a>Features
+# <a name='Features'></a>Features
 
-### <a name='GatewaysTunnels'></a>Gateways/Tunnels
+## <a name='GatewaysTunnels'></a>Gateways/Tunnels
 
 - Any policy can target either WAN or a VPN tunnel interface.
 - L2TP tunnels supported (with protocol names l2tp\*).
@@ -134,7 +122,7 @@ This service allows you to define rules (policies) for routing traffic via WAN o
 - Tor tunnels supported in nft mode only (interface name must match tor).
 - Wireguard tunnels supported (with protocol names wireguard\*).
 
-### <a name='IPv4IPv6Port-BasedPolicies'></a>IPv4/IPv6/Port-Based Policies
+## <a name='IPv4IPv6Port-BasedPolicies'></a>IPv4/IPv6/Port-Based Policies
 
 - Policies based on local names, IPs or subnets. You can specify a single IP (as in `192.168.1.70`) or a local subnet (as in `192.168.1.81/29`) or a local device name (as in `nexusplayer`). IPv6 addresses are also supported.
 - Policies based on local ports numbers. Can be set as an individual port number (`32400`), a range (`5060-5061`), a space-separated list (`80 8080`) or a combination of the above (`80 8080 5060-5061`). Limited to 15 space-separated entries per policy.
@@ -143,62 +131,61 @@ This service allows you to define rules (policies) for routing traffic via WAN o
 - You can mix the IP addresses/subnets and device (or domain) names in one field separating them by a space (like this: `66.220.2.74 he.net tunnelbroker.net`).
 - See [Policy Options](#PolicyOptions) section for more information.
 
-### <a name='Domain-BasedPolicies'></a>Domain-Based Policies
+## <a name='Domain-BasedPolicies'></a>Domain-Based Policies
 
 - Policies based on (remote) domain names can be processed in different ways. Please review the [Policy Options](#PolicyOptions) section and [Footnotes/Known Issues](#FootnotesKnownIssues) section, specifically [<sup>#5</sup>](#footnote5) and any other information in that section relevant to domain-based routing/DNS.
 
-### <a name='PhysicalDevicePolicies'></a>Physical Device Policies
+## <a name='PhysicalDevicePolicies'></a>Physical Device Policies
 
 - Policies based on a local physical device (like a specially created wlan). Please review the [Policy Options](#PolicyOptions) section and [Footnotes/Known Issues](#FootnotesKnownIssues) section, specifically [<sup>#6</sup>](#footnote6) and any other information in that section relevant to handling physical device.
 
-### <a name='DSCPTag-BasedPolicies'></a>DSCP Tag-Based Policies
+## <a name='DSCPTag-BasedPolicies'></a>DSCP Tag-Based Policies
 
 You can also set policies for traffic with a specific DSCP tag. On Windows 10, for example, you can mark traffic from specific apps with DSCP tags (instructions for tagging specific app traffic in Windows 10 can be found [here](http://serverfault.com/questions/769843/cannot-set-dscp-on-windows-10-pro-via-group-policy)).
 
-### <a name='DNSPolicies'></a>DNS Policies
+## <a name='DNSPolicies'></a>DNS Policies
 
 Use of DNS Policies allows to route the name resolution (DNS) requests from local devices/IP addresses or MAC addresses thru a specific DNS server. Either the first DNS server from a specified interface or a specific DNS server indicated by its IP address can be used. Please note that the use of DNS Policies will override local DNS Hijacking (if enabled) and also will prevent the domain-based policies from working for the local devices specified in the DNS Policy, as your `dnsmasq` will not be queried by those local devices anymore.
 
-### <a name='Fw4NftFileMode'></a>Fw4 Nft File Mode
+## <a name='Fw4NftFileMode'></a>Fw4 Nft File Mode
 
 This mode is the only operating mode in version 1.1.7. Instead of translating each policy into one (or a few) nft commands and running them individually, in this mode, `pbr` creates a single atomic nft file (temporary file located at `/var/run/pbr.nft` and if it contains no errors, the permanent file is installed at `/usr/share/nftables.d/ruleset-post/30-pbr.nft`), containing all the nft commands that `pbr` service needs to set up all the policies, dns policies and process custom user files. This file is then just reloaded on any OpenWrt firewall (`fw4`) reload, without the need to run the `pbr` init script again.
 
-### <a name='CustomUserFiles'></a>Custom User Files
+## <a name='CustomUserFiles'></a>Custom User Files
 
 If the custom user file includes are set, the service will load and execute them after setting up routing and the sets and processing policies. This allows, for example, to add large numbers of domains/IP addresses to nft sets without manually adding all of them to the config file.
 
 The following custom user files are provided:
 
-- `/etc/pbr/pbr.user.aws`: provided to pull the Continental US AWS IPv4 addresses into the WAN IPv4 sets that the service sets up.
-- `/etc/pbr/pbr.user.netflix`: provided to pull the Continental US Netflix IPv4 addresses into the WAN IPv4 sets that the service sets up.
-- `/etc/pbr/pbr.user.wg_server_and_client`: provided to overcome the protocol limitations (see [Local WireGuard Server + WireGuard Client (Scenario 1)](#LocalWireGuardServerWireGuardClientScenario1)), to allow running a WireGuard "server" on your router when a WireGuard "client" is set up as default routing.
+- `/usr/share/pbr/pbr.user.aws`: provided to pull the Continental US AWS IPv4 addresses into the WAN IPv4 sets that the service sets up.
+- `/usr/share/pbr/pbr.user.netflix`: provided to pull the Continental US Netflix IPv4 addresses into the WAN IPv4 sets that the service sets up.
 
 If you want to create your own custom user files, please refer to [Processing Custom User Files](#ProcessingCustomUserFiles).
 
-### <a name='StrictEnforcement'></a>Strict Enforcement
+## <a name='StrictEnforcement'></a>Strict Enforcement
 
 - Supports strict policy enforcement, even if the policy interface is down -- resulting in network being unreachable for specific policy (enabled by default).
 
-### <a name='UseResolversSetSupport'></a>Use Resolver's Set Support
+## <a name='UseResolversSetSupport'></a>Use Resolver's Set Support
 
 - If supported on the system, service can be set to utilize resolver's set support. Currently supported resolver's set options are listed below.
 
-#### <a name='UseDNSMASQnftsetsSupport'></a>Use DNSMASQ nft sets Support
+### <a name='UseDNSMASQnftsetsSupport'></a>Use DNSMASQ nft sets Support
 
 - The `pbr` package can be configured to utilize `dnsmasq`'s `nft` `sets` support, which requires the `dnsmasq-full` package with `nft` `sets` support to be installed (see [How to install dnsmasq-full](#Howtoinstalldnsmasq-full)). This significantly improves the start up time because `dnsmasq` resolves the domain names and adds them to the appropriate `nft` `set` in background. `dnsmasq`'s `nft` `set` also automatically adds third-level domains to the `set`: if `domain.com` is added to the policy, this policy will affect all `*.domain.com` subdomains. This also works for top-level domains (TLDs) as well, a policy targeting the `at` TLD for example, will affect all the `*.at` domains.
 - Please review the [Footnotes/Known Issues](#FootnotesKnownIssues) section, specifically [<sup>#5</sup>](#footnote5) and [<sup>#7</sup>](#footnote7) and any other information in that section relevant to domain-based routing/DNS.
 
-### <a name='Customization'></a>Customization
+## <a name='Customization'></a>Customization
 
 - Can be fully configured with `uci` commands or by editing `/etc/config/pbr` file.
 - Has a companion package (`luci-app-pbr`) so policies can be configured with Web UI.
 
-### <a name='OtherFeatures'></a>Other Features
+## <a name='OtherFeatures'></a>Other Features
 
-- Doesn't stay in memory, creates the routing tables and `iptables` rules/`sets` entries which are automatically updated when supported/monitored interface changes.
+- Doesn't stay in memory, creates the routing tables and `nft` rules/`sets` entries which are automatically updated when supported/monitored interface changes.
 - Proudly made in :maple_leaf: Canada :maple_leaf:, using locally-sourced electrons.
 
-## <a name='Screenshotsluci-app-pbr'></a>Screenshots (luci-app-pbr)
+# <a name='Screenshotsluci-app-pbr'></a>Screenshots (luci-app-pbr)
 
 Service Status
 
@@ -228,23 +215,23 @@ Custom User File Includes
 
 ![screenshot](https://docs.openwrt.melmac.net/pbr/screenshots/07-custom-user-files.png "Custom User File Includes")
 
-## <a name='HowItWorks'></a>How It Works
+# <a name='HowItWorks'></a>How It Works
 
-### <a name='HowItWorksnftmode'></a>How It Works (`nft` mode)
+## <a name='HowItWorksnftmode'></a>How It Works (`nft` mode)
 
 On start, this service creates routing tables for each supported interface (WAN/WAN6 and VPN tunnels) which are used to route specially marked packets. Rules for the policies are created in the service-specific chains set up by the `fw4`-specific `nft` scripts installed with the package. Evaluation of packets happens in these `pbr_*` chains after which the packets are sent for marking to the `pbr_mark_*` chains. Whenever possible, the service also creates named sets for `dest_addr` and `src_addr` entries and anonymous sets for `dest_port` and `src_port`. The service then processes the user-created policies.
 
-### <a name='ProcessingPolicies'></a>Processing Policies
+## <a name='ProcessingPolicies'></a>Processing Policies
 
 Each policy can result in a new `nft` rule and possibly an anonymous/in-line or a named `nft` `set` to match `dest_addr` and `src_addr`. Anonymous/in-line sets may be created within `nft` rules for `dest_port` and `src_port`.
 
-#### <a name='ProcessingPoliciesnftmode'></a>Processing Policies (`nft` mode)
+### <a name='ProcessingPoliciesnftmode'></a>Processing Policies (`nft` mode)
 
 - Policies with the MAC-addresses, IP addresses, netmasks, local device names or domains will result in a rule targeting named `nft` `sets`.
 - Policies with non-empty `dest_port` and `src_port` will be created with anonymous `nft` `sets` within the rule.
 - The `dnsmasq` `nftset` entries will be used for domains (if supported and enabled).
 
-### <a name='ProcessingDNSPolicies'></a>Processing DNS Policies
+## <a name='ProcessingDNSPolicies'></a>Processing DNS Policies
 
 Each DNS policy can result in either a new `nft` rule and possibly an anonymous/in-line or a named `nft` `set` to match `src_addr`.
 
@@ -252,21 +239,21 @@ If the IP adresses (either legacy IPv4 or IPv6 family or both) are defined in th
 
 If the network interface is defined in the `dest_dns` setting for the dns policy, then the first matching-family (either IPv4 or IPv6) DNS server will be used for a specific DNS policy.
 
-#### <a name='ProcessingDNSPoliciesnftmode'></a>Processing DNS Policies (`nft` mode)
+### <a name='ProcessingDNSPoliciesnftmode'></a>Processing DNS Policies (`nft` mode)
 
 - Policies with the MAC-addresses, IP addresses, netmasks or local device names will result in a rule targeting an anonymous/in-line or a named `nft` `sets`.
 
-### <a name='PoliciesPriorities'></a>Policies Priorities
+## <a name='PoliciesPriorities'></a>Policies Priorities
 
 - The policy priority is the same as its order as listed in Web UI and `/etc/config/pbr`. The higher the policy is in the Web UI and configuration file, the higher its priority is.
 - If set, the `DSCP` policies is set up first when creating the interface routing.
 - If enabled, it is highly recommended that the policies with `IGNORE` target are at the top of the policies list.
 
-### <a name='ProcessingCustomUserFiles'></a>Processing Custom User Files
+## <a name='ProcessingCustomUserFiles'></a>Processing Custom User Files
 
 If at least one custom user file is enabled, the service will create the following `nft` `sets` and set up the proper routing for them.
 
-#### <a name='ProcessingCustomUserFilesnftmode'></a>Processing Custom User Files (`nft` mode)
+### <a name='ProcessingCustomUserFilesnftmode'></a>Processing Custom User Files (`nft` mode)
 
 For each `interface` the service will create `nft` `sets` and routing:
 
@@ -277,9 +264,9 @@ For each `interface` the service will create `nft` `sets` and routing:
 - `pbr_interface_4_dst_mac_user`: for source/local MAC addresses
 - `pbr_interface_6_dst_mac_user`: for source/local MAC addresses
 
-## <a name='HowToInstall'></a>How To Install
+# <a name='HowToInstall'></a>How To Install
 
-### <a name='HowToInstall-OpenWrt23.05andnewer'></a>How To Install - OpenWrt 23.05 and newer
+## <a name='HowToInstall-OpenWrt23.05andnewer'></a>How To Install - OpenWrt 23.05 and newer
 
 Please make sure that the [requirements](#Requirements) are satisfied and install `pbr` and `luci-app-pbr` from Web UI or connect to your router via ssh and run the following commands:
 
@@ -288,11 +275,11 @@ opkg update
 opkg install pbr luci-app-pbr
 ```
 
-### <a name='HowToInstall-OpenWrt22.03andolder'></a>How To Install - OpenWrt 22.03 and older
+## <a name='HowToInstall-OpenWrt22.03andolder'></a>How To Install - OpenWrt 22.03 and older
 
 Since this release only supports `nft` riles and `nft` `sets`, it is not recommended to be installed on OpenWrt 22.03 or older. Please use the `pbr-iptables` package version 1.1.6 or earlier on those systems.
 
-### <a name='Requirements'></a>Requirements
+## <a name='Requirements'></a>Requirements
 
 Default builds of OpenWrt 23.05 and later are fully compatible with `pbr` and require no additional packages. If you're using a non-standard build, you may have to install the following packages on your router: `resolveip`, `ip-full` (or a `busybox` built with `ip` support).
 
@@ -302,7 +289,7 @@ To satisfy the requirements, connect to your router via ssh and run the followin
 opkg update; opkg install resolveip ip-full
 ```
 
-### <a name='Howtoinstalldnsmasq-full'></a>How to install dnsmasq-full
+## <a name='Howtoinstalldnsmasq-full'></a>How to install dnsmasq-full
 
 If you want to use `dnsmasq`'s `nft` `sets` support, you will need to install `dnsmasq-full` instead of the `dnsmasq`. To do that, connect to your router via ssh and run the following commands:
 
@@ -315,67 +302,64 @@ opkg install dnsmasq-full --cache /tmp/
 rm -f /tmp/dnsmasq-full*.ipk
 ```
 
-### <a name='Unmetdependencies'></a>Unmet dependencies
+## <a name='Unmetdependencies'></a>Unmet dependencies
 
 If you are running a development (trunk/snapshot) build of OpenWrt on your router and your build is outdated (meaning that packages of the same revision/commit hash are no longer available and when you try to satisfy the [requirements](#Requirements) you get errors), please flash either current OpenWrt release image or current development/snapshot image.
 
-### <a name='Howtoupgradetoamostrecentversion'></a>How to upgrade to a most recent version
+## <a name='Howtoupgradetoamostrecentversion'></a>How to upgrade to a most recent version
 
 If you're on OpenWrt 23.05, OpenWrt 24.10 or snapshots and have been advised to upgrade to a `pbr`/`luci-app-pbr` versions more recent than what's available in OpenWrt repositories, please [add my packages repository to your OpenWrt device](https://docs.openwrt.melmac.net/#OnyourOpenWrtdevice).
 
-## <a name='Howtouse'></a>How to use
+# <a name='Howtouse'></a>How to use
 
-### <a name='HelpfulInstructionalVideos'></a>Helpful Instructional Videos
+## <a name='HelpfulInstructionalVideos'></a>Helpful Instructional Videos
 
 If you want to use WebUI to configure `pbr` you may want to review the following YouTube videos:
 
 - [DevOdyssey](https://www.youtube.com/watch?v=FN2qfxNIs2g)
 
-### <a name='ServiceConfigurationSettings'></a>Service Configuration Settings
+## <a name='ServiceConfigurationSettings'></a>Service Configuration Settings
 
 As per screenshots above, in the Web UI the `pbr` configuration is split into `Basic`, `Advanced` and `WebUI` settings. The full list of configuration parameters of `pbr.config` section is:
 
-| Web UI Section      | Parameter                                                       | Type        | Default        | Description                                                                                                                                                                                                                                                                                                                                                                                                                                      |
-| ------------------- | --------------------------------------------------------------- | ----------- | -------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| Basic               | <a name="enabled"></a>enabled                                   | boolean     | 0              | Enable/disable the `pbr` service.                                                                                                                                                                                                                                                                                                                                                                                                                |
-| Basic               | <a name="verbosity"></a>verbosity                               | integer     | 2              | Can be set to 0, 1 or 2 to control the console and system log output verbosity of the `pbr` service.                                                                                                                                                                                                                                                                                                                                             |
-| Basic               | <a name="strict_enforcement"></a>strict_enforcement             | boolean     | 1              | Enforce policies when their interface is down. See [Strict enforcement](#StrictEnforcement) for more details.                                                                                                                                                                                                                                                                                                                                    |
-| Basic               | <a name="resolver_set"></a>resolver_set                         | string      | dnsmasq.nftset | Configure the use of the resolver's set support for domains. For most policies targeting domains, this must be enabled to guarantee the reliable operation/routing. Enabling it also speeds up service start-up. Currently supported options are `none`, and `dnsmasq.nftset` (see [Use Resolver's Set Support](#UseResolversSetSupport) and [<sup>#7</sup>](#footnote7) for more details). Make sure the [requirements](#Requirements) are met. |
-|                     | <a name="resolver_instance"></a>resolver_instance               | list        | \*             | Configure the use of the resolver's set support for specific instances only by setting a list of instance numbers or names. Currently supported for the following `resolver_set` options: `dnsmasq.nftset`.                                                                                                                                                                                                                                      |
-| Basic               | <a name="ipv6_enabled"></a>ipv6_enabled                         | boolean     | 0              | Enable/disable IPv6 support.                                                                                                                                                                                                                                                                                                                                                                                                                     |
-| Advanced            | <a name="supported_interface"></a>supported_interface           | list/string |                | Allows to specify the space-separated list of interface names (in lower case) to be explicitly supported by the `pbr` service. Can be useful if your OpenVPN tunnels have dev option other than tun\*.                                                                                                                                                                                                                                           |
-| Advanced            | <a name="ignored_interface"></a>ignored_interface               | list/string |                | Allows to specify the space-separated list of interface names (in lower case) to be ignored by the `pbr` service. Can be useful if running both VPN server and VPN client on the router.                                                                                                                                                                                                                                                         |
-| Advanced            | <a name="boot_timeout"></a>boot_timeout                         | number      | 30             | Allows to specify the time (in seconds) for `pbr` service to wait for WAN gateway discovery on boot. Can be useful on devices with ADSL modem built in.                                                                                                                                                                                                                                                                                          |
-| Advanced            | <a name="rule_create_option"></a>rule_create_option             | add/insert  | add            | Allows to specify the parameter for rules: `add` for `-A` in `iptables` and `add` in `nft` and `insert` for `-I` in `iptables` and `insert` for `nft`. Add is generally speaking more compatible with other packages/firewall rules. Recommended to change to `insert` only to enable compatibility with the `mwan3` package on OpenWrt 21.02 and earlier.                                                                                       |
-| Advanced            | <a name="icmp_interface"></a>icmp_interface                     | string      |                | Set the default ICMP protocol interface (interface name in lower case). Use with caution.                                                                                                                                                                                                                                                                                                                                                        |
-| Hidden              | <a name="wan_ip_rules_priority"></a>wan_ip_rules_priority       | integer     | 30000          | Starting (WAN) ip rules priority used by the `pbr` service. High starting priority is used to avoid conflict with other services, this can be changed by user.                                                                                                                                                                                                                                                                                   |
-| Advanced            | <a name="wan_mark"></a>wan_mark                                 | hexadecimal | 010000         | Starting (WAN) fw mark for marks used by the `pbr` service. High starting mark is used to avoid conflict with SQM/QoS, this can be changed by user. Change with caution together with `fw_mask`.                                                                                                                                                                                                                                                 |
-| Advanced            | <a name="fw_mask"></a>fw_mask                                   | hexadecimal | ff0000         | FW Mask used by the `pbr` service. High mask is used to avoid conflict with SQM/QoS, this can be changed by user. Change with caution together with `wan_mark`.                                                                                                                                                                                                                                                                                  |
-| Hidden/Experimental | <a name="secure_reload"></a>secure_reload                       | boolean     | 0              | Deprecated in 1.1.7 due to implementation of atomic nft file (fw4 nft file) mode.                                                                                                                                                                                                                                                                                                                                                                |
-| Web UI              | <a name="webui_show_ignore_target"></a>webui_show_ignore_target | boolean     | 0              | When enabled, show `ignore` in the list of interfaces.                                                                                                                                                                                                                                                                                                                                                                                           |
-| Web UI              | <a name="webui_supported_protocol"></a>webui_supported_protocol | list        | 0              | List of protocols to display in the `Protocol` column for policies.                                                                                                                                                                                                                                                                                                                                                                              |
-|                     | <a name="wan_dscp"></a>wan_dscp                                 | integer     |                | Allows use of [DSCP-tag based policies](#DSCPTag-BasedPolicies) for WAN interface.                                                                                                                                                                                                                                                                                                                                                               |
-|                     | <a name="interface_name_dscp"></a>{interface_name}\_dscp        | integer     |                | Allows use of [DSCP-tag based policies](#DSCPTag-BasedPolicies) for a VPN interface.                                                                                                                                                                                                                                                                                                                                                             |
-| Hidden              | <a name="procd_boot_delay"></a>procd_boot_delay                 | integer     | 0              | Time (in seconds) to sleep on boot before trying to start `pbr` service.                                                                                                                                                                                                                                                                                                                                                                         |
-| Hidden              | <a name="procd_reload_delay"></a>procd_reload_delay             | integer     | 0              | Time (in seconds) for PROCD_RELOAD_DELAY parameter.                                                                                                                                                                                                                                                                                                                                                                                              |
-| Hidden              | <a name="procd_lan_device"></a>procd_lan_device                 | list        | br-lan         | Allows you to override the default `br-lan` device used for the LAN interface detection.                                                                                                                                                                                                                                                                                                                                                         |
-| Hidden              | <a name="procd_wan_ignore_status"></a>procd_wan_ignore_status   | boolean     |                | Ignore `wan` interface status (do not wait for the interface to be up) when starting up.                                                                                                                                                                                                                                                                                                                                                         |
-| Hidden              | <a name="procd_wan_interface"></a>procd_wan_interface           |             |                | Override `wan` interface name with this interface. Newer versions do not attempt to auto-detect WAN interface name and setting this from CLI may be required.                                                                                                                                                                                                                                                                                    |
-| Hidden              | <a name="procd_wan6_interface"></a>procd_wan6_interface         |             |                | Override `wan6` interface name with this interface.                                                                                                                                                                                                                                                                                                                                                                                              |
-| Hidden              | <a name="nft_rule_counter"></a>nft_rule_counter                 | boolean     | 0              | Use `counter` option when creating all `nft` rules. See [nftables wiki](https://wiki.nftables.org/wiki-nftables/index.php/Sets) for details.                                                                                                                                                                                                                                                                                                     |
-| Hidden              | <a name="nft_set_auto_merge"></a>nft_set_auto_merge             | boolean     | 1              | Use `auto-merge` option when creating all `nft` sets. See [nftables wiki](https://wiki.nftables.org/wiki-nftables/index.php/Sets) for details.                                                                                                                                                                                                                                                                                                   |
-| Hidden              | <a name="nft_set_counter"></a>nft_set_counter                   | boolean     | 0              | Use `counter` option when creating all `nft` sets. See [nftables wiki](https://wiki.nftables.org/wiki-nftables/index.php/Sets) for details.                                                                                                                                                                                                                                                                                                      |
-| Hidden              | <a name="nft_set_flags_interval"></a>nft_set_flags_interval     | boolean     | 1              | Use `flags interval` option when creating all `nft` sets. See [nftables wiki](https://wiki.nftables.org/wiki-nftables/index.php/Sets) for details.                                                                                                                                                                                                                                                                                               |
-| Hidden              | <a name="nft_set_flags_timeout"></a>nft_set_flags_timeout       | boolean     | 0              | Use `flags timeout` option when creating all `nft` sets. See [nftables wiki](https://wiki.nftables.org/wiki-nftables/index.php/Sets) for details.                                                                                                                                                                                                                                                                                                |
-| Hidden              | <a name="nft_set_gc_interval"></a>nft_set_gc_interval           | string      |                | Use `gc-interval` option when creating all `nft` sets. See [nftables wiki](https://wiki.nftables.org/wiki-nftables/index.php/Sets) for details.                                                                                                                                                                                                                                                                                                  |
-| Hidden              | <a name="nft_set_policy"></a>nft_set_policy                     | string      | performance    | Set `policy` option when creating all `nft` sets. See [nftables wiki](https://wiki.nftables.org/wiki-nftables/index.php/Sets) for details.                                                                                                                                                                                                                                                                                                       |
-| Hidden              | <a name="nft_set_timeout"></a>nft_set_timeout                   | string      |                | Use `timeout` option when creating all `nft` sets. See [nftables wiki](https://wiki.nftables.org/wiki-nftables/index.php/Sets) for details.                                                                                                                                                                                                                                                                                                      |
+| Web UI Section | Parameter                                                       | Type        | Default        | Description                                                                                                                                                                                                                                                                                                                                                                                                                                      |
+| -------------- | --------------------------------------------------------------- | ----------- | -------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Basic          | <a name="enabled"></a>enabled                                   | boolean     | 0              | Enable/disable the `pbr` service.                                                                                                                                                                                                                                                                                                                                                                                                                |
+| Basic          | <a name="verbosity"></a>verbosity                               | integer     | 2              | Can be set to 0, 1 or 2 to control the console and system log output verbosity of the `pbr` service.                                                                                                                                                                                                                                                                                                                                             |
+| Basic          | <a name="strict_enforcement"></a>strict_enforcement             | boolean     | 1              | Enforce policies when their interface is down. See [Strict enforcement](#StrictEnforcement) for more details.                                                                                                                                                                                                                                                                                                                                    |
+| Basic          | <a name="resolver_set"></a>resolver_set                         | string      | dnsmasq.nftset | Configure the use of the resolver's set support for domains. For most policies targeting domains, this must be enabled to guarantee the reliable operation/routing. Enabling it also speeds up service start-up. Currently supported options are `none`, and `dnsmasq.nftset` (see [Use Resolver's Set Support](#UseResolversSetSupport) and [<sup>#7</sup>](#footnote7) for more details). Make sure the [requirements](#Requirements) are met. |
+|                | <a name="resolver_instance"></a>resolver_instance               | list        | \*             | Configure the use of the resolver's set support for specific instances only by setting a list of instance numbers or names. Currently supported for the following `resolver_set` options: `dnsmasq.nftset`.                                                                                                                                                                                                                                      |
+| Basic          | <a name="ipv6_enabled"></a>ipv6_enabled                         | boolean     | 0              | Enable/disable IPv6 support.                                                                                                                                                                                                                                                                                                                                                                                                                     |
+| Advanced       | <a name="supported_interface"></a>supported_interface           | list/string |                | Allows to specify the space-separated list of interface names (in lower case) to be explicitly supported by the `pbr` service. Can be useful if your OpenVPN tunnels have dev option other than tun\*.                                                                                                                                                                                                                                           |
+| Advanced       | <a name="ignored_interface"></a>ignored_interface               | list/string |                | Allows to specify the space-separated list of interface names (in lower case) to be ignored by the `pbr` service. Can be useful for an OpenVPN server running on OpenWrt device. WireGuard servers, which have a listen_port defined, are handled automatically, do not add those here. For more information on WireGuard server use cases, please review [WireGuard Server Use Cases](#wireguard-server-use-cases).                             |
+| Advanced       | <a name="boot_timeout"></a>boot_timeout                         | number      | 30             | Allows to specify the time (in seconds) for `pbr` service to wait for WAN gateway discovery on boot. Can be useful on devices with ADSL modem built in.                                                                                                                                                                                                                                                                                          |
+| Advanced       | <a name="rule_create_option"></a>rule_create_option             | add/insert  | add            | Allows to specify the parameter for rules: `add` for `-A` in `iptables` and `add` in `nft` and `insert` for `-I` in `iptables` and `insert` for `nft`. Add is generally speaking more compatible with other packages/firewall rules. Recommended to change to `insert` only to enable compatibility with the `mwan3` package on OpenWrt 21.02 and earlier.                                                                                       |
+| Advanced       | <a name="icmp_interface"></a>icmp_interface                     | string      |                | Set the default ICMP protocol interface (interface name in lower case). Use with caution.                                                                                                                                                                                                                                                                                                                                                        |
+| Hidden         | <a name="wan_ip_rules_priority"></a>wan_ip_rules_priority       | integer     | 30000          | Starting (WAN) ip rules priority used by the `pbr` service. High starting priority is used to avoid conflict with other services, this can be changed by user.                                                                                                                                                                                                                                                                                   |
+| Advanced       | <a name="wan_mark"></a>wan_mark                                 | hexadecimal | 010000         | Starting (WAN) fw mark for marks used by the `pbr` service. High starting mark is used to avoid conflict with SQM/QoS, this can be changed by user. Change with caution together with `fw_mask`.                                                                                                                                                                                                                                                 |
+| Advanced       | <a name="fw_mask"></a>fw_mask                                   | hexadecimal | ff0000         | FW Mask used by the `pbr` service. High mask is used to avoid conflict with SQM/QoS, this can be changed by user. Change with caution together with `wan_mark`.                                                                                                                                                                                                                                                                                  |
+| Web UI         | <a name="webui_show_ignore_target"></a>webui_show_ignore_target | boolean     | 0              | When enabled, show `ignore` in the list of interfaces.                                                                                                                                                                                                                                                                                                                                                                                           |
+| Web UI         | <a name="webui_supported_protocol"></a>webui_supported_protocol | list        | 0              | List of protocols to display in the `Protocol` column for policies.                                                                                                                                                                                                                                                                                                                                                                              |
+|                | <a name="wan_dscp"></a>wan_dscp                                 | integer     |                | Allows use of [DSCP-tag based policies](#DSCPTag-BasedPolicies) for WAN interface.                                                                                                                                                                                                                                                                                                                                                               |
+|                | <a name="interface_name_dscp"></a>{interface_name}\_dscp        | integer     |                | Allows use of [DSCP-tag based policies](#DSCPTag-BasedPolicies) for a VPN interface.                                                                                                                                                                                                                                                                                                                                                             |
+| Hidden         | <a name="procd_lan_device"></a>procd_lan_device                 | list        | br-lan         | Allows you to override the default `br-lan` device used for the LAN interface detection.                                                                                                                                                                                                                                                                                                                                                         |
+| Hidden         | <a name="procd_reload_delay"></a>procd_reload_delay             | integer     | 0              | Time (in seconds) for PROCD_RELOAD_DELAY parameter.                                                                                                                                                                                                                                                                                                                                                                                              |
+| Hidden         | <a name="procd_wan_interface"></a>procd_wan_interface           |             |                | Override `wan` interface name with this interface. Newer versions do not attempt to auto-detect WAN interface name and setting this from CLI may be required.                                                                                                                                                                                                                                                                                    |
+| Hidden         | <a name="procd_wan6_interface"></a>procd_wan6_interface         |             |                | Override `wan6` interface name with this interface.                                                                                                                                                                                                                                                                                                                                                                                              |
+| Hidden         | <a name="nft_rule_counter"></a>nft_rule_counter                 | boolean     | 0              | Use `counter` option when creating all `nft` rules. See [nftables wiki](https://wiki.nftables.org/wiki-nftables/index.php/Sets) for details.                                                                                                                                                                                                                                                                                                     |
+| Hidden         | <a name="nft_set_auto_merge"></a>nft_set_auto_merge             | boolean     | 1              | Use `auto-merge` option when creating all `nft` sets. See [nftables wiki](https://wiki.nftables.org/wiki-nftables/index.php/Sets) for details.                                                                                                                                                                                                                                                                                                   |
+| Hidden         | <a name="nft_set_counter"></a>nft_set_counter                   | boolean     | 0              | Use `counter` option when creating all `nft` sets. See [nftables wiki](https://wiki.nftables.org/wiki-nftables/index.php/Sets) for details.                                                                                                                                                                                                                                                                                                      |
+| Hidden         | <a name="nft_set_flags_interval"></a>nft_set_flags_interval     | boolean     | 1              | Use `flags interval` option when creating all `nft` sets. See [nftables wiki](https://wiki.nftables.org/wiki-nftables/index.php/Sets) for details.                                                                                                                                                                                                                                                                                               |
+| Hidden         | <a name="nft_set_flags_timeout"></a>nft_set_flags_timeout       | boolean     | 0              | Use `flags timeout` option when creating all `nft` sets. See [nftables wiki](https://wiki.nftables.org/wiki-nftables/index.php/Sets) for details.                                                                                                                                                                                                                                                                                                |
+| Hidden         | <a name="nft_set_gc_interval"></a>nft_set_gc_interval           | string      |                | Use `gc-interval` option when creating all `nft` sets. See [nftables wiki](https://wiki.nftables.org/wiki-nftables/index.php/Sets) for details.                                                                                                                                                                                                                                                                                                  |
+| Hidden         | <a name="nft_set_policy"></a>nft_set_policy                     | string      | performance    | Set `policy` option when creating all `nft` sets. See [nftables wiki](https://wiki.nftables.org/wiki-nftables/index.php/Sets) for details.                                                                                                                                                                                                                                                                                                       |
+| Hidden         | <a name="nft_set_timeout"></a>nft_set_timeout                   | string      |                | Use `timeout` option when creating all `nft` sets. See [nftables wiki](https://wiki.nftables.org/wiki-nftables/index.php/Sets) for details.                                                                                                                                                                                                                                                                                                      |
 
-#### <a name='DefaultSettings'></a>Default Settings
+### <a name='DefaultSettings'></a>Default Settings
 
 Default configuration has service disabled (use Web UI to enable/start service or run `uci set pbr.config.enabled=1; uci commit pbr;`).
 
-#### <a name='PolicyOptions'></a>Policy Options
+### <a name='PolicyOptions'></a>Policy Options
 
 Each policy may have a combination of the options below, the `name` and `interface` options are required.
 
@@ -393,7 +377,7 @@ The `src_addr`, `src_port`, `dest_addr` and `dest_port` options supports paramet
 | proto         | auto       | Policy protocol, can be any valid protocol from `/etc/protocols` for CLI/uci or can be selected from the values set in `webui_supported_protocol`.                                                                                                                                                                                                                                                                                                                               |
 | chain         | prerouting | Policy chain, can be either `forward`, `input`, `prerouting`, `postrouting` or `output`. This setting is case-sensitive.                                                                                                                                                                                                                                                                                                                                                         |
 
-#### <a name='DNSPolicyOptions'></a>DNS Policy Options
+### <a name='DNSPolicyOptions'></a>DNS Policy Options
 
 Each policy may have a combination of the options below, the `name`, the `src_addr` and `dest_dns` options are required.
 
@@ -404,16 +388,16 @@ Each policy may have a combination of the options below, the `name`, the `src_ad
 | **src_addr** |         | List of space-separated local/source IP addresses, CIDRs, hostnames or mac addresses (colon-separated). You can also specify a local physical device (like a specially created wlan) prepended by an `@` symbol. You can use URLs to list of addresses. If `curl` is installed you can use the `file://` schema, otherwise you can use `ftp://`, `http://` and `https://` schemas (which are obviously not compatible with the `secure_reload` option). |
 | **dest_dns** |         | List of space-separated IPv4/IPv6 addresses for resolvers used for the DNS policy or a network interface, which DNS server(s) will be used for the DNS policy.                                                                                                                                                                                                                                                                                          |
 
-#### <a name='CustomUserFilesIncludeOptions'></a>Custom User Files Include Options
+### <a name='CustomUserFilesIncludeOptions'></a>Custom User Files Include Options
 
 | Option   | Default | Description                                                                 |
 | -------- | ------- | --------------------------------------------------------------------------- |
 | **path** |         | Path to a custom user file (in a form of shell script), it **must** be set. |
 | enabled  | 1       | Enable/disable setting.                                                     |
 
-### <a name='ExamplePolicies'></a>Example Policies
+## <a name='ExamplePolicies'></a>Example Policies
 
-#### <a name='SingleIPIPRangeLocalMachineLocalMACAddress'></a>Single IP, IP Range, Local Machine, Local MAC Address
+### <a name='SingleIPIPRangeLocalMachineLocalMACAddress'></a>Single IP, IP Range, Local Machine, Local MAC Address
 
 The following policies route traffic from a single IP address, a range of IP addresses, a local machine (requires definition as DHCP host record in DHCP config), a MAC-address of a local device and finally all of the above via WAN.
 
@@ -445,7 +429,7 @@ config policy
 
 ```
 
-#### <a name='SIPPort'></a>SIP Port
+### <a name='SIPPort'></a>SIP Port
 
 The following policy routes standard SIP port traffic via WAN for both TCP and UDP protocols.
 
@@ -457,7 +441,7 @@ config policy
 	option proto 'tcp udp'
 ```
 
-#### <a name='PlexMediaServer'></a>Plex Media Server
+### <a name='PlexMediaServer'></a>Plex Media Server
 
 The following policies route Plex Media Server traffic via WAN. Please note, you'd still need to open the port in the firewall either manually or with the UPnP.
 
@@ -473,7 +457,7 @@ config policy
 	option dest_addr 'plex.tv my.plexapp.com'
 ```
 
-#### <a name='EmbyMediaServer'></a>Emby Media Server
+### <a name='EmbyMediaServer'></a>Emby Media Server
 
 The following policy route Emby traffic via WAN. Please note, you'd still need to open the port in the firewall either manually or with the UPnP.
 
@@ -489,11 +473,11 @@ config policy
 	option dest_addr 'emby.media app.emby.media tv.emby.media'
 ```
 
-#### <a name='IgnoreTarget'></a>Ignore Target
+### <a name='IgnoreTarget'></a>Ignore Target
 
 The service allows you to set an interface for a specific policy to `ignore` to skip further processing of matched traffic. This option needs to be explicitly enabled for use in WebUI, check [Service Configuration Settings](#ServiceConfigurationSettings) for details. Some use cases are listed below.
 
-##### Ignore Requests
+#### <a name='IgnoreRequests'></a>Ignore Requests
 
 The following policy allows you to skip processing some requests (like traffic to an OpenVPN or WireGuard server running on the router):
 
@@ -512,9 +496,57 @@ Please note, you need to enable `Show Ignore Target` option for the WebUI to lis
 
 It's a good idea to keep the policies targeting `ignore` interface at the top of the config file/list of policies displayed in WebUI to make sure they are processed first.
 
-#### <a name='BasicOpenVPNClientConfig'></a>Basic OpenVPN Client Config
+### <a name='NetflixDomains'></a>Netflix Domains
 
-There are multiple guides online on how to configure the OpenVPN client on OpenWrt "the easy way", and they usually result either in a kill-switch configuration or configuration where the OpenVPN tunnel cannot be properly (and separately from WAN) routed, either way, incompatible with the VPN Policy-Based Routing.
+The following policy should route US Netflix traffic via WAN. For capturing international Netflix domain names, you can refer to the getdomainnames.sh-specific instructions on [GitHub](https://github.com/Xentrk/netflix-vpn-bypass/blob/master/README.md#ipset_netflix_domainssh)/[jsDelivr](https://cdn.jsdelivr.net/gh/Xentrk/netflix-vpn-bypass/README.md#ipset_netflix_domainssh) and don't forget to adjust them for OpenWrt. This may not work if Netflix changes things. For more reliable US Netflix routing you may want to consider also using [custom user files](#CustomUserFiles).
+
+```text
+config policy
+	option name 'Netflix Domains'
+	option interface 'wan'
+	option dest_addr 'amazonaws.com netflix.com nflxext.com nflximg.net nflxso.net nflxvideo.net dvd.netflix.com'
+```
+
+### <a name='ExampleCustomUserFilesIncludes'></a>Example Custom User Files Includes
+
+```text
+config include
+	option path '/etc/pbr/pbr.user.aws'
+	option enabled '0'
+
+config include
+	option path '/etc/pbr/pbr.user.netflix'
+	option enabled '0'
+```
+
+## <a name='ExampleOpenWrtConfigurationsforMoreComplexCases'></a>Example OpenWrt Configurations for More Complex Cases
+
+### <a name='WireGuardServerUseCases'></a>WireGuard Server Use Cases
+
+Yes, I'm aware that in terms of topology there are no clients nor servers in WireGuard, it's all peers. However, if one of the WireGuard instances has the `listen_port`, we'd call this one a server and if it doesn't have the `listen_port`, then it's a client.
+
+The `pbr` service automatically detects the WireGuard server and without any customizations the default behaviour is:
+
+- do not show the WireGuard server interfaces in the list of interfaces available for policies/DSCP tagging.
+- to create an ip rule to send traffic from WireGuard server over WAN to ensure that your WireGuard server is still accessible/functional even if your default gateway is a tunnel and not a WAN connection.
+
+However, there could be use cases where this default behaviour is not desired and needs to be altered, they are addressed below
+
+#### <a name='WireGuardServerUseCase:TargetinginPolicies'></a>WireGuard Server Use Case: Targeting in Policies
+
+If you need to target the WireGuard server in policies, please add its interface name to [Supported Interface](#supported_interface) option. That way the ip rule to send traffic from WireGuard server over WAN will still be automatically created, but the WireGuard server name will appear/can be targeted in policies.
+
+#### <a name='WireGuardServerUseCase:DisableIPRuleforWAN'></a>WireGuard Server Use Case: Disable IP Rule for WAN
+
+If you need to send the WireGuard server traffic over default gateway (and not WAN), in other words you want to disable the automatic ip rule to send traffic from WireGuard server over WAN, add the WireGuard server interface name to [Ignored Interface](#ignored_interface) option.
+
+#### <a name='WireGuardServerUseCase:TargetinginPoliciesandDisableIPRuleforWAN'></a>WireGuard Server Use Case: Targeting in Policies and Disable IP Rule for WAN
+
+If you need to target the WireGuard server in policies and you need to send the WireGuard server traffic over default gateway (and not WAN), add the WireGuard server interface name to both [Supported Interface](#supported_interface) and [Ignored Interface](#ignored_interface) options.
+
+### <a name='BasicOpenVPNClientConfig'></a>Basic OpenVPN Client Config
+
+There are multiple guides online on how to configure the OpenVPN client on OpenWrt "the easy way", and they usually result either in a kill-switch configuration or configuration where the OpenVPN tunnel cannot be properly (and separately from WAN) routed, either way, incompatible with the Policy-Based Routing.
 
 Below is the sample OpenVPN client configuration for OpenWrt which is guaranteed to work. If you have already deviated from the instructions below (ie: made any changes to any of the `wan` or `lan` configurations in either `/etc/config/network` or `/etc/config/firewall`), you will need to start from scratch with a fresh OpenWrt install.
 
@@ -557,7 +589,7 @@ config openvpn 'vpnclient'
 	...
 ```
 
-#### <a name='MultipleOpenVPNClients'></a>Multiple OpenVPN Clients
+### <a name='MultipleOpenVPNClients'></a>Multiple OpenVPN Clients
 
 If you use multiple OpenVPN clients on your router, the order in which their devices are named (tun0, tun1, etc) is not guaranteed by OpenWrt. The following settings are recommended in this case.
 
@@ -597,7 +629,7 @@ config pbr 'config'
 	...
 ```
 
-#### <a name='LocalOpenVPNServerOpenVPNClientScenario1'></a>Local OpenVPN Server + OpenVPN Client (Scenario 1)
+### <a name='LocalOpenVPNServerOpenVPNClientScenario1'></a>Local OpenVPN Server + OpenVPN Client (Scenario 1)
 
 If the OpenVPN client on your router is used as default routing (for the whole Internet), make sure your settings are as following (three dots on the line imply other options can be listed in the section as well).
 
@@ -672,7 +704,7 @@ config openvpn 'vpnserver'
 	...
 ```
 
-#### <a name='LocalOpenVPNServerOpenVPNClientScenario2'></a>Local OpenVPN Server + OpenVPN Client (Scenario 2)
+### <a name='LocalOpenVPNServerOpenVPNClientScenario2'></a>Local OpenVPN Server + OpenVPN Client (Scenario 2)
 
 If the OpenVPN client is **not** used as default routing and you create policies to selectively use the OpenVPN client, make sure your settings are as following (three dots on the line imply other options can be listed in the section as well). Make sure that the policy mentioned below is at the top of your policies list.
 
@@ -747,130 +779,7 @@ config openvpn 'vpnserver'
 	...
 ```
 
-#### <a name='LocalWireGuardServerWireGuardClientScenario1'></a>Local WireGuard Server + WireGuard Client (Scenario 1)
-
-Yes, I'm aware that technically there are no clients nor servers in WireGuard, only peers in terms of topology. When you configure WireGuard, however, one of the instances will have the `listen_port`, so we'd call that one a server and if it doesn't have the `listen_port`, then it's a client. This terminology is similar to the OpenVPN Server + Client setups.
-
-If the WireGuard tunnel on your router is used as default routing (for the whole Internet), sadly no `pbr` rule will allow it to intercept and properly route the `UDP` traffic of the WireGuard server, please either use the OpenVPN server and configure it to use `TCP` protocol or use Scenario 2 below.
-
-#### <a name='LocalWireGuardServerWireGuardClientScenario2'></a>Local WireGuard Server + WireGuard Client (Scenario 2)
-
-Yes, I'm aware that technically there are no clients nor servers in WireGuard, only peers in terms of topology, When you configure WireGuard, however, one of the instances will have the `listen_port`, so we'd call that one a server and if it doesn't have the `listen_port`, then it's a client. This terminology is similar to the OpenVPN Server + Client setups.
-
-If the WireGuard client is **not** used as default routing and you create policies to selectively use the WireGuard client, make sure your settings are as following (three dots on the line imply other options can be listed in the section as well). Make sure that the policy mentioned below is at the top of your policies list.
-
-Relevant part of `/etc/config/pbr`:
-
-```text
-config pbr 'config'
-	list ignored_interface 'wgserver'
-	...
-config policy
-	option name 'Ignore Local Traffic'
-	option interface 'ignore'
-	option dest_addr '192.168.200.0/24'
-	...
-```
-
-The recommended network/firewall settings are below.
-
-Relevant part of `/etc/config/network` (**DO NOT** modify default OpenWrt network settings for either `wan` or `lan`):
-
-```text
-config interface 'wgclient'
-	option proto 'wireguard'
-	...
-
-config wireguard_wgclient
-	list allowed_ips '0.0.0.0/0'
-	list allowed_ips '::0/0'
-	option endpoint_port '51820'
-	...
-
-config interface 'wgserver'
-	option proto 'wireguard'
-	option listen_port '61820'
-	list addresses '192.168.200.1/24'
-	...
-
-config wireguard_wgserver
-	list allowed_ips '192.168.200.2/32'
-	option route_allowed_ips '1'
-	...
-```
-
-Relevant part of `/etc/config/firewall`:
-
-```text
-config zone
-	option name 'lan'
-	list network 'lan'
-	list network 'wgserver'
-	...
-
-config zone
-	option name 'wan'
-	list network 'wan'
-	list network 'wgclient'
-	...
-
-config rule
-	option name 'Allow-WG-Inbound'
-	option target 'ACCEPT'
-	option src '*'
-	option proto 'udp'
-	option dest_port '61820'
-```
-
-#### <a name='LocalWireGuardServerAnotherVPNClientScenario1'></a>Local WireGuard Server + Another VPN Client (Scenario 1)
-
-Yes, I'm aware that technically there are no clients nor servers in WireGuard, only peers in terms of topology, When you configure WireGuard, however, one of the instances will have the `listen_port`, so we'd call that one a server and if it doesn't have the `listen_port`, then it's a client. This terminology is similar to the OpenVPN Server + Client setups.
-
-If another VPN client is used as default routing (for the whole Internet), sadly no `pbr` rule will allow it to intercept and properly route the `UDP` traffic of WireGuard server, please either use the OpenVPN server and configure it to use `TCP` protocol or use the Scenario 2 below.
-
-#### <a name='LocalWireGuardServerAnotherVPNClientScenario2'></a>Local WireGuard Server + Another VPN Client (Scenario 2)
-
-Yes, I'm aware that technically there are no clients nor servers in WireGuard, only peers in terms of topology, When you configure WireGuard, however, one of the instances will have the `listen_port`, so we'd call that one a server and if it doesn't have the `listen_port`, then it's a client. This terminology is similar to the OpenVPN Server + Client setups.
-
-If another VPN client is **not** used as default routing and you create policies to selectively use the VPN client, make sure your settings are as following (three dots on the line imply other options can be listed in the section as well). Make sure that the policy mentioned below is at the top of your policies list.
-
-Relevant part of `/etc/config/pbr`:
-
-```text
-config pbr 'config'
-	list ignored_interface 'wgserver'
-	...
-config policy
-	option name 'Ignore Local Traffic'
-	option interface 'ignore'
-	option dest_addr '192.168.200.0/24'
-	...
-```
-
-#### <a name='NetflixDomains'></a>Netflix Domains
-
-The following policy should route US Netflix traffic via WAN. For capturing international Netflix domain names, you can refer to the getdomainnames.sh-specific instructions on [GitHub](https://github.com/Xentrk/netflix-vpn-bypass/blob/master/README.md#ipset_netflix_domainssh)/[jsDelivr](https://cdn.jsdelivr.net/gh/Xentrk/netflix-vpn-bypass/README.md#ipset_netflix_domainssh) and don't forget to adjust them for OpenWrt. This may not work if Netflix changes things. For more reliable US Netflix routing you may want to consider also using [custom user files](#CustomUserFiles).
-
-```text
-config policy
-	option name 'Netflix Domains'
-	option interface 'wan'
-	option dest_addr 'amazonaws.com netflix.com nflxext.com nflximg.net nflxso.net nflxvideo.net dvd.netflix.com'
-```
-
-#### <a name='ExampleCustomUserFilesIncludes'></a>Example Custom User Files Includes
-
-```text
-config include
-	option path '/etc/pbr/pbr.user.aws'
-	option enabled '0'
-
-config include
-	option path '/etc/pbr/pbr.user.netflix'
-	option enabled '0'
-```
-
-## <a name='FootnotesKnownIssues'></a>Footnotes/Known Issues
+# <a name='FootnotesKnownIssues'></a>Footnotes/Known Issues
 
 1.  <a name="footnote1"> </a> See [note about multiple OpenVPN clients](#MultipleOpenVPNClients).
 
@@ -888,15 +797,15 @@ config include
 
 8.  <a name="footnote8"> </a> When service is started, it subscribes to the supported interfaces updates thru the PROCD. While I was never able to reproduce the issue, some customers report that this method doesn't always work in which case you may want to [set up iface hotplug script](#AWordAboutInterfaceHotplugScript) to reload service when the relevant interface(s) are updated.
 
-## <a name='FAQ'></a>FAQ
+# <a name='FAQ'></a>FAQ
 
 You may find some useful information below.
 
-### <a name='AWordAboutDefaultRouting'></a>A Word About Default Routing
+## <a name='AWordAboutDefaultRouting'></a>A Word About Default Routing
 
 Service does not alter the default routing. Depending on your VPN tunnel settings (and settings of the VPN server you are connecting to), the default routing might be set to go via WAN or via VPN tunnel. This service affects only routing of the traffic matching the policies. If you want to override default routing, follow the instructions below.
 
-#### <a name='OpenVPNtunnelconfiguredviaucietcconfigopenvpn'></a>OpenVPN tunnel configured via uci (/etc/config/openvpn)
+### <a name='OpenVPNtunnelconfiguredviaucietcconfigopenvpn'></a>OpenVPN tunnel configured via uci (/etc/config/openvpn)
 
 To unset an OpenVPN tunnel as default route, set the following to the appropriate section of your `/etc/config/openvpn`:
 
@@ -918,7 +827,7 @@ To unset an OpenVPN tunnel as default route, set the following to the appropriat
   option route_allowed_ips '0'
   ```
 
-#### <a name='OpenVPNtunnelconfiguredwith.ovpnfile'></a>OpenVPN tunnel configured with .ovpn file
+### <a name='OpenVPNtunnelconfiguredwith.ovpnfile'></a>OpenVPN tunnel configured with .ovpn file
 
 To unset an OpenVPN tunnel as default route, set the following to the appropriate section of your `.ovpn` file:
 
@@ -934,7 +843,7 @@ To unset an OpenVPN tunnel as default route, set the following to the appropriat
   route-nopull
   ```
 
-#### <a name='WireGuardtunnel'></a>WireGuard tunnel
+### <a name='WireGuardtunnel'></a>WireGuard tunnel
 
 To unset a WireGuard tunnel as default route, set the following to the appropriate section of your `/etc/config/network`:
 
@@ -946,7 +855,7 @@ To unset a WireGuard tunnel as default route, set the following to the appropria
 
 - Routing WireGuard traffic may require setting `net.ipv4.conf.wg0.rp_filter = 2` in `/etc/sysctl.conf`. Please refer to [issue #41](https://github.com/stangri/source.openwrt.melmac.net/issues/41) for more details.
 
-### <a name='AWordAboutCloudflares1.1.1.1App'></a>A Word About Cloudflare's 1.1.1.1 App
+## <a name='AWordAboutCloudflares1.1.1.1App'></a>A Word About Cloudflare's 1.1.1.1 App
 
 Cloudflare has released an app for [iOS](https://itunes.apple.com/us/app/1-1-1-1-faster-internet/id1423538627) and [Android](https://play.google.com/store/apps/details?id=com.cloudflare.onedotonedotonedotone), which can also be configured to route traffic thru their own VPN tunnel (WARP+).
 
@@ -954,7 +863,7 @@ If you use Cloudflare's VPN tunnel (WARP+), none of the policies you set up with
 
 If you just use the private DNS queries (WARP), [A Word About DNS-over-HTTPS](#AWordAboutDNS-over-HTTPS) applies. You can also disable WARP for your home WiFi to keep VPN Policy Routing affecting your mobile device.
 
-### <a name='AWordAboutDNS-over-HTTPS'></a>A Word About DNS-over-HTTPS
+## <a name='AWordAboutDNS-over-HTTPS'></a>A Word About DNS-over-HTTPS
 
 Some browsers, like [Mozilla Firefox](https://support.mozilla.org/en-US/kb/firefox-dns-over-https#w_about-dns-over-https) or [Google Chrome/Chromium](https://blog.chromium.org/2019/09/experimenting-with-same-provider-dns.html) have [DNS-over-HTTPS proxy](https://en.wikipedia.org/wiki/DNS_over_HTTPS) built-in. Their requests to web-sites listed in policies cannot be properly routed if the `resolver_set` is set to `dnsmasq.nftset`. To fix this, you can try either of the following:
 
@@ -962,23 +871,23 @@ Some browsers, like [Mozilla Firefox](https://support.mozilla.org/en-US/kb/firef
 
 2.  Continue using DNS-over-HTTPS in your browser (which, by the way, also limits your options for router-level AdBlocking as described in `net/adblock-fast` README on [GitHub](https://docs.openwrt.melmac.net/adblock-fast/#dns-resolution-option)/[jsDelivr](https://cdn.jsdelivr.net/gh/stangri/docs.openwrt.melmac.net/adblock-fast/README.md#dns-resolution-option)), you than would either have to switch the `resolver_set` to `none`. Please note, you will lose all the benefits of the [Resolver Set Support](#UseResolversSetSupport) option.
 
-### <a name='AWordAboutHTTP3QUIC'></a>A Word About HTTP/3 (QUIC)
+## <a name='AWordAboutHTTP3QUIC'></a>A Word About HTTP/3 (QUIC)
 
 If you want to target traffic using HTTP/3 protocol, you can use the `AUTO` as the protocol (the policy will be either protocol-agnostic or `TCP/UDP`) or explicitly use `UDP` as a protocol.
 
-### <a name='AWordAboutIPv6Routing'></a>A Word About IPv6 Routing
+## <a name='AWordAboutIPv6Routing'></a>A Word About IPv6 Routing
 
 Due to the nature of IPv6, it's not supposed to be routed as IPv4 is with this package. A fellow user has graciously contributed a [gist detailing their experience to get IPv6 routing working](https://gist.github.com/aliicex/3bd8413029b1f728c1f00bc1ac0e98b4).
 
-### <a name='AWordAboutRoutingNetflixAmazonPrimeHuluTraffic'></a>A Word About Routing Netflix/Amazon Prime/Hulu Traffic
+## <a name='AWordAboutRoutingNetflixAmazonPrimeHuluTraffic'></a>A Word About Routing Netflix/Amazon Prime/Hulu Traffic
 
 There are two following scenarios with VPN connections and Netflix/Amazon Prime/Hulu traffic.
 
-#### <a name='RoutingNetflixAmazonPrimeHuluTrafficviaVPNTunnel'></a>Routing Netflix/Amazon Prime/Hulu Traffic via VPN Tunnel
+### <a name='RoutingNetflixAmazonPrimeHuluTrafficviaVPNTunnel'></a>Routing Netflix/Amazon Prime/Hulu Traffic via VPN Tunnel
 
 If you live in a country where Netflix/Amazon Prime/Hulu are not available and want to circumvent geo-fencing, this package can't help you. The Netflix/Amazon Prime/Hulu do a great job detecting VPN usage when accessing their services and circumventing geographical restrictions is not only dubiously legal, it's also technically very challenging.
 
-#### <a name='RoutingNetflixAmazonPrimeHuluTrafficviaWAN'></a>Routing Netflix/Amazon Prime/Hulu Traffic via WAN
+### <a name='RoutingNetflixAmazonPrimeHuluTrafficviaWAN'></a>Routing Netflix/Amazon Prime/Hulu Traffic via WAN
 
 If you live in a country where Netflix/Amazon Prime/Hulu are available, you obviously do NOT want to use VPN tunnel for their traffic.
 
@@ -991,20 +900,20 @@ If the VPN tunnel is used as a default gateway, either:
 
 Either way make sure that your DNS requests are not routed via VPN Tunnel!
 
-### <a name='AWordAboutInterfaceHotplugScript'></a>A Word About Interface Hotplug Script
+## <a name='AWordAboutInterfaceHotplugScript'></a>A Word About Interface Hotplug Script
 
 Sometimes[<sup>#8</sup>](#footnote8) the service doesn't get reloaded when supported interfaces go up or down. This can be an annoying experience since the service may start before all supported VPN connections are up and then not get updated when the VPN connections get established. In that case, run the following command from CLI to create the interface hotplug script to cause the service to be reloaded in interface updates:
 
 ```sh
 mkdir -p /etc/hotplug.d/iface/
 cat << 'EOF' > /etc/hotplug.d/iface/70-pbr
-#!/bin/sh
+!/bin/sh
 logger -t pbr "Reloading $INTERFACE due to $ACTION of $INTERFACE ($DEVICE)"
 /etc/init.d/pbr reload_interface "$INTERFACE"
 EOF
 ```
 
-### <a name='AWordAboutBrokenDomainPolicies'></a>A Word About Broken Domain Policies
+## <a name='AWordAboutBrokenDomainPolicies'></a>A Word About Broken Domain Policies
 
 For the domain policies to successfully work, you need:
 
@@ -1027,7 +936,7 @@ Some examples on when the domain(s) policies defined in `pbr` may not work:
   - a local client is set to use an ecnrypted DNS, solved by disabling use of encrypted DNS requests.
   - a local client uses the hardcoded DNS servers which you cannot edit, solved by enabling DNS hijacking on your router.
 
-## <a name='GettingHelp'></a>Getting Help
+# <a name='GettingHelp'></a>Getting Help
 
 General discussion of this package is happening at the [OpenWrt forum thread](https://forum.openwrt.org/t/policy-based-routing-pbr-package-discussion/140639).
 
@@ -1067,11 +976,11 @@ openssl enc -in /etc/config/pbr -out /tmp/pbr.enc -e -aes256 -pbkdf2 -kfile /tmp
 
 Then share the following files: `/tmp/keyfile.enc`, `/tmp/dhcp.enc`, `/tmp/firewall.enc`, `/tmp/network.enc`, `/tmp/pbr.enc`.
 
-### <a name='FirstTroubleshootingStep'></a>First Troubleshooting Step
+## <a name='FirstTroubleshootingStep'></a>First Troubleshooting Step
 
 If your router is set to use [default routing via VPN tunnel](#AWordAboutDefaultRouting) and the WAN-targeting policies do not work, you need to stop your VPN tunnel first and ensure that you still have an Internet connection. If your router is set up to use default routing via a VPN tunnel and when you stop the VPN tunnel you have no Internet connection, this package can't help you. You first need to make sure that you do have an Internet connection when the VPN tunnel is stopped.
 
-## <a name='Donate'></a>Donate
+# <a name='Donate'></a>Donate
 
 If you find `pbr` useful, please consider donating to support development of this project. I've been developing it in my spare time without any external funding, outside of my GitHub sponsors. You can donate by:
 
@@ -1079,11 +988,11 @@ If you find `pbr` useful, please consider donating to support development of thi
 - Sponsoring me on GitHub with [one-time donation](https://github.com/sponsors/stangri?frequency=one-time&sponsor=stangri).
 - Sending a donation [thru PayPal](https://paypal.me/stan).
 
-## <a name='ErrorMessagesDetails'></a>Error Messages Details
+# <a name='ErrorMessagesDetails'></a>Error Messages Details
 
-## <a name='WarningMessagesDetails'></a>Warning Messages Details
+# <a name='WarningMessagesDetails'></a>Warning Messages Details
 
-### <a name='Warning:Pleasesetdhcp.lan.force1'></a>Warning: Please set 'dhcp.lan.force=1'
+## <a name='Warning:Pleasesetdhcp.lan.force1'></a>Warning: Please set 'dhcp.lan.force=1'
 
 If the `dhcp.lan.force` is set to `1`, this speeds up the dnsmasq start/restart times and in turn speeds up the `pbr` service start/reload/restart times. To make things faster, run:
 
@@ -1094,7 +1003,7 @@ uci commit dhcp
 
 If your LAN interface name(s) are different from `lan`, adjust the command above.
 
-## <a name='Thanks'></a>Thanks
+# <a name='Thanks'></a>Thanks
 
 I'd like to thank everyone who helped by providing testing and feedback on this service. Without contributions from [@hnyman](https://github.com/hnyman), [@dibdot](https://github.com/dibdot), [@danrl](https://github.com/danrl), [@tohojo](https://github.com/tohojo), [@cybrnook](https://github.com/cybrnook), [@nidstigator](https://github.com/nidstigator), [@AndreBL](https://github.com/AndreBL), [@dz0ny](https://github.com/dz0ny), [@tew42](https://github.com/tew42), [bogorad](https://forum.openwrt.org/u/bogorad), rigorous testing/bugreporting by [@dziny](https://github.com/dziny), [@bluenote73](https://github.com/bluenote73), [@buckaroo](https://github.com/pgera), [@Alexander-r](https://github.com/Alexander-r), [@n8v8R](https://github.com/n8v8R), [psherman](https://forum.openwrt.org/u/psherman), [@Vale-max](https://github.com/Vale-max), [@aliicex](https://github.com/aliicex), [dscpl](https://forum.openwrt.org/u/dscpl), [pesa1234](https://forum.openwrt.org/u/pesa1234) and multiple contributions from [@egc112](https://github.com/egc112), [@bigsmile74](https://github.com/bigsmile74), [@dl12345](https://github.com/dl12345) and [trendy](https://forum.openwrt.org/u/trendy) and feedback from other OpenWrt users it wouldn't have been possible. WireGuard/IPv6 support is courtesy of [IVPN](https://www.ivpn.net/).
 
