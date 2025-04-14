@@ -102,6 +102,8 @@ config main 'config'
   option force_dns '1'
   list force_dns_port '53'
   list force_dns_port '853'
+  list procd_fw_src_interfaces 'lan'
+  option procd_trigger_wan6 '0'
 
 config https-dns-proxy
   option bootstrap_dns '8.8.8.8,8.8.4.4'
