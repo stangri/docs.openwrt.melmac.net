@@ -270,7 +270,7 @@ Please head to [OpenWrt Forum](https://forum.openwrt.org/t/adblock-fast-ad-block
 
 ## Thanks
 
-I'd like to thank everyone who helped create, test and troubleshoot this service. Special thanks to [@hnyman](https://github.com/hnyman) for general package/luci guidance, [@dibdot](https://github.com/dibdot) for general guidance and block-list optimization code, [@ckuethe](https://github.com/ckuethe) for the curl support, non-ASCII filtering and compressed cache code, [@EricLuehrsen](https://github.com/EricLuehrsen) for the Unbound support information, [@vgaetera](https://github.com/vgaetera) for firewall-related advice, [@mushoz](https://github.com/mushoz) for performance testing and [@phasecat](https://forum.openwrt.org/u/phasecat/summary) for submitting various bugs and testing.
+I'd like to thank everyone who helped create, test and troubleshoot this service. Special thanks to [@hnyman](https://github.com/hnyman) for general package/luci guidance, [@dibdot](https://github.com/dibdot) for general guidance and block-list optimization code, [@ckuethe](https://github.com/ckuethe) for the curl support, non-ASCII filtering and compressed cache code, [@EricLuehrsen](https://github.com/EricLuehrsen) for the Unbound support information, [@vgaetera](https://github.com/vgaetera) for firewall-related advice, [@mushoz](https://github.com/mushoz) for performance testing, [@phasecat](https://forum.openwrt.org/u/phasecat/summary) for submitting various bugs and testing and [@justops1337](https://github.com/justops1337) for various fixes and major performance improvements.
 
 <!-- markdownlint-disable MD033 -->
 
