@@ -219,7 +219,7 @@ Currently supported options are:
 
 ### Default config
 
-The default config file installed with the package can be found [here](https://github.com/openwrt/packages/blob/master/net/adblock-fast/files/adblock-fast.conf). The config file contains some comments to explain some settings and the lists which are too big for most routers are commented out by default as well.
+The default config file installed with the package can be found at the [source repository](https://github.com/stangri/adblock-fast/blob/main/files/etc/config/adblock-fast). The config file contains some comments to explain some settings and the lists which are too big for most routers are commented out by default as well.
 
 ## How Does It Work
 
