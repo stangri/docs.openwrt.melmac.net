@@ -69,7 +69,7 @@ opkg update; opkg install nebula-service;
 ```text
 config interface 'nebula1'
         option proto 'nebula'
-        option config '/etc/nebula/config1.yml'
+        option config_file '/etc/nebula/config1.yml'
 ```
 
 When the nebula interface is brough up, it will automatically open the UDP port referenced in the `.yml` config file in the router's firewall.
