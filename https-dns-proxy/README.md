@@ -3,6 +3,12 @@
 
 # DNS Over HTTPS Proxy (https-dns-proxy)
 
+![OpenWrt](https://img.shields.io/badge/OpenWrt-Compatible-blueviolet)
+![Web UI](https://img.shields.io/badge/Web_UI-Available-blue)
+![Minimal Footprint](https://img.shields.io/badge/Size-~40KB-green)
+![Resolvers](https://img.shields.io/badge/Resolvers-40%2B%20Built--in-brightgreen)
+![License](https://img.shields.io/badge/License-MIT-lightgrey)
+
 <!-- vscode-markdown-toc -->
 
 - [Description](#Description)
@@ -36,7 +42,15 @@
 
 ## <a name='Description'></a>Description
 
-A lean RFC8484-compatible (no JSON API support) DNS-over-HTTPS (DoH) proxy service which supports DoH servers. The accompanying WebUI (`luci-app-https-dns-proxy`) supports [more than 40 public resolvers](https://github.com/stangri/source.openwrt.melmac.net/tree/master/luci-app-https-dns-proxy/root/usr/share/https-dns-proxy/providers). Based on [@aarond10](https://github.com/aarond10)'s [https-dns-proxy](https://github.com/aarond10/https_dns_proxy).
+A lightweight, RFC8484-compatible DNS-over-HTTPS (DoH) proxy service for OpenWrt with minimal footprint and seamless integration. It does not support outdated JSON API (by design), keeping the package lean and fast. The optional Web UI (`luci-app-https-dns-proxy`) provides access to an extensive built-in list of [more than 40 public DoH resolvers](https://github.com/stangri/source.openwrt.melmac.net/tree/master/luci-app-https-dns-proxy/root/usr/share/https-dns-proxy/providers) for easy configuration. Based on [@aarond10](https://github.com/aarond10)'s [https-dns-proxy](https://github.com/aarond10/https_dns_proxy).
+
+Key advantages:
+
+- Extremely small footprint (~40KB installed)
+- Optional Web UI with built-in support for over 40 public DoH resolvers
+- Seamless integration with dnsmasq, including automatic fallback and recovery
+- Supports canary domain handling for Mozilla and iCloud Private Relay
+- HTTP/2 ready; HTTP/3 status detection supported in UI
 
 ## <a name='Features'></a>Features
 
