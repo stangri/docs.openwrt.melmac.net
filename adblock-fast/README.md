@@ -4,9 +4,34 @@
 
 # AdBlock-Fast
 
+![Official Feed](https://img.shields.io/badge/OpenWrt-Official%20Feed-blueviolet)
+![Web UI](https://img.shields.io/badge/Web_UI-Available-blue)
+![Memory](https://img.shields.io/badge/Memory-Lightweight-brightgreen)
+![Startup](https://img.shields.io/badge/Startup-Fast-orange)
+![AGPL-3.0-or-later](https://img.shields.io/badge/License-AGPL--3.0--or--later-blue.svg)
+
 ## Description
 
-Fast Dnsmasq/SmartDNS/Unbound-based ad-blocking service for OpenWrt. Featuring simultaneous remote allow/block-list downloading/processing, fast remote block- and allow-lists parsing code and final block-list optimization for smaller memory footprint. Doesn't daemonize/stay in memory, it quickly downloads and prepares the final block-list for your selected resolver and exits. Can also operate in lean mode, quickly downloading and using remote dnsmasq ad-blocking config file. Has an accompanying luci-app-adblock-fast WebUI package, allowing to easily add custom/user-specific remote lists.
+AdBlock-Fast is a high-performance ad-blocking service for OpenWrt that integrates with **Dnsmasq**, **SmartDNS**, and **Unbound**. It supports parallel downloading and processing of remote block- and allow-lists, optimizing them into efficient resolver-compatible formats.
+
+Unlike traditional solutions, AdBlock-Fast does **not** run as a background service — it performs its tasks and exits, leaving minimal memory usage. It also supports a **lean mode**, allowing direct use of pre-built dnsmasq config files without processing.
+
+An optional LuCI Web UI (`luci-app-adblock-fast`) makes configuration easy, including adding custom block/allow lists. Both the core package and the Web UI are available in the **official OpenWrt package repositories**.
+
+Starting with version 1.1.4, AdBlock-Fast performs a DNS resolver configuration test before restarting the resolver and runs a post-restart health check to verify working DNS resolution. If the health check fails, the service can automatically revert to the previous known-good state without ad-blocking to maintain internet connectivity.
+
+## Why AdBlock-Fast?
+
+**AdBlock-Fast** is designed for performance and simplicity. It processes block-lists in parallel and exits after generating optimized configuration for your DNS resolver—no background daemons, no memory bloat.
+
+- **Blazing fast startup**: Downloads and parses block-lists concurrently, significantly reducing startup time.
+- **Low memory footprint**: Only consumes memory during processing—no persistent background processes.
+- **Highly flexible**: Supports multiple DNS backends including dnsmasq, smartdns, and unbound.
+- **Web UI available**: Optional LuCI interface (`luci-app-adblock-fast`) provides easy configuration and management.
+- **Modern DNS support**: Works with encrypted DNS (DoH) browsers via ipset/nftset integration.
+- **Lean mode available**: Skip processing entirely by using pre-built dnsmasq config files.
+- **Persistent cache option**: Saves a compressed block-list across reboots to save time and bandwidth.
+- **Officially supported**: Both the core package and its Web UI (`luci-app-adblock-fast`) are available in the official OpenWrt repositories.
 
 ## Features
 
