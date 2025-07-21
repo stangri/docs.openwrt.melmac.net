@@ -6,7 +6,7 @@
 
 ## Description
 
-Fast Dnsmasq/SmartDNS/Unbound-based ad-blocking service for OpenWrt. Featuring simultaneous remote allow/block-list downloading/processing, fast remote block- and allow-lists parsing code and final block-list optimization for smaller memory footprint. Doesn't daemonize/stay in memory, it quickly downloads and prepares block-list for your selected resolver and exitss. Can also operate in lean mode, quickly downloading and using remote dnsmasq ad-blocking config file. Has an accompanying luci-app-adblock-fast WebUI package, allowing to easily add custom/user-specific remote lists.
+Fast Dnsmasq/SmartDNS/Unbound-based ad-blocking service for OpenWrt. Featuring simultaneous remote allow/block-list downloading/processing, fast remote block- and allow-lists parsing code and final block-list optimization for smaller memory footprint. Doesn't daemonize/stay in memory, it quickly downloads and prepares the final block-list for your selected resolver and exits. Can also operate in lean mode, quickly downloading and using remote dnsmasq ad-blocking config file. Has an accompanying luci-app-adblock-fast WebUI package, allowing to easily add custom/user-specific remote lists.
 
 ## Features
 
