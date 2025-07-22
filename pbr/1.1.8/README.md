@@ -5,6 +5,10 @@
 
 # Policy-Based Routing OpenWrt Package Documentation
 
+[![OpenWrt](https://img.shields.io/badge/OpenWrt-Compatible-blueviolet)](https://openwrt.org)
+[![Web UI](https://img.shields.io/badge/Web_UI-Available-blue)](https://docs.openwrt.melmac.net/pbr/)
+[![License](https://img.shields.io/badge/License-GPL--3.0-lightgrey)](https://github.com/stangri/pbr/blob/master/LICENSE)
+
 <!-- vscode-markdown-toc -->
 
 - [Relevant `pbr` version](#Relevantpbrversion)
@@ -107,7 +111,15 @@ This README is relevant for the `pbr` version 1.1.8. If you're looking for the R
 
 # <a name='Description'></a>Description
 
-This service allows you to define rules (policies) for routing traffic via WAN or your L2TP, OpenConnect, OpenVPN, PPTP, Softether or WireGuard tunnels. Policies can be set based on any combination of local/remote ports, local/remote IPv4 or IPv6 addresses/subnets or domains. This service supersedes and obsoletes the `VPN Bypass` ([README at GitHub](https://docs.openwrt.melmac.net/vpnbypass/)/[README at jsDelivr](https://cdn.jsdelivr.net/gh/stangri/docs.openwrt.melmac.net/vpnbypass/README.md)) and `VPN Policy Routing` ([README at GitHub](https://docs.openwrt.melmac.net/vpn-policy-routing/)/[README at jsDelivr](https://cdn.jsdelivr.net/gh/stangri/docs.openwrt.melmac.net/vpn-policy-routing/README.md)) services.
+This package provides flexible, rule-based routing for OpenWrt — allowing you to selectively route traffic over WAN, VPN, or tunnels based on source IP, destination IP, port, protocol, or domain. It is a lightweight alternative to mwan3 for advanced routing control.
+
+## Key Features
+
+- Route by IP, MAC address, port, protocol, or domain
+- Supports multiple interfaces: WAN, OpenVPN, WireGuard, tunnels
+- Optional LuCI Web UI for rule management and status display
+- Works with `dnsmasq`, `unbound`, `smartdns`
+- Includes fallback and health check logic for resolver stability
 
 # <a name='Features'></a>Features
 
